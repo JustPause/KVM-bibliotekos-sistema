@@ -4,6 +4,19 @@ To Do
 
 Noreint paleisti programa bent ant linux sistemos reikia sukurti python vitual aplinka, Tai padaryti galima su
 
-```python
+## Bibliotekos naudojemos
 
+### ISBNGenotator.py
+- reportlab
+
+### python WebScraper.py     
+
+
+```python
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Tada
+```python
 ```
