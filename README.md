@@ -12,20 +12,27 @@ Noreint paleisti programa bent ant linux sistemos reikia sukurti python vitual a
 
 ## Kokios python bibliotekos naudojemos
 
-- reportlab
+- reportlab 
+- python-barcode 
+- selenium 
+- pillow
 
 ### python WebScraper.py
 
 ```python
 python -m venv .venv
 source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Tada
+Tada viskas turetu buti susiinstaliavia
 
 ```python
 python Pagrindinis.py
 ```
+
+
+
 
 ## ToDo
 
