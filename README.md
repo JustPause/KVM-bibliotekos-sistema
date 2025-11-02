@@ -88,9 +88,3 @@ python Pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 
 ---
 
-✅ **Tip:**
-Šitą README gali tiesiog įdėti į savo repo kaip `README.md` — GitHub automatiškai jį gražiai suformatuos.
-
----
-
-Ar norėtum, kad aš šį pataisytą README paruoščiau kaip failą (`README.md`), kurį galėtum tiesiog įkelti į GitHub?
