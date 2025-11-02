@@ -1,63 +1,96 @@
-# KVM-bibliotekos-sistema
+# KVM Bibliotekos Sistema
 
-Mano uzduotis buvo sukurti progrma knygu apdirbimui ir sudejimui i didiji pagrindinei **Google sheets** lentelia, Tam sukurta Yra **WebScraper.py** pagal ideja tai yra programa kuri gauna lentelia **(.csv)** ir is jos beskaito po viena eilu ir issiesko [**iBibliotekos**](https://ibiblioteka.lt/metis/) svetaines. Gautus rezultatus sudeda i nauja faila (nes taip buvo patogiau perdeti duomenis). Kury poto reiks perdeti ididi **Google sheets** dokumenta.
+Mano užduotis buvo sukurti programą knygų apdorojimui ir jų suvedimui į pagrindinę **Google Sheets** lentelę.
+Tam buvo sukurta programa **WebScraper.py**. Pagal idėją, ši programa gauna lentelę **(.csv)**, iš jos perskaito po vieną eilutę ir pagal pateiktą informaciją ieško duomenų svetainėje [**iBiblioteka**](https://ibiblioteka.lt/metis/).
+Gauti rezultatai išsaugomi naujame faile (taip patogiau perkelti duomenis į pagrindinę lentelę). Šis naujas failas vėliau importuojamas į didįjį **Google Sheets** dokumentą.
 
-Andtroji veda buvo kaikurios knygos neturi savo **barkodo**, nei **isbn**. Tai jas yra saliginai nepatogu suskanuoti. Del to jiems reikia sukurti barkoda Failia **LaisviBarkodai.csv** yra laisvi kodai kuruos galima atspauzdinti, yra taip pat yra galimybe tiesei i **pdf** faila exportuoti
+---
 
-Paskurinis funcionalumas bet patsai nuobodziausias, yra knygu su **isbn** bet be barkodu surasimas. Kaikurtos knugos yra [**iBibliotekos**](https://ibiblioteka.lt/metis/) bet dalis nera. Taigi toks kngoms reikia sukurti barkodus ir juo zulipinrti. Bet norint atspauztini ant **4a** lapo. kita problema yra popieriaus taupimas kad kuo daugiau iskaitomu barkodu ant lapo sudeti dar kita beda kad kai turi 80 knygu ir 80 barkodu kai zinoti greitai kur ka klijuoti, mano sprendimas kombinuoti su pavadinimu knygos, Cia ateina **ISBNGenotator.py** sis failas turetu pagves duomenis is **.csv** failo, atskirti kur yra 10 simboliu kuris buvo naudotis iki 2007 ir 13 kurie naudojami iki dabar. Su jais sudaro **pdf** ir ji galima atspauzdinti ir uzklijuoti
+## Antroji dalis
 
-## Kad paleisti
+Kai kurios knygos neturi savo **barkodo** arba **ISBN**. Tokias knygas nepatogu skenuoti, todėl joms reikia sugeneruoti barkodą.
+Faile **LaisviBarkodai.csv** yra pateikti laisvi kodai, kuriuos galima atspausdinti, taip pat yra galimybė juos eksportuoti tiesiai į **PDF** failą.
 
-Noreint paleisti programa bent ant linux sistemos reikia sukurti python vitual aplinka, Tai padaryti galima su
+---
 
-## Kokios python bibliotekos naudojemos
+## Trečiasis funkcionalumas
 
-- reportlab 
-- python-barcode 
-- selenium 
-- pillow
+Paskutinis, bet labai svarbus funkcionalumas – tai knygų, turinčių **ISBN**, bet neturinčių barkodų, suradimas.
+Kai kurios knygos randamos [**iBibliotekoje**](https://ibiblioteka.lt/metis/), tačiau dalies ten nėra.
+Tokiems įrašams reikia sugeneruoti barkodus ir juos atspausdinti, kad būtų galima užklijuoti ant knygų.
 
-### python WebScraper.py
+Kita problema – popieriaus taupymas: reikia sudėti kuo daugiau barkodų ant vieno **A4** lapo, bet tuo pačiu turėti galimybę žinoti, kuris barkodas priklauso kuriai knygai.
+Mano sprendimas – generuoti barkodus kartu su knygos pavadinimu.
+Tai atlieka programa **ISBNGenotator.py** – ji paima duomenis iš **.csv** failo, atskiria, kur yra 10 simbolių senasis ISBN (iki 2007 m.) ir 13 simbolių naujasis, sugeneruoja **PDF** failą, kurį galima atspausdinti ir priklijuoti.
 
-```python
+---
+
+## Kaip paleisti
+
+Norint paleisti programą (pvz., Linux sistemoje), reikia sukurti Python virtualią aplinką:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Tada viskas turetu buti susiinstaliavia
+Kai viskas susiinstaliuos, paleidžiama taip:
 
-```python
+```bash
 python Pagrindinis.py
 ```
 
-## Panaudojimas ir nustatimai
+---
 
-Yra galimybe pagreitinti darbus su **runtime variable**
+## Naudojamos Python bibliotekos
 
-```python
-python Pagrindinis.py [Nustatimai]
+* **reportlab** – PDF generavimui
+* **python-barcode** – barkodų kūrimui
+* **selenium** – duomenų nuskaitymui iš svetainės
+* **pillow** – paveikslėlių apdorojimui
+
+---
+
+## Panaudojimas ir nustatymai
+
+Yra galimybė pagreitinti darbą naudojant **komandų eilutės nustatymus (runtime variables):**
+
+```bash
+python Pagrindinis.py [Nustatymai]
 ```
-<!-- Options -->
 
-    -h, --help      Atspauzdinia sia lentelia
-    -v, --version   Versija
+### Galimos parinktys:
 
-    -S              WebScraper pasiemant duomenis is iBiliotekos ir juos sudedant i lentelia
-    -G              Sugeneruoja Lentelia barcodu tekstu
+| Parinktis       | Aprašymas                                                                             |
+| --------------- | ------------------------------------------------------------------------------------- |
+| `-h, --help`    | Parodo pagalbos lentelę                                                               |
+| `-v, --version` | Parodo versiją                                                                        |
+| `-S`            | Paleidžia WebScraper modulį, kuris paima duomenis iš iBibliotekos ir surašo į lentelę |
+| `-G`            | Sugeneruoja lentelę su barkodų tekstais                                               |
+| `-i`            | Nurodo įvesties CSV failą                                                             |
+| `-o`            | Nurodo išvesties CSV failą                                                            |
 
-    -i              CSV failas sis kurio paiimti nuomenis
-    -o              CSV failas i kury surasyti nuomenis
+---
 
-<!-- Options -->
+### Pavyzdys
 
-### Pavizdys
-
-```python
+```bash
 python Pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
+---
+
 ## ToDo
 
-- [ ] Main failas kuris leidzia valdyti kitus metodus, ir ju skirtingus metodus
-- [ ] Panaudojemi metodai turetu buti pasiekemi ir askirti i savo faila, kaip qr codu surasimas i pdf fiala
+* [ ] Sukurti pagrindinį (main) failą, kuris valdytų kitus modulius ir jų funkcijas
+* [ ] Atskyrus funkcijas į modulius, padaryti, kad būtų galima iškviesti QR kodų generavimą į PDF atskirai
+
+---
+
+✅ **Tip:**
+Šitą README gali tiesiog įdėti į savo repo kaip `README.md` — GitHub automatiškai jį gražiai suformatuos.
+
+---
+
+Ar norėtum, kad aš šį pataisytą README paruoščiau kaip failą (`README.md`), kurį galėtum tiesiog įkelti į GitHub?
