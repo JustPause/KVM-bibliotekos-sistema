@@ -31,8 +31,31 @@ Tada viskas turetu buti susiinstaliavia
 python Pagrindinis.py
 ```
 
+## Panaudojimas ir nustatimai
 
+Yra galimybe pagreitinti darbus su **runtime variable**
 
+```python
+python Pagrindinis.py [Nustatimai]
+```
+<!-- Options -->
+
+    -h, --help      Atspauzdinia sia lentelia
+    -v, --version   Versija
+
+    -S              WebScraper pasiemant duomenis is iBiliotekos ir juos sudedant i lentelia
+    -G              Sugeneruoja Lentelia barcodu tekstu
+
+    -i              CSV failas sis kurio paiimti nuomenis
+    -o              CSV failas i kury surasyti nuomenis
+
+<!-- Options -->
+
+### Pavizdys
+
+```python
+python Pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
+```
 
 ## ToDo
 
