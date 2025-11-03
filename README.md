@@ -38,7 +38,7 @@ pip install -r requirements.txt
 Kai viskas susiinstaliuos, paleidžiama taip:
 
 ```bash
-python Pagrindinis.py
+python pagrindinis.py
 ```
 
 ---
@@ -57,7 +57,7 @@ python Pagrindinis.py
 Yra galimybė pagreitinti darbą naudojant **komandų eilutės nustatymus (runtime variables):**
 
 ```bash
-python Pagrindinis.py [Nustatymai]
+python pagrindinis.py [Nustatymai]
 ```
 
 ### Galimos parinktys:
@@ -76,7 +76,7 @@ python Pagrindinis.py [Nustatymai]
 ### Pavyzdys
 
 ```bash
-python Pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
+python pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
 ---
