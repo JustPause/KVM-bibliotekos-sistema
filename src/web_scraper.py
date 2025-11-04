@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+import re
 import csv
 
 driver=None
@@ -71,6 +73,7 @@ def iBibliotekaScraper(isbn):
         
         print("Indexas kury panaudojau " + str(index))
         row_dict = {}
+        
         for row in rows:
             key, value = row.text.split(":", 1)
             
@@ -80,9 +83,12 @@ def iBibliotekaScraper(isbn):
             key = key.strip()
             value = value.strip()
             if(key=="Metai"):
-                value = value.split(":", 1)[1].split(",", 1)[1]
-                value = value.replace("[", "").replace("]", "")
-                value = value.strip()
+                
+                value = re.findall('(\d{4})',value)[0]
+
+                # value = value.split(":", 1)[1].split(",", 1)[1]
+                # value = value.replace("[", "").replace("]", "")
+                # value = value.strip()
                 
             row_dict[key] = value
 
@@ -116,5 +122,5 @@ def SurasytiPoVienaEilute(input_csv, output_csv):
         writer.writeheader()
         writer.writerows(rows)
     
-SurasytiPoVienaEilute('Knygos.csv','Knygos_perasityos.csv')
+SurasytiPoVienaEilute('csv/Untitled 1.csv','csv/Untitled 1.csv')
 # iBibliotekaScraper(9788086090771)
