@@ -22,4 +22,4 @@ def barcode_generator(num:int, output_csv:str):
         
         
     
-barcode_generator(10, "csv/BarKodai_Knygoms_Be_Barkodu.csv")
+barcode_generator(10, "csv/Knygos_Su_Viskuom.csv")

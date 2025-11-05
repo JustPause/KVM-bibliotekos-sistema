@@ -84,20 +84,15 @@ def iBibliotekaScraper(isbn):
             value = value.strip()
             if(key=="Metai"):
                 
-                value = re.findall('(\d{4})',value)[0]
-
-                # value = value.split(":", 1)[1].split(",", 1)[1]
-                # value = value.replace("[", "").replace("]", "")
-                # value = value.strip()
+                value = re.findall(r'(\d{4})', value)[0]
                 
             row_dict[key] = value
 
         row_dict["isbn"] = isbn
-        # print(row_dict)  
         return row_dict
 
 def SurasytiPoVienaEilute(input_csv, output_csv):
-    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn","Komentarai"]
 
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -108,8 +103,9 @@ def SurasytiPoVienaEilute(input_csv, output_csv):
             print(str(int((index / lenth) * 100)) + "%")
             try:
                 NewRow = iBibliotekaScraper(row["isbn"])
+                NewRow["Komentarai"] = PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(NewRow)
             except Exception as e:
-                print(f"O NO: {rows[index]} — {e}")
+                print(f"Klaida: {rows[index]} - {e}")
                 NewRow = rows[index]
             
             print(NewRow)
@@ -121,6 +117,27 @@ def SurasytiPoVienaEilute(input_csv, output_csv):
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
         writer.writerows(rows)
-    
-SurasytiPoVienaEilute('csv/Untitled 1.csv','csv/Untitled 1.csv')
+
+def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
+    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+
+        isbnCount=0
+        PavadinimasCount=0
+
+        for index, row in enumerate(rows):  
+            # print(str(row["Pavadinimas"]) + " " + str(inputRow["Pavadinimas"]) + " " + str(row["Pavadinimas"]==inputRow["Pavadinimas"]))
+            if(inputRow["Pavadinimas"]!="" and row["Pavadinimas"]==inputRow["Pavadinimas"]):
+                PavadinimasCount = PavadinimasCount +1
+                
+            if(inputRow["isbn"]!="" and row["Kodas"]==inputRow["isbn"]):
+                isbnCount = isbnCount +1
+        
+        if(isbnCount!=0 or PavadinimasCount!=0):
+            return "Rasta "+ str(PavadinimasCount) +" Dublikatai ir " + str(isbnCount)+ " Isbn kodai"
+        else:
+            return ""
+
+SurasytiPoVienaEilute('csv/Knygos_Be_Barkodo.csv','csv/Knygos_Su_Viskuom.csv')
 # iBibliotekaScraper(9788086090771)

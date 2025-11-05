@@ -60,10 +60,8 @@ def generate_KVM_barcode(isbn):
     filename = filepath + str(isbn)
     return main_barcode.save(filename, options)   
     
-    
-
-def to_csv_file():
-    with open('csv/Barcodes.csv', 'r', newline='', encoding='utf-8') as f:
+def to_csv_file(BarcodesPath):
+    with open(BarcodesPath, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
         
@@ -80,5 +78,5 @@ def to_csv_file():
                 print("13_barcode")
         
         images_to_pdf(filenameArray, "SpauzdinimoLapas-ISBN") 
-        
-to_csv_file()
+       
+to_csv_file("csv/Knygos_Su_Viskuom.csv")
