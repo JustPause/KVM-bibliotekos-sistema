@@ -77,8 +77,6 @@ python3 pagrindinis.py [Nustatymai]
 
 ### Pavyzdys
 
-Jei naudojete **python** tai comanda butu
-
 ```bash
 python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
