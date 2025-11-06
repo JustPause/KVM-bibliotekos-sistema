@@ -127,7 +127,6 @@ def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
         PavadinimasCount=0
 
         for index, row in enumerate(rows):  
-            # print(str(row["Pavadinimas"]) + " " + str(inputRow["Pavadinimas"]) + " " + str(row["Pavadinimas"]==inputRow["Pavadinimas"]))
             if(inputRow["Pavadinimas"]!="" and row["Pavadinimas"]==inputRow["Pavadinimas"]):
                 PavadinimasCount = PavadinimasCount +1
                 
@@ -138,6 +137,3 @@ def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
             return "Rasta "+ str(PavadinimasCount) +" Dublikatai ir " + str(isbnCount)+ " Isbn kodai"
         else:
             return ""
-
-SurasytiPoVienaEilute('csv/Knygos_Be_Barkodo.csv','csv/Knygos_Su_Viskuom.csv')
-# iBibliotekaScraper(9788086090771)

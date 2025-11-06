@@ -1,13 +1,22 @@
 import csv
+import os
+import barcode
+
 from reportlab.graphics.barcode import eanbc
 from reportlab.lib.units import mm
 from reportlab.graphics import renderPM
 from reportlab.graphics.shapes import Drawing
-import barcode
 from barcode.writer import ImageWriter
-from helpers.PDF import images_to_pdf,print_labels_on_sheet
+from src.helpers.PDF import images_to_pdf, print_labels_on_sheet
 
-filepath = "caches/BarCode/"
+filepath ="caches/BarCode/"
+
+def dir_check(filep):
+
+    filepath = filep
+
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
 
 def generate_13_barcode(isbn):
     main_barcode = eanbc.Ean13BarcodeWidget(isbn)
@@ -38,7 +47,7 @@ def generate_10_barcode(isbn):
     }
     
     main_barcode = barcode.get("code128", isbn, writer=ImageWriter())
-
+    
     filename = filepath + str(isbn)
 
     return main_barcode.save(filename, options)    
@@ -79,4 +88,4 @@ def to_csv_file(BarcodesPath):
         
         images_to_pdf(filenameArray, "SpauzdinimoLapas-ISBN") 
        
-to_csv_file("csv/Knygos_Su_Viskuom.csv")
+# to_csv_file("csv/Knygos_Su_Viskuom.csv")
