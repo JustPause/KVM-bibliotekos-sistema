@@ -30,15 +30,15 @@ Tai atlieka programa **ISBNGenotator.py** – ji paima duomenis iš **.csv** fai
 Norint paleisti programą (pvz., Linux sistemoje), reikia sukurti Python virtualią aplinką:
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Kai viskas susiinstaliuos, paleidžiama taip:
 
 ```bash
-python pagrindinis.py
+python3 pagrindinis.py
 ```
 
 ---
@@ -57,26 +57,30 @@ python pagrindinis.py
 Yra galimybė pagreitinti darbą naudojant **komandų eilutės nustatymus (runtime variables):**
 
 ```bash
-python pagrindinis.py [Nustatymai]
+python3 pagrindinis.py [Nustatymai]
 ```
 
 ### Galimos parinktys
 
-| Parinktis       | Aprašymas                                                                             |
-| --------------- | ------------------------------------------------------------------------------------- |
-| `-h, --help`    | Parodo pagalbos lentelę                                                               |
-| `-v, --version` | Parodo versiją                                                                        |
-| `-S`            | Paleidžia WebScraper modulį, kuris paima duomenis iš iBibliotekos ir surašo į lentelę |
-| `-G`            | Sugeneruoja lentelę su barkodų tekstais                                               |
-| `-i`            | Nurodo įvesties CSV failą                                                             |
-| `-o`            | Nurodo išvesties CSV failą                                                            |
+| Parinktis       | Aprašymas                                                                                                |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| `-h, --help`    | Parodo pagalbos lentelę                                                                                  |
+| `-v, --version` | Parodo versiją                                                                                           |
+| `-S`            | Paleidžia „WebScraper“ modulį, kuris paima duomenis iš iBibliotekos ir surašo juos į lentelę             |
+| `-G`            | Sugeneruoja lentelę su brūkšninių kodų tekstais, leidžia pasirinkti, kiek norima brūkšninių kodų (1–100) |
+| `-I`            | Surašytus ISBN kodus paverčia lengvai spausdinama brūkšninių kodų matrica                                |
+| `-F`            | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
+| `-i`            | Nurodo įvesties CSV failą                                                                                |
+| `-o`            | Nurodo išvesties CSV failą                                                                               |
 
 ---
 
 ### Pavyzdys
 
+Jei naudojete **python** tai comanda butu
+
 ```bash
-python pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
+python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
 ---
