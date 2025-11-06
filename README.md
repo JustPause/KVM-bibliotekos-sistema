@@ -45,10 +45,11 @@ python3 pagrindinis.py
 
 ## Naudojamos Python bibliotekos
 
-* **reportlab** – PDF generavimui
-* **python-barcode** – barkodų kūrimui
-* **selenium** – duomenų nuskaitymui iš svetainės
-* **pillow** – paveikslėlių apdorojimui
+* **reportlab** - PDF generavimui
+* **python-barcode** - barkodų kūrimui
+* **selenium** - duomenų nuskaitymui iš svetainės
+* **pillow** - paveikslėlių apdorojimui
+* **InquirerPy** - Python CLI UI
 
 ---
 
