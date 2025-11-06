@@ -60,7 +60,7 @@ Yra galimybė pagreitinti darbą naudojant **komandų eilutės nustatymus (runti
 python pagrindinis.py [Nustatymai]
 ```
 
-### Galimos parinktys:
+### Galimos parinktys
 
 | Parinktis       | Aprašymas                                                                             |
 | --------------- | ------------------------------------------------------------------------------------- |
@@ -84,7 +84,5 @@ python pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ## ToDo
 
 * [ ] Sukurti pagrindinį (main) failą, kuris valdytų kitus modulius ir jų funkcijas
-* [ ] Atskyrus funkcijas į modulius, padaryti, kad būtų galima iškviesti QR kodų generavimą į PDF atskirai
 
 ---
-
