@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
-from ISBN_generator import generate_KVM_barcode
-from PDF import images_to_pdf 
+from ISBNNumerioISpausdinima import generate_KVM_barcode
+from helpers.PDF import images_to_pdf 
 
 def barcode_generator(num:int, output_csv:str):
     if(num<0 or num>1000):
