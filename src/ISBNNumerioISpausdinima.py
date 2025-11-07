@@ -76,7 +76,7 @@ def to_csv_file(BarcodesPath):
         
         filenameArray=[] 
         for index, row in enumerate(rows):
-            isbn_corect = row['isbn']
+            isbn_corect = row['Atspauzdinti']
             
             if len(isbn_corect)!=13:
                 filenameArray.append( generate_10_barcode(isbn_corect) )
