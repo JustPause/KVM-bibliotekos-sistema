@@ -1,6 +1,7 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
+from src.KnygosSuradimasPabalISBN import scanner
 from src.ibibliotekaWebScraper import SurasytiPoVienaEilute
 from src.barcodeKurimas import barcode_generator
 
@@ -10,7 +11,8 @@ Klausimai = [
     "Brūkšninio kodo kūrimas",
     "Knygų rašymas į iBiblioteką pagal ISBN",
     "ISBN iš CSV į PDF",
-    "Lėtesnė knygų paieška"
+    "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
+    "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)"
 ]
 
 suformatuotiKlausimai = [
@@ -67,6 +69,13 @@ match pasirinkimoIndexas:
     case 2: # ISBN iš CSV į PDF
         print(pasirinkimoIndexas)
     case 3: # Lėtesnė knygų paieška
-        print(pasirinkimoIndexas)
+        print("Paruosta Skanuoti")
+        
+        scanner("Knygos_Su_Viskuom.csv")
+    case 4: # Lėtesnė knygų paieška
+        print("Paruosta Skanuoti")
+        
+        scanner("Bibliotekos Knygos - VIsos knygos.csv")
+        
     case _: # (｡･ˇ_ˇ･｡) 
         raise ValueError("Kaip? (pasirinkimo klaida)")

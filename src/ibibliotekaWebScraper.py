@@ -71,6 +71,8 @@ def iBibliotekaScraper(isbn):
         
         rows=data.find_elements(By.TAG_NAME,"p")
         
+        
+        
         print("Indexas kury panaudojau " + str(index))
         row_dict = {}
         
@@ -133,7 +135,11 @@ def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
             if(inputRow["isbn"]!="" and row["Kodas"]==inputRow["isbn"]):
                 isbnCount = isbnCount +1
         
-        if(isbnCount!=0 or PavadinimasCount!=0):
-            return "Rasta "+ str(PavadinimasCount) +" Dublikatai ir " + str(isbnCount)+ " Isbn kodai"
+        if((isbnCount!=0 or PavadinimasCount!=0) and (PavadinimasCount == isbnCount)):
+            return "Rasta "+ str(PavadinimasCount) +" Dublikatai pavadinimo ir " + str(isbnCount)+ " Isbn kodai - Nieko nereikia daryti"
+        if(isbnCount!=0):
+            return "Rasta " + str(isbnCount)+ " Isbn kodai - Reikia uzrasyti pavadinima"
+        if(PavadinimasCount!=0):
+            return "Rasta " + str(PavadinimasCount)+ " Dublikatai pavadinimo - Reikia uzrasyti pavadinima"
         else:
             return ""
