@@ -2,9 +2,8 @@ from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 
-def images_to_pdf(image_files, output_pdf="SpauzdinimoLapas"):
-    output_pdf = "pdfs/" + output_pdf + ".pdf"
-    
+def images_to_pdf(image_files, output_pdf="pdfs/SpauzdinimoLapas.pdf"):
+
     canvasC = canvas.Canvas(output_pdf, pagesize=A4)
     width, height = A4
 
