@@ -8,6 +8,7 @@ from reportlab.lib.units import mm
 from reportlab.graphics import renderPM
 from reportlab.graphics.shapes import Drawing
 from barcode.writer import ImageWriter
+from PIL import Image, ImageDraw, ImageFont
 from src.helpers.PDF import images_to_pdf, print_labels_on_sheet
 
 filepath ="caches/BarCode/"
@@ -29,16 +30,47 @@ def generate_13_barcode(isbn):
     
 def generate_10_barcode(isbn):
 
-    formatted_isbn10 = f"{isbn[0]}-{isbn[1:4]}-{isbn[4:9]}-{isbn[9]}"
-    
+    formatted_isbn = f"{isbn[0]}-{isbn[1:4]}-{isbn[4:9]}-{isbn[9]}"
+
+    #       x  y  w    
+    paddin=[20,40,110]
+
     img = treepoem.generate_barcode(
         barcode_type="isbn",
-        data=formatted_isbn10,
+        data=formatted_isbn,
+        options={
+            "includetext": False, 
+            "height": 2,       
+            "width": 3.74         
+        }
     )
 
-    filename=filepath+ str(isbn) +".png"
+    img = img.convert("RGB")
 
-    img.convert("RGB").save(filename)
+    draw = ImageDraw.Draw(img)
+    font_size = 60
+    font = ImageFont.truetype("arial.ttf", font_size)
+
+    draw_temp = ImageDraw.Draw(img)
+    bbox = draw_temp.textbbox((0,0), isbn, font=font)
+    text_width = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
+
+    new_width = img.width + 2 * paddin[2]
+    new_height = img.height + paddin[0] + paddin[1] + text_height + 5  # 5 px spacing below bars
+    new_img = Image.new("RGB", (new_width, new_height), "white")
+
+    barcode_x = paddin[2]
+    barcode_y = paddin[0]
+    new_img.paste(img, (barcode_x, barcode_y))
+
+    draw = ImageDraw.Draw(new_img)
+    text_x = (new_width - text_width) / 2
+    text_y = barcode_y + img.height + 5 
+    draw.text((text_x, text_y), isbn, fill="black", font=font)
+
+    filename=filepath+ str(isbn) +".png"
+    new_img.save(filename)
 
     return filename
 
