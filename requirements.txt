@@ -11,10 +11,12 @@ pfzy==0.3.4
 pillow==12.0.0
 prompt_toolkit==3.0.52
 PySocks==1.7.1
+python-barcode==0.16.1
 python-Levenshtein==0.27.3
 RapidFuzz==3.14.3
 reportlab==4.4.4
 selenium==4.38.0
+setuptools==80.9.0
 sniffio==1.3.1
 sortedcontainers==2.4.0
 trio==0.32.0
