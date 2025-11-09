@@ -129,17 +129,36 @@ def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
         PavadinimasCount=0
 
         for index, row in enumerate(rows):  
-            if(inputRow["Pavadinimas"]!="" and row["Pavadinimas"]==inputRow["Pavadinimas"]):
+            if((inputRow["Pavadinimas"]!="") and (row["Pavadinimas"]==inputRow["Pavadinimas"])):
                 PavadinimasCount = PavadinimasCount +1
                 
-            if(inputRow["isbn"]!="" and row["Kodas"]==inputRow["isbn"]):
+            if((inputRow["isbn"] != "") and (row["Kodas"] == inputRow["isbn"])):
                 isbnCount = isbnCount +1
         
-        if((isbnCount!=0 or PavadinimasCount!=0) and (PavadinimasCount == isbnCount)):
-            return "Rasta "+ str(PavadinimasCount) +" Dublikatai pavadinimo ir " + str(isbnCount)+ " Isbn kodai - Nieko nereikia daryti"
-        if(isbnCount!=0):
-            return "Rasta " + str(isbnCount)+ " Isbn kodai - Reikia uzrasyti pavadinima"
-        if(PavadinimasCount!=0):
-            return "Rasta " + str(PavadinimasCount)+ " Dublikatai pavadinimo - Reikia uzrasyti pavadinima"
+        if(PavadinimasCount!=0 and isbnCount!=0 and PavadinimasCount==isbnCount):
+            return "Jau yra " + str(PavadinimasCount) + " Tai praleisti reikia"
+        
+        elif(PavadinimasCount!=0):
+            sutvarikimas(inputRow)
+            return"Yra pavadinimas, bet ne kodas - Reikia perdeti is lenteles"
+        
+        
+        elif(isbnCount!=0):
+            return"Yra keli su tuom paciu isbn - Reikia pasalinti"
+        
         else:
-            return ""
+            return "Reikia uzrasyti i lentelia"
+        
+def sutvarikimas(forin_row):
+    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+
+        for index, row in enumerate(rows):
+            if( row["Pavadinimas"]==forin_row["Pavadinimas"]):
+                with open("csv/Bibliotekos Knygos - tik dublikuotos.csv", "a", newline="", encoding="utf-8") as f_2:
+                    writer = csv.DictWriter(f_2, fieldnames=["Autorius", "Pavadinimas", "Metai", "isbn","Komentarai"], extrasaction='ignore')
+                    forin_row["Komentarai"] = "index: " + str(index+2)
+                    writer.writerow(forin_row)
+
+                    

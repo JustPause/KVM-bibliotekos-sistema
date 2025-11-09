@@ -1,6 +1,7 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
+from src.ISBNNumerioISpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
 from src.ibibliotekaWebScraper import SurasytiPoVienaEilute
 from src.barcodeKurimas import barcode_generator
@@ -66,12 +67,15 @@ match pasirinkimoIndexas:
         ).execute()
 
         SurasytiPoVienaEilute(src_path,dest_path)
+        
     case 2: # ISBN iš CSV į PDF
-        print(pasirinkimoIndexas)
+        to_csv_file("csv/Knygos_Be_Barkodo.csv")
+        
     case 3: # Lėtesnė knygų paieška
         print("Paruosta Skanuoti")
         
         scanner("Knygos_Su_Viskuom.csv")
+        
     case 4: # Lėtesnė knygų paieška
         print("Paruosta Skanuoti")
         
