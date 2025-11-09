@@ -43,7 +43,7 @@ match pasirinkimoIndexas:
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=home_path,
-            validate=PathValidator(),
+            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
 
@@ -55,21 +55,36 @@ match pasirinkimoIndexas:
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
-            validate=PathValidator(),
+            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
   
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-            validate=PathValidator(),
+            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
 
         SurasytiPoVienaEilute(src_path,dest_path)
         
     case 2: # ISBN iš CSV į PDF
-        to_csv_file("csv/Knygos_Be_Barkodo.csv")
+
+        home_path = os.path.join(os.getcwd(), "csv")
+
+        src_path = inquirer.filepath(
+            message="Pasirinkite is kurio failo bus imami duomenys:",
+            default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
+            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
+            only_files=True,
+        ).execute()
+  
+        dest_path = inquirer.filepath(
+            message="Pasirinkite vietą ir pavadinimą būsimo failo:",
+            default=os.path.abspath(os.path.join(home_path, "../pdfs/SpausdinimoLapas-ISBN.pdf")),
+        ).execute()
+
+        to_csv_file(src_path,dest_path)
         
     case 3: # Lėtesnė knygų paieška
         print("Paruosta Skanuoti")
