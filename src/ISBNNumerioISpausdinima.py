@@ -3,13 +3,9 @@ import os
 import barcode
 import treepoem
 
-from reportlab.graphics.barcode import eanbc
-from reportlab.lib.units import mm
-from reportlab.graphics import renderPM
-from reportlab.graphics.shapes import Drawing
 from barcode.writer import ImageWriter
 from PIL import Image, ImageDraw, ImageFont
-from src.helpers.PDF import images_to_pdf, print_labels_on_sheet
+from src.helpers.PDF import images_to_pdf
 
 filepath ="caches/BarCode/"
 
