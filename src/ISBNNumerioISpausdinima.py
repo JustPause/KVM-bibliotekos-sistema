@@ -1,6 +1,7 @@
 import csv
 import os
 import barcode
+import treepoem
 
 from reportlab.graphics.barcode import eanbc
 from reportlab.lib.units import mm
@@ -19,38 +20,27 @@ def dir_check(filep):
         os.makedirs(filepath)
 
 def generate_13_barcode(isbn):
-    main_barcode = eanbc.Ean13BarcodeWidget(isbn)
-    
-    main_barcode.barHeight = 20 * mm 
-    main_barcode.humanReadable = True 
-    
-    filename=filepath+ str(isbn) +".png"
-    
-    drawing = Drawing(35 * mm, 20 * mm)
-    drawing.add(main_barcode, name="isbn")
+    isbn_barcode = barcode.get('isbn13', isbn, writer=ImageWriter())
 
-    renderPM.drawToFile(drawing, filename, fmt="PNG",dpi=600)
+    filename = filepath+ str(isbn)
+    filename = isbn_barcode.save(filename)
     
     return filename
     
 def generate_10_barcode(isbn):
-    
-    options = {
-        "module_width": 0.6,     
-        "module_height": 20.0,    
-        "font_size": 10,          
-        "text_distance": 6.0,     
-        "quiet_zone": 1,        
-        "background": "white",    
-        "foreground": "black",    
-        "write_text": True,       
-    }
-    
-    main_barcode = barcode.get("code128", isbn, writer=ImageWriter())
-    
-    filename = filepath + str(isbn)
 
-    return main_barcode.save(filename, options)    
+    formatted_isbn10 = f"{isbn[0]}-{isbn[1:4]}-{isbn[4:9]}-{isbn[9]}"
+    
+    img = treepoem.generate_barcode(
+        barcode_type="isbn",
+        data=formatted_isbn10,
+    )
+
+    filename=filepath+ str(isbn) +".png"
+
+    img.convert("RGB").save(filename)
+
+    return filename
 
 def generate_KVM_barcode(isbn):
     
