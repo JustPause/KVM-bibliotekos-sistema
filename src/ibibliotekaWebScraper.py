@@ -56,117 +56,85 @@ def iBibliotekaScraper(isbn):
     
     if(sk == 0):
         r_dict = {}
-        r_dict["Autorius"]="ranka surasyti"
-        r_dict["Pavadinimas"]= ''
-        r_dict["Metai"]= ''
+        r_dict["Autorius"]="---"
+        r_dict["Pavadinimas"]= '---'
+        r_dict["Metai"]= '---'
         r_dict["isbn"]=isbn 
-        return r_dict
+        return [False,r_dict]
     
-    results=driver.find_element(By.CLASS_NAME,"c-data-table")
-
-    numberOfObj=results.find_elements(By.TAG_NAME,"tr")
-
-    for index,each in enumerate(numberOfObj):
-        data = each.find_element(By.CLASS_NAME, "c-result-item__data")
+    results = driver.find_element(By.CLASS_NAME,"c-data-table")
+    numberOfObj = results.find_elements(By.TAG_NAME,"tr")
+    data = numberOfObj[0].find_element(By.CLASS_NAME, "c-result-item__data")
+    rows = data.find_elements(By.TAG_NAME,"p")   
+    row_dict = {}
         
-        rows=data.find_elements(By.TAG_NAME,"p")
-        
-        print("Indexas kury panaudojau " + str(index))
-        row_dict = {}
-        
-        for row in rows:
-            key, value = row.text.split(":", 1)
+    for row in rows:
+        key, value = row.text.split(":", 1)
             
-            if(key=="Publikavimo duomenys"):
-                key="Metai"
+        if(key=="Publikavimo duomenys"):
+            key="Metai"
             
-            key = key.strip()
-            value = value.strip()
-            if(key=="Metai"):
+        key = key.strip()
+        value = value.strip()
+        if(key=="Metai"):
+            value = re.findall(r'(\d{4})', value)[0]
                 
-                value = re.findall(r'(\d{4})', value)[0]
-                
-            row_dict[key] = value
-
-        row_dict["isbn"] = isbn
+        row_dict[key] = value
         
-        print()
+    row_dict["isbn"] = isbn
         
-        return row_dict
+    print()
+        
+    return [True,row_dict]
 
 def IBibliotekosPaieska(input_csv, output_csv):
-    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn","Komentarai"]
+    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
+        newrows = list()
+        wrongrows = list()
         lenth = len(rows)
              
         for index, row in enumerate(rows):
             print(str(int((index / lenth) * 100)) + "%")
             try:
-                NewRow = iBibliotekaScraper(row["isbn"])
-                grazinimas = PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(NewRow)
-                NewRow["Komentarai"] = grazinimas[1]
+                data=iBibliotekaScraper(row["isbn"])
+                if(data[0]):
+                    newrows.append( data[1] )
+                else:
+                    wrongrows.append( data[1] )
+                                
             except Exception as e:
-                print(f"Klaida: {rows[index]} - {e}")
-                NewRow = rows[index]
+                print(f"Klaida: - {e}")
             
-            if(not grazinimas[0]):
-                print(NewRow)
-                rows[index] = NewRow
-            else:
-                print("Praleidziamas: " + str(index))
-
         driver.quit()  
+        
+        PalyginimasSuPagrindineLentelia(newrows)
+
+    print("wrongrows")
+    print(wrongrows)
+    print("end - wrongrows")
+
+    newrows.extend(wrongrows)
 
     with open(output_csv, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(newrows)
 
-def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
+def PalyginimasSuPagrindineLentelia(inputRows):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
 
-        isbnCount=0
-        PavadinimasCount=0
-
-        for index, row in enumerate(rows):  
-            if((inputRow["Pavadinimas"]!="") and (row["Pavadinimas"]==inputRow["Pavadinimas"])):
-                PavadinimasCount = PavadinimasCount +1
-                
-            if((inputRow["isbn"] != "") and (row["Kodas"] == inputRow["isbn"])):
-                isbnCount = isbnCount +1
-        
-        if(PavadinimasCount!=0 and isbnCount!=0 and PavadinimasCount==isbnCount):
-            return [False,"Jau yra " + str(PavadinimasCount) + " Tai praleisti reikia"]
-        
-        elif(PavadinimasCount!=0):
-            sutvarikimas(inputRow)
-            return [True,"Yra pavadinimas, bet be kodas"]
-        
-        
-        elif(isbnCount!=0):
-            return [False,"Yra keli su tuom paciu isbn"]
-        
-        else:
-            return [False,"Nei barkodo nei knygos lenteleja nera"]
-        
-def sutvarikimas(forin_row):
-    with open( "csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-    
-    # for index, row in enumerate(rows):
-    #     if row["Pavadinimas"] == forin_row["Pavadinimas"]:
-    #         rows[index] = forin_row 
-    #         break 
-
+        for iRow in inputRows:
+            for index2,oRow in enumerate(rows):
+                if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
+                    rows[index2]["Kodas"] = iRow["isbn"]
+                            
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
         writer.writeheader()
-        writer.writerows(rows)
-
-                    
+        writer.writerows(rows)                    
