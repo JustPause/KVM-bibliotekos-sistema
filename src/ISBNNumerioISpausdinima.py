@@ -16,57 +16,27 @@ def dir_check(filep):
     if not os.path.exists(filepath):
         os.makedirs(filepath)
 
+WRITER_OPTIONS = {
+    'module_width': 0.3,   
+    'module_height': 15.0,  
+    'font_size': 10,        
+    'text_distance': 6.0,   
+    'quiet_zone': 6.5,     
+}
+
 def generate_13_barcode(isbn):
     isbn_barcode = barcode.get('isbn13', isbn, writer=ImageWriter())
 
-    filename = filepath+ str(isbn)
-    filename = isbn_barcode.save(filename)
+    filename = filepath + str(isbn)
+    filename = isbn_barcode.save(filename,options=WRITER_OPTIONS)
     
     return filename
     
 def generate_10_barcode(isbn):
+    isbn_barcode = barcode.get('Gs1_128', isbn, writer=ImageWriter())
 
-    formatted_isbn = f"{isbn[0]}-{isbn[1:4]}-{isbn[4:9]}-{isbn[9]}"
-
-    #       x  y  w    
-    paddin=[20,40,110]
-
-    img = treepoem.generate_barcode(
-        barcode_type="isbn",
-        data=formatted_isbn,
-        options={
-            "includetext": False, 
-            "height": 2,       
-            "width": 3.74         
-        }
-    )
-
-    img = img.convert("RGB")
-
-    draw = ImageDraw.Draw(img)
-    font_size = 60
-    font = ImageFont.truetype("arial.ttf", font_size)
-
-    draw_temp = ImageDraw.Draw(img)
-    bbox = draw_temp.textbbox((0,0), isbn, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
-
-    new_width = img.width + 2 * paddin[2]
-    new_height = img.height + paddin[0] + paddin[1] + text_height + 5  # 5 px spacing below bars
-    new_img = Image.new("RGB", (new_width, new_height), "white")
-
-    barcode_x = paddin[2]
-    barcode_y = paddin[0]
-    new_img.paste(img, (barcode_x, barcode_y))
-
-    draw = ImageDraw.Draw(new_img)
-    text_x = (new_width - text_width) / 2
-    text_y = barcode_y + img.height + 5 
-    draw.text((text_x, text_y), isbn, fill="black", font=font)
-
-    filename=filepath+ str(isbn) +".png"
-    new_img.save(filename)
+    filename = filepath + str(isbn)
+    filename = isbn_barcode.save(filename,options=WRITER_OPTIONS)
 
     return filename
 

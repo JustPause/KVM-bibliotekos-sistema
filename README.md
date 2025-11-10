@@ -86,6 +86,6 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 
 ## ToDo
 
-* [ ] Sukurti pagrindinį (main) failą, kuris valdytų kitus modulius ir jų funkcijas
+## Darbo eiga 
 
 ---
