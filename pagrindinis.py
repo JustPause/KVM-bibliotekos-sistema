@@ -3,7 +3,7 @@ from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 from src.ISBNNumerioISpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaWebScraper import SurasytiPoVienaEilute
+from src.ibibliotekaWebScraper import IBibliotekosPaieska
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
@@ -66,7 +66,7 @@ match pasirinkimoIndexas:
             only_files=True,
         ).execute()
 
-        SurasytiPoVienaEilute(src_path,dest_path)
+        IBibliotekosPaieska(src_path,dest_path)
         
     case 2: # ISBN iš CSV į PDF
 

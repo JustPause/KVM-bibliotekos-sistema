@@ -71,8 +71,6 @@ def iBibliotekaScraper(isbn):
         
         rows=data.find_elements(By.TAG_NAME,"p")
         
-        
-        
         print("Indexas kury panaudojau " + str(index))
         row_dict = {}
         
@@ -91,9 +89,12 @@ def iBibliotekaScraper(isbn):
             row_dict[key] = value
 
         row_dict["isbn"] = isbn
+        
+        print()
+        
         return row_dict
 
-def SurasytiPoVienaEilute(input_csv, output_csv):
+def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn","Komentarai"]
 
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
@@ -105,13 +106,17 @@ def SurasytiPoVienaEilute(input_csv, output_csv):
             print(str(int((index / lenth) * 100)) + "%")
             try:
                 NewRow = iBibliotekaScraper(row["isbn"])
-                NewRow["Komentarai"] = PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(NewRow)
+                grazinimas = PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(NewRow)
+                NewRow["Komentarai"] = grazinimas[1]
             except Exception as e:
                 print(f"Klaida: {rows[index]} - {e}")
                 NewRow = rows[index]
             
-            print(NewRow)
-            rows[index] = NewRow
+            if(not grazinimas[0]):
+                print(NewRow)
+                rows[index] = NewRow
+            else:
+                print("Praleidziamas: " + str(index))
 
         driver.quit()  
 
@@ -136,29 +141,32 @@ def PatikrinimasArKnygaYraPagrindinejaBibliotekosLenteleja(inputRow):
                 isbnCount = isbnCount +1
         
         if(PavadinimasCount!=0 and isbnCount!=0 and PavadinimasCount==isbnCount):
-            return "Jau yra " + str(PavadinimasCount) + " Tai praleisti reikia"
+            return [False,"Jau yra " + str(PavadinimasCount) + " Tai praleisti reikia"]
         
         elif(PavadinimasCount!=0):
             sutvarikimas(inputRow)
-            return"Yra pavadinimas, bet ne kodas - Reikia perdeti is lenteles"
+            return [True,"Yra pavadinimas, bet be kodas"]
         
         
         elif(isbnCount!=0):
-            return"Yra keli su tuom paciu isbn - Reikia pasalinti"
+            return [False,"Yra keli su tuom paciu isbn"]
         
         else:
-            return "Reikia uzrasyti i lentelia"
+            return [False,"Nei barkodo nei knygos lenteleja nera"]
         
 def sutvarikimas(forin_row):
-    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+    with open( "csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
+    
+    # for index, row in enumerate(rows):
+    #     if row["Pavadinimas"] == forin_row["Pavadinimas"]:
+    #         rows[index] = forin_row 
+    #         break 
 
-        for index, row in enumerate(rows):
-            if( row["Pavadinimas"]==forin_row["Pavadinimas"]):
-                with open("csv/Bibliotekos Knygos - tik dublikuotos.csv", "a", newline="", encoding="utf-8") as f_2:
-                    writer = csv.DictWriter(f_2, fieldnames=["Autorius", "Pavadinimas", "Metai", "isbn","Komentarai"], extrasaction='ignore')
-                    forin_row["Komentarai"] = "index: " + str(index+2)
-                    writer.writerow(forin_row)
+    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
+        writer.writeheader()
+        writer.writerows(rows)
 
                     
