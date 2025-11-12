@@ -16,15 +16,16 @@ def dir_check(filep):
     if not os.path.exists(filepath):
         os.makedirs(filepath)
 
-WRITER_OPTIONS = {
-    'module_width': 0.3,   
-    'module_height': 15.0,  
-    'font_size': 10,        
-    'text_distance': 6.0,   
-    'quiet_zone': 6.5,     
-}
+
 
 def generate_13_barcode(isbn):
+    WRITER_OPTIONS = {
+    'module_width': 0.3,   
+    'module_height': 12.0,  
+    'font_size': 10,        
+    'text_distance': 6.0,   
+    'quiet_zone': 2,     
+}
     isbn_barcode = barcode.get('isbn13', isbn, writer=ImageWriter())
 
     filename = filepath + str(isbn)
@@ -33,6 +34,13 @@ def generate_13_barcode(isbn):
     return filename
     
 def generate_10_barcode(isbn):
+    WRITER_OPTIONS = {
+    'module_width': 0.3,   
+    'module_height': 15.0,  
+    'font_size': 10,        
+    'text_distance': 6.0,   
+    'quiet_zone': 2,     
+}
     isbn_barcode = barcode.get('Gs1_128', isbn, writer=ImageWriter())
 
     filename = filepath + str(isbn)
