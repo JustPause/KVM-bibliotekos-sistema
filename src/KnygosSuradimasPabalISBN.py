@@ -1,4 +1,5 @@
 import csv
+import os
 
 def scanner(file):
     while True:
