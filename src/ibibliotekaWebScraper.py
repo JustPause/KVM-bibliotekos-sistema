@@ -1,3 +1,4 @@
+from InquirerPy import prompt,inquirer
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
@@ -91,6 +92,87 @@ def iBibliotekaScraper(isbn):
         
     return [True,row_dict]
  
+def iBibliotekaScraperManual(isbn): 
+    global driver
+    options = Options()
+    
+    if(driver==None):
+        print("Bandoma susijukti su iBiblioteka")
+        
+        options.add_argument("--headless")
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://ibiblioteka.lt/metis/publication")
+        
+        print("Susijukta su iBiblioteka")
+        
+        search_box = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.ID, "mat-input-0"))
+        )
+        
+        WebDriverWait(driver, 30).until_not(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+        )
+        
+        print("Spinner init gone ")
+    
+    print("Kodas kurio ieskau - " + str(isbn))
+
+    search_box = driver.find_element(By.ID, "mat-input-0")
+    search_box.clear()             
+    search_box.send_keys(str(isbn))
+    search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
+    search_button.click()
+    
+    WebDriverWait(driver, 10).until_not(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+    )
+    
+    print("Spinner search gone")
+    
+    data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+    rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+    sk = rezultataiSK.text
+    sk = int(sk.split(":")[1].strip())
+    
+    print("Kiek rasta knygu su isbn: " + str(sk)) 
+    
+    if(sk == 0):
+        r_dict = {}
+        r_dict["Autorius"]="---"
+        r_dict["Pavadinimas"]= '---'
+        r_dict["Metai"]= '---'
+        r_dict["isbn"]=isbn 
+        
+        print()
+        
+        return [False,r_dict]
+    
+    results = driver.find_element(By.CLASS_NAME,"c-data-table")
+    numberOfObj = results.find_elements(By.TAG_NAME,"tr")
+    data = numberOfObj[0].find_element(By.CLASS_NAME, "c-result-item__data")
+    rows = data.find_elements(By.TAG_NAME,"p")   
+    row_dict = {}
+        
+    for row in rows:
+        key, value = row.text.split(":", 1)
+            
+        if(key=="Publikavimo duomenys"):
+            key="Metai"
+            
+        key = key.strip()
+        value = value.strip()
+        if(key=="Metai"):
+            value = re.findall(r'(\d{4})', value)[0]
+                
+        row_dict[key] = value
+        
+    row_dict["isbn"] = isbn
+        
+    print()
+        
+    return [True,row_dict]
+
 def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
@@ -130,22 +212,117 @@ def IBibliotekosPaieska(input_csv, output_csv):
         writer.writeheader()
         writer.writerows(newrows)
 
-def IBibliotekosPaieskaTiesiogiai():
+def IBibliotekosPaieskaTiesiogiai(output_csv):
+
+    global driver
+    options = Options()
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
     
-            for index, row in enumerate(rows):
-            print(str(int((index / lenth) * 100)) + "%")
+    print("Bandoma susijukti su iBiblioteka")
+        
+    options.add_argument("--headless")
+    driver = webdriver.Firefox(options=options)
+    driver.get("https://ibiblioteka.lt/metis/publication")
+        
+    print("Susijukta su iBiblioteka")
+        
+    search_box = WebDriverWait(driver, 30).until(
+        EC.presence_of_element_located((By.ID, "mat-input-0"))
+    )
+        
+    WebDriverWait(driver, 30).until_not(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+    )
+        
+    print("Spinner init gone ")
+
+
+    while True:
+            isbn = inquirer.text(message="ISBN:").execute()
+
+            search_box = driver.find_element(By.ID, "mat-input-0")
+            search_box.clear()             
+            search_box.send_keys(isbn)
+            search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
+            search_button.click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+            
+            print("Spinner search gone")
+            
+            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+            sk = rezultataiSK.text
+            sk = int(sk.split(":")[1].strip())
+            
+            print("Kiek rasta knygu su isbn: " + str(sk)) 
+            
+            data = duomenuApdirbinas(sk,isbn)
+
             try:
-                data=iBibliotekaScraper(row["isbn"])
-                if(data[0]):
-                    newrows.append( data[1] )
+
+                if data[0]:
+                    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
+                        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+                        writer.writerows([data[1]]) 
+                
                 else:
-                    wrongrows.append( data[1] )
-                                
+                    while True:
+                        Autorius    = inquirer.text(message="Autorius:").execute()
+                        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+                        Metai       = inquirer.text(message="Metai:").execute()
+
+                        proceed     = inquirer.confirm(message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )").execute()
+                                    
+                        if proceed:
+                            break
+
+                    data[1] = {'Autorius': Autorius, 'Pavadinimas': Pavadinimas, 'Metai': Metai, 'isbn': isbn}
+
+                    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
+                        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+                        writer.writerows([data[1]])
+                        
             except Exception as e:
                 print(f"Klaida: - {e}")
+
+def duomenuApdirbinas(sk,isbn):
+    if(sk == 0):
+        r_dict = {}
+        r_dict["Autorius"]="---"
+        r_dict["Pavadinimas"]= '---'
+        r_dict["Metai"]= '---'
+        r_dict["isbn"]=isbn 
+        
+        print()
+        
+        return [False,r_dict]
+    
+    results = driver.find_element(By.CLASS_NAME,"c-data-table")
+    numberOfObj = results.find_elements(By.TAG_NAME,"tr")
+    data = numberOfObj[0].find_element(By.CLASS_NAME, "c-result-item__data")
+    rows = data.find_elements(By.TAG_NAME,"p")   
+    row_dict = {}
+        
+    for row in rows:
+        key, value = row.text.split(":", 1)
             
-        driver.quit()  
+        if(key=="Publikavimo duomenys"):
+            key="Metai"
+            
+        key = key.strip()
+        value = value.strip()
+        if(key=="Metai"):
+            value = re.findall(r'(\d{4})', value)[0]
+                
+        row_dict[key] = value
+        
+    row_dict["isbn"] = isbn
+        
+    return [True,row_dict]
 
 def PalyginimasSuPagrindineLentelia(inputRows):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:

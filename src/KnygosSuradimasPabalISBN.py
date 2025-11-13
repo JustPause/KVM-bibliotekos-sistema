@@ -1,8 +1,4 @@
 import csv
-import os
-import subprocess
-import pyaudio
-import wave
 
 def scanner(file):
     while True:
