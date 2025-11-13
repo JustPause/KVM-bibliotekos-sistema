@@ -74,6 +74,7 @@ def to_csv_file(input_csv, output_csv):
         for index, row in enumerate(rows):
             isbn_corect = row['Atspauzdinti']
             
+            # print(int(isbn_corect) / 10000000000 )
             if len(isbn_corect)!=13:
                 filenameArray.append( generate_10_barcode(isbn_corect) )
                 print("10_barcode")
