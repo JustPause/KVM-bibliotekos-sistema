@@ -20,7 +20,6 @@ def iBibliotekaScraper(isbn):
         
         options.add_argument("--headless")
         driver = webdriver.Firefox(options=options)
-        driver.implicitly_wait(5)
         driver.get("https://ibiblioteka.lt/metis/publication")
         print("Susijukta su iBiblioteka")
         
@@ -28,7 +27,7 @@ def iBibliotekaScraper(isbn):
             EC.presence_of_element_located((By.ID, "mat-input-0"))
         )
         
-        WebDriverWait(driver, 10).until_not(
+        WebDriverWait(driver, 30).until_not(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
         )
         print("Spinner init gone ")
@@ -87,6 +86,10 @@ def iBibliotekaScraper(isbn):
         
     return [True,row_dict]
 
+def iBibliotekaScraperManual(isbn): 
+    pass
+    
+
 def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
@@ -118,6 +121,8 @@ def IBibliotekosPaieska(input_csv, output_csv):
     print("end - wrongrows")
 
     newrows.extend(wrongrows)
+    
+    PasalintiDublikuotasEilutes(newrows)
 
     with open(output_csv, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
@@ -138,3 +143,17 @@ def PalyginimasSuPagrindineLentelia(inputRows):
         writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
         writer.writeheader()
         writer.writerows(rows)                    
+        
+def PasalintiDublikuotasEilutes(inputRows: list):
+    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+
+    for index1,iRow in enumerate(inputRows):
+        for index2,oRow in enumerate(rows):
+            if (iRow["Pavadinimas"] == oRow["Pavadinimas"]):
+                
+                try:
+                    inputRows.pop(index1)
+                except:
+                    pass

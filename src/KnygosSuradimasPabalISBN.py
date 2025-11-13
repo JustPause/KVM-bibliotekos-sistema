@@ -1,5 +1,8 @@
 import csv
 import os
+import subprocess
+import pyaudio
+import wave
 
 def scanner(file):
     while True:
@@ -9,4 +12,4 @@ def scanner(file):
             isbn = input()
             for index, row in enumerate(rows):  
                 if (row.get("isbn") == isbn or row.get("Kodas") == isbn):
-                    print(row["Pavadinimas"] + " " + row.get("Komentarai", ""))
+                    print(row["Pavadinimas"])
