@@ -14,14 +14,13 @@ def iBibliotekaScraper(isbn):
     global driver
     options = Options()
     
-
     if(driver==None):
-
         print("Bandoma susijukti su iBiblioteka")
         
         options.add_argument("--headless")
         driver = webdriver.Firefox(options=options)
         driver.get("https://ibiblioteka.lt/metis/publication")
+        
         print("Susijukta su iBiblioteka")
         
         search_box = WebDriverWait(driver, 30).until(
@@ -31,6 +30,7 @@ def iBibliotekaScraper(isbn):
         WebDriverWait(driver, 30).until_not(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
         )
+        
         print("Spinner init gone ")
     
     print("Kodas kurio ieskau - " + str(isbn))
@@ -44,6 +44,7 @@ def iBibliotekaScraper(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
+    
     print("Spinner search gone")
     
     data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
@@ -60,6 +61,9 @@ def iBibliotekaScraper(isbn):
         r_dict["Pavadinimas"]= '---'
         r_dict["Metai"]= '---'
         r_dict["isbn"]=isbn 
+        
+        print()
+        
         return [False,r_dict]
     
     results = driver.find_element(By.CLASS_NAME,"c-data-table")
@@ -86,11 +90,7 @@ def iBibliotekaScraper(isbn):
     print()
         
     return [True,row_dict]
-
-def iBibliotekaScraperManual(isbn): 
-    pass
  
-
 def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
@@ -129,6 +129,23 @@ def IBibliotekosPaieska(input_csv, output_csv):
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
         writer.writerows(newrows)
+
+def IBibliotekosPaieskaTiesiogiai():
+    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+    
+            for index, row in enumerate(rows):
+            print(str(int((index / lenth) * 100)) + "%")
+            try:
+                data=iBibliotekaScraper(row["isbn"])
+                if(data[0]):
+                    newrows.append( data[1] )
+                else:
+                    wrongrows.append( data[1] )
+                                
+            except Exception as e:
+                print(f"Klaida: - {e}")
+            
+        driver.quit()  
 
 def PalyginimasSuPagrindineLentelia(inputRows):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
