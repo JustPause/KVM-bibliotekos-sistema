@@ -12,10 +12,11 @@ driver=None
 
 def iBibliotekaScraper(isbn): 
     global driver
+    options = Options()
+    
 
     if(driver==None):
 
-        options = Options()
         print("Bandoma susijukti su iBiblioteka")
         
         options.add_argument("--headless")
@@ -88,7 +89,7 @@ def iBibliotekaScraper(isbn):
 
 def iBibliotekaScraperManual(isbn): 
     pass
-    
+ 
 
 def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
