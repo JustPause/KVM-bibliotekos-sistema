@@ -3,14 +3,15 @@ from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 from src.ISBNNumerioISpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaWebScraper import IBibliotekosPaieska
+from src.ibibliotekaWebScraper import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
 Klausimai = [
     "Brūkšninio kodo kūrimas",
-    "Knygų rašymas į iBiblioteką pagal ISBN",
+    "Knygų rašymas į iBiblioteką pagal ISBN CSV",
+    "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
     "ISBN iš CSV į PDF",
     "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
     "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)"
@@ -48,7 +49,7 @@ match pasirinkimoIndexas:
         ).execute()
 
         barcode_generator(int(integer_val), src_path)
-    case 1: # Knygų rašymas į iBiblioteką pagal ISBN
+    case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")
 
@@ -68,7 +69,20 @@ match pasirinkimoIndexas:
 
         IBibliotekosPaieska(src_path,dest_path)
         
-    case 2: # ISBN iš CSV į PDF
+    case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
+
+        home_path = os.path.join(os.getcwd(), "csv")
+  
+        dest_path = inquirer.filepath(
+            message="Pasirinkite i kurio faila bus idedami duomenys:",
+            default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
+            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
+            only_files=True,
+        ).execute()
+
+        IBibliotekosPaieskaTiesiogiai(dest_path)   
+        
+    case 3: # ISBN iš CSV į PDF
 
         home_path = os.getcwd()
 
@@ -86,12 +100,14 @@ match pasirinkimoIndexas:
 
         to_csv_file(src_path,dest_path)
         
-    case 3: # Lėtesnė knygų paieška
+    case 4: # Lėtesnė knygų paieška
+        
         print("Paruosta Skanuoti")
         
         scanner("Knygos_Su_Viskuom.csv")
         
-    case 4: # Lėtesnė knygų paieška
+    case 5: # Lėtesnė knygų paieška
+        
         print("Paruosta Skanuoti")
         
         scanner("Bibliotekos Knygos - VIsos knygos.csv")
