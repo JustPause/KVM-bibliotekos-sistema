@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import ctypes
+
 import re
 import csv
 
@@ -238,8 +240,22 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
 
     while True:
-            isbn = inquirer.text(message="ISBN:").execute()
-
+            isbn = ""
+            while True:
+                isbn = inquirer.text(message="ISBN:").execute()
+                
+                isbn = str(isbn)
+                
+                print()
+                
+                if isbn.isdigit() or isbn[0:3]=="KVM":
+                    break
+                else:
+                    print("Reikia pasikeisti i Anglu kalba")
+                
+    
+            print(isbn)
+    
             search_box = driver.find_element(By.ID, "mat-input-0")
             search_box.clear()             
             search_box.send_keys(isbn)
@@ -275,12 +291,16 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
                         Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
                         Metai       = inquirer.text(message="Metai:").execute()
 
-                        proceed     = inquirer.confirm(message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )").execute()
+                        proceed     = inquirer.confirm(
+                            message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
+                            default=True).execute()
                                     
                         if proceed:
                             break
 
                     data[1] = {'Autorius': Autorius, 'Pavadinimas': Pavadinimas, 'Metai': Metai, 'isbn': isbn}
+
+                    # PalyginimasSuPagrindineLentelia(data[1]) FIX IT
 
                     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
                         writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
@@ -332,6 +352,7 @@ def PalyginimasSuPagrindineLentelia(inputRows):
         for iRow in inputRows:
             for index2,oRow in enumerate(rows):
                 if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
+                    print("Rastas dublikatas - Pagrindineja lenteleja")
                     rows[index2]["Kodas"] = iRow["isbn"]
                             
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:

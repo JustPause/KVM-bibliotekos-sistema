@@ -33,22 +33,20 @@ match pasirinkimoIndexas:
     case 0: # Brūkšninio kodo kūrimas
 
         integer_val = inquirer.number(
-            message="Kiek barkodu sukurti:",
+            message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
             min_allowed=1,
             max_allowed=10*5*10,
             validate=EmptyInputValidator(),
         ).execute()
 
-        home_path = os.path.join(os.getcwd(), "csv", "Knygos_Be_Barkodo.csv")
+        home_path = os.path.join(os.getcwd(), "pdfs")
   
-        src_path = inquirer.filepath(
-            message="Pasirinkite is kurio failo bus imami duomenys:",
-            default=home_path,
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
-            only_files=True,
+        dest_path = inquirer.filepath(
+            message="Pasirinkite vietą ir pavadinimą būsimo failo:",
+            default=os.path.abspath(os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")),
         ).execute()
 
-        barcode_generator(int(integer_val), src_path)
+        barcode_generator(int(integer_val), "BarkodaiSpauzdinimui.pdf")
     case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")
