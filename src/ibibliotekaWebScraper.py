@@ -242,41 +242,52 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
     while True:
             isbn = ""
             while True:
+                bigSkip=False
+                
                 isbn = inquirer.text(message="ISBN:").execute()
                 
                 isbn = str(isbn)
                 
-                print()
+                print(isbn[-1])
                 
-                if isbn.isdigit() or isbn[0:3]=="KVM":
+                if isbn.isdigit():
                     break
+                
+                elif isbn[0:3]=="KVM":
+                    bigSkip = True
+                    break
+                
+                elif isbn[-1] == ('X' or 'x'):
+                    break
+                
                 else:
                     print("Reikia pasikeisti i Anglu kalba")
                 
-    
-            print(isbn)
-    
-            search_box = driver.find_element(By.ID, "mat-input-0")
-            search_box.clear()             
-            search_box.send_keys(isbn)
-            search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
-            search_button.click()
-            
-            WebDriverWait(driver, 10).until_not(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-            )
-            
-            print("Spinner search gone")
-            
-            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
-            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+            if(bigSkip):
 
-            sk = rezultataiSK.text
-            sk = int(sk.split(":")[1].strip())
-            
-            print("Kiek rasta knygu su isbn: " + str(sk)) 
-            
-            data = duomenuApdirbinas(sk,isbn)
+                print(isbn)
+        
+                search_box = driver.find_element(By.ID, "mat-input-0")
+                search_box.clear()             
+                search_box.send_keys(isbn)
+                search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
+                search_button.click()
+                
+                WebDriverWait(driver, 10).until_not(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+                )
+                
+                print("Spinner search gone")
+                
+                data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+                rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+                sk = rezultataiSK.text
+                sk = int(sk.split(":")[1].strip())
+                
+                print("Kiek rasta knygu su isbn: " + str(sk)) 
+                
+                data = duomenuApdirbinas(sk,isbn)
 
             try:
 
