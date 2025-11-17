@@ -240,85 +240,89 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
 
     while True:
-            isbn = ""
-            while True:
-                bigSkip=False
-                
-                isbn = inquirer.text(message="ISBN:").execute()
-                
-                isbn = str(isbn)
-                
-                print(isbn[-1])
-                
-                if isbn.isdigit():
-                    break
-                
-                elif isbn[0:3]=="KVM":
-                    bigSkip = True
-                    break
-                
-                elif isbn[-1] == ('X' or 'x'):
-                    break
-                
-                else:
-                    print("Reikia pasikeisti i Anglu kalba")
-                
-            if(bigSkip):
-
-                print(isbn)
+        isbn = ""
         
-                search_box = driver.find_element(By.ID, "mat-input-0")
-                search_box.clear()             
-                search_box.send_keys(isbn)
-                search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
-                search_button.click()
-                
-                WebDriverWait(driver, 10).until_not(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-                )
-                
-                print("Spinner search gone")
-                
-                data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
-                rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
-
-                sk = rezultataiSK.text
-                sk = int(sk.split(":")[1].strip())
-                
-                print("Kiek rasta knygu su isbn: " + str(sk)) 
-                
-                data = duomenuApdirbinas(sk,isbn)
-
-            try:
-
-                if data[0]:
-                    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
-                        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-                        writer.writerows([data[1]]) 
-                
-                else:
-                    while True:
-                        Autorius    = inquirer.text(message="Autorius:").execute()
-                        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
-                        Metai       = inquirer.text(message="Metai:").execute()
-
-                        proceed     = inquirer.confirm(
-                            message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
-                            default=True).execute()
-                                    
-                        if proceed:
-                            break
-
-                    data[1] = {'Autorius': Autorius, 'Pavadinimas': Pavadinimas, 'Metai': Metai, 'isbn': isbn}
-
-                    # PalyginimasSuPagrindineLentelia(data[1]) FIX IT
-
-                    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
-                        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-                        writer.writerows([data[1]])
+        while True:
+            bigSkip=False
+            
+            isbn = inquirer.text(message="ISBN:").execute()
+            
+            isbn = str(isbn)
+               
+            if not isbn:
+                print("Niekas neparasyta")
                         
-            except Exception as e:
-                print(f"Klaida: - {e}")
+            elif isbn.isdigit():
+                break
+            
+            elif isbn[0:3]=="KVM":
+                bigSkip = True
+                break
+            
+            elif isbn[-1] == ('X' or 'x'):
+                break
+            
+            else:
+                print("Reikia pasikeisti i Anglu kalba")
+            
+        if(not bigSkip):
+
+            print(isbn)
+    
+            search_box = driver.find_element(By.ID, "mat-input-0")
+            search_box.clear()             
+            search_box.send_keys(isbn)
+            search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
+            search_button.click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+            
+            print("Spinner search gone")
+            
+            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+            sk = rezultataiSK.text
+            sk = int(sk.split(":")[1].strip())
+            
+            print("Kiek rasta knygu su isbn: " + str(sk)) 
+            
+            data = duomenuApdirbinas(sk,isbn)
+        
+        else:
+            while True:
+                Autorius    = inquirer.text(message="Autorius:").execute()
+                Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+                Metai       = inquirer.text(message="Metai:").execute()
+
+                proceed     = inquirer.confirm(
+                    message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
+                    default=True).execute()
+                                
+                if proceed:
+                    break
+
+            data = [True,{'Autorius': Autorius, 'Pavadinimas': Pavadinimas, 'Metai': Metai, 'isbn': isbn}]
+
+        try:
+            with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                rows = list(reader)
+                
+                for oRow in rows:
+                    if (data[1]["Pavadinimas"] == oRow["Pavadinimas"]):
+                        print("Rastas dublikatas - Pagrindineja lenteleja")
+                        data[1]={}
+                        break
+            
+            with open(output_csv, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+                writer.writerows([data[1]]) 
+
+        except Exception as e:
+            print(f"Klaida: - {e}")
 
 def duomenuApdirbinas(sk,isbn):
     if(sk == 0):
