@@ -14,7 +14,7 @@ def scanner(file):
                     found = False
                     
             if found:
-                print("Found")
+                print("save to output_csv.csv as emtey - "+ str(isbn))
                 with open("csv/output_csv.csv", 'a', newline='', encoding='utf-8') as f:
                     writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
                     writer.writerow({

@@ -365,7 +365,6 @@ def PasalintiDublikuotasEilutes(inputRows: list):
     for index1,iRow in enumerate(inputRows):
         for index2,oRow in enumerate(rows):
             if (iRow["Pavadinimas"] == oRow["Pavadinimas"]):
-                
                 try:
                     inputRows.pop(index1)
                 except:
@@ -376,7 +375,6 @@ def inputFormUser(isbn):
         Autorius    = inquirer.text(message="Autorius:").execute()
         Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
         Metai       = inquirer.text(message="Metai:").execute()
-
         proceed     = inquirer.confirm(
             message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
             default=True).execute()

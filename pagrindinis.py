@@ -40,7 +40,7 @@ match pasirinkimoIndexas:
         ).execute()
 
         home_path = os.path.join(os.getcwd(), "pdfs")
-  
+
         dest_path = inquirer.filepath(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
             default=os.path.abspath(os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")),
@@ -57,7 +57,7 @@ match pasirinkimoIndexas:
             validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
-  
+
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
@@ -70,7 +70,7 @@ match pasirinkimoIndexas:
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 
         home_path = os.path.join(os.getcwd(), "csv")
-  
+
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
@@ -90,7 +90,7 @@ match pasirinkimoIndexas:
             validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
-  
+
         dest_path = inquirer.filepath(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
             default=os.path.abspath(os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")),
