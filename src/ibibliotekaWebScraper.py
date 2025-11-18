@@ -6,8 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import ctypes
-
 import re
 import csv
 
@@ -241,29 +239,12 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
     while True:
         isbn = ""
+        bigSkip=False
+        isbn = inquirer.text(message="ISBN:").execute()
+        isbn = str(isbn)
         
-        while True:
-            bigSkip=False
-            
-            isbn = inquirer.text(message="ISBN:").execute()
-            
-            isbn = str(isbn)
-               
-            if not isbn:
-                print("Niekas neparasyta")
-                        
-            elif isbn.isdigit():
-                break
-            
-            elif isbn[0:3]=="KVM":
-                bigSkip = True
-                break
-            
-            elif isbn[-1] == ('X' or 'x'):
-                break
-            
-            else:
-                print("Reikia pasikeisti i Anglu kalba")
+        if isbn[0:3]=="KVM":
+            bigSkip = True
             
         if(not bigSkip):
 
@@ -287,24 +268,19 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             sk = rezultataiSK.text
             sk = int(sk.split(":")[1].strip())
             
+            if sk==0:
+                row=inputFormUser(isbn)
+
+                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': isbn}]
+            
             print("Kiek rasta knygu su isbn: " + str(sk)) 
             
             data = duomenuApdirbinas(sk,isbn)
         
         else:
-            while True:
-                Autorius    = inquirer.text(message="Autorius:").execute()
-                Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
-                Metai       = inquirer.text(message="Metai:").execute()
+            row=inputFormUser(isbn)
 
-                proceed     = inquirer.confirm(
-                    message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
-                    default=True).execute()
-                                
-                if proceed:
-                    break
-
-            data = [True,{'Autorius': Autorius, 'Pavadinimas': Pavadinimas, 'Metai': Metai, 'isbn': isbn}]
+            data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': isbn}]
 
         try:
             with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -312,7 +288,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
                 rows = list(reader)
                 
                 for oRow in rows:
-                    if (data[1]["Pavadinimas"] == oRow["Pavadinimas"]):
+                    if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1]["Autorius"] == oRow["Autorius"]):
                         print("Rastas dublikatas - Pagrindineja lenteleja")
                         data[1]={}
                         break
@@ -343,7 +319,13 @@ def duomenuApdirbinas(sk,isbn):
     row_dict = {}
         
     for row in rows:
-        key, value = row.text.split(":", 1)
+        if row.text=="Susideda iš dalių":
+            break
+        
+        if ':' in row.text:
+            key, value = row.text.split(":", 1)
+        else:
+            key, value = row.text
             
         if(key=="Publikavimo duomenys"):
             key="Metai"
@@ -388,3 +370,18 @@ def PasalintiDublikuotasEilutes(inputRows: list):
                     inputRows.pop(index1)
                 except:
                     pass
+                
+def inputFormUser(isbn):
+    while True:
+        Autorius    = inquirer.text(message="Autorius:").execute()
+        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+        Metai       = inquirer.text(message="Metai:").execute()
+
+        proceed     = inquirer.confirm(
+            message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
+            default=True).execute()
+                        
+        if proceed:
+            break
+        
+    return [Autorius,Pavadinimas,Metai]
