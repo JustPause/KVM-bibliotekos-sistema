@@ -239,7 +239,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
     while True:
         isbn = ""
-        bigSkip=False
+        bigSkip = False
         isbn = inquirer.text(message="ISBN:").execute()
         isbn = str(isbn)
         
@@ -502,7 +502,33 @@ def surasimasPavadinimoIrMetu(dest_path):
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
             )
 
-            print("darbas")
+            pasirinkimoLangai=WebDriverWait(driver, 10).until(
+               EC.presence_of_element_located((By.CSS_SELECTOR,".c-filter-box.ng-untouched.ng-pristine.ng-valid"))
+            )
+
+            
+            Spausdintinis = WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//span[text()='Spausdintinis']"))
+            )
+
+
+            Knygos = WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//span[text()='Knygos']"))
+            )
+
+            Spausdintinis.click()
+            Knygos.click()
+
+            filtruoti_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, ".mat-mdc-button-persistent-ripple.mdc-button__ripple"))
+            )
+            filtruoti_button.click()
+
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+
+            print("good")
 
             # data = duomenuApdirbinas(sk,isbn)
             input()
