@@ -518,9 +518,13 @@ def surasimasPavadinimoIrMetu(dest_path):
 
             Spausdintinis.click()
             Knygos.click()
+            
 
-            filtruoti_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, ".mat-mdc-button-persistent-ripple.mdc-button__ripple"))
+            pasirinkimoLangai= WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, ".c-multicolumn-page__side-content.ng-star-inserted"))
+            )
+            filtruoti_button = WebDriverWait(pasirinkimoLangai, 10).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, "mdc-button__label"))
             )
             filtruoti_button.click()
 
