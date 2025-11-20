@@ -46,7 +46,7 @@ match pasirinkimoIndexas:
             default=os.path.abspath(os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")),
         ).execute()
 
-        barcode_generator(int(integer_val), "BarkodaiSpauzdinimui.pdf")
+        barcode_generator(int(integer_val), dest_path)
     case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")

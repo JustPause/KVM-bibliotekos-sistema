@@ -9,15 +9,6 @@ from src.helpers.PDF import images_to_pdf
 
 filepath ="caches/BarCode/"
 
-def dir_check(filep):
-
-    filepath = filep
-
-    if not os.path.exists(filepath):
-        os.makedirs(filepath)
-
-
-
 def generate_13_barcode(isbn):
     WRITER_OPTIONS = {
     'module_width': 0.3,   

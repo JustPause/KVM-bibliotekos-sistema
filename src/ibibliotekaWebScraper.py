@@ -371,15 +371,21 @@ def PasalintiDublikuotasEilutes(inputRows: list):
                     pass
                 
 def inputFormUser(isbn):
+    
+    local_isbn = isbn
+    
     while True:
         Autorius    = inquirer.text(message="Autorius:").execute()
         Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
         Metai       = inquirer.text(message="Metai:").execute()
-        proceed     = inquirer.confirm(
-            message="Testi? " + "( " + Autorius + " : " + Pavadinimas +  " : " + Metai +  " : " + isbn  + " )", 
-            default=True).execute()
-                        
-        if proceed:
+        proceed   = inquirer.select(
+            message="Choose one option:",
+            choices=["Testi", "Bandyti dar kart", "Pataisyti ISNB"],
+        ).execute()
+
+        if proceed == "Testi":
             break
-        
+        elif proceed == "Pataisyti ISNB":
+            local_isbn = inquirer.text(message="Naujas ISNB:").execute()
+            
     return [Autorius,Pavadinimas,Metai]

@@ -83,9 +83,9 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
 ---
+## TODO:
 
-## ToDo
-
-## Darbo eiga 
-
----
+- Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
+- Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
+- Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
+- Duoti galimybe kai skanuoja pataisyti ISNB koda
