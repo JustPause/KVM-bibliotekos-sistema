@@ -3,7 +3,7 @@ from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 from src.ISBNNumerioISpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaWebScraper import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai
+from src.ibibliotekaWebScraper import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
@@ -14,7 +14,8 @@ Klausimai = [
     "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
     "ISBN iš CSV į PDF",
     "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
-    "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)"
+    "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
+    "Suvedimas pagal pavadinima"
 ]
 
 suformatuotiKlausimai = [
@@ -109,6 +110,12 @@ match pasirinkimoIndexas:
         print("Paruosta Skanuoti")
         
         scanner("Bibliotekos Knygos - VIsos knygos.csv")
+        
+    case 6: # Suvedimas pagal pavadinima
+        
+        print("Parasykitia pavadinima, ir jei imanoma metus")
+        
+        surasimasPavadinimoIrMetu("Bibliotekos Knygos - VIsos knygos.csv")
         
     case _: # (｡･ˇ_ˇ･｡) 
         raise ValueError("Kaip? (pasirinkimo klaida)")

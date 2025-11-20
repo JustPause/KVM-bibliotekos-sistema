@@ -271,7 +271,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             if sk==0:
                 row=inputFormUser(isbn)
 
-                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': isbn}]
+                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
             
             print("Kiek rasta knygu su isbn: " + str(sk)) 
             
@@ -280,7 +280,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
         else:
             row=inputFormUser(isbn)
 
-            data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': isbn}]
+            data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
 
         try:
             with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -356,7 +356,7 @@ def PalyginimasSuPagrindineLentelia(inputRows):
         writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
         writer.writeheader()
         writer.writerows(rows)                    
-        
+
 def PasalintiDublikuotasEilutes(inputRows: list):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -388,4 +388,126 @@ def inputFormUser(isbn):
         elif proceed == "Pataisyti ISNB":
             local_isbn = inquirer.text(message="Naujas ISNB:").execute()
             
-    return [Autorius,Pavadinimas,Metai]
+    return [Autorius,Pavadinimas,Metai,local_isbn]
+
+def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
+    
+    while True:
+        Autorius    = inquirer.text(message="Autorius:").execute()
+        Pavadinimas = inquirer.text(message="Pavadinimas:",  default=pavadinimas).execute()
+        Metai       = inquirer.text(message="Metai:", default=metai).execute()
+        ISBN       = inquirer.text(message="ISBN:", default=metai).execute()
+        proceed   = inquirer.select(
+            message="Choose one option:",
+            choices=["Testi", "Bandyti dar kart"]
+        ).execute()
+
+        if proceed == "Testi":
+            break
+            
+    return [Autorius,Pavadinimas,Metai,ISBN]
+
+def surasimasPavadinimoIrMetu(dest_path):
+    
+    try:
+        global driver
+        options = Options()
+        fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+        
+        print("Bandoma susijukti su iBiblioteka")
+            
+        # options.add_argument("--headless")
+        driver = webdriver.Firefox(options=options)
+        driver.get("https://ibiblioteka.lt/metis/publication")
+            
+        print("Susijukta su iBiblioteka")
+            
+        search_box = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.ID, "mat-input-0"))
+        )
+            
+        WebDriverWait(driver, 30).until_not(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+        )
+            
+        print("Spinner init gone ")
+        
+        while True:
+            # Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+            # Metai       = inquirer.text(message="Metai:").execute()
+            Pavadinimas = "Džiunglės"
+            isbn = ""
+            
+            search_box = driver.find_element(By.ID, "mat-input-0")
+            search_box.clear()             
+            search_box.send_keys(Pavadinimas)
+            search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
+            search_button.click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+            
+            print("Spinner search gone")
+                
+            search_box = driver.find_element(By.ID, "mat-input-0")
+            
+            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+            sk = rezultataiSK.text
+            sk = int(sk.split(":")[1].strip())
+            
+            if sk==0:
+                row=inputFormUser(isbn)
+                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
+            # Džiunglės
+            print("Kiek rasta knygu su isbn: " + str(sk)) 
+            
+            cookie = driver.find_element(By.CSS_SELECTOR,".mdc-button.mat-mdc-button.c-btn--secondary.rounded-0.w-100.mat-unthemed.mat-mdc-button-base")
+            cookie.click()
+            
+            cookie = driver.find_element(By.CSS_SELECTOR,".cookie-agreement__button")
+            cookie.click()
+            
+            search_button = driver.find_element(By.CSS_SELECTOR,".page-selection.ng-star-inserted")
+            search_button.click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+            
+            
+            numbering=driver.find_element(By.CSS_SELECTOR,".page-selection.ng-star-inserted")
+            conting=numbering.find_element(By.ID,"mat-select-2")
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".cdk-overlay-backdrop.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing"))
+            )
+            
+            conting.click()
+
+            cdk_overlay=WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, "cdk-overlay-1"))
+            )
+            
+            span100 = cdk_overlay.find_element(
+                By.XPATH,
+                "//span[text()='100']"
+            )
+            
+            span100.click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+
+            print("darbas")
+
+            # data = duomenuApdirbinas(sk,isbn)
+            input()
+    except KeyboardInterrupt:
+        driver.quit()
+        print("KeyboardInterrupt")
+    
+            
