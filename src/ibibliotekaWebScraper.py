@@ -435,60 +435,68 @@ def surasimasPavadinimoIrMetu(dest_path):
         while True:
             # Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
             # Metai       = inquirer.text(message="Metai:").execute()
-            Pavadinimas = "Džiunglės"
+            Pavadinimas = "Džiunglės"#"Gaidžio kalnas"
             isbn = ""
+            steps = 3
+            step = 0
             
-            search_box = driver.find_element(By.ID, "mat-input-0")
+            driver.find_element(By.CSS_SELECTOR,".mdc-button.mat-mdc-button.c-btn--secondary.rounded-0.w-100.mat-unthemed.mat-mdc-button-base").click()
+            driver.find_element(By.CSS_SELECTOR,".cookie-agreement__button").click()
+            
+            search_box = driver.find_element(By.ID, "mat-input-0")    
+            
             search_box.clear()             
             search_box.send_keys(Pavadinimas)
-            search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
-            search_button.click()
-            
-            WebDriverWait(driver, 10).until_not(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-            )
-            
-            print("Spinner search gone")
-                
-            search_box = driver.find_element(By.ID, "mat-input-0")
-            
-            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
-            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
 
-            sk = rezultataiSK.text
-            sk = int(sk.split(":")[1].strip())
+            driver.find_element(By.ID, "mat-select-value-0").click()
+            driver.find_element(By.ID, "mat-option-1").click()
             
-            if sk==0:
-                row=inputFormUser(isbn)
-                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
-            # Džiunglės
-            print("Kiek rasta knygu su isbn: " + str(sk)) 
-            
-            cookie = driver.find_element(By.CSS_SELECTOR,".mdc-button.mat-mdc-button.c-btn--secondary.rounded-0.w-100.mat-unthemed.mat-mdc-button-base")
-            cookie.click()
-            
-            cookie = driver.find_element(By.CSS_SELECTOR,".cookie-agreement__button")
-            cookie.click()
-            
-            search_button = driver.find_element(By.CSS_SELECTOR,".page-selection.ng-star-inserted")
-            search_button.click()
-            
-            WebDriverWait(driver, 10).until_not(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-            )
-            
-            
-            numbering=driver.find_element(By.CSS_SELECTOR,".page-selection.ng-star-inserted")
-            conting=numbering.find_element(By.ID,"mat-select-2")
-            
-            WebDriverWait(driver, 10).until_not(
+            WebDriverWait(driver, 5).until_not(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".cdk-overlay-backdrop.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing"))
             )
             
+            driver.find_element(By.CLASS_NAME,"c-btn--cta").click()
+            
+            WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+
+            step=step+1
+            print("Spinner search gone " +str(steps)+"/"+str(step))
+            
+            sideBar = driver.find_element(By.CLASS_NAME,"c-multicolumn-page__side-content")
+            sideBarElements = sideBar.find_elements(By.CSS_SELECTOR,".c-filter-box.ng-untouched.ng-pristine.ng-valid")
+            
+            for element in sideBarElements:
+                element_span=element.find_element(By.CLASS_NAME, "btn-label")
+                
+                if element_span.text == "Forma":
+                    breaking=True
+                    
+                    element.find_element(By.CLASS_NAME, "mdc-label").click()
+                    element.find_element(By.CSS_SELECTOR,".c-btn--secondary.h-btn-small").click()
+                    
+                    break
+            if not breaking:
+                print("Nera Forma - ")
+            
+
+            numbering = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, ".page-selection.ng-star-inserted")
+                )
+            )
+                        
+            conting = numbering.find_element(By.ID,"mat-select-3")
+            
+            # WebDriverWait(driver, 10).until_not(
+            #     EC.presence_of_element_located((By.CSS_SELECTOR, ".cdk-overlay-backdrop.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing"))
+            # )
+            
             conting.click()
 
-            cdk_overlay=WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.ID, "cdk-overlay-1"))
+            cdk_overlay = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, "cdk-overlay-4"))
             )
             
             span100 = cdk_overlay.find_element(
@@ -497,10 +505,32 @@ def surasimasPavadinimoIrMetu(dest_path):
             )
             
             span100.click()
-            
+                
             WebDriverWait(driver, 10).until_not(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
             )
+                         
+            data = driver.find_elements(By.CLASS_NAME,"c-data-table")
+            rezultataiSK = driver.find_element(By.CLASS_NAME,"c-page-top__main").find_element(By.CLASS_NAME,"ng-star-inserted")
+            
+            sk = rezultataiSK.text
+            sk = int(sk.split(":")[1].strip())
+            
+            for dat in data:
+                text = dat.find_elements(By.CLASS_NAME,"c-result-item__data")
+                
+                
+                print(len(text))
+                print("----")
+                
+            
+            # if sk==0:
+            #     row=inputFormUser(isbn)
+            #     data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
+
+            # print("Kiek rasta knygu su isbn: " + str(sk)) 
+            
+
 
             print("darbas")
 
