@@ -510,20 +510,31 @@ def surasimasPavadinimoIrMetu(dest_path):
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
             )
                          
-            data = driver.find_elements(By.CLASS_NAME,"c-data-table")
+            data = driver.find_element(By.CLASS_NAME,"c-data-table")
             rezultataiSK = driver.find_element(By.CLASS_NAME,"c-page-top__main").find_element(By.CLASS_NAME,"ng-star-inserted")
             
             sk = rezultataiSK.text
             sk = int(sk.split(":")[1].strip())
+                        
+            visosDuomenis = data.find_elements(By.CLASS_NAME,"c-result-item__data")
             
-            for dat in data:
-                text = dat.find_elements(By.CLASS_NAME,"c-result-item__data")
+            for vienaKnyga in visosDuomenis:
+                eilutes=vienaKnyga.find_elements(By.CLASS_NAME,"ng-star-inserted")
                 
+                rezultatas={}
                 
-                print(len(text))
-                print("----")
-                
-            
+                for eilute in eilutes:
+                    dalys = eilute.text.split(":")
+                    
+                    key = dalys[0].strip()
+                    value = ":".join(dalys[1:]).strip()
+                    
+                    if not key or not value:
+                        continue
+
+                    if key not in rezultatas:
+                        rezultatas[key] = value
+
             # if sk==0:
             #     row=inputFormUser(isbn)
             #     data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
