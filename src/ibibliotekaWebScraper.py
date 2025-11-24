@@ -193,27 +193,16 @@ def IBibliotekosPaieska(input_csv, output_csv):
                 if(data[0]):
                     newrows.append( data[1] )
                 else:
-                    newrows.append( data[1] )
-                    # wrongrows.append( data[1] )
+                    wrongrows.append( data[1] )
                                 
             except Exception as e:
                 print(f"Klaida: - {e}")
-                r_dict = {
-                    "Autorius": "---",
-                    "Pavadinimas": "---",
-                    "Metai": "---",
-                    "isbn": row["isbn"]
-                }
-
-                # convert dictionary into a row
-                newrows.append([
-                    r_dict["Autorius"],
-                    r_dict["Pavadinimas"],
-                    r_dict["Metai"],
-                    r_dict["isbn"]
-                ])
-            
-        driver.quit()  
+                # tekstas={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn": row["isbn"]}
+                
+                # newrows.append(tekstas)
+           
+        if(driver): 
+            driver.quit()  
         
         PalyginimasSuPagrindineLentelia(newrows)
 
@@ -223,7 +212,7 @@ def IBibliotekosPaieska(input_csv, output_csv):
 
     newrows.extend(wrongrows)
     
-    # PasalintiDublikuotasEilutes(newrows)
+    PasalintiDublikuotasEilutes(newrows)
 
     with open(output_csv, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
@@ -288,7 +277,8 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             
             if sk==0:
                 row=inputFormUser(isbn)
-
+                # Pataisti funcionaluma kad galima butu irastyti duomenis nes dabar jie isiraso neteinsingi
+                # Pataisyti Loop, kad kai irasai is naujo ISNB nuskaunuoti bibleioka
                 data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
             
             print("Kiek rasta knygu su isbn: " + str(sk)) 
@@ -300,23 +290,23 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
             data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
 
-        try:
-            with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-                reader = csv.DictReader(f)
-                rows = list(reader)
-                
-                for oRow in rows:
-                    if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1]["Autorius"] == oRow["Autorius"]):
-                        print("Rastas dublikatas - Pagrindineja lenteleja")
-                        data[1]={}
-                        break
+        # try:
+        with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
             
-            with open(output_csv, 'a', newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-                writer.writerows([data[1]]) 
+            for oRow in rows:
+                if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1]["Autorius"] == oRow["Autorius"]):
+                    print("Rastas dublikatas - Pagrindineja lenteleja")
+                    data[1]={}
+                    break
+        
+        with open(output_csv, 'a', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+            writer.writerows([data[1]]) 
 
-        except Exception as e:
-            print(f"Klaida: - {e}")
+        # except Exception as e:
+        #     print(f"Klaida: - {e}")
 
 def duomenuApdirbinas(sk,isbn):
     if(sk == 0):
@@ -369,11 +359,11 @@ def PalyginimasSuPagrindineLentelia(inputRows):
                 if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
                     print("Rastas dublikatas - Pagrindineja lenteleja")
                     rows[index2]["Kodas"] = iRow["isbn"]
-                            
+
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
         writer.writeheader()
-        writer.writerows(rows)                    
+        writer.writerows(rows)
 
 def PasalintiDublikuotasEilutes(inputRows: list):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -574,11 +564,8 @@ def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
     choices = []
 
     for book in data:
-        tekstas = (
-            book.get("Autorius", "") + " | " +
-            book.get("Pavadinimas", "") + " | " +
-            book.get("Publikavimo duomenys", "")
-        )
+        tekstas={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn":"---"
+                 }
         choices.append(tekstas)
     
     knyga = inquirer.select(
@@ -587,10 +574,6 @@ def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
         multiselect=True,
         transformer=lambda result: f"{len(result)} pasirinkta",
     ).execute()
-    
-    if "Publikavimo duomenys" in knyga:
-        knyga["metai"] = knyga["Publikavimo duomenys"]
-        del knyga["Publikavimo duomenys"]
     
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
