@@ -190,7 +190,8 @@ def IBibliotekosPaieska(input_csv, output_csv):
             print(str(int((index / lenth) * 100)) + "%")
          
             data=iBibliotekaScraper(row["isbn"])
-            if(data[fieldnames[1]] == "---"):
+            print(data)
+            if(data[ fieldnames[ 1 ] ] == "---"):
                 newrows.append( data )
             else:
                 wrongrows.append( data )
