@@ -1,4 +1,7 @@
 from InquirerPy import prompt,inquirer
+from InquirerPy.base.control import Choice
+from InquirerPy.separator import Separator
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
@@ -190,10 +193,25 @@ def IBibliotekosPaieska(input_csv, output_csv):
                 if(data[0]):
                     newrows.append( data[1] )
                 else:
-                    wrongrows.append( data[1] )
+                    newrows.append( data[1] )
+                    # wrongrows.append( data[1] )
                                 
             except Exception as e:
                 print(f"Klaida: - {e}")
+                r_dict = {
+                    "Autorius": "---",
+                    "Pavadinimas": "---",
+                    "Metai": "---",
+                    "isbn": row["isbn"]
+                }
+
+                # convert dictionary into a row
+                newrows.append([
+                    r_dict["Autorius"],
+                    r_dict["Pavadinimas"],
+                    r_dict["Metai"],
+                    r_dict["isbn"]
+                ])
             
         driver.quit()  
         
@@ -205,7 +223,7 @@ def IBibliotekosPaieska(input_csv, output_csv):
 
     newrows.extend(wrongrows)
     
-    PasalintiDublikuotasEilutes(newrows)
+    # PasalintiDublikuotasEilutes(newrows)
 
     with open(output_csv, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
@@ -517,7 +535,7 @@ def surasimasPavadinimoIrMetu(dest_path):
             sk = int(sk.split(":")[1].strip())
                         
             visosDuomenis = data.find_elements(By.CLASS_NAME,"c-result-item__data")
-            
+            grazinimas=[]
             for vienaKnyga in visosDuomenis:
                 eilutes=vienaKnyga.find_elements(By.CLASS_NAME,"ng-star-inserted")
                 
@@ -534,6 +552,8 @@ def surasimasPavadinimoIrMetu(dest_path):
 
                     if key not in rezultatas:
                         rezultatas[key] = value
+                    grazinimas.append(rezultatas)
+                    
 
             # if sk==0:
             #     row=inputFormUser(isbn)
@@ -541,44 +561,38 @@ def surasimasPavadinimoIrMetu(dest_path):
 
             # print("Kiek rasta knygu su isbn: " + str(sk)) 
             
+            PaklaustiNaudotojoApieTinkamaKnyga(grazinimas,dest_path)
 
-
-            pasirinkimoLangai=WebDriverWait(driver, 10).until(
-               EC.presence_of_element_located((By.CSS_SELECTOR,".c-filter-box.ng-untouched.ng-pristine.ng-valid"))
-            )
-
-            
-            Spausdintinis = WebDriverWait(driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, "//span[text()='Spausdintinis']"))
-            )
-
-
-            Knygos = WebDriverWait(driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, "//span[text()='Knygos']"))
-            )
-
-            Spausdintinis.click()
-            Knygos.click()
-            
-
-            pasirinkimoLangai= WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, ".c-multicolumn-page__side-content.ng-star-inserted"))
-            )
-            filtruoti_button = WebDriverWait(pasirinkimoLangai, 10).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "mdc-button__label"))
-            )
-            filtruoti_button.click()
-
-            WebDriverWait(driver, 10).until_not(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-            )
-
-            print("good")
-
+            driver.quit()
             # data = duomenuApdirbinas(sk,isbn)
-            input()
     except KeyboardInterrupt:
         driver.quit()
         print("KeyboardInterrupt")
     
-            
+def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
+    
+    choices = []
+
+    for book in data:
+        tekstas = (
+            book.get("Autorius", "") + " | " +
+            book.get("Pavadinimas", "") + " | " +
+            book.get("Publikavimo duomenys", "")
+        )
+        choices.append(tekstas)
+    
+    knyga = inquirer.select(
+        message="Pasirinkite kuri knyga:",
+        choices=choices,
+        multiselect=True,
+        transformer=lambda result: f"{len(result)} pasirinkta",
+    ).execute()
+    
+    if "Publikavimo duomenys" in knyga:
+        knyga["metai"] = knyga["Publikavimo duomenys"]
+        del knyga["Publikavimo duomenys"]
+    
+    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+        writer.writerows([data[1]]) 
