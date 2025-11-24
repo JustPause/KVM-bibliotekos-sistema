@@ -1,9 +1,9 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
-from src.ISBNNumerioISpausdinima import to_csv_file
+from src.ISBNSpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaWebScraper import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
+from src.ibibliotekaSusija import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo

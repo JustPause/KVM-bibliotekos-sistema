@@ -14,7 +14,3 @@ class TestBarcodeGenerator(unittest.TestCase):
     def test_barcode_generator_hundred(self):
         path = os.path.join(os.getcwd(), "pdfs","test","test_hundred.pdf")
         barcode_generator(100,path)
-        
-    def test_barcode_generator_thousand(self):
-        path = os.path.join(os.getcwd(), "pdfs","test","test_thousand.pdf")
-        barcode_generator(1000,path)

@@ -11,31 +11,14 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 import csv
+from src.Progresas import Progresas
 
 driver=None
+search_box=None
 
 def iBibliotekaScraper(isbn): 
-    global driver
-    options = Options()
-    
-    if(driver==None):
-        print("Bandoma susijukti su iBiblioteka")
-        
-        options.add_argument("--headless")
-        driver = webdriver.Firefox(options=options)
-        driver.get("https://ibiblioteka.lt/metis/publication")
-        
-        print("Susijukta su iBiblioteka")
-        
-        search_box = WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.ID, "mat-input-0"))
-        )
-        
-        WebDriverWait(driver, 30).until_not(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-        )
-        
-        print("Spinner init gone ")
+    if(driver==None): 
+        susijuntiSuDriver()
     
     print("Kodas kurio ieskau - " + str(isbn))
 
@@ -48,9 +31,7 @@ def iBibliotekaScraper(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
-    
-    print("Spinner search gone")
-    
+        
     data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
     rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
 
@@ -68,7 +49,7 @@ def iBibliotekaScraper(isbn):
         
         print()
         
-        return [False,r_dict]
+        return r_dict
     
     results = driver.find_element(By.CLASS_NAME,"c-data-table")
     numberOfObj = results.find_elements(By.TAG_NAME,"tr")
@@ -93,7 +74,30 @@ def iBibliotekaScraper(isbn):
         
     print()
         
-    return [True,row_dict]
+    return row_dict
+
+def susijuntiSuDriver():
+    global driver, search_box
+    progresas = Progresas(3)
+    options = Options()
+        
+    progresas.zingsnis("Bandoma susijukti su iBiblioteka")
+        
+    options.add_argument("--headless")
+    driver = webdriver.Firefox(options=options)
+    driver.get("https://ibiblioteka.lt/metis/publication")
+
+    progresas.zingsnis("Susijukta su iBiblioteka")
+        
+    search_box = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.ID, "mat-input-0"))
+        )
+        
+    WebDriverWait(driver, 30).until_not(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+        )
+        
+    progresas.zingsnis("Pasiruosia priimti duomenis")
  
 def iBibliotekaScraperManual(isbn): 
     global driver
@@ -115,9 +119,7 @@ def iBibliotekaScraperManual(isbn):
         WebDriverWait(driver, 30).until_not(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
         )
-        
-        print("Spinner init gone ")
-    
+            
     print("Kodas kurio ieskau - " + str(isbn))
 
     search_box = driver.find_element(By.ID, "mat-input-0")
@@ -129,8 +131,6 @@ def iBibliotekaScraperManual(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
-    
-    print("Spinner search gone")
     
     data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
     rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
@@ -188,15 +188,13 @@ def IBibliotekosPaieska(input_csv, output_csv):
              
         for index, row in enumerate(rows):
             print(str(int((index / lenth) * 100)) + "%")
-            try:
-                data=iBibliotekaScraper(row["isbn"])
-                if(data[0]):
-                    newrows.append( data[1] )
-                else:
-                    wrongrows.append( data[1] )
+         
+            data=iBibliotekaScraper(row["isbn"])
+            if(data[fieldnames[1]] == "---"):
+                newrows.append( data )
+            else:
+                wrongrows.append( data )
                                 
-            except Exception as e:
-                print(f"Klaida: - {e}")
                 # tekstas={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn": row["isbn"]}
                 
                 # newrows.append(tekstas)
@@ -579,3 +577,4 @@ def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
         writer.writerows([data[1]]) 
+        
