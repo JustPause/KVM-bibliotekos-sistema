@@ -5,6 +5,7 @@ from src.ISBNSpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
 from src.ibibliotekaSusija import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
+from prompt_toolkit.validation import ValidationError, Validator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
@@ -52,19 +53,32 @@ match pasirinkimoIndexas:
 
         home_path = os.path.join(os.getcwd(), "csv")
 
+        def file_only_validator(path: str) -> bool:
+            if os.path.isdir(path):
+                return False
+            return True
+
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
             validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
-
+                
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
-            only_files=True,
+            transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
+            invalid_message="Nurodykite teisingą failo kelią",
+            validate=lambda path: not os.path.isdir(path),
         ).execute()
+        
+        dest_path=str(dest_path)
+        if not dest_path.endswith(".csv"):
+            if "." in dest_path:
+                dest_path = dest_path.rsplit(".", 1)[0]
+            dest_path += ".csv"
+        print(dest_path)
 
         IBibliotekosPaieska(src_path,dest_path)
         

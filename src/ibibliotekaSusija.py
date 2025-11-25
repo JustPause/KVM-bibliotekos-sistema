@@ -278,7 +278,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
                 row=inputFormUser(isbn)
                 # Pataisti funcionaluma kad galima butu irastyti duomenis nes dabar jie isiraso neteinsingi
                 # Pataisyti Loop, kad kai irasai is naujo ISNB nuskaunuoti bibleioka
-                data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
+                data = {'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}
             
             print("Kiek rasta knygu su isbn: " + str(sk)) 
             
@@ -287,7 +287,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
         else:
             row=inputFormUser(isbn)
 
-            data = [True,{'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}]
+            data = {'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}
 
         # try:
         with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -295,7 +295,8 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             rows = list(reader)
             
             for oRow in rows:
-                if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1]["Autorius"] == oRow["Autorius"]):
+                
+                if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1].get("Autorius") == oRow.get("Autorius")):
                     print("Rastas dublikatas - Pagrindineja lenteleja")
                     data[1]={}
                     break

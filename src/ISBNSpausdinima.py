@@ -60,11 +60,12 @@ def to_csv_file(input_csv, output_csv):
         
         for row in rows:
             isbn_corect = row['Atspauzdinti']
+            caches = "caches/BarCode/"
             
             if len(isbn_corect)!=13:
-                filenameArray.append( generate_10_barcode(isbn_corect) )
+                filenameArray.append( generate_10_barcode(isbn_corect, caches) )
 
             else:
-                filenameArray.append( generate_13_barcode(isbn_corect) )
+                filenameArray.append( generate_13_barcode(isbn_corect, caches) )
                 
         images_to_pdf(filenameArray, output_csv) 
