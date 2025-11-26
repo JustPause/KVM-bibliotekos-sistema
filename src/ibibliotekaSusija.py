@@ -273,21 +273,20 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
 
             sk = rezultataiSK.text
             sk = int(sk.split(":")[1].strip())
+                        
+            print("Kiek rasta knygu su isbn: " + str(sk)) 
+
+            data = duomenuApdirbinas(sk,isbn)
             
             if sk==0:
-                row=inputFormUser(isbn)
+                data = inputFormUser(isbn)
+                print(data)
                 # Pataisti funcionaluma kad galima butu irastyti duomenis nes dabar jie isiraso neteinsingi
                 # Pataisyti Loop, kad kai irasai is naujo ISNB nuskaunuoti bibleioka
-                data = {'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}
-            
-            print("Kiek rasta knygu su isbn: " + str(sk)) 
-            
-            data = duomenuApdirbinas(sk,isbn)
         
         else:
-            row=inputFormUser(isbn)
-
-            data = {'Autorius': row[0], 'Pavadinimas':  row[1], 'Metai':  row[2], 'isbn': row[3]}
+            data = inputFormUser(isbn)
+            print(data)
 
         # try:
         with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -296,14 +295,15 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             
             for oRow in rows:
                 
-                if (data[1]["Pavadinimas"] == oRow["Pavadinimas"] and data[1].get("Autorius") == oRow.get("Autorius")):
-                    print("Rastas dublikatas - Pagrindineja lenteleja")
-                    data[1]={}
-                    break
+                if (data["Pavadinimas"] == oRow["Pavadinimas"]):
+                    if (data["Autorius"] == oRow["Autorius"]):
+                        print("Rastas dublikatas (IBibliotekosPaieskaTiesiogiai) - Pagrindineja lenteleja")
+                        data={}
+                        break
         
         with open(output_csv, 'a', newline='', encoding='utf-8') as f:
             writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-            writer.writerows([data[1]]) 
+            writer.writerow(data) 
 
         # except Exception as e:
         #     print(f"Klaida: - {e}")
@@ -318,7 +318,7 @@ def duomenuApdirbinas(sk,isbn):
         
         print()
         
-        return [False,r_dict]
+        return r_dict
     
     results = driver.find_element(By.CLASS_NAME,"c-data-table")
     numberOfObj = results.find_elements(By.TAG_NAME,"tr")
@@ -347,7 +347,7 @@ def duomenuApdirbinas(sk,isbn):
         
     row_dict["isbn"] = isbn
         
-    return [True,row_dict]
+    return row_dict
 
 def PalyginimasSuPagrindineLentelia(inputRows):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
@@ -357,7 +357,7 @@ def PalyginimasSuPagrindineLentelia(inputRows):
         for iRow in inputRows:
             for index2,oRow in enumerate(rows):
                 if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
-                    print("Rastas dublikatas - Pagrindineja lenteleja")
+                    print("Rastas dublikatas (PalyginimasSuPagrindineLentelia) - Pagrindineja lenteleja")
                     rows[index2]["Kodas"] = iRow["isbn"]
 
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:
@@ -396,7 +396,12 @@ def inputFormUser(isbn):
         elif proceed == "Pataisyti ISNB":
             local_isbn = inquirer.text(message="Naujas ISNB:").execute()
             
-    return [Autorius,Pavadinimas,Metai,local_isbn]
+    r_dict = {}
+    r_dict["Autorius"]=Autorius
+    r_dict["Pavadinimas"]= Pavadinimas
+    r_dict["Metai"]= Metai
+    r_dict["isbn"]=local_isbn 
+    return r_dict
 
 def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
     
@@ -578,5 +583,6 @@ def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-        writer.writerows([data[1]]) 
+        print(data)
+        writer.writerows(data) 
         
