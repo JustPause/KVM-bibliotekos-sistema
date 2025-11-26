@@ -53,11 +53,6 @@ match pasirinkimoIndexas:
 
         home_path = os.path.join(os.getcwd(), "csv")
 
-        def file_only_validator(path: str) -> bool:
-            if os.path.isdir(path):
-                return False
-            return True
-
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
@@ -78,7 +73,6 @@ match pasirinkimoIndexas:
             if "." in dest_path:
                 dest_path = dest_path.rsplit(".", 1)[0]
             dest_path += ".csv"
-        print(dest_path)
 
         IBibliotekosPaieska(src_path,dest_path)
         
@@ -102,14 +96,24 @@ match pasirinkimoIndexas:
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
+            validate=PathValidator(is_file=True, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
 
         dest_path = inquirer.filepath(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
             default=os.path.abspath(os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")),
+            transformer=lambda path: path + ".pdf" if not path.endswith(".pdf") else path,
+            invalid_message="Nurodykite teisingą failo kelią",
+            validate=lambda path: not os.path.isdir(path),
         ).execute()
+
+        dest_path=str(dest_path)
+        
+        if not dest_path.endswith(".csv"):
+            if "." in dest_path:
+                dest_path = dest_path.rsplit(".", 1)[0]
+            dest_path += ".csv"
 
         to_csv_file(src_path,dest_path)
         
