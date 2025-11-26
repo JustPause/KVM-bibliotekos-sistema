@@ -1,10 +1,11 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
-from src.ISBNNumerioISpausdinima import to_csv_file
+from src.ISBNSpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaWebScraper import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
+from src.ibibliotekaSusija import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
+from prompt_toolkit.validation import ValidationError, Validator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
@@ -58,13 +59,20 @@ match pasirinkimoIndexas:
             validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
-
+                
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
-            only_files=True,
+            transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
+            invalid_message="Nurodykite teisingą failo kelią",
+            validate=lambda path: not os.path.isdir(path),
         ).execute()
+        
+        dest_path=str(dest_path)
+        if not dest_path.endswith(".csv"):
+            if "." in dest_path:
+                dest_path = dest_path.rsplit(".", 1)[0]
+            dest_path += ".csv"
 
         IBibliotekosPaieska(src_path,dest_path)
         
@@ -88,14 +96,24 @@ match pasirinkimoIndexas:
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
+            validate=PathValidator(is_file=True, message="Nurodykite teisingą failo kelią"),
             only_files=True,
         ).execute()
 
         dest_path = inquirer.filepath(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
             default=os.path.abspath(os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")),
+            transformer=lambda path: path + ".pdf" if not path.endswith(".pdf") else path,
+            invalid_message="Nurodykite teisingą failo kelią",
+            validate=lambda path: not os.path.isdir(path),
         ).execute()
+
+        dest_path=str(dest_path)
+        
+        if not dest_path.endswith(".csv"):
+            if "." in dest_path:
+                dest_path = dest_path.rsplit(".", 1)[0]
+            dest_path += ".csv"
 
         to_csv_file(src_path,dest_path)
         

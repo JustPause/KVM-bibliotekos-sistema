@@ -8,7 +8,7 @@ def scanner(file):
             rows = list(reader)
             isbn = input()
             found=True
-            for index, row in enumerate(rows):  
+            for row in rows:  
                 if (row.get("isbn") == isbn or row.get("Kodas") == isbn):
                     print(row["Pavadinimas"])
                     found = False
