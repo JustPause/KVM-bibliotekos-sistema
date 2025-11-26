@@ -74,7 +74,7 @@ match pasirinkimoIndexas:
                 dest_path = dest_path.rsplit(".", 1)[0]
             dest_path += ".csv"
 
-        IBibliotekosPaieska(src_path,dest_path)
+        IBibliotekosPaieska(src_path, dest_path)
         
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 

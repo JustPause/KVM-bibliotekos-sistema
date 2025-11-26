@@ -28,10 +28,17 @@ def iBibliotekaScraper(isbn):
     search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
     search_button.click()
     
+    r_dict=dataExtracotr(isbn)
+    
+    print(r_dict)
+    print()
+        
+    return r_dict
+def dataExtracotr(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
-        
+    
     data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
     rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
 
@@ -46,9 +53,7 @@ def iBibliotekaScraper(isbn):
         r_dict["Pavadinimas"]= '---'
         r_dict["Metai"]= '---'
         r_dict["isbn"]=isbn 
-        
-        print()
-        
+                
         return r_dict
     
     results = driver.find_element(By.CLASS_NAME,"c-data-table")
@@ -71,11 +76,9 @@ def iBibliotekaScraper(isbn):
         row_dict[key] = value
         
     row_dict["isbn"] = isbn
-        
-    print()
-        
+    
     return row_dict
-
+    
 def susijuntiSuDriver():
     global driver, search_box
     progresas = Progresas(3)
@@ -99,26 +102,36 @@ def susijuntiSuDriver():
         
     progresas.zingsnis("Pasiruosia priimti duomenis")
  
+def inputFormUser(isbn):
+    
+    local_isbn = isbn
+    
+    while True:
+        Autorius    = inquirer.text(message="Autorius:").execute()
+        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+        Metai       = inquirer.text(message="Metai:").execute()
+        proceed   = inquirer.select(
+            message="Choose one option:",
+            choices=["Testi", "Bandyti dar kart", "Pataisyti ISNB"],
+        ).execute()
+
+        if proceed == "Testi":
+            break
+        elif proceed == "Pataisyti ISNB":
+            local_isbn = inquirer.text(message="Naujas ISNB:").execute()
+            
+    r_dict = {}
+    r_dict["Autorius"]=Autorius
+    r_dict["Pavadinimas"]= Pavadinimas
+    r_dict["Metai"]= Metai
+    r_dict["isbn"]=local_isbn 
+    return r_dict
+ 
 def iBibliotekaScraperManual(isbn): 
     global driver
-    options = Options()
     
     if(driver==None):
-        print("Bandoma susijukti su iBiblioteka")
-        
-        options.add_argument("--headless")
-        driver = webdriver.Firefox(options=options)
-        driver.get("https://ibiblioteka.lt/metis/publication")
-        
-        print("Susijukta su iBiblioteka")
-        
-        search_box = WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.ID, "mat-input-0"))
-        )
-        
-        WebDriverWait(driver, 30).until_not(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-        )
+        susijuntiSuDriver()
             
     print("Kodas kurio ieskau - " + str(isbn))
 
@@ -174,7 +187,7 @@ def iBibliotekaScraperManual(isbn):
         
     print()
         
-    return [True,row_dict]
+    return row_dict
 
 def IBibliotekosPaieska(input_csv, output_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
@@ -190,15 +203,12 @@ def IBibliotekosPaieska(input_csv, output_csv):
             print(str(int((index / lenth) * 100)) + "%")
          
             data=iBibliotekaScraper(row["isbn"])
-            print(data)
+            
             if(data[ fieldnames[ 1 ] ] == "---"):
-                newrows.append( data )
-            else:
                 wrongrows.append( data )
-                                
-                # tekstas={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn": row["isbn"]}
                 
-                # newrows.append(tekstas)
+            else:
+                newrows.append( data )
            
         if(driver): 
             driver.quit()  
@@ -221,27 +231,8 @@ def IBibliotekosPaieska(input_csv, output_csv):
 def IBibliotekosPaieskaTiesiogiai(output_csv):
 
     global driver
-    options = Options()
-    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
-    
-    print("Bandoma susijukti su iBiblioteka")
         
-    options.add_argument("--headless")
-    driver = webdriver.Firefox(options=options)
-    driver.get("https://ibiblioteka.lt/metis/publication")
-        
-    print("Susijukta su iBiblioteka")
-        
-    search_box = WebDriverWait(driver, 30).until(
-        EC.presence_of_element_located((By.ID, "mat-input-0"))
-    )
-        
-    WebDriverWait(driver, 30).until_not(
-        EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-    )
-        
-    print("Spinner init gone ")
-
+    susijuntiSuDriver()
 
     while True:
         isbn = ""
@@ -253,8 +244,6 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             bigSkip = True
             
         if(not bigSkip):
-
-            print(isbn)
     
             search_box = driver.find_element(By.ID, "mat-input-0")
             search_box.clear()             
@@ -262,27 +251,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
             search_button.click()
             
-            WebDriverWait(driver, 10).until_not(
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
-            )
-            
-            print("Spinner search gone")
-            
-            data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
-            rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
-
-            sk = rezultataiSK.text
-            sk = int(sk.split(":")[1].strip())
-                        
-            print("Kiek rasta knygu su isbn: " + str(sk)) 
-
-            data = duomenuApdirbinas(sk,isbn)
-            
-            if sk==0:
-                data = inputFormUser(isbn)
-                print(data)
-                # Pataisti funcionaluma kad galima butu irastyti duomenis nes dabar jie isiraso neteinsingi
-                # Pataisyti Loop, kad kai irasai is naujo ISNB nuskaunuoti bibleioka
+            data=duomenuIsgavimas(isbn)
         
         else:
             data = inputFormUser(isbn)
@@ -304,6 +273,31 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
         with open(output_csv, 'a', newline='', encoding='utf-8') as f:
             writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
             writer.writerow(data) 
+
+def duomenuIsgavimas(isbn):
+    WebDriverWait(driver, 10).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
+            )
+            
+    print("Spinner search gone")
+            
+    data = driver.find_element(By.CLASS_NAME,"c-page-top__main")
+    rezultataiSK = data.find_element(By.CLASS_NAME,"ng-star-inserted")
+
+    sk = rezultataiSK.text
+    sk = int(sk.split(":")[1].strip())
+                        
+    print("Kiek rasta knygu su isbn: " + str(sk)) 
+
+    data = duomenuApdirbinas(sk,isbn)
+        
+    print(data)
+            
+    if sk==0:
+        data = inputFormUser(isbn)
+        print(data)
+        # TODO Pataisti funcionaluma kad galima butu irastyti duomenis nes dabar jie isiraso neteinsingi
+        # TODO Pataisyti Loop, kad kai irasai is naujo ISNB nuskaunuoti bibleioka
 
         # except Exception as e:
         #     print(f"Klaida: - {e}")
@@ -378,30 +372,7 @@ def PasalintiDublikuotasEilutes(inputRows: list):
                 except:
                     pass
                 
-def inputFormUser(isbn):
-    
-    local_isbn = isbn
-    
-    while True:
-        Autorius    = inquirer.text(message="Autorius:").execute()
-        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
-        Metai       = inquirer.text(message="Metai:").execute()
-        proceed   = inquirer.select(
-            message="Choose one option:",
-            choices=["Testi", "Bandyti dar kart", "Pataisyti ISNB"],
-        ).execute()
 
-        if proceed == "Testi":
-            break
-        elif proceed == "Pataisyti ISNB":
-            local_isbn = inquirer.text(message="Naujas ISNB:").execute()
-            
-    r_dict = {}
-    r_dict["Autorius"]=Autorius
-    r_dict["Pavadinimas"]= Pavadinimas
-    r_dict["Metai"]= Metai
-    r_dict["isbn"]=local_isbn 
-    return r_dict
 
 def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
     
