@@ -83,20 +83,22 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
 ---
-## TODO:
 
-- Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
-- Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
-- Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
-- Duoti galimybe kai skanuoja pataisyti ISNB koda
-- Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
-- Padaryti GUI
+## TODO
+
+* Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
+* Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
+* Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
+* Duoti galimybe kai skanuoja pataisyti ISNB koda
+* Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
+* Padaryti GUI
 
 ## Kas padaryta
-- [x] "Brūkšninio kodo kūrimas",
-- [ ] "Knygų rašymas į iBiblioteką pagal ISBN CSV",
-- [ ] "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
-- [ ] "ISBN iš CSV į PDF",
-- [ ] "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
-- [ ] "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
-- [ ] "Suvedimas pagal pavadinima"
+
+* [x] "Brūkšninio kodo kūrimas",
+* [ ] "Knygų rašymas į iBiblioteką pagal ISBN CSV",
+* [ ] "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
+* [ ] "ISBN iš CSV į PDF",
+* [ ] "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
+* [ ] "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
+* [ ] "Suvedimas pagal pavadinima"
