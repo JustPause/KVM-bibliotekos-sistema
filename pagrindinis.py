@@ -5,7 +5,6 @@ from src.ISBNSpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
 from src.ibibliotekaSusija import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
-from prompt_toolkit.validation import ValidationError, Validator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
