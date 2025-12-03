@@ -31,6 +31,14 @@ suformatuotiKlausimai = [
 result = prompt(suformatuotiKlausimai)
 pasirinkimoIndexas = Klausimai.index(result['veiksmas'])
 
+def returningCorectExtesion(path,ending):
+    path=str(path)
+    if not path.endswith(ending):
+        if "." in path:
+            path = path.rsplit(".", 1)[0]
+        path += ending
+    return path
+
 match pasirinkimoIndexas:
     case 0: # Brūkšninio kodo kūrimas
 
@@ -68,11 +76,7 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        dest_path=str(dest_path)
-        if not dest_path.endswith(".csv"):
-            if "." in dest_path:
-                dest_path = dest_path.rsplit(".", 1)[0]
-            dest_path += ".csv"
+        returningCorectExtesion(dest_path,".csv")
 
         IBibliotekosPaieska(src_path,dest_path)
         
@@ -107,13 +111,8 @@ match pasirinkimoIndexas:
             invalid_message="Nurodykite teisingą failo kelią",
             validate=lambda path: not os.path.isdir(path),
         ).execute()
-
-        dest_path=str(dest_path)
         
-        if not dest_path.endswith(".csv"):
-            if "." in dest_path:
-                dest_path = dest_path.rsplit(".", 1)[0]
-            dest_path += ".csv"
+        dest_path = returningCorectExtesion(dest_path, ".pdf")
 
         to_csv_file(src_path,dest_path)
         
