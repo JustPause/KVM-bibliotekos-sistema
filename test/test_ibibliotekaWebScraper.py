@@ -1,27 +1,27 @@
 import unittest
 
 class TestIbibliotekaSusija(unittest.TestCase):
-    def test_iBibliotekaScraper():
+    def test_iBibliotekaScraper(self):
         pass
-    def test_dataExtracotr():
+    def test_dataExtracotr(self):
         pass
-    def test_susijuntiSuDriver():
+    def test_susijuntiSuDriver(self):
         pass
-    def test_iBibliotekaScraperManual():
+    def test_iBibliotekaScraperManual(self):
         pass
-    def test_IBibliotekosPaieska():
+    def test_IBibliotekosPaieska(self):
         pass
-    def test_IBibliotekosPaieskaTiesiogiai():
+    def test_IBibliotekosPaieskaTiesiogiai(self):
         pass
-    def test_duomenuIsgavimas():
+    def test_duomenuIsgavimas(self):
         pass
-    def test_duomenuApdirbinas():
+    def test_duomenuApdirbinas(self):
         pass
-    def test_PalyginimasSuPagrindineLentelia():
+    def test_PalyginimasSuPagrindineLentelia(self):
         pass
-    def test_PasalintiDublikuotasEilutes():
+    def test_PasalintiDublikuotasEilutes(self):
         pass
-    def test_inputFormUserBePavadinimo():
+    def test_inputFormUserBePavadinimo(self):
         pass
-    def test_PaklaustiNaudotojoApieTinkamaKnyga():
+    def test_PaklaustiNaudotojoApieTinkamaKnyga(self):
         pass
