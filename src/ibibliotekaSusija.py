@@ -34,6 +34,7 @@ def iBibliotekaScraper(isbn):
     print()
         
     return r_dict
+
 def dataExtracotr(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
@@ -58,7 +59,18 @@ def dataExtracotr(isbn):
     
     results = driver.find_element(By.CLASS_NAME,"c-data-table")
     numberOfObj = results.find_elements(By.TAG_NAME,"tr")
-    data = numberOfObj[0].find_element(By.CLASS_NAME, "c-result-item__data")
+    
+    corectrow=0
+        
+    for x in range(sk):
+        infoLine = numberOfObj[x].find_element(By.CSS_SELECTOR, ".c-result-item__info.h-tablet-portrait-hide")
+        infoLinespam=infoLine.find_elements(By.CLASS_NAME, "ng-star-inserted")
+        key, value = infoLinespam[1].text.split(":", 1)
+        value = value.strip()
+        if(value=="SPAUSDINTINIS"):
+            corectrow=x
+    
+    data = numberOfObj[corectrow].find_element(By.CLASS_NAME, "c-result-item__data")
     rows = data.find_elements(By.TAG_NAME,"p")   
     row_dict = {}
         

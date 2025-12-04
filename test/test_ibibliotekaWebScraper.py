@@ -1,8 +1,10 @@
 import unittest
 
+from src.ibibliotekaSusija import iBibliotekaScraper
+
 class TestIbibliotekaSusija(unittest.TestCase):
     def test_iBibliotekaScraper(self):
-        pass
+        iBibliotekaScraper(9786094875786)
     def test_dataExtracotr(self):
         pass
     def test_susijuntiSuDriver(self):
