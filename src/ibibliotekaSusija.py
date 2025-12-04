@@ -254,7 +254,8 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             data=duomenuIsgavimas(isbn)
         
         else:
-            data = inputFormUser(isbn)
+            # data = inputFormUser(isbn)
+            data={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn": isbn}
             print(data)
 
         # try:
@@ -265,7 +266,7 @@ def IBibliotekosPaieskaTiesiogiai(output_csv):
             for oRow in rows:
                 
                 if (data["Pavadinimas"] == oRow["Pavadinimas"]):
-                    if (data["Autorius"] == oRow["Autorius"]):
+                    if (data.get("Autorius") == oRow["Autorius"]):
                         print("Rastas dublikatas (IBibliotekosPaieskaTiesiogiai) - Pagrindineja lenteleja")
                         data={}
                         break
