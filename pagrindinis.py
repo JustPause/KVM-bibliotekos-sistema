@@ -59,11 +59,12 @@ match pasirinkimoIndexas:
     case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")
+        klaidos="Nurodykite teisingą failo kelią"
 
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
+            validate=PathValidator(is_file=False, is_dir=False, message=klaidos),
             only_files=True,
         ).execute()
                 
@@ -71,13 +72,21 @@ match pasirinkimoIndexas:
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
             transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
-            invalid_message="Nurodykite teisingą failo kelią",
+            invalid_message=klaidos,
+            validate=lambda path: not os.path.isdir(path),
+        ).execute()
+        
+        empty_path = inquirer.filepath(
+            message="Pasirinkite i kurio faila bus idedami duomenys kurie bus nerasti:",
+            default=os.path.join(home_path, "Empty.csv"),
+            transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
+            invalid_message=klaidos,
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
         returningCorectExtesion(dest_path,".csv")
 
-        IBibliotekosPaieska(src_path, dest_path)
+        IBibliotekosPaieska(src_path, dest_path,empty_path)
         
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 

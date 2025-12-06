@@ -75,6 +75,9 @@ def dataExtracotr(isbn):
     row_dict = {}
         
     for row in rows:
+        if(row.text.strip()=="Susideda iš dalių" or row.text.strip()==""):
+            break
+        
         key, value = row.text.split(":", 1)
             
         if(key=="Publikavimo duomenys"):
@@ -83,7 +86,8 @@ def dataExtracotr(isbn):
         key = key.strip()
         value = value.strip()
         if(key=="Metai"):
-            value = re.findall(r'(\d{4})', value)[0]
+            years = re.findall(r'\d{4}', value)
+            value = years[0] if years else ""
                 
         row_dict[key] = value
         
@@ -201,14 +205,14 @@ def iBibliotekaScraperManual(isbn):
         
     return row_dict
 
-def IBibliotekosPaieska(input_csv, output_csv):
+def IBibliotekosPaieska(input_csv, output_csv, emtey_csv):
     fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
-        newrows = list()
-        wrongrows = list()
+        nrows = list()
+        wrows = list()
         lenth = len(rows)
              
         for index, row in enumerate(rows):
@@ -217,28 +221,23 @@ def IBibliotekosPaieska(input_csv, output_csv):
             data=iBibliotekaScraper(row["isbn"])
             
             if(data[ fieldnames[ 1 ] ] == "---"):
-                wrongrows.append( data )
+                wrows.append( data )
                 
             else:
-                newrows.append( data )
+                nrows.append( data )
            
         if(driver): 
-            driver.quit()  
+            killinDrive()
         
-        PalyginimasSuPagrindineLentelia(newrows)
+        nrows=PalyginimasSuPagrindineLentelia(nrows)
+        print(nrows)
+        print("---------------")
+        print(wrows)
 
-    print("wrongrows")
-    print(wrongrows)
-    print("end - wrongrows")
-
-    newrows.extend(wrongrows)
-    
-    PasalintiDublikuotasEilutes(newrows)
-
-    with open(output_csv, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
-        writer.writeheader()
-        writer.writerows(newrows)
+    # with open(output_csv, 'w', newline='', encoding='utf-8') as f:
+    #     writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
+    #     writer.writeheader()
+    #     writer.writerows(nrows)
 
 def IBibliotekosPaieskaTiesiogiai(output_csv):
 
@@ -360,31 +359,18 @@ def PalyginimasSuPagrindineLentelia(inputRows):
     with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
+        dublicaterows= []
 
         for iRow in inputRows:
-            for index2,oRow in enumerate(rows):
+            for oRow in rows:
                 if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
-                    print("Rastas dublikatas (PalyginimasSuPagrindineLentelia) - Pagrindineja lenteleja")
-                    rows[index2]["Kodas"] = iRow["isbn"]
-
-    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=["Autorius", "Pavadinimas", "Metai", "Kodas"], extrasaction='ignore')
-        writer.writeheader()
-        writer.writerows(rows)
-
-def PasalintiDublikuotasEilutes(inputRows: list):
-    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-
-    for index1,iRow in enumerate(inputRows):
-        for index2,oRow in enumerate(rows):
-            if (iRow["Pavadinimas"] == oRow["Pavadinimas"]):
-                try:
-                    inputRows.pop(index1)
-                except:
-                    pass
-                
+                    dublicaterows.append({"Pavadinimas":iRow["Pavadinimas"], "isnb":oRow["Kodas"]})
+                    rows.pop()
+                if ((iRow["Pavadinimas"] == oRow["Pavadinimas"])):
+                    dublicaterows.append({"Pavadinimas":iRow["Pavadinimas"], "isnb":""})
+                    rows.pop()
+                    
+                    
 
 
 def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
@@ -542,10 +528,10 @@ def surasimasPavadinimoIrMetu(dest_path):
             
             PaklaustiNaudotojoApieTinkamaKnyga(grazinimas,dest_path)
 
-            driver.quit()
+            killinDrive()
             # data = duomenuApdirbinas(sk,isbn)
     except KeyboardInterrupt:
-        driver.quit()
+        killinDrive()
         print("KeyboardInterrupt")
     
 def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
@@ -570,3 +556,6 @@ def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
         print(data)
         writer.writerows(data) 
         
+def killinDrive():
+    if(driver!=None): 
+        driver.quit()
