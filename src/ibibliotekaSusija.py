@@ -182,26 +182,14 @@ def iBibliotekosPaieskaTiesiogiai(output_csv, test=False):
 
     while True:
         isbn = ""
-        bigSkip = False
         if not test:
             isbn = inquirer.text(message="ISBN:").execute()
         isbn = str(isbn)
         
         data=iBibliotekaScraper(isbn)
 
-        # try:
-        with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            rows = list(reader)
-            
-            for oRow in rows:
-                
-                if (data["Pavadinimas"] == oRow["Pavadinimas"]):
-                    if (data.get("Autorius") == oRow["Autorius"]):
-                        print("Rastas dublikatas (IBibliotekosPaieskaTiesiogiai) - Pagrindineja lenteleja")
-                        data={}
-                        break
-        
+        # data=PalyginimasSuPagrindineLentelia(data)
+
         with open(output_csv, 'a', newline='', encoding='utf-8') as f:
             writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
             writer.writerow(data) 
