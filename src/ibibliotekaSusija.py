@@ -221,7 +221,7 @@ def IBibliotekosPaieska(input_csv, output_csv, emtey_csv):
             data=iBibliotekaScraper(row["isbn"])
             
             if(data[ fieldnames[ 1 ] ] == "---"):
-                wrows.append( data )
+                nrows.append( data )
                 
             else:
                 nrows.append( data )
@@ -229,15 +229,15 @@ def IBibliotekosPaieska(input_csv, output_csv, emtey_csv):
         if(driver): 
             killinDrive()
         
-        nrows=PalyginimasSuPagrindineLentelia(nrows)
+        # nrows=PalyginimasSuPagrindineLentelia(nrows)
         print(nrows)
         print("---------------")
         print(wrows)
 
-    # with open(output_csv, 'w', newline='', encoding='utf-8') as f:
-    #     writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
-    #     writer.writeheader()
-    #     writer.writerows(nrows)
+    with open(output_csv, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
+        writer.writeheader()
+        writer.writerows(nrows)
 
 def IBibliotekosPaieskaTiesiogiai(output_csv):
 
@@ -369,6 +369,7 @@ def PalyginimasSuPagrindineLentelia(inputRows):
                 if ((iRow["Pavadinimas"] == oRow["Pavadinimas"])):
                     dublicaterows.append({"Pavadinimas":iRow["Pavadinimas"], "isnb":""})
                     rows.pop()
+        return rows
                     
                     
 
