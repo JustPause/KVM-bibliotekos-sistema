@@ -3,7 +3,7 @@ from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 from src.ISBNSpausdinima import to_csv_file
 from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaSusija import IBibliotekosPaieska,IBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
+from src.ibibliotekaSusija import iBibliotekosPaieska,iBibliotekosPaieskaTiesiogiai,surasimasPavadinimoIrMetu
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
@@ -27,9 +27,6 @@ suformatuotiKlausimai = [
     }
 ]
 
-result = prompt(suformatuotiKlausimai)
-pasirinkimoIndexas = Klausimai.index(result['veiksmas'])
-
 def returningCorectExtesion(path,ending):
     path=str(path)
     if not path.endswith(ending):
@@ -38,7 +35,11 @@ def returningCorectExtesion(path,ending):
         path += ending
     return path
 
+result = prompt(suformatuotiKlausimai)
+pasirinkimoIndexas = Klausimai.index(result['veiksmas'])
+
 match pasirinkimoIndexas:
+    
     case 0: # Brūkšninio kodo kūrimas
 
         integer_val = inquirer.number(
@@ -56,6 +57,7 @@ match pasirinkimoIndexas:
         ).execute()
 
         barcode_generator(int(integer_val), dest_path)
+    
     case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")
@@ -86,7 +88,7 @@ match pasirinkimoIndexas:
         
         returningCorectExtesion(dest_path,".csv")
 
-        IBibliotekosPaieska(src_path, dest_path,empty_path)
+        iBibliotekosPaieska(src_path, dest_path, empty_path, 'a')
         
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 
@@ -99,7 +101,7 @@ match pasirinkimoIndexas:
             only_files=True,
         ).execute()
 
-        IBibliotekosPaieskaTiesiogiai(dest_path)   
+        iBibliotekosPaieskaTiesiogiai(dest_path)   
         
     case 3: # ISBN iš CSV į PDF
 
