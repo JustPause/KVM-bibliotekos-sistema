@@ -51,10 +51,6 @@ class TestIbibliotekaSusija(unittest.TestCase):
                 self.assertEqual(row.get('Pavadinimas'), ats_array[index].get('Pavadinimas'))
                 self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
                 self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
-    def test_duomenuIsgavimas(self):
-        pass
-    def test_duomenuApdirbinas(self):
-        pass
     def test_PalyginimasSuPagrindineLentelia(self):
         pass
     def test_PasalintiDublikuotasEilutes(self):
