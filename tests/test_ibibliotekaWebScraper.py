@@ -42,21 +42,15 @@ class TestIbibliotekaSusija(unittest.TestCase):
 
         iBibliotekosPaieska(self.tmpInput,self.tmpOutput,self.tmpEmpty)
         
-        # with open(self.tmpOutput, 'r', newline='', encoding='utf-8') as f:
-        #     reader = csv.DictReader(f)
-        #     rows = list(reader)
+        with open(self.tmpOutput, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
             
-        #     for index,row in enumerate(rows):
-        #         self.assertEqual(row.get('Autorius'), ats_array[index].get('Autorius'))
-        #         self.assertEqual(row.get('Pavadinimas'), ats_array[index].get('Pavadinimas'))
-        #         self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
-        #         self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
-                
-    # def test_iBibliotekosPaieskaTiesiogiai(self):
-        
-    #     self.tmpOutput = tempfile.NamedTemporaryFile(delete=False).name
-        # iBibliotekosPaieskaTiesiogiai(self.tmpOutput, isbn_array[0])
-        
+            for index,row in enumerate(rows):
+                self.assertEqual(row.get('Autorius'), ats_array[index].get('Autorius'))
+                self.assertEqual(row.get('Pavadinimas'), ats_array[index].get('Pavadinimas'))
+                self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
+                self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
     def test_duomenuIsgavimas(self):
         pass
     def test_duomenuApdirbinas(self):

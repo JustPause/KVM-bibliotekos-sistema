@@ -27,12 +27,20 @@ suformatuotiKlausimai = [
     }
 ]
 
-def returningCorectExtesion(path,ending):
-    path=str(path)
+klaidos="Nurodykite teisingą failo kelią"
+
+def returningCorrectExtension(path,ending):
+    path = str(path)
+
     if not path.endswith(ending):
-        if "." in path:
+        if "." in os.path.basename(path):  # only strip extension from filename
             path = path.rsplit(".", 1)[0]
         path += ending
+
+    directory = os.path.dirname(path)
+    if directory:  # avoids calling makedirs("") 
+        os.makedirs(directory, exist_ok=True)
+
     return path
 
 result = prompt(suformatuotiKlausimai)
@@ -61,8 +69,7 @@ match pasirinkimoIndexas:
     case 1: # Knygų rašymas į iBiblioteką pagal ISBN CSV
 
         home_path = os.path.join(os.getcwd(), "csv")
-        klaidos="Nurodykite teisingą failo kelią"
-
+        
         src_path = inquirer.filepath(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
@@ -86,7 +93,7 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        returningCorectExtesion(dest_path,".csv")
+        returningCorrectExtension(dest_path,".csv")
 
         iBibliotekosPaieska(src_path, dest_path, empty_path, 'a')
         
@@ -97,9 +104,12 @@ match pasirinkimoIndexas:
         dest_path = inquirer.filepath(
             message="Pasirinkite i kurio faila bus idedami duomenys:",
             default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-            validate=PathValidator(is_file=False, is_dir=False, message="Nurodykite teisingą failo kelią"),
-            only_files=True,
+            transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
+            invalid_message=klaidos,
+            validate=lambda path: not os.path.isdir(path),
         ).execute()
+
+        returningCorrectExtension(dest_path,".csv")
 
         iBibliotekosPaieskaTiesiogiai(dest_path)   
         
@@ -122,7 +132,8 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        dest_path = returningCorectExtesion(dest_path, ".pdf")
+        dest_path = returningCorrectExtension(dest_path, ".pdf")
+
 
         to_csv_file(src_path,dest_path)
         

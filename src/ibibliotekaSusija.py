@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 import csv
+from src.osHelper import is_file_empty
 from src.Progresas import Progresas
 
 driver=None
@@ -163,40 +164,41 @@ def iBibliotekosPaieska(input_csv, output_csv, emtey_csv):
                 
             else:
                 nrows.append( data )
-
-        if(driver): 
-            killinDrive()
         
         # nrows=PalyginimasSuPagrindineLentelia(nrows)
 
-    with open(output_csv, 'w', newline='', encoding='utf-8') as f:
+    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
         writer.writerows(nrows)
 
-def iBibliotekosPaieskaTiesiogiai(output_csv, test=False):
+def iBibliotekosPaieskaTiesiogiai(output_csv):
 
     global driver
         
     susijuntiSuDriver()
 
     while True:
-        isbn = ""
-        if not test:
-            isbn = inquirer.text(message="ISBN:").execute()
+        isbn = inquirer.text(message="ISBN:").execute()
         isbn = str(isbn)
         
-        data=iBibliotekaScraper(isbn)
+        if(isbn.lower() == 'q'): 
+            killinDrive()
+            break
 
-        # if(driver): 
-        #     killinDrive()
+        data = iBibliotekaScraper(isbn)
 
         # data=PalyginimasSuPagrindineLentelia(data)
-
         
+        file_empty = is_file_empty(output_csv)
+
         with open(output_csv, 'a', newline='', encoding='utf-8') as f:
             writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+
+            if file_empty:
+                writer.writeheader()
             writer.writerow(data) 
+
 
 def duomenuIsgavimas(isbn):
     WebDriverWait(driver, 10).until_not(
