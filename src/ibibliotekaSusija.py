@@ -63,8 +63,8 @@ def dataExtracotr(isbn):
     numberOfObj = results.find_elements(By.TAG_NAME,"tr")
     
     corectrow=0
-        
-    for x in range(sk):
+
+    for x in range(len(numberOfObj)):
         infoLine = numberOfObj[x].find_element(By.CSS_SELECTOR, ".c-result-item__info.h-tablet-portrait-hide")
         infoLinespam=infoLine.find_elements(By.CLASS_NAME, "ng-star-inserted")
         key, value = infoLinespam[1].text.split(":", 1)
@@ -188,8 +188,12 @@ def iBibliotekosPaieskaTiesiogiai(output_csv, test=False):
         
         data=iBibliotekaScraper(isbn)
 
+        # if(driver): 
+        #     killinDrive()
+
         # data=PalyginimasSuPagrindineLentelia(data)
 
+        
         with open(output_csv, 'a', newline='', encoding='utf-8') as f:
             writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
             writer.writerow(data) 
