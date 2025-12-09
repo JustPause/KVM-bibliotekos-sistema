@@ -236,26 +236,6 @@ def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
             
     return [Autorius,Pavadinimas,Metai,ISBN]
 
-def PaklaustiNaudotojoApieTinkamaKnyga(data,output_csv):
-    
-    choices = []
-    for book in data:
-        tekstas={"Autorius":"---", "Pavadinimas":"---", "Metai":"---", "isbn":"---"}
-        choices.append(tekstas)
-    
-    knyga = inquirer.select(
-        message="Pasirinkite kuri knyga:",
-        choices=choices,
-        multiselect=True,
-        transformer=lambda result: f"{len(result)} pasirinkta",
-    ).execute()
-    
-    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
-    with open(output_csv, 'a', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-        print(data)
-        writer.writerows(data) 
-        
 def killinDrive():
     if(driver!=None): 
         driver.quit()

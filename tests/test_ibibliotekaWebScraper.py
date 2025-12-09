@@ -52,10 +52,9 @@ class TestIbibliotekaSusija(unittest.TestCase):
                 self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
                 self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
     def test_PalyginimasSuPagrindineLentelia(self):
-        pass
-    def test_PasalintiDublikuotasEilutes(self):
-        pass
-    def test_inputFormUserBePavadinimo(self):
-        pass
-    def test_PaklaustiNaudotojoApieTinkamaKnyga(self):
+        # TO if no table exists
+
+        # if dublicat exists
+
+        # if evrtihin is okay
         pass
