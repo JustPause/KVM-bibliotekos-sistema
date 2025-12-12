@@ -199,25 +199,25 @@ def iBibliotekosPaieskaTiesiogiai(output_csv):
                 writer.writeheader()
             writer.writerow(data) 
 
-def PalyginimasSuPagrindineLentelia(inputRows):
+def PalyginimasSuPagrindineLentelia(inputRows : list):
 
-    if is_file_empty("csv/Bibliotekos Knygos - VIsos knygos.csv"):
-        print("Ikleti is pagrindines lenteles csv faila")
-        return
+    # if is_file_empty("csv/Bibliotekos Knygos - VIsos knygos.csv"):
+    #     print("Ikleti is pagrindines lenteles csv faila")
+    #     return
 
-    with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-        rows = list(csv.DictReader(f))
-        dublicaterows= []
+    # with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
+    #     rows = list(csv.DictReader(f))
+    #     dublicaterows= []
 
-        for iRow in inputRows:
-            for oRow in rows:
-                if ((iRow["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
-                    dublicaterows.append({"Pavadinimas":iRow["Pavadinimas"], "isnb":oRow["Kodas"]})
-                    return True
-                if ((iRow["Pavadinimas"] == oRow["Pavadinimas"])):
-                    dublicaterows.append({"Pavadinimas":iRow["Pavadinimas"], "isnb":""})
-                    return True
-        return False
+    #     for oRow in rows:
+    #         if ((inputRows["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
+    #             dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":oRow["Kodas"]})
+    #             return True
+    #         if ((inputRows["Pavadinimas"] == oRow["Pavadinimas"])):
+    #             dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
+    #             return True
+    #     return False
+    return False
 
 def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
     
