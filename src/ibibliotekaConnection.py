@@ -12,16 +12,16 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 import csv
 from src.osHelper import is_file_empty
-from src.Progresas import Progresas
+from src.progress import Progress
 
 driver=None
 search_box=None
 
 fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
-def iBibliotekaScraper(isbn): 
+def iBiblioteka_scraper(isbn): 
     if(driver==None): 
-        susijuntiSuDriver()
+        connect_to_driver()
     
     print("Kodas kurio ieskau - " + str(isbn))
 
@@ -31,14 +31,14 @@ def iBibliotekaScraper(isbn):
     search_button = driver.find_element(By.CLASS_NAME,"c-btn--cta")
     search_button.click()
     
-    r_dict=dataExtracotr(isbn)
+    r_dict=data_extracotr(isbn)
     
     print(r_dict)
     print()
         
     return r_dict
 
-def dataExtracotr(isbn):
+def data_extracotr(isbn):
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
@@ -98,18 +98,18 @@ def dataExtracotr(isbn):
     
     return row_dict
 
-def susijuntiSuDriver():
+def connect_to_driver():
     global driver, search_box
-    progresas = Progresas(3)
+    progress = Progress(3)
     options = Options()
         
-    progresas.zingsnis("Bandoma susijukti su iBiblioteka")
+    progress.progress("Bandoma susijukti su iBiblioteka")
         
     options.add_argument("--headless")
     driver = webdriver.Firefox(options=options)
     driver.get("https://ibiblioteka.lt/metis/publication")
 
-    progresas.zingsnis("Susijukta su iBiblioteka")
+    progress.progress("Susijukta su iBiblioteka")
         
     search_box = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.ID, "mat-input-0"))
@@ -119,9 +119,9 @@ def susijuntiSuDriver():
             EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
         )
         
-    progresas.zingsnis("Pasiruosia priimti duomenis")
+    progress.progress("Pasiruosia priimti duomenis")
 
-def inputFormUser(isbn):
+def input_form_user(isbn):
     
     local_isbn = isbn
     
@@ -146,7 +146,7 @@ def inputFormUser(isbn):
     r_dict["isbn"]=local_isbn 
     return r_dict
 
-def iBibliotekosPaieska(input_csv, output_csv, emtey_csv):
+def iBibliotekos_paieska(input_csv, output_csv, emtey_csv):
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
@@ -157,13 +157,13 @@ def iBibliotekosPaieska(input_csv, output_csv, emtey_csv):
         for index, row in enumerate(rows):
             print(str(int((index / lenth) * 100)) + "%")
         
-            data=iBibliotekaScraper(row["isbn"])
+            data=iBiblioteka_scraper(row["isbn"])
             
             if(data[ fieldnames[ 1 ] ] == "---"):
                 nrows.append( data )
                 
             else:
-                if not PalyginimasSuPagrindineLentelia( data ):
+                if not conpare_with_main_sheet( data ):
                     nrows.append( data )
         
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
@@ -171,23 +171,23 @@ def iBibliotekosPaieska(input_csv, output_csv, emtey_csv):
         writer.writeheader()
         writer.writerows(nrows)
 
-def iBibliotekosPaieskaTiesiogiai(output_csv):
+def iBibliotekos_paieska_tiesiogiai(output_csv):
 
     global driver
         
-    susijuntiSuDriver()
+    connect_to_driver()
 
     while True:
         isbn = inquirer.text(message="ISBN:").execute()
         isbn = str(isbn)
         
         if(isbn.lower() == 'q'): 
-            killinDrive()
+            kill_drive()
             break
 
-        data = iBibliotekaScraper(isbn)
+        data = iBiblioteka_scraper(isbn)
 
-        if PalyginimasSuPagrindineLentelia(data):
+        if conpare_with_main_sheet(data):
             continue
         
         file_empty = is_file_empty(output_csv)
@@ -199,7 +199,7 @@ def iBibliotekosPaieskaTiesiogiai(output_csv):
                 writer.writeheader()
             writer.writerow(data) 
 
-def PalyginimasSuPagrindineLentelia(inputRows : list):
+def conpare_with_main_sheet(inputRows : list):
 
     # if is_file_empty("csv/Bibliotekos Knygos - VIsos knygos.csv"):
     #     print("Ikleti is pagrindines lenteles csv faila")
@@ -219,7 +219,7 @@ def PalyginimasSuPagrindineLentelia(inputRows : list):
     #     return False
     return False
 
-def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
+def input_form_user(pavadinimas = "", metai=""):
     
     while True:
         Autorius    = inquirer.text(message="Autorius:").execute()
@@ -236,6 +236,6 @@ def inputFormUserBePavadinimo(pavadinimas = "", metai=""):
             
     return [Autorius,Pavadinimas,Metai,ISBN]
 
-def killinDrive():
+def kill_drive():
     if(driver!=None): 
         driver.quit()

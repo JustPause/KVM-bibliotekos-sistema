@@ -1,19 +1,19 @@
 import datetime
-from src.osHelper import ArYraDirectorija
-from src.ISBNSpausdinima import generate_KVM_barcode
+from src.osHelper import is_it_directory
+from src.ISBNPrint import generate_KVM_barcode
 from src.helpers.PDF import images_to_pdf 
 
 def barcode_generator(num:int, output_pdf:str):    
-    filenameArray=[] 
+    filename_array=[] 
     caches = "caches/BarCode/"
 
-    ArYraDirectorija(caches)
-    ArYraDirectorija(output_pdf)
+    is_it_directory(caches)
+    is_it_directory(output_pdf)
 
     for index in range(num):
         print(str(int((index / num) * 100)) + "%")
         
-        filenameArray.append( 
+        filename_array.append( 
             generate_KVM_barcode(
                 "KVM" +
                 datetime.datetime.today().strftime('%y%m%d') +
@@ -21,6 +21,6 @@ def barcode_generator(num:int, output_pdf:str):
             )
         )
     
-    images_to_pdf(filenameArray,output_pdf)
+    images_to_pdf(filename_array,output_pdf)
 
 # barcode_generator(10, "csv/Knygos_Su_Viskuom.csv")

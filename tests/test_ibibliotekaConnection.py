@@ -2,7 +2,7 @@ import csv
 import tempfile
 import unittest
 
-from src.ibibliotekaSusija import iBibliotekosPaieska, iBibliotekaScraper, iBibliotekosPaieskaTiesiogiai, killinDrive
+from src.ibibliotekaConnection import iBiblioteka_scraper, iBibliotekos_paieska, kill_drive
 
 isbn_array=[
     ["995543578x"], ["998614359x"], ["998659703x"], ["KVM251027025"], ["5790007279"], ["5899425733"], ["5899500190"], ["7986879477"], ["9886140013"], ["9955061030"], ["9955082461"], ["9955088699"]
@@ -22,9 +22,9 @@ ats_array =[
     {'Autorius': 'Knister', 'Pavadinimas': 'Ragana Lilė tampa sekle', 'Metai': '2005', 'isbn': '9955088699'}
 ]
 class TestIbibliotekaSusija(unittest.TestCase):
-    def test_iBibliotekaScraper(self):
-        data=iBibliotekaScraper(9786094875786)
-        killinDrive()
+    def test_iBiblioteka_scraper(self):
+        data=iBiblioteka_scraper(9786094875786)
+        kill_drive()
         self.assertEqual(data.get("Pavadinimas"),"Papasakok apie gražų mūsų gyvenimą")
         self.assertEqual(data.get("Autorius"),"Sikorskienė, Vaiva")
         self.assertEqual(data.get("Metai"),"2025")
@@ -40,7 +40,7 @@ class TestIbibliotekaSusija(unittest.TestCase):
             writer.writerow(["isbn"])
             writer.writerows(isbn_array)
 
-        iBibliotekosPaieska(self.tmpInput,self.tmpOutput,self.tmpEmpty)
+        iBibliotekos_paieska(self.tmpInput,self.tmpOutput,self.tmpEmpty)
         
         with open(self.tmpOutput, 'r', newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)

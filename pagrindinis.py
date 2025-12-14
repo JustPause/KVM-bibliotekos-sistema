@@ -1,14 +1,14 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
-from src.ISBNSpausdinima import to_csv_file
-from src.KnygosSuradimasPabalISBN import scanner
-from src.ibibliotekaSusija import iBibliotekosPaieska,iBibliotekosPaieskaTiesiogiai
+from ISBNPrint import to_csv_file
+from bookFindingByISBN import scanner
+from ibibliotekaConnection import iBibliotekosPaieska,iBibliotekosPaieskaTiesiogiai
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
-Klausimai = [
+KLAUSIMAI = [
     "Brūkšninio kodo kūrimas",
     "Knygų rašymas į iBiblioteką pagal ISBN CSV",
     "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
@@ -18,18 +18,18 @@ Klausimai = [
     # "Suvedimas pagal pavadinima"
 ]
 
-suformatuotiKlausimai = [
+KLAUSIMU_FORMUOTE = [
     {
         "type": "list",
         "name": "veiksmas",
         "message": "Pasirinkite, kokią funkciją norite atlikti:",
-        "choices": Klausimai,
+        "choices": KLAUSIMAI,
     }
 ]
 
 klaidos="Nurodykite teisingą failo kelią"
 
-def returningCorrectExtension(path,ending):
+def get_correct_extension(path,ending):
     path = str(path)
 
     if not path.endswith(ending):
@@ -43,10 +43,10 @@ def returningCorrectExtension(path,ending):
 
     return path
 
-result = prompt(suformatuotiKlausimai)
-pasirinkimoIndexas = Klausimai.index(result['veiksmas'])
+result = prompt(KLAUSIMU_FORMUOTE)
+pasirinkimo_indexas = KLAUSIMAI.index(result['veiksmas'])
 
-match pasirinkimoIndexas:
+match pasirinkimo_indexas:
     
     case 0: # Brūkšninio kodo kūrimas
 
@@ -93,7 +93,7 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        returningCorrectExtension(dest_path,".csv")
+        dest_path=get_correct_extension(dest_path,".csv")
 
         iBibliotekosPaieska(src_path, dest_path, empty_path, 'a')
         
@@ -109,7 +109,7 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
 
-        returningCorrectExtension(dest_path,".csv")
+        dest_path=get_correct_extension(dest_path,".csv")
 
         iBibliotekosPaieskaTiesiogiai(dest_path)   
         
@@ -132,8 +132,7 @@ match pasirinkimoIndexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        dest_path = returningCorrectExtension(dest_path, ".pdf")
-
+        dest_path = get_correct_extension(dest_path, ".pdf")
 
         to_csv_file(src_path,dest_path)
         

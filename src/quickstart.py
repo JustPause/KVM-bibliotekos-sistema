@@ -9,7 +9,7 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-def connect_to_sheet(sheet_id,sheet_range):
+def connect_to_sheet():
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
@@ -43,7 +43,7 @@ def connect_to_sheet(sheet_id,sheet_range):
         
         return None
 
-def getData(sheet,sheet_id,sheet_range):
+def get_data(sheet,sheet_id,sheet_range):
 
     result = (
             sheet.values()
@@ -70,9 +70,8 @@ def get_sheet_rows():
         sheet = json.load(sheet_json)
 
         sheet_id = sheet["sheet_id"]
-        sheet_range = sheet["range"]
     
-    sheet = connect_to_sheet(sheet_id,sheet_range)
+    sheet = connect_to_sheet()
     rows = getData(sheet,sheet_id,"VIsos knygos!A:D")[0:10]
     heads = rows[0]
     rows = rows[1:-1]
