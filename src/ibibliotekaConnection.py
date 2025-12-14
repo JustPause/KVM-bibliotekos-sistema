@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 import csv
-from googleSheets import get_sheet_rows
+from src.googleSheets import get_sheet_rows
 from src.osHelper import is_file_empty
 from src.progress import Progress
 
@@ -151,9 +151,11 @@ def iBibliotekos_paieska(input_csv, output_csv, emtey_csv):
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
-        nrows = list()
-        wrows = list()
+        newrows = list()
+
         lenth = len(rows)
+        
+        googleSheet=get_sheet_rows()
         
         for index, row in enumerate(rows):
             print(str(int((index / lenth) * 100)) + "%")
@@ -161,16 +163,16 @@ def iBibliotekos_paieska(input_csv, output_csv, emtey_csv):
             data=iBiblioteka_scraper(row["isbn"])
             
             if(data[ fieldnames[ 1 ] ] == "---"):
-                nrows.append( data )
+                newrows.append( data )
                 
             else:
-                if not conpare_with_main_sheet( data ):
-                    nrows.append( data )
+                if not conpare_with_main_sheet( data,googleSheet ):
+                    newrows.append( data )
         
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
-        writer.writerows(nrows)
+        writer.writerows(newrows)
 
 def iBibliotekos_paieska_tiesiogiai(output_csv):
 
@@ -205,16 +207,21 @@ def conpare_with_main_sheet(inputRows : list,mainSheet: list):
         print("Nepavyksta prisijunkti prie google sheets")
         return
 
-    print(inputRows)
-    print(mainSheet)
-
     for row in mainSheet:
-        if ((inputRows["Pavadinimas"] == row["Pavadinimas"] and row["Kodas"] == '')):
-            dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":row["Kodas"]})
+        if ((inputRows["Pavadinimas"] == row["Pavadinimas"] and row["Kodas"] == '') and (inputRows["Metai"] == (row["Metai"] or ''))):
+            # dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":row["Kodas"]})'
+            print(row)
+            print("Dublicats Be Kodo")
+            print(inputRows)
             return True
-        if ((inputRows["Pavadinimas"] == row["Pavadinimas"])):
-            dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
+        
+        if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
+            # dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
+            print(row)
+            print("Dublicats")
+            print(inputRows)
             return True
+        
     return False
 
 
