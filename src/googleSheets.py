@@ -65,6 +65,17 @@ def padding_row_data(row, local_range):
         data.append("")
     return data
 
+def get_sheet_head():
+    with open("src/.env/sheet.json", 'r') as sheet_json:
+        sheet = json.load(sheet_json)
+
+        sheet_id = sheet["sheet_id"]
+    
+    sheet = connect_to_sheet()
+    rows = get_data(sheet,sheet_id,"VIsos knygos!A:D")[0:10]
+    heads = rows[0]
+    return heads
+
 def get_sheet_rows():
     with open("src/.env/sheet.json", 'r') as sheet_json:
         sheet = json.load(sheet_json)
@@ -72,7 +83,7 @@ def get_sheet_rows():
         sheet_id = sheet["sheet_id"]
     
     sheet = connect_to_sheet()
-    rows = getData(sheet,sheet_id,"VIsos knygos!A:D")[0:10]
+    rows = get_data(sheet,sheet_id,"VIsos knygos!A:D")[0:10]
     heads = rows[0]
     rows = rows[1:-1]
     
@@ -80,19 +91,35 @@ def get_sheet_rows():
     
     for row in rows:
         match len(row):
-            case 1:      
-                working_sheet.append(padding_row_data(row,4-1))
+            case 1:  
+                data= padding_row_data(row,4-1)
+                data_dict =	making_dictionary_pairs(heads, data)    
+                working_sheet.append(data_dict)
                 
             case 2:
-                working_sheet.append(padding_row_data(row,4-2))
+                data= padding_row_data(row,4-2)
+                data_dict =	making_dictionary_pairs(heads, data)      
+                working_sheet.append(data_dict)
                 
             case 3:
-                working_sheet.append(padding_row_data(row,4-3))
+                data= padding_row_data(row,4-3)
+                data_dict =	making_dictionary_pairs(heads, data)    
+                working_sheet.append(data_dict)
                 
             case 4:
-                working_sheet.append(padding_row_data(row,4-4))
+                data= padding_row_data(row,4-4)
+                data_dict =	making_dictionary_pairs(heads, data)    
+                working_sheet.append(data_dict)
                 
             case _:
                 raise IndexError
     
     return working_sheet
+
+def making_dictionary_pairs(heads, data):
+    return {
+        heads[0]: data[0],
+        heads[1]: data[1],
+        heads[2]: data[2],
+        heads[3]: data[3]
+    }

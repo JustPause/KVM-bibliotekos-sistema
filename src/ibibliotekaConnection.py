@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 import csv
+from googleSheets import get_sheet_rows
 from src.osHelper import is_file_empty
 from src.progress import Progress
 
@@ -199,25 +200,23 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
                 writer.writeheader()
             writer.writerow(data) 
 
-def conpare_with_main_sheet(inputRows : list):
+def conpare_with_main_sheet(inputRows : list,mainSheet: list):
+    if not mainSheet:
+        print("Nepavyksta prisijunkti prie google sheets")
+        return
 
-    # if is_file_empty("csv/Bibliotekos Knygos - VIsos knygos.csv"):
-    #     print("Ikleti is pagrindines lenteles csv faila")
-    #     return
+    print(inputRows)
+    print(mainSheet)
 
-    # with open("csv/Bibliotekos Knygos - VIsos knygos.csv", 'r', newline='', encoding='utf-8') as f:
-    #     rows = list(csv.DictReader(f))
-    #     dublicaterows= []
-
-    #     for oRow in rows:
-    #         if ((inputRows["Pavadinimas"] == oRow["Pavadinimas"] and oRow["Kodas"] == '')):
-    #             dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":oRow["Kodas"]})
-    #             return True
-    #         if ((inputRows["Pavadinimas"] == oRow["Pavadinimas"])):
-    #             dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
-    #             return True
-    #     return False
+    for row in mainSheet:
+        if ((inputRows["Pavadinimas"] == row["Pavadinimas"] and row["Kodas"] == '')):
+            dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":row["Kodas"]})
+            return True
+        if ((inputRows["Pavadinimas"] == row["Pavadinimas"])):
+            dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
+            return True
     return False
+
 
 def input_form_user(pavadinimas = "", metai=""):
     
