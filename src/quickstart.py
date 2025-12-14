@@ -9,16 +9,10 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-sheet = None
-sheet_id= None
-sheet_range= None
-
-def main():
+def connect_to_sheet(sheet_id,sheet_range):
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
-
-    global sheet,sheet_id,sheet_range
 
     token = "src/.env/token.json"
     client_secret = "src/.env/client_secret.json"
@@ -37,25 +31,20 @@ def main():
         with open(token, "w") as token:
             token.write(creds.to_json())
 
-    with open("src/.env/sheet.json", 'r') as sheet_json:
-        sheet = json.load(sheet_json)
-
-        sheet_id = sheet["sheet_id"]
-        sheet_range = sheet["range"]
-        
     try:
         service = build("sheets", "v4", credentials=creds)
 
         sheet = service.spreadsheets()
         
-        # print("Name, Major:")
-        # for row in values:
-        #     print(row)
+        return sheet
+        
     except HttpError as err:
         print(err)
+        
+        return None
 
-def getData(sheet_range):
-    global sheet,sheet_id
+def getData(sheet,sheet_id,sheet_range):
+
     result = (
             sheet.values()
             .get(spreadsheetId=sheet_id, range=sheet_range)
@@ -69,6 +58,42 @@ def getData(sheet_range):
     
     return values
 
-if __name__ == "__main__":
-    main()
-    print(getData("VIsos knygos!B2:B"))
+def padding_row_data(row, local_range):
+    data = list(row)
+                
+    for i in range(local_range):
+        data.append("")
+    return data
+
+def get_sheet_rows():
+    with open("src/.env/sheet.json", 'r') as sheet_json:
+        sheet = json.load(sheet_json)
+
+        sheet_id = sheet["sheet_id"]
+        sheet_range = sheet["range"]
+    
+    sheet = connect_to_sheet(sheet_id,sheet_range)
+    rows = getData(sheet,sheet_id,"VIsos knygos!A:D")[0:10]
+    heads = rows[0]
+    rows = rows[1:-1]
+    
+    working_sheet = list()
+    
+    for row in rows:
+        match len(row):
+            case 1:      
+                working_sheet.append(padding_row_data(row,4-1))
+                
+            case 2:
+                working_sheet.append(padding_row_data(row,4-2))
+                
+            case 3:
+                working_sheet.append(padding_row_data(row,4-3))
+                
+            case 4:
+                working_sheet.append(padding_row_data(row,4-4))
+                
+            case _:
+                raise IndexError
+    
+    return working_sheet
