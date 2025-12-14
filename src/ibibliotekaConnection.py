@@ -204,24 +204,15 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
                 writer.writeheader()
             writer.writerow(data) 
 
-def conpare_with_main_sheet(inputRows : list,mainSheet: list):
+def conpare_with_main_sheet(inputRows : list, mainSheet: list):
+    dublicateRows = list()
+    
     if not mainSheet:
         print("Nepavyksta prisijunkti prie google sheets")
         return
 
     for row in mainSheet:
-        if ((inputRows["Pavadinimas"] == row["Pavadinimas"] and row["Kodas"] == '') and (inputRows["Metai"] == (row["Metai"] or ''))):
-            # dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":row["Kodas"]})'
-            print(row)
-            print("Dublicats Be Kodo")
-            print(inputRows)
-            return True
-        
         if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
-            # dublicaterows.append({"Pavadinimas":inputRows["Pavadinimas"], "isnb":""})
-            print(row)
-            print("Dublicats")
-            print(inputRows)
             return True
         
     return False
@@ -233,7 +224,7 @@ def input_form_user(pavadinimas = "", metai=""):
         Autorius    = inquirer.text(message="Autorius:").execute()
         Pavadinimas = inquirer.text(message="Pavadinimas:",  default=pavadinimas).execute()
         Metai       = inquirer.text(message="Metai:", default=metai).execute()
-        ISBN        = inquirer.text(message="ISBN:", default=metai).execute()
+        Isnb        = inquirer.text(message="ISBN:", default=metai).execute()
         proceed     = inquirer.select(
             message="Choose one option:",
             choices=["Testi", "Bandyti dar kart"]
@@ -242,7 +233,7 @@ def input_form_user(pavadinimas = "", metai=""):
         if proceed == "Testi":
             break
             
-    return [Autorius,Pavadinimas,Metai,ISBN]
+    return [Autorius, Pavadinimas, Metai, Isnb]
 
 def kill_drive():
     if(driver!=None): 
