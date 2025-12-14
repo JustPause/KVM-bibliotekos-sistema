@@ -147,7 +147,7 @@ def input_form_user(isbn):
     r_dict["isbn"]=local_isbn 
     return r_dict
 
-def iBibliotekos_paieska(input_csv, output_csv, emtey_csv):
+def iBibliotekos_paieska(input_csv, output_csv):
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows = list(reader)
@@ -158,17 +158,19 @@ def iBibliotekos_paieska(input_csv, output_csv, emtey_csv):
         googleSheet=get_sheet_rows()
         
         for index, row in enumerate(rows):
-            print(str(int((index / lenth) * 100)) + "%")
+            print( str( int( (index / lenth) * 100) ) + "%")
         
-            data=iBiblioteka_scraper(row["isbn"])
+            data = iBiblioteka_scraper(row["isbn"])
             
-            if(data[ fieldnames[ 1 ] ] == "---"):
+            if( data[fieldnames[ 1 ]] == "---" ):
                 newrows.append( data )
                 
             else:
-                if not conpare_with_main_sheet( data,googleSheet ):
+                if not conpare_with_main_sheet( data, googleSheet ):
                     newrows.append( data )
-        
+                else:
+                    newrows.append( data )
+    
     with open(output_csv, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()

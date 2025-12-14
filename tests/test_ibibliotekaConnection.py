@@ -25,6 +25,7 @@ class TestIbibliotekaSusija(unittest.TestCase):
     def test_iBiblioteka_scraper(self):
         data=iBiblioteka_scraper(9786094875786)
         kill_drive()
+        
         self.assertEqual(data.get("Pavadinimas"),"Papasakok apie gražų mūsų gyvenimą")
         self.assertEqual(data.get("Autorius"),"Sikorskienė, Vaiva")
         self.assertEqual(data.get("Metai"),"2025")
@@ -40,17 +41,17 @@ class TestIbibliotekaSusija(unittest.TestCase):
             writer.writerow(["isbn"])
             writer.writerows(isbn_array)
 
-        iBibliotekos_paieska(self.tmpInput,self.tmpOutput,self.tmpEmpty)
+        iBibliotekos_paieska(self.tmpInput, self.tmpOutput)
         
-        # with open(self.tmpOutput, 'r', newline='', encoding='utf-8') as f:
-        #     reader = csv.DictReader(f)
-        #     rows = list(reader)
+        with open(self.tmpOutput, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
             
-        #     for index,row in enumerate(rows):
-        #         self.assertEqual(row.get('Autorius'), ats_array[index].get('Autorius'))
-        #         self.assertEqual(row.get('Pavadinimas'), ats_array[index].get('Pavadinimas'))
-        #         self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
-        #         self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
+            for index,row in enumerate(rows):
+                self.assertEqual(row.get('Autorius'), ats_array[index].get('Autorius'))
+                self.assertEqual(row.get('Pavadinimas'), ats_array[index].get('Pavadinimas'))
+                self.assertEqual(row.get('Metai'), ats_array[index].get('Metai'))
+                self.assertEqual(row.get('isbn'), ats_array[index].get('isbn'))
                 
     def test_PalyginimasSuPagrindineLentelia(self):
         # TO if no table exists
