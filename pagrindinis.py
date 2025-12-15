@@ -1,10 +1,10 @@
 import os
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
-from ISBNPrint import to_csv_file
-from bookFindingByISBN import scanner
-from ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
+from src.ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
 from src.barcodeKurimas import barcode_generator
+from src.ISBNPrint import to_csv_file
+from src.bookFindingByISBN import scanner
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
@@ -85,17 +85,9 @@ match pasirinkimo_indexas:
             validate=lambda path: not os.path.isdir(path),
         ).execute()
         
-        empty_path = inquirer.filepath(
-            message="Pasirinkite i kurio faila bus idedami duomenys kurie bus nerasti:",
-            default=os.path.join(home_path, "Empty.csv"),
-            transformer=lambda path: path + ".csv" if not path.endswith(".csv") else path,
-            invalid_message=klaidos,
-            validate=lambda path: not os.path.isdir(path),
-        ).execute()
-        
         dest_path=get_correct_extension(dest_path,".csv")
 
-        iBibliotekos_paieska(src_path, dest_path, empty_path, 'a')
+        iBibliotekos_paieska(src_path, dest_path)
         
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 

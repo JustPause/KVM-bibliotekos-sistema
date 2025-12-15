@@ -17,6 +17,7 @@ from src.progress import Progress
 
 driver=None
 search_box=None
+mainSheet=None
 
 fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
@@ -155,8 +156,6 @@ def iBibliotekos_paieska(input_csv, output_csv):
 
         lenth = len(rows)
         
-        googleSheet=get_sheet_rows()
-        
         for index, row in enumerate(rows):
             print( str( int( (index / lenth) * 100) ) + "%")
         
@@ -166,7 +165,7 @@ def iBibliotekos_paieska(input_csv, output_csv):
                 newrows.append( data )
                 
             else:
-                if not conpare_with_main_sheet( data, googleSheet ):
+                if not conpare_with_main_sheet( data ):
                     newrows.append( data )
                 else:
                     newrows.append( data )
@@ -204,11 +203,13 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
                 writer.writeheader()
             writer.writerow(data) 
 
-def conpare_with_main_sheet(inputRows : list, mainSheet: list):
+def conpare_with_main_sheet(inputRows : list):
+    global mainSheet
     dublicateRows = list()
     
     if not mainSheet:
-        print("Nepavyksta prisijunkti prie google sheets")
+        print("ping")
+        mainSheet=get_sheet_rows()
         return
 
     for row in mainSheet:

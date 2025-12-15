@@ -77,8 +77,9 @@ def get_sheet_rows():
     rows = rows[1:-1]
     
     working_sheet = list()
-    
+    print(heads)
     for row in rows:
+
         match len(row):
             case 1:  
                 data= padding_row_data(row,4-1)
@@ -87,7 +88,7 @@ def get_sheet_rows():
                 
             case 2:
                 data= padding_row_data(row,4-2)
-                data_dict =	making_dictionary_pairs(heads, data)      
+                data_dict =	making_dictionary_pairs(heads, data)    
                 working_sheet.append(data_dict)
                 
             case 3:
@@ -102,7 +103,6 @@ def get_sheet_rows():
                 
             case _:
                 raise IndexError
-    
     return working_sheet
 
 def making_dictionary_pairs(heads, data):
