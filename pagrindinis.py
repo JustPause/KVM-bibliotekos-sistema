@@ -3,7 +3,7 @@ from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 from ISBNPrint import to_csv_file
 from bookFindingByISBN import scanner
-from ibibliotekaConnection import iBibliotekosPaieska,iBibliotekosPaieskaTiesiogiai
+from ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
 from src.barcodeKurimas import barcode_generator
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
@@ -95,7 +95,7 @@ match pasirinkimo_indexas:
         
         dest_path=get_correct_extension(dest_path,".csv")
 
-        iBibliotekosPaieska(src_path, dest_path, empty_path, 'a')
+        iBibliotekos_paieska(src_path, dest_path, empty_path, 'a')
         
     case 2: # Knygų rašymas į iBiblioteką pagal ISBN Scanner
 
@@ -111,7 +111,7 @@ match pasirinkimo_indexas:
 
         dest_path=get_correct_extension(dest_path,".csv")
 
-        iBibliotekosPaieskaTiesiogiai(dest_path)   
+        iBibliotekos_paieska_tiesiogiai(dest_path)   
         
     case 3: # ISBN iš CSV į PDF
 
