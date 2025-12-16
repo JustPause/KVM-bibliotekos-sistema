@@ -2,6 +2,7 @@ import csv
 import barcode
 
 from barcode.writer import ImageWriter
+from src.osHelper import is_it_directory
 from src.helpers.PDF import images_to_pdf
 
 def generate_13_barcode(isbn, output):
@@ -61,6 +62,7 @@ def to_csv_file(input_csv, output_csv):
         for row in rows:
             isbn_corect = row['Atspauzdinti']
             caches = "caches/BarCode/"
+            is_it_directory(caches)
             
             if len(isbn_corect)!=13:
                 filenameArray.append( generate_10_barcode(isbn_corect, caches) )
