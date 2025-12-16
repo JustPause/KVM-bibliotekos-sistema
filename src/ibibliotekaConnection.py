@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import re
 import csv
-from src.googleSheets import get_sheet_rows
+from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.osHelper import is_file_empty
 from src.progress import Progress
 
@@ -210,10 +210,10 @@ def conpare_with_main_sheet(inputRows : list):
     if not mainSheet:
         print("ping")
         mainSheet=get_sheet_rows()
-        return
 
-    for row in mainSheet:
+    for index, row in enumerate(mainSheet):
         if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
+            # set_book_isnb_in_sheet(mainSheet,index, inputRows["isbn"])
             return True
         
     return False

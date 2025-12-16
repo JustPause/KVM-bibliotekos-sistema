@@ -70,14 +70,14 @@ def get_sheet_rows():
         sheet = json.load(sheet_json)
 
         sheet_id = sheet["sheet_id"]
+        rage = sheet["rage"]
     
     sheet = connect_to_sheet()
-    rows = get_data(sheet,sheet_id,"VIsos knygos!A:D")
+    rows = get_data(sheet,sheet_id,rage)
     heads = rows[0]
     rows = rows[1:-1]
     
     working_sheet = list()
-    print(heads)
     for row in rows:
 
         match len(row):
@@ -104,6 +104,41 @@ def get_sheet_rows():
             case _:
                 raise IndexError
     return working_sheet
+
+def set_book_isnb_in_sheet(sheet,rowid, newData):
+    with open("src/.env/sheet.json", 'r') as sheet_json:
+        sheet_ = json.load(sheet_json)
+
+        sheet_id = sheet_["sheet_id"]
+        rage = sheet_["rage"]
+
+    result = (
+        sheet
+        .values()
+        .get(spreadsheetId=sheet_id, range="VIsos knygos!A1:D")
+        .execute()
+    )
+    values = result.get("values", [])
+    print(values)
+    # values = [
+    #     [
+    #         [1,2,3,4]
+    #     ],
+    # ]
+    # body = {"values": values}
+    # result = (
+    #     sheet
+    #     .values()
+    #     .update(
+    #         spreadsheetId=sheet_id,
+    #         range="VIsos knygos!A{rowid}:D{rowid}",
+    #         valueInputOption=value_input_option,
+    #         body=body,
+    #     )
+    #     .execute()
+    # )
+    # print(f"{result.get('updatedCells')} cells updated.")
+    # return result
 
 def making_dictionary_pairs(heads, data):
     return {
