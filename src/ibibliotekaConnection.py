@@ -80,21 +80,40 @@ def data_extracotr(isbn):
     row_dict = {}
         
     for row in rows:
-        if(row.text.strip()=="Susideda iš dalių" or row.text.strip()==""):
-            break
-        
+
         key, value = row.text.split(":", 1)
-            
-        if(key=="Publikavimo duomenys"):
-            key="Metai"
-            
-        key = key.strip()
-        value = value.strip()
-        if(key=="Metai"):
-            years = re.findall(r'\d{4}', value)
-            value = years[0] if years else ""
+        
+        match key:
+            case "Pavadinimas":
                 
-        row_dict[key] = value
+                key = key.strip()
+                value = value.strip()
+                row_dict[key] = value
+                
+            case "Autorius":
+                
+                key = key.strip()
+                value = value.strip()
+                row_dict[key] = value
+            
+            case "Publikavimo duomenys":  
+                years = re.findall(r'\d{4}', value)
+                value = years[0] if years else ""
+                key = "Metai"
+                
+                key = key.strip()
+                value = value.strip()
+                row_dict[key] = value
+            
+            case "isbn":
+                
+                key = key.strip()
+                value = value.strip()
+                row_dict[key] = value
+
+    for key in fieldnames:
+        if key not in row_dict:
+            row_dict[key] = ''
         
     row_dict["isbn"] = isbn
     
@@ -213,7 +232,9 @@ def conpare_with_main_sheet(inputRows : list):
 
     for index, row in enumerate(mainSheet):
         if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
-            # set_book_isnb_in_sheet(mainSheet,index, inputRows["isbn"])
+            # print(row)
+            # print(index) 5415000879
+            set_book_isnb_in_sheet(mainSheet,index, inputRows["isbn"])
             return True
         
     return False

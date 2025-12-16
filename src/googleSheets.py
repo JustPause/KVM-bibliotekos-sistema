@@ -112,15 +112,19 @@ def set_book_isnb_in_sheet(sheet,rowid, newData):
         sheet_id = sheet_["sheet_id"]
         rage = sheet_["rage"]
 
+    sheet = connect_to_sheet()
+
+    rowid=rowid + 2# one is head, one is counting form 0 but sheet counts form 1
+
     result = (
-        sheet
-        .values()
-        .get(spreadsheetId=sheet_id, range="VIsos knygos!A1:D")
+        sheet.values()
+        .get(spreadsheetId=sheet_id, range=f"VIsos knygos!A{rowid}:D{rowid}")
         .execute()
     )
-    
+
     values = result.get("values", [])
     print(values)
+
     # values = [
     #     [
     #         [1,2,3,4]
