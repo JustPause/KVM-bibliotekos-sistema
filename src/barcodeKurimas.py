@@ -22,5 +22,3 @@ def barcode_generator(num:int, output_pdf:str):
         )
     
     images_to_pdf(filename_array,output_pdf)
-
-# barcode_generator(10, "csv/Knygos_Su_Viskuom.csv")

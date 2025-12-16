@@ -109,3 +109,5 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * [ ] "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
 * [ ] "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
 * [ ] "Suvedimas pagal pavadinima"
+
+* prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
