@@ -118,6 +118,7 @@ def set_book_isnb_in_sheet(sheet,rowid, newData):
         .get(spreadsheetId=sheet_id, range="VIsos knygos!A1:D")
         .execute()
     )
+    
     values = result.get("values", [])
     print(values)
     # values = [
