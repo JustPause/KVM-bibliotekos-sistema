@@ -14,12 +14,12 @@ import csv
 from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.osHelper import is_file_empty
 from src.progress import Progress
+from src.helpers.utils import get_fieldnames
 
 driver=None
 search_box=None
 mainSheet=None
-
-fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+fieldnames = get_fieldnames()
 
 def iBiblioteka_scraper(isbn): 
     if(driver==None): 
@@ -224,18 +224,15 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
 
 def conpare_with_main_sheet(inputRows : list):
     global mainSheet
-    dublicateRows = list()
     
     if not mainSheet:
         print("ping")
         mainSheet=get_sheet_rows()
 
-    for index, row in enumerate(mainSheet):
-        if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
-            # print(row)
-            # print(index) 5415000879
-            set_book_isnb_in_sheet(mainSheet,index, inputRows["isbn"])
-            return True
+    # for index, row in enumerate(mainSheet):
+    #     if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
+    #         set_book_isnb_in_sheet(index, inputRows)
+    #         return True
         
     return False
 
@@ -260,3 +257,4 @@ def input_form_user(pavadinimas = "", metai=""):
 def kill_drive():
     if(driver!=None): 
         driver.quit()
+

@@ -1,7 +1,9 @@
 import csv
 
+from src.helpers.utils import get_fieldnames
+
 def scanner(file):
-    fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
+    fieldnames = get_fieldnames()
     while True:
         with open(f"csv/{file}", 'r', newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)

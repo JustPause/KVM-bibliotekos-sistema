@@ -7,6 +7,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from src.helpers.utils import get_fieldnames
+
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 def connect_to_sheet():
@@ -105,7 +107,7 @@ def get_sheet_rows():
                 raise IndexError
     return working_sheet
 
-def set_book_isnb_in_sheet(sheet,rowid, newData):
+def set_book_isnb_in_sheet(rowid, newData):
     with open("src/.env/sheet.json", 'r') as sheet_json:
         sheet_ = json.load(sheet_json)
 
@@ -116,34 +118,51 @@ def set_book_isnb_in_sheet(sheet,rowid, newData):
 
     rowid=rowid + 2# one is head, one is counting form 0 but sheet counts form 1
 
-    result = (
+    sheet_result = (
         sheet.values()
         .get(spreadsheetId=sheet_id, range=f"VIsos knygos!A{rowid}:D{rowid}")
         .execute()
     )
 
-    values = result.get("values", [])
-    print(values)
+    sheet_values = list(sheet_result.get("values", [])[0])
+    returnValues = dict()
+    fieldnames = get_fieldnames()
 
-    # values = [
-    #     [
-    #         [1,2,3,4]
-    #     ],
-    # ]
-    # body = {"values": values}
-    # result = (
-    #     sheet
-    #     .values()
-    #     .update(
-    #         spreadsheetId=sheet_id,
-    #         range="VIsos knygos!A{rowid}:D{rowid}",
-    #         valueInputOption=value_input_option,
-    #         body=body,
-    #     )
-    #     .execute()
-    # )
-    # print(f"{result.get('updatedCells')} cells updated.")
-    # return result
+    for index in range(len(fieldnames)-len(sheet_values)):
+        sheet_values.append("---")
+
+    returnValues = [
+        newData["Autorius"],
+        newData["Pavadinimas"],
+        newData["Metai"],
+        newData["isbn"],
+    ]
+
+    return set_row(rowid, sheet_id, returnValues)
+
+def set_row(rowid, sheet_id, returnValues):
+    sheet = connect_to_sheet()
+    values = [
+        [
+            returnValues
+        ],
+    ]
+
+    body = {"values": values}
+    
+    result = (
+        sheet.values()
+        .update(
+            spreadsheetId=sheet_id,
+            range=f"VIsos knygos!A{rowid}:D{rowid}",
+            valueInputOption="USER_ENTERED",
+            body=body,
+        )
+        .execute()
+    )
+    print(f"{result.get('updatedCells')} cells updated.")
+    
+    return result
 
 def making_dictionary_pairs(heads, data):
     return {
