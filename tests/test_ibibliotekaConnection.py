@@ -19,7 +19,8 @@ ats_array =[
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': '9886140013'},
     {'Autorius': '', 'Pavadinimas': 'Vilkas ir septyni ožiukai ir kitos pasakos', 'Metai': '2003', 'isbn': '9955061030'},
     {'Autorius': 'Zanini, Giuseppe', 'Pavadinimas': 'Istorija', 'Metai': '2003', 'isbn': '9955082461'},
-    {'Autorius': 'Knister', 'Pavadinimas': 'Ragana Lilė tampa sekle', 'Metai': '2005', 'isbn': '9955088699'}
+    {'Autorius': 'Knister', 'Pavadinimas': 'Ragana Lilė tampa sekle', 'Metai': '2005', 'isbn': '9955088699'},
+    {'Pavadinimas': 'Mėnraštis „Aušra“', 'Metai': '2023', 'Autorius': '', 'isbn': '9786094253515'}
 ]
 class TestIbibliotekaSusija(unittest.TestCase):
     def test_iBiblioteka_scraper(self):
