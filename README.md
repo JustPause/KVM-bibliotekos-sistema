@@ -92,13 +92,13 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * Duoti galimybe kai skanuoja pataisyti ISNB koda
 * Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
 * Padaryti GUI
-- Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
-- Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
-- Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
-- Duoti galimybe kai skanuoja pataisyti ISNB koda
-- Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
-- Pasibandyti padaryti API bendravima tarp funciju ir lenteles
-- Padaryti GUI
+* Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
+* Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
+* Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
+* Duoti galimybe kai skanuoja pataisyti ISNB koda
+* Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
+* Pasibandyti padaryti API bendravima tarp funciju ir lenteles
+* Padaryti GUI
 
 ## Kas padaryta
 
@@ -111,3 +111,10 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * [ ] "Suvedimas pagal pavadinima"
 
 * prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
+
+## Dependense
+
+### Google fonts
+
+* Inter
+*+ Playfair_Display
