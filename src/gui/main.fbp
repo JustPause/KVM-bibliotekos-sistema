@@ -35,7 +35,7 @@
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg"></property>
-      <property name="center">wxBOTH</property>
+      <property name="center">wxHORIZONTAL</property>
       <property name="context_help"></property>
       <property name="context_menu">1</property>
       <property name="drag_accept_files">0</property>
@@ -60,18 +60,11 @@
       <property name="window_name"></property>
       <property name="window_style"></property>
       <property name="xrc_skip_sizer">1</property>
-      <object class="wxFlexGridSizer" expanded="true">
-        <property name="cols">2</property>
-        <property name="flexible_direction">wxBOTH</property>
-        <property name="growablecols"></property>
-        <property name="growablerows"></property>
-        <property name="hgap">0</property>
+      <object class="wxBoxSizer" expanded="true">
         <property name="minimum_size"></property>
-        <property name="name">fgSizer2</property>
-        <property name="non_flexible_grow_mode">wxFLEX_GROWMODE_ALL</property>
+        <property name="name">bSizer2</property>
+        <property name="orient">wxHORIZONTAL</property>
         <property name="permission">none</property>
-        <property name="rows">0</property>
-        <property name="vgap">0</property>
         <object class="sizeritem" expanded="false">
           <property name="border">0</property>
           <property name="flag">wxEXPAND</property>
@@ -121,8 +114,8 @@
             <property name="pos"></property>
             <property name="resize">Resizable</property>
             <property name="show">1</property>
-            <property name="size">256,700</property>
-            <property name="subclass">forward_declare; forward_declare; </property>
+            <property name="size">256,-1</property>
+            <property name="subclass"></property>
             <property name="toolbar_pane">0</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
@@ -179,8 +172,8 @@
             <property name="pos"></property>
             <property name="resize">Resizable</property>
             <property name="show">1</property>
-            <property name="size">1000,700</property>
-            <property name="subclass">forward_declare; forward_declare; </property>
+            <property name="size">-1,-1</property>
+            <property name="subclass"></property>
             <property name="toolbar_pane">0</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
