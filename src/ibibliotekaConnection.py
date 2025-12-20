@@ -81,7 +81,11 @@ def data_extracotr(isbn):
         
     for row in rows:
 
-        key, value = row.text.split(":", 1)
+        print(row.text)
+        if (row.text.find(":") != -1):
+            key, value = row.text.split(":", 1)
+        else:
+            value = row.text
         
         match key:
             case "Pavadinimas":
@@ -223,11 +227,11 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
             writer.writerow(data) 
 
 def conpare_with_main_sheet(inputRows : list):
-    global mainSheet
+    # global mainSheet
     
-    if not mainSheet:
-        print("ping")
-        mainSheet=get_sheet_rows()
+    # if not mainSheet:
+    #     print("ping")
+    #     mainSheet=get_sheet_rows()
 
     # for index, row in enumerate(mainSheet):
     #     if ((inputRows["Pavadinimas"] == row["Pavadinimas"]) and (inputRows["Metai"] == (row["Metai"] or ''))):
