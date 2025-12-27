@@ -1,6 +1,6 @@
 import os
 import wx
-from main import Pagrindinis
+from main import Pagrindinis,SideBar
 
 class Pagrindinis_updatedPath(Pagrindinis):
     def img_path(self, bitmap_path):
