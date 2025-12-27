@@ -1451,3 +1451,23 @@ class MainPanel ( wx.Panel ):
         return bitmap_path
 
 
+###########################################################################
+## Class Testing
+###########################################################################
+
+class Testing ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_HIGHLIGHT ) )
+
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
