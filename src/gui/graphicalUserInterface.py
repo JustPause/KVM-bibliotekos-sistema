@@ -1,7 +1,7 @@
 import os
 import wx
 import gettext
-from main import Pagrindinis,Testing
+from main import MainPanel, Pagrindinis, SideBar
 
 class Pagrindinis_updatedPath(Pagrindinis):
     def img_path(self, bitmap_path):
@@ -12,8 +12,10 @@ class GUI(wx.Frame):
         wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = gettext.gettext(u"Pagrindinis"), pos = wx.DefaultPosition, size = wx.Size( 1280,720 ), style = wx.CLOSE_BOX|wx.DEFAULT_FRAME_STYLE )
         
         mainSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.testing = Testing(self)
-        mainSizer.Add(self.testing, 1, wx.EXPAND | wx.ALL, 10)
+        self.sideBar = SideBar(self)
+        self.mainPanel = MainPanel(self)
+        mainSizer.Add(self.sideBar, 0, wx.EXPAND, 0)
+        mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
         self.SetSizer(mainSizer)
         self.Layout()
 
