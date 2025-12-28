@@ -13,7 +13,7 @@
     <property name="cpp_use_enum">1</property>
     <property name="embedded_files_path">res</property>
     <property name="encoding">UTF-8</property>
-    <property name="file">main</property>
+    <property name="file">wxformbuilder</property>
     <property name="first_id">6000</property>
     <property name="internationalize">1</property>
     <property name="lua_skip_events">1</property>
@@ -31,7 +31,7 @@
     <property name="relative_path">1</property>
     <property name="use_microsoft_bom">0</property>
     <property name="use_native_eol">0</property>
-    <object class="Panel" expanded="true">
+    <object class="Panel" expanded="false">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg">201,201,201</property>
@@ -285,7 +285,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnRightDClick">Click</event>
+                    <event name="OnLeftDown">Click</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
@@ -1179,11 +1179,11 @@
                   <property name="name">bSizer128</property>
                   <property name="orient">wxVERTICAL</property>
                   <property name="permission">none</property>
-                  <object class="sizeritem" expanded="true">
+                  <object class="sizeritem" expanded="false">
                     <property name="border">5</property>
                     <property name="flag">wxALL|wxALIGN_CENTER_HORIZONTAL</property>
                     <property name="proportion">0</property>
-                    <object class="wxStaticText" expanded="true">
+                    <object class="wxStaticText" expanded="false">
                       <property name="BottomDockable">1</property>
                       <property name="LeftDockable">1</property>
                       <property name="RightDockable">1</property>
