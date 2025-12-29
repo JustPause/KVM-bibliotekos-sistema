@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.dataview
 
 import gettext
 _ = gettext.gettext
@@ -263,20 +264,140 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
 
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
+        mainLayout.Add( ( 0, 32), 0, 0, 5 )
+
+        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        mainLayout.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
+        mainLayout.Add( ( 0, 32), 0, 0, 5 )
 
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorijaasdwaaaaaaaaaaaaaaaaaaaa"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
+        bSizer29 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        bSizer30 = wx.BoxSizer( wx.VERTICAL )
 
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
+        bSizer32 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_panel15 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        bSizer33 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText17 = wx.StaticText( self.m_panel15, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText17.Wrap( -1 )
+
+        bSizer33.Add( self.m_staticText17, 0, wx.ALL, 5 )
+
+
+        bSizer33.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText18 = wx.StaticText( self.m_panel15, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText18.Wrap( -1 )
+
+        bSizer33.Add( self.m_staticText18, 0, wx.ALL, 5 )
+
+
+        self.m_panel15.SetSizer( bSizer33 )
+        self.m_panel15.Layout()
+        bSizer33.Fit( self.m_panel15 )
+        bSizer32.Add( self.m_panel15, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.m_panel151 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        bSizer331 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText171 = wx.StaticText( self.m_panel151, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText171.Wrap( -1 )
+
+        bSizer331.Add( self.m_staticText171, 0, wx.ALL, 5 )
+
+
+        bSizer331.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText181 = wx.StaticText( self.m_panel151, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText181.Wrap( -1 )
+
+        bSizer331.Add( self.m_staticText181, 0, wx.ALL, 5 )
+
+
+        self.m_panel151.SetSizer( bSizer331 )
+        self.m_panel151.Layout()
+        bSizer331.Fit( self.m_panel151 )
+        bSizer32.Add( self.m_panel151, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.m_panel152 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        bSizer332 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText172 = wx.StaticText( self.m_panel152, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText172.Wrap( -1 )
+
+        bSizer332.Add( self.m_staticText172, 0, wx.ALL, 5 )
+
+
+        bSizer332.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText182 = wx.StaticText( self.m_panel152, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText182.Wrap( -1 )
+
+        bSizer332.Add( self.m_staticText182, 0, wx.ALL, 5 )
+
+
+        self.m_panel152.SetSizer( bSizer332 )
+        self.m_panel152.Layout()
+        bSizer332.Fit( self.m_panel152 )
+        bSizer32.Add( self.m_panel152, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.m_panel153 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        bSizer333 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText173 = wx.StaticText( self.m_panel153, wx.ID_ANY, _(u"ISNB"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText173.Wrap( -1 )
+
+        bSizer333.Add( self.m_staticText173, 0, wx.ALL, 5 )
+
+
+        bSizer333.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText183 = wx.StaticText( self.m_panel153, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText183.Wrap( -1 )
+
+        bSizer333.Add( self.m_staticText183, 0, wx.ALL, 5 )
+
+
+        self.m_panel153.SetSizer( bSizer333 )
+        self.m_panel153.Layout()
+        bSizer333.Fit( self.m_panel153 )
+        bSizer32.Add( self.m_panel153, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        bSizer30.Add( bSizer32, 1, wx.EXPAND, 5 )
+
+
+        bSizer29.Add( bSizer30, 1, wx.EXPAND, 5 )
+
+        bSizer31 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_panel14 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.m_panel14.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
+
+        bSizer54 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel14, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
+        bSizer54.Add( self.m_dataViewListCtrl1, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+        self.m_panel14.SetSizer( bSizer54 )
+        self.m_panel14.Layout()
+        bSizer54.Fit( self.m_panel14 )
+        bSizer31.Add( self.m_panel14, 1, wx.EXPAND |wx.ALL, 5 )
+
+
+        bSizer29.Add( bSizer31, 1, wx.EXPAND, 5 )
+
+
+        mainLayout.Add( bSizer29, 1, wx.EXPAND, 5 )
 
 
         self.SetSizer( mainLayout )
