@@ -2,7 +2,7 @@ import os
 import wx
 import gettext
 
-from overrideMain import Pagrindinis, SideBar
+from overrideMain import ISNBkoduAtspauzdinimas, Pagrindinis, SideBar
 
 class GUI(wx.Frame):
     def __init__(self, parent):    
@@ -19,8 +19,14 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanel(self):
+    def ReplacePanel(self):     
         self.mainSizer.Detach(self.mainPanel)
+        self.mainPanel.Destroy()
+
+        self.mainPanel = ISNBkoduAtspauzdinimas(self)
+        self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
+
+        self.Layout()
 
 if __name__ == "__main__":
     app = wx.App(False)

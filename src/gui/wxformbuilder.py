@@ -271,7 +271,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
 
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorijaasdwaaaaaaaaaaaaaaaaaaaa"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.arrowText.Wrap( -1 )
 
         self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
