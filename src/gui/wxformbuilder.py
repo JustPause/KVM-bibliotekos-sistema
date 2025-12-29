@@ -325,7 +325,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.m_panel151.SetSizer( bSizer331 )
         self.m_panel151.Layout()
         bSizer331.Fit( self.m_panel151 )
-        bSizer32.Add( self.m_panel151, 0, wx.ALL|wx.EXPAND, 5 )
+        bSizer32.Add( self.m_panel151, 0, wx.EXPAND|wx.ALL, 5 )
 
         self.m_panel152 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         bSizer332 = wx.BoxSizer( wx.HORIZONTAL )
@@ -385,13 +385,13 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         bSizer54 = wx.BoxSizer( wx.VERTICAL )
 
         self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel14, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
-        bSizer54.Add( self.m_dataViewListCtrl1, 1, wx.ALL|wx.EXPAND, 5 )
+        bSizer54.Add( self.m_dataViewListCtrl1, 1, wx.EXPAND|wx.ALL, 5 )
 
 
         self.m_panel14.SetSizer( bSizer54 )
         self.m_panel14.Layout()
         bSizer54.Fit( self.m_panel14 )
-        bSizer31.Add( self.m_panel14, 1, wx.EXPAND |wx.ALL, 5 )
+        bSizer31.Add( self.m_panel14, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 25 )
 
 
         bSizer29.Add( bSizer31, 1, wx.EXPAND, 5 )
