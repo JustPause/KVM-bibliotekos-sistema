@@ -2,9 +2,13 @@ import os
 import wx
 import gettext
 
-from overrideMain import ISNBkoduAtspauzdinimas, Pagrindinis, SideBar
+from src.gui.overrideMain import ISNBkoduAtspauzdinimas, Pagrindinis, SideBar
 
 class GUI(wx.Frame):
+    
+    def __init__(self, parent):
+        super().__init__(parent, title="Barkodas")
+        
     def __init__(self, parent):    
         wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = gettext.gettext(u"Pagrindinis"), pos = wx.DefaultPosition, size = wx.Size( 1280,720 ), style = wx.CLOSE_BOX|wx.DEFAULT_FRAME_STYLE )
         
@@ -29,8 +33,12 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-if __name__ == "__main__":
+def run():
     app = wx.App(False)
     frame = GUI(None)
     frame.Show()
     app.MainLoop()
+
+
+if __name__ == "__main__":
+    run()

@@ -214,7 +214,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
         bSizer129.Add( ( 20, 0), 0, 0, 5 )
 
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
         self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
@@ -246,6 +246,12 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         bSizer135.Add( bSizer130, 0, 0, 5 )
 
 
+        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
         self.m_panel49.SetSizer( bSizer135 )
         self.m_panel49.Layout()
         bSizer135.Fit( self.m_panel49 )
@@ -255,8 +261,16 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -337,6 +351,12 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         bSizer135.Add( bSizer129, 0, 0, 5 )
 
 
+        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
         self.m_panel49.SetSizer( bSizer135 )
         self.m_panel49.Layout()
         bSizer135.Fit( self.m_panel49 )
@@ -346,8 +366,16 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -499,6 +527,9 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
 
         self.m_panel49.SetSizer( bSizer135 )
         self.m_panel49.Layout()
@@ -509,8 +540,16 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -573,6 +612,9 @@ class IeskotiPagalPavadinima ( wx.Panel ):
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
 
         self.m_panel49.SetSizer( bSizer135 )
         self.m_panel49.Layout()
@@ -583,8 +625,16 @@ class IeskotiPagalPavadinima ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

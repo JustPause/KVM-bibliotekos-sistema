@@ -7,6 +7,8 @@ from src.barcodeKurimas import barcode_generator
 from src.ISBNPrint import to_csv_file
 from src.bookFindingByISBN import scanner
 
+from src.gui.graphicalUserInterface import run
+
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
 
 KLAUSIMAI = [
@@ -158,4 +160,7 @@ if(argv_count==0):
     prompting()
 
 else:
-    print("END")
+    if '--gui' in argv:
+        run()
+    else:
+        print("END")

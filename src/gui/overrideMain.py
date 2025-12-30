@@ -1,14 +1,26 @@
+import os
 import wx
-import wxformbuilder
+import src.gui.wxformbuilder as wxformbuilder
 
-class Pagrindinis(wxformbuilder.Pagrindinis): 
+class Pagrindinis(wxformbuilder.Pagrindinis):
+    def img_path( self, bitmap_path ):
+        
+        bitmap_path=os.path.join("src","gui",bitmap_path)
+        return bitmap_path
     pass
 
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
     pass
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.SetNewPath()
+        
+    def SetNewPath(self):
+        self.m_textCtrl3.SetValue("New text on startup")
+    
 
 class IsCSV(wxformbuilder.IsCSV):
     pass
