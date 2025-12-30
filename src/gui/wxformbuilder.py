@@ -98,9 +98,6 @@ class SideBar ( wx.Panel ):
         self.Localioje_lenteje = wx.Button( self, wx.ID_ANY, _(u"Localioje lenteje"), wx.DefaultPosition, wx.Size( 114,-1 ), wx.BORDER_NONE )
         PatikrinimasLayout.Add( self.Localioje_lenteje, 0, wx.RIGHT|wx.LEFT, 5 )
 
-        self.Google_sheets_lenteliaja = wx.Button( self, wx.ID_ANY, _(u"Google sheets lenteliaja"), wx.DefaultPosition, wx.Size( 160,-1 ), wx.BORDER_NONE )
-        PatikrinimasLayout.Add( self.Google_sheets_lenteliaja, 0, wx.RIGHT|wx.LEFT, 5 )
-
 
         sideNavigsionLayout.Add( PatikrinimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
@@ -113,6 +110,11 @@ class SideBar ( wx.Panel ):
 
         # Connect Events
         self.ISNB_kodu_atspauzdinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Kurti_naujus_barkodus.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Ieškoti_pagal_pavadinima.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Localioje_lenteje.Bind( wx.EVT_LEFT_DOWN, self.Click )
 
     def __del__( self ):
         pass
@@ -121,6 +123,11 @@ class SideBar ( wx.Panel ):
     # Virtual event handlers, override them in your derived class
     def Click( self, event ):
         event.Skip()
+
+
+
+
+
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

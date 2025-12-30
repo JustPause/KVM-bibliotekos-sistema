@@ -19,17 +19,11 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanel(self):     
-        # self.mainSizer.Detach(self.sideBar)
+    def ReplacePanel(self, mainPanelClass):     
         self.mainSizer.Detach(self.mainPanel)
-        
-        # self.sideBar.Destroy()
         self.mainPanel.Destroy()
 
-        # self.sideBar = SideBar(self)
-        self.mainPanel = ISNBkoduAtspauzdinimas(self)
-        
-        # self.mainSizer.Add(self.sideBar, 0, wx.EXPAND, 0)
+        self.mainPanel = mainPanelClass(self)  
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
         self.SetSizer(self.mainSizer)
