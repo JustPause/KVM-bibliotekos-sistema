@@ -20,12 +20,19 @@ class GUI(wx.Frame):
         self.Layout()
 
     def ReplacePanel(self):     
+        # self.mainSizer.Detach(self.sideBar)
         self.mainSizer.Detach(self.mainPanel)
+        
+        # self.sideBar.Destroy()
         self.mainPanel.Destroy()
 
+        # self.sideBar = SideBar(self)
         self.mainPanel = ISNBkoduAtspauzdinimas(self)
+        
+        # self.mainSizer.Add(self.sideBar, 0, wx.EXPAND, 0)
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
+        self.SetSizer(self.mainSizer)
         self.Layout()
 
 if __name__ == "__main__":

@@ -177,7 +177,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
 
-        mainLayout.Add( ( 0, 60), 0, 0, 5 )
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
         self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
         bSizer135 = wx.BoxSizer( wx.VERTICAL )
@@ -187,7 +187,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText16.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
         bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -195,29 +195,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kiek sukurti barkodu"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
-
-        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer130.Add( ( 35, 0), 0, 0, 5 )
-
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer135.Add( bSizer130, 0, 0, 5 )
-
-
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
         bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -225,6 +203,9 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.m_staticText63.Wrap( -1 )
 
         bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer129.Add( ( 20, 0), 0, 0, 5 )
 
         self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -234,6 +215,28 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
 
         bSizer135.Add( bSizer129, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kiek sukurti barkodu"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66.Wrap( -1 )
+
+        bSizer130.Add( self.m_staticText66, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+
+        bSizer130.Add( ( 55, 0), 0, 0, 5 )
+
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, 0, 5 )
 
 
         self.m_panel49.SetSizer( bSizer135 )
@@ -265,17 +268,345 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
 
-        mainLayout.Add( ( 0, 32), 0, 0, 5 )
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66.Wrap( -1 )
+
+        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer130.Add( ( 16, 0), 0, 0, 5 )
+
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText63.Wrap( -1 )
+
+        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
+
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer129, 0, 0, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class IsCSV
+###########################################################################
+
+class IsCSV ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66.Wrap( -1 )
+
+        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer130.Add( ( 16, 0), 0, 0, 5 )
+
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText63.Wrap( -1 )
+
+        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
+
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer129, 0, 0, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class IsKlavetūrosSkaitytuvo
+###########################################################################
+
+class IsKlavetūrosSkaitytuvo ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66.Wrap( -1 )
+
+        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer130.Add( ( 20, 0), 0, 0, 5 )
+
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class IeskotiPagalPavadinima
+###########################################################################
+
+class IeskotiPagalPavadinima ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        self.m_panel49.SetMaxSize( wx.Size( 800,-1 ) )
+
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66.Wrap( -1 )
+
+        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer130.Add( ( 20, 0), 0, 0, 5 )
+
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class Patikrinti
+###########################################################################
+
+class Patikrinti ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
         self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText16.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
         mainLayout.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        mainLayout.Add( ( 0, 32), 0, 0, 5 )
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
         bSizer29 = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -398,196 +729,6 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
         mainLayout.Add( bSizer29, 1, wx.EXPAND, 5 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-    def __del__( self ):
-        pass
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class IsCSV
-###########################################################################
-
-class IsCSV ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
-
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
-
-
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
-
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
-
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-    def __del__( self ):
-        pass
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class IsKlavetūrosSkaitytuvo
-###########################################################################
-
-class IsKlavetūrosSkaitytuvo ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
-
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
-
-
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
-
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
-
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-    def __del__( self ):
-        pass
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class IeskotiPagalPavadinima
-###########################################################################
-
-class IeskotiPagalPavadinima ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
-
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
-
-
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
-
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
-
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-    def __del__( self ):
-        pass
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class KurtiNaujusBarkodus
-###########################################################################
-
-class KurtiNaujusBarkodus ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
-
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
-
-
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
-
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
-
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-    def __del__( self ):
-        pass
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class Patikrinti
-###########################################################################
-
-class Patikrinti ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-        arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
-
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
-
-
-        mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
-
-        self.arrowText = wx.StaticText( self, wx.ID_ANY, _(u"Pasirinkite kategorija"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.arrowText.Wrap( -1 )
-
-        self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
 
 
         self.SetSizer( mainLayout )
