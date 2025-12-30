@@ -23,8 +23,7 @@ class Patikrinti(wxformbuilder.Patikrinti):
     pass
 
 class SideBar(wxformbuilder.SideBar):
-
-     
+ 
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
@@ -64,10 +63,11 @@ class SideBar(wxformbuilder.SideBar):
         return None
         
     def Click(self, event):
-        print("Button was clicked!")
         btnLabel = event.GetEventObject().GetLabel()
-        btnClickClass=self.__PikingLable(btnLabel)
+        btnClickClass = self.__PikingLable(btnLabel)
+        
         self.GetParent().ReplacePanel(btnClickClass)
+        
         event.Skip()
         
 
