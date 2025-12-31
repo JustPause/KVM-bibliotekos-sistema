@@ -73,6 +73,7 @@ python3 pagrindinis.py [Nustatymai]
 | `-F`            | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
 | `-i`            | Nurodo įvesties CSV failą                                                                                |
 | `-o`            | Nurodo išvesties CSV failą                                                                               |
+| `--gui`         | Paledzia naudotojo aplinka                                                                               |
 
 ---
 
@@ -83,6 +84,12 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
 ---
+
+## Su Kompoliavimas
+
+```bash
+pyinstaller ./pagrindinis.py
+```
 
 ## TODO
 
