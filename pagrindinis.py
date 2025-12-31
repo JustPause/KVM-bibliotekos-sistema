@@ -6,7 +6,7 @@ from src.ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_
 from src.barcodeKurimas import barcode_generator
 from src.ISBNPrint import to_csv_file
 from src.bookFindingByISBN import scanner
-
+import argparse
 
 
 from src.gui.graphicalUserInterface import run
@@ -138,16 +138,10 @@ class MainClass():
                 
             case 4: # Lėtesnė knygų paieška
                 
-                print("Paruosta Skanuoti")
+                print("Paruosta Skanuoti - irasykytia ISBN")
                 
-                scanner("Knygos_Su_Viskuom.csv")
-                
-            # case 6: # Suvedimas pagal pavadinima
-                
-            #     print("Parasykitia pavadinima, ir jei imanoma metus")
-                
-            #     surasimasPavadinimoIrMetu("Bibliotekos Knygos - VIsos knygos.csv")
-                
+                scanner("csv/output_csv.csv")
+            
             case _: # (｡･ˇ_ˇ･｡) 
                 raise ValueError("Kaip? (pasirinkimo klaida)")
     @staticmethod
@@ -162,30 +156,43 @@ class MainClass():
             self.prompting()
 
         else:
-            if '--gui' in argv:
+            parser = argparse.ArgumentParser()
+            
+            parser.add_argument('--gui', action='store_true')
+            parser.add_argument('-v', '--version', action='store_true')
+            parser.add_argument('-h','--help', action='store_true')
+            parser.add_argument('-S', action='store_true')
+            parser.add_argument('-o')
+            
+            args = parser.parse_args()
+            
+            if args.gui:
                 self.local_run()
             
-            elif '-h' or '--help' in argv:
-                self.local_run()
+            elif args.version:
+                pass
+                
+            elif args.help:
+                pass
             
-            elif '-v' or '--version' in argv:
-                self.local_run()
-            
-            elif '-S' in argv: # Knygų rašymas į iBiblioteką pagal ISBN CSV / Knygų rašymas į iBiblioteką pagal ISBN Scanner
-                if '-o' in argv:
+            elif args.S:
+                if args.o:
                     iBibliotekos_paieska(src_path, dest_path)
                 else:
                     iBibliotekos_paieska_tiesiogiai(dest_path) 
-                      
-            elif '-G' in argv: # Brūkšninio kodo kūrimas
+                
+            elif args.i:
+                pass
+                  
+            elif args.G:
                 barcode_generator(int(integer_val), dest_path)
             
-            elif '-I' in argv: # ISBN iš CSV į PDF
+            elif args.I:
                 dest_path = self.get_correct_extension(dest_path, ".pdf")
                 to_csv_file(src_path,dest_path)
             
-            elif '-F' in argv: # ISBN iš CSV į PDF
-                self.local_run()
+            elif args.F:
+                pass
                 
             else:
                 print("END")

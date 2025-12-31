@@ -3,7 +3,7 @@ import csv
 from src.googleSheets import get_sheet_rows
 from src.helpers.utils import get_fieldnames
 
-def scanner(file):
+def scanner(dest_file):
     fieldnames = get_fieldnames()
     
     rows=get_sheet_rows()
@@ -32,20 +32,20 @@ def scanner(file):
         #             })
         
         isbn = input()
-        found=True
-        
+        found = True
+
         for row in rows:  
             if (row.get("isbn") == isbn or row.get("Kodas") == isbn):
-                print(row["Pavadinimas"])
+                print('\''+row["Pavadinimas"]+'\' - yra sarasia' )
                 found = False
-                
-            if found:
-                print("save to output_csv.csv as emtey - "+ str(isbn))
-                with open("csv/output_csv.csv", 'a', newline='', encoding='utf-8') as f:
-                    writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
-                    writer.writerow({
-                        "Autorius": "",
-                        "Pavadinimas": "",
-                        "Metai": "",
-                        "isbn": isbn
-                    })
+        
+        if found:
+            print("save to output_csv.csv as emtey - "+ str(isbn))
+            with open(dest_file, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+                writer.writerow({
+                    "Autorius": "",
+                    "Pavadinimas": "",
+                    "Metai": "",
+                    "isbn": isbn
+                })
