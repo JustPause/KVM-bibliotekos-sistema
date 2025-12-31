@@ -1,5 +1,8 @@
 import os
 import wx
+
+from src.barcodeKurimas import barcode_generator
+
 import src.gui.wxformbuilder as wxformbuilder
 
 class Pagrindinis(wxformbuilder.Pagrindinis):
@@ -19,7 +22,29 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         self.SetNewPath()
         
     def SetNewPath(self):
-        self.m_textCtrl3.SetValue("New text on startup")
+        self.m_textCtrl3.SetValue(os.path.join(os.getcwd(), "pdfs", "BarkodaiSpauzdinimui.pdf"))
+    
+    def next( self, event ):
+        dest_path=self.m_textCtrl3.GetValue()
+        count=self.m_textCtrl2.GetValue()
+        
+        print(dest_path)
+        print(count)
+        
+        try:
+            barcode_generator(int(count), dest_path)
+            wx.MessageBox(
+                "Sėkmingai pavyko",
+                "Rezultatas",
+                wx.OK | wx.ICON_INFORMATION
+            )
+        except:
+            wx.MessageBox(
+                "Kažkas nepavyko",
+                "Rezultatas",
+                wx.OK | wx.ICON_INFORMATION
+            )
+        event.Skip()
     
 
 class IsCSV(wxformbuilder.IsCSV):

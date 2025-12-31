@@ -262,7 +262,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -367,7 +367,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -541,7 +541,7 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -626,7 +626,7 @@ class IeskotiPagalPavadinima ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_button8.Bind( wx.EVT_LEFT_DCLICK, self.next )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
