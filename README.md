@@ -126,4 +126,4 @@ python3 ./build.py
 ### Google fonts
 
 * Inter
-*+ Playfair_Display
+* Playfair_Display

@@ -20,8 +20,8 @@ class MainClass():
         "Knygų rašymas į iBiblioteką pagal ISBN CSV",
         "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
         "ISBN iš CSV į PDF",
-        "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
-        "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
+        "Lėtesnė knygų paieška",
+        # "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
         # "Suvedimas pagal pavadinima"
     ]
 
@@ -142,12 +142,6 @@ class MainClass():
                 
                 scanner("Knygos_Su_Viskuom.csv")
                 
-            case 5: # Lėtesnė knygų paieška
-                
-                print("Paruosta Skanuoti")
-                
-                scanner("Bibliotekos Knygos - VIsos knygos.csv")
-                
             # case 6: # Suvedimas pagal pavadinima
                 
             #     print("Parasykitia pavadinima, ir jei imanoma metus")
@@ -170,6 +164,29 @@ class MainClass():
         else:
             if '--gui' in argv:
                 self.local_run()
+            
+            elif '-h' or '--help' in argv:
+                self.local_run()
+            
+            elif '-v' or '--version' in argv:
+                self.local_run()
+            
+            elif '-S' in argv: # Knygų rašymas į iBiblioteką pagal ISBN CSV / Knygų rašymas į iBiblioteką pagal ISBN Scanner
+                if '-o' in argv:
+                    iBibliotekos_paieska(src_path, dest_path)
+                else:
+                    iBibliotekos_paieska_tiesiogiai(dest_path) 
+                      
+            elif '-G' in argv: # Brūkšninio kodo kūrimas
+                barcode_generator(int(integer_val), dest_path)
+            
+            elif '-I' in argv: # ISBN iš CSV į PDF
+                dest_path = self.get_correct_extension(dest_path, ".pdf")
+                to_csv_file(src_path,dest_path)
+            
+            elif '-F' in argv: # ISBN iš CSV į PDF
+                self.local_run()
+                
             else:
                 print("END")
             
