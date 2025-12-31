@@ -25,6 +25,9 @@ def iBiblioteka_scraper(isbn):
     if(driver==None): 
         connect_to_driver()
     
+    if (str(isbn).strip()==""):
+        return {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': isbn}
+    
     print("Kodas kurio ieskau - " + str(isbn))
 
     search_box = driver.find_element(By.ID, "mat-input-0")

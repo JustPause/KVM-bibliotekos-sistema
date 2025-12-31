@@ -88,7 +88,7 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ## Su Kompoliavimas
 
 ```bash
-pyinstaller ./pagrindinis.py
+pyinstaller --onefile --noconsole --icon=./src/gui/img/barcode_scanner_4249.ico pagrindinis.py -- --gui
 ```
 
 ## TODO
