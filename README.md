@@ -88,6 +88,7 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ## Su Kompoliavimas
 
 Veikia ir win in linux :D
+
 ```bash
 python3 ./build.py
 ```
