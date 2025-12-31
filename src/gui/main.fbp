@@ -1572,7 +1572,7 @@
                   <property name="window_extra_style"></property>
                   <property name="window_name"></property>
                   <property name="window_style"></property>
-                  <event name="OnLeftDClick">next</event>
+                  <event name="OnLeftDown">next</event>
                 </object>
               </object>
             </object>
@@ -2151,7 +2151,7 @@
                   <property name="window_extra_style"></property>
                   <property name="window_name"></property>
                   <property name="window_style"></property>
-                  <event name="OnLeftDClick">next</event>
+                  <event name="OnLeftDown">next</event>
                 </object>
               </object>
             </object>
@@ -3066,7 +3066,7 @@
                   <property name="window_extra_style"></property>
                   <property name="window_name"></property>
                   <property name="window_style"></property>
-                  <event name="OnLeftDClick">next</event>
+                  <event name="OnLeftDown">next</event>
                 </object>
               </object>
             </object>
@@ -3487,7 +3487,7 @@
                   <property name="window_extra_style"></property>
                   <property name="window_name"></property>
                   <property name="window_style"></property>
-                  <event name="OnLeftDClick">next</event>
+                  <event name="OnLeftDown">next</event>
                 </object>
               </object>
             </object>
