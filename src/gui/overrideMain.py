@@ -1,4 +1,5 @@
 import os
+import sys
 import wx
 
 from src.barcodeKurimas import barcode_generator
@@ -8,7 +9,13 @@ import src.gui.wxformbuilder as wxformbuilder
 class Pagrindinis(wxformbuilder.Pagrindinis):
     def img_path( self, bitmap_path ):
         
-        bitmap_path=os.path.join("src","gui",bitmap_path)
+        if hasattr(sys, "_MEIPASS"):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.abspath(".")
+            
+        bitmap_path = os.path.join(base_path, "src","gui",bitmap_path)
+        
         return bitmap_path
     pass
 

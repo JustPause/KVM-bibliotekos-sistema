@@ -1,13 +1,15 @@
 import sys
-from pagrindinis import MainClass
+import pagrindinis
 
 
-class MainClassGUI(MainClass):
+class MainClassGUI(pagrindinis.MainClass):
     def main(self):
         argv = sys.argv[1:]
-        argv_count= len(argv)
-
         if '--console' in argv:
-            self.prompting()
+            self.prompting()  # console mode
         else:
-            self.run()
+            self.local_run()  
+            
+if __name__ == "__main__":
+    app = MainClassGUI()
+    app.main()

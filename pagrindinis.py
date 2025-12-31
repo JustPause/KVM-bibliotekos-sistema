@@ -156,6 +156,9 @@ class MainClass():
                 
             case _: # (｡･ˇ_ˇ･｡) 
                 raise ValueError("Kaip? (pasirinkimo klaida)")
+    @staticmethod
+    def local_run():
+        run()
     
     def main(self):
         argv = sys.argv[1:]
@@ -166,7 +169,7 @@ class MainClass():
 
         else:
             if '--gui' in argv:
-                run()
+                self.local_run()
             else:
                 print("END")
             
