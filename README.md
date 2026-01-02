@@ -62,18 +62,19 @@ python3 pagrindinis.py [Nustatymai]
 ```
 
 ### Galimos parinktys
-
-| Parinktis       | Aprašymas                                                                                                |
-| --------------- | -------------------------------------------------------------------------------------------------------- |
-| `-h, --help`    | Parodo pagalbos lentelę                                                                                  |
-| `-v, --version` | Parodo versiją                                                                                           |
-| `-S`            | Paleidžia „WebScraper“ modulį, kuris paima duomenis iš iBibliotekos ir surašo juos į lentelę             |
-| `-G`            | Sugeneruoja lentelę su brūkšninių kodų tekstais, leidžia pasirinkti, kiek norima brūkšninių kodų (1–100) |
-| `-I`            | Surašytus ISBN kodus paverčia lengvai spausdinama brūkšninių kodų matrica                                |
-| `-C`            | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
-| `-i`            | Nurodo įvesties CSV failą                                                                                |
-| `-o`            | Nurodo išvesties CSV failą                                                                               |
-| `--gui`         | Paledzia naudotojo aplinka                                                                               |
+<!-- Start_Helptable -->
+| Parinktis          | Aprašymas                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------- |
+| `-h, --help`       | Parodo pagalbos lentelę                                                                                  |
+| `-v, --version`    | Parodo versiją                                                                                           |
+| `-S, --webScraper` | Paleidžia „WebScraper“ modulį, kuris paima duomenis iš iBibliotekos ir surašo juos į lentelę             |
+| `-G, --generate`   | Sugeneruoja lentelę su brūkšninių kodų tekstais, leidžia pasirinkti, kiek norima brūkšninių kodų (1–100) |
+| `-I, --isbnPdf`    | Surašytus ISBN kodus paverčia lengvai spausdinama brūkšninių kodų matrica                                |
+| `-C, --check`      | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
+| `-i, --input`      | Įvedimo failas                                                                                           |
+| `-o, --output`     | išvedimo failas                                                                                          |
+| `--gui`            | Paleisti grafinę vartotojo sąsają                                                                        |
+<!-- End_Helptable -->
 
 ---
 
@@ -120,7 +121,7 @@ python3 ./build.py
 * [ ] "Suvedimas pagal pavadinima"
 * [x] prideti versijos parodima kamputija su mano duomenimis
 
-* prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
+* [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
 
 ## Dependense
 

@@ -2,6 +2,7 @@ import os
 import sys
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
+from src.osHelper import git_build_number
 from src.ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
 from src.barcodeKurimas import barcode_generator
 from src.ISBNPrint import to_csv_file
@@ -157,24 +158,41 @@ class MainClass():
         else:
             parser = argparse.ArgumentParser(
                                 prog='Barkodas',
-                                description='A library book management system. The program connects to Google Sheets and helps users manage books.'
+                                usage="Barkodas [parinktis] [failas]",
+                                description='Bibliotekos knygų valdymo sistema. Programa jungiasi prie Google Sheets ir padeda vartotojams valdyti knygas.',
+                                add_help=False,
             )
+            group = parser.add_argument_group('Pasirinkimai') 
             
-            parser.add_argument('-v', '--version', action='store_true', help='Show program version')
-            parser.add_argument('-S', '--webScraper', action='store_true', help='Enable web scraper')
-            parser.add_argument('-G', '--generate', action='store_true', help='Generate data')
-            parser.add_argument('-I', '--isbnPdf', action='store_true', help='Create PDF using ISBN')
-            parser.add_argument('-C', '--check', action='store_true', help='Check book availability')
-            parser.add_argument('-i', '--input', help='Input file')
-            parser.add_argument('--gui', action='store_true', help='Launch graphical user interface')
-            
+            ReadMe=self.getDataFormReadMe()
+                    
+            group.add_argument('-h', '--help', action='store_true', help=ReadMe.get('-h, --help'))
+            group.add_argument('-v', '--version', action='store_true', help=ReadMe.get('-v, --version'))
+            group.add_argument('-S', '--webScraper', action='store_true', help=ReadMe.get('-S, --webScraper'))
+            group.add_argument('-G', '--generate', action='store_true', help=ReadMe.get('-G, --generate'))
+            group.add_argument('-I', '--isbnPdf', action='store_true', help=ReadMe.get('-I, --isbnPdf'))
+            group.add_argument('-C', '--check', action='store_true', help=ReadMe.get('-C, --check'))
+            group.add_argument('-i', '--input', help=ReadMe.get('-i, --input'))
+            group.add_argument('-o', '--output', help=ReadMe.get('-o, --output'))
+            group.add_argument('--gui', action='store_true', help=ReadMe.get('--gui'))
+
             args = parser.parse_args()
+            
+            if args.help:
+                parser.print_help()
             
             if args.gui:
                 self.local_run()
             
             if args.version:
-                print('version')
+                import configparser
+        
+                build = git_build_number()
+                config = configparser.ConfigParser()
+                config.read("config.conf")
+                version = config["DEFAULT"]["version"]
+                
+                print( f"{version}+{build}" )
              
             elif args.webScraper:
                 if args.output:
@@ -194,10 +212,42 @@ class MainClass():
             
             elif args.input:
                 pass
-                
-            else:
-                print("END")
             
+    @staticmethod
+    def getDataFormReadMe():
+        import re
+        
+        table_lines = []
+        in_table = False
+
+        with open("README.md", encoding="utf-8") as f:
+            for lines in f:
+                if "Start_Helptable" in lines:
+                    in_table = True
+                    continue
+                if "End_Helptable" in lines:
+                    in_table = False
+                    break
+                if in_table:
+                    table_lines.append(lines.rstrip())
+                    
+        table_lines = [line.strip() for line in table_lines if line.strip()] 
+        options = {}
+
+        for line in table_lines[2:]:
+            parts = line.split("|")
+            if len(parts) < 3:
+                continue
+            flag = parts[1].strip().strip("`")
+            description = parts[2].strip()
+            options[flag] = description
+
+        # for flag, desc in options.items():
+        #     print(flag, ":", desc)
+        return options
+            
+
 if __name__ == "__main__":
     app = MainClass()      # create an instance
     app.main()   
+    
