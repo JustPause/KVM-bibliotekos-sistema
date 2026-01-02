@@ -158,7 +158,7 @@ class MainClass():
         else:
             parser = argparse.ArgumentParser(
                                 prog='Barkodas',
-                                usage="Barkodas [parinktis] [failas]",
+                                usage="Barkodas [pasirinkimas] [failas]",
                                 description='Bibliotekos knygų valdymo sistema. Programa jungiasi prie Google Sheets ir padeda vartotojams valdyti knygas.',
                                 add_help=False,
             )
@@ -193,9 +193,13 @@ class MainClass():
                 version = config["DEFAULT"]["version"]
                 
                 print( f"{version}+{build}" )
-             
+            if args.webScraper and not args.output:
+                parser.error("Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output")
             elif args.webScraper:
-                if args.output:
+                src_path = args.input  # can be None
+                dest_path = args.output
+                
+                if args.input:
                     iBibliotekos_paieska(src_path, dest_path)
                 else:
                     iBibliotekos_paieska_tiesiogiai(dest_path) 

@@ -122,6 +122,7 @@ python3 ./build.py
 * [x] prideti versijos parodima kamputija su mano duomenimis
 
 * [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
+* [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv
 
 ## Dependense
 
