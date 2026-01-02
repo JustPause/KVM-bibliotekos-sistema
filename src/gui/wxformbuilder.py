@@ -60,7 +60,7 @@ class SideBar ( wx.Panel ):
         sideNavigsionLayout.Add( BarkodaiLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
 
-        sideNavigsionLayout.Add( ( 0, 5), 1, wx.EXPAND, 5 )
+        sideNavigsionLayout.Add( ( 0, 25), 0, wx.EXPAND, 5 )
 
         self.Knygu_surašimas = wx.StaticText( self, wx.ID_ANY, _(u"Knygu surašimas"), wx.DefaultPosition, wx.Size( 256,32 ), 0 )
         self.Knygu_surašimas.Wrap( -1 )
@@ -84,7 +84,7 @@ class SideBar ( wx.Panel ):
         sideNavigsionLayout.Add( KnyguLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
 
-        sideNavigsionLayout.Add( ( 0, 5), 1, wx.EXPAND, 5 )
+        sideNavigsionLayout.Add( ( 0, 25), 0, wx.EXPAND, 5 )
 
         self.Patikrinimas = wx.StaticText( self, wx.ID_ANY, _(u"Patikrinimas"), wx.DefaultPosition, wx.Size( 256,32 ), 0 )
         self.Patikrinimas.Wrap( -1 )
@@ -102,6 +102,16 @@ class SideBar ( wx.Panel ):
         sideNavigsionLayout.Add( PatikrinimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
 
+        sideNavigsionLayout.Add( ( 0, 280), 1, wx.EXPAND, 5 )
+
+        self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, _(u"Version 0.1 build 2026-01-01"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText29.Wrap( -1 )
+
+        self.m_staticText29.SetFont( wx.Font( 6, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+
+        sideNavigsionLayout.Add( self.m_staticText29, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
         sideLayout.Add( sideNavigsionLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
 
@@ -115,6 +125,7 @@ class SideBar ( wx.Panel ):
         self.Ieškoti_pagal_pavadinima.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Localioje_lenteje.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.m_staticText29.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
         pass
@@ -128,6 +139,9 @@ class SideBar ( wx.Panel ):
 
 
 
+
+    def version( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

@@ -2,6 +2,7 @@ import os
 import sys
 import wx
 
+from src.osHelper import git_build_number
 from src.barcodeKurimas import barcode_generator
 
 import src.gui.wxformbuilder as wxformbuilder
@@ -72,6 +73,19 @@ class SideBar(wxformbuilder.SideBar):
         super().__init__(parent)
         self.parent = parent
         
+        full_version=self.VersionAndBuild()
+        self.m_staticText29.SetLabel(full_version)
+
+    def VersionAndBuild(self):
+        import configparser
+        
+        build = git_build_number()
+        config = configparser.ConfigParser()
+        config.read("config.conf")
+        version = config["DEFAULT"]["version"]
+        
+        return f"{version}+{build}"
+        
     def __PikingLable(self,Lable):
         CLASS_NAME_AND_LABLES = [
             {  
@@ -113,5 +127,21 @@ class SideBar(wxformbuilder.SideBar):
         self.GetParent().ReplacePanel(btnClickClass)
         
         event.Skip()
+        
+    def version(self, event):
+        import configparser
+
+        config = configparser.ConfigParser()
+        config.read("config.conf")
+        developer = config["helpMessige"]["developer"]
+        email = config["helpMessige"]["email"]
+        repoURL = config["helpMessige"]["repoURL"]
+        wx.MessageBox(
+            "Programa sukurė: " + developer + 
+            "\nMane galite pasiekti: " + email + 
+            "\nRepositorjia turetu buti: " + repoURL,
+                "Programuotojo kontaktai",
+                wx.OK | wx.ICON_INFORMATION
+            )
         
 
