@@ -70,7 +70,7 @@ python3 pagrindinis.py [Nustatymai]
 | `-S`            | Paleidžia „WebScraper“ modulį, kuris paima duomenis iš iBibliotekos ir surašo juos į lentelę             |
 | `-G`            | Sugeneruoja lentelę su brūkšninių kodų tekstais, leidžia pasirinkti, kiek norima brūkšninių kodų (1–100) |
 | `-I`            | Surašytus ISBN kodus paverčia lengvai spausdinama brūkšninių kodų matrica                                |
-| `-F`            | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
+| `-C`            | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
 | `-i`            | Nurodo įvesties CSV failą                                                                                |
 | `-o`            | Nurodo išvesties CSV failą                                                                               |
 | `--gui`         | Paledzia naudotojo aplinka                                                                               |
@@ -118,6 +118,7 @@ python3 ./build.py
 * [ ] "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
 * [ ] "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
 * [ ] "Suvedimas pagal pavadinima"
+* [x] prideti versijos parodima kamputija su mano duomenimis
 
 * prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
 
@@ -127,3 +128,22 @@ python3 ./build.py
 
 * Inter
 * Playfair_Display
+
+### Darbo lentele
+
+Kas kur turetu buti, koki funcionaluma turi tureti **cli** aplikacija ir **gui** palikacija
+
+| versija | webScraper | generate | isbnPdf | check | input | output | gui | comentaas                                             |
+| ------- | ---------- | -------- | ------- | ----- | ----- | ------ | --- | ----------------------------------------------------- |
+| x       |            |          |         |       |       |        |     | versija                                               |
+|         | x          |          |         |       |       |        |     | Skanavimas is klaveturos / Scannerio                  |
+|         | x          |          |         |       | x     |        |     | Skanavimas is failo                                   |
+|         |            | x        |         |       |       | x      |     | Sugeneravimas nauju barkodu                           |
+|         |            |          | x       |       | x     | x      |     | is exel i pdf kad atspauzdintu                        |
+|         |            |          |         | x     |       |        |     | patikrina ar yra google sheets                        |
+|         |            |          |         | x     |       | x      |     | patikrina ar yra google sheets jei nera suraso i exel |
+| x       |            |          |         |       |       |        | x   | parodyti versija                                      |
+|         | x          |          |         |       |       |        | x   | Skanavimas is klaveturos / Scannerio                  |
+|         |            | x        |         |       |       | x      | x   | Sugeneravimas nauju barkodu                           |
+|         |            |          | x       |       |       | x      | x   | Is buffer kuri iraso programai veikent                |
+|         |            |          |         | x     |       | x      | x   | patikrinti ar yra google sheets                       |
