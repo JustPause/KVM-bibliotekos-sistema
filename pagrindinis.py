@@ -8,7 +8,6 @@ from src.barcodeKurimas import barcode_generator
 from src.ISBNPrint import form_csv_to_pdf
 from src.bookFindingByISBN import scanner
 import argparse
-import argcomplete
 
 from src.gui.graphicalUserInterface import run
 
@@ -176,8 +175,6 @@ class MainClass():
             group.add_argument('-i', '--input', help=ReadMe.get('-i, --input'))
             group.add_argument('-o', '--output', help=ReadMe.get('-o, --output'))
             group.add_argument('--gui', action='store_true', help=ReadMe.get('--gui'))
-
-            argcomplete.autocomplete(parser)
 
             args = parser.parse_args()
             

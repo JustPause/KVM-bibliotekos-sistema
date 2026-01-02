@@ -5,11 +5,11 @@ import unittest
 from src.ibibliotekaConnection import iBiblioteka_scraper, iBibliotekos_paieska, kill_drive
 
 isbn_array=[
-    [""],
-    ["995543578x"], ["998614359x"], ["998659703x"], ["KVM251027025"], ["5790007279"], ["5899425733"], ["5899500190"], ["7986879477"], ["9886140013"], ["9955061030"], ["9955082461"], ["9955088699"], ["9786094253515"]
+    [""], ["123"], ["995543578x"], ["998614359x"], ["998659703x"], ["KVM251027025"], ["5790007279"], ["5899425733"], ["5899500190"], ["7986879477"], ["9886140013"], ["9955061030"], ["9955082461"], ["9955088699"], ["9786094253515"]
 ]
 ats_array =[
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': ''},
+    {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': '123'},
     {'Autorius': 'Ziedonis, Imants (1933–2013)', 'Pavadinimas': 'Spalvotosios pasakos', 'Metai': '2006', 'isbn': '995543578x'},
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': '998614359x'},
     {'Autorius': 'Pietaris, Vincas (1850–1902)', 'Pavadinimas': 'Lapės gyvenimas ir mirtis', 'Metai': '1996', 'isbn': '998659703x'},

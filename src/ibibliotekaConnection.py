@@ -72,11 +72,15 @@ def data_extracotr(isbn):
 
     for x in range(len(numberOfObj)):
         infoLine = numberOfObj[x].find_element(By.CSS_SELECTOR, ".c-result-item__info.h-tablet-portrait-hide")
-        infoLinespam=infoLine.find_elements(By.CLASS_NAME, "ng-star-inserted")
-        key, value = infoLinespam[1].text.split(":", 1)
-        value = value.strip()
-        if(value=="SPAUSDINTINIS"):
-            corectrow=x
+        infoLinespam = infoLine.find_elements(By.CLASS_NAME, "ng-star-inserted")
+
+        if(infoLinespam ==2):
+            key, value = infoLinespam[1].text.split(":", 1)
+            value = value.strip()
+            if(value=="SPAUSDINTINIS"):
+                corectrow=x
+        else:
+            corectrow=0
     
     data = numberOfObj[corectrow].find_element(By.CLASS_NAME, "c-result-item__data")
     rows = data.find_elements(By.TAG_NAME,"p")   
@@ -133,7 +137,7 @@ def connect_to_driver():
         
     progress.progress("Bandoma susijukti su iBiblioteka")
         
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     driver = webdriver.Firefox(options=options)
     driver.get("https://ibiblioteka.lt/metis/publication")
 

@@ -76,15 +76,11 @@ python3 pagrindinis.py [Nustatymai]
 | `--gui`            | Paleisti grafinę vartotojo sąsają                                                                        |
 <!-- End_Helptable -->
 
----
-
 ### Pavyzdys
 
 ```bash
 python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
-
----
 
 ## Su Kompoliavimas
 
@@ -92,6 +88,12 @@ Veikia ir win in linux :D
 
 ```bash
 python3 ./build.py
+```
+
+## Testai
+
+```bash
+python3 -m unittest discover -s tests
 ```
 
 ## TODO
@@ -122,7 +124,7 @@ python3 ./build.py
 * [x] prideti versijos parodima kamputija su mano duomenimis
 
 * [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
-* [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv
+* [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv -> add filert to only show knygos
 
 ## Dependense
 
