@@ -8,7 +8,6 @@ from src.ISBNPrint import to_csv_file
 from src.bookFindingByISBN import scanner
 import argparse
 
-
 from src.gui.graphicalUserInterface import run
 
 # Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
@@ -156,42 +155,44 @@ class MainClass():
             self.prompting()
 
         else:
-            parser = argparse.ArgumentParser()
+            parser = argparse.ArgumentParser(
+                                prog='Barkodas',
+                                description='A library book management system. The program connects to Google Sheets and helps users manage books.'
+            )
             
-            parser.add_argument('--gui', action='store_true')
-            parser.add_argument('-v', '--version', action='store_true')
-            parser.add_argument('-h','--help', action='store_true')
-            parser.add_argument('-S', action='store_true')
-            parser.add_argument('-o')
+            parser.add_argument('-v', '--version', action='store_true', help='Show program version')
+            parser.add_argument('-S', '--webScraper', action='store_true', help='Enable web scraper')
+            parser.add_argument('-G', '--generate', action='store_true', help='Generate data')
+            parser.add_argument('-I', '--isbnPdf', action='store_true', help='Create PDF using ISBN')
+            parser.add_argument('-C', '--check', action='store_true', help='Check book availability')
+            parser.add_argument('-i', '--input', help='Input file')
+            parser.add_argument('--gui', action='store_true', help='Launch graphical user interface')
             
             args = parser.parse_args()
             
             if args.gui:
                 self.local_run()
             
-            elif args.version:
-                pass
-                
-            elif args.help:
-                pass
-            
-            elif args.S:
-                if args.o:
+            if args.version:
+                print('version')
+             
+            elif args.webScraper:
+                if args.output:
                     iBibliotekos_paieska(src_path, dest_path)
                 else:
                     iBibliotekos_paieska_tiesiogiai(dest_path) 
-                
-            elif args.i:
-                pass
                   
-            elif args.G:
+            elif args.generate:
                 barcode_generator(int(integer_val), dest_path)
             
-            elif args.I:
+            elif args.isbnPdf:
                 dest_path = self.get_correct_extension(dest_path, ".pdf")
                 to_csv_file(src_path,dest_path)
             
-            elif args.F:
+            elif args.check:
+                pass
+            
+            elif args.input:
                 pass
                 
             else:
