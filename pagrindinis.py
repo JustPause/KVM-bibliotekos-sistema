@@ -5,9 +5,10 @@ from InquirerPy.validator import EmptyInputValidator, PathValidator
 from src.osHelper import git_build_number
 from src.ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
 from src.barcodeKurimas import barcode_generator
-from src.ISBNPrint import to_csv_file
+from src.ISBNPrint import form_csv_to_pdf
 from src.bookFindingByISBN import scanner
 import argparse
+import argcomplete
 
 from src.gui.graphicalUserInterface import run
 
@@ -134,7 +135,7 @@ class MainClass():
                 
                 dest_path = self.get_correct_extension(dest_path, ".pdf")
 
-                to_csv_file(src_path,dest_path)
+                form_csv_to_pdf(src_path,dest_path)
                 
             case 4: # Lėtesnė knygų paieška
                 
@@ -169,22 +170,24 @@ class MainClass():
             group.add_argument('-h', '--help', action='store_true', help=ReadMe.get('-h, --help'))
             group.add_argument('-v', '--version', action='store_true', help=ReadMe.get('-v, --version'))
             group.add_argument('-S', '--webScraper', action='store_true', help=ReadMe.get('-S, --webScraper'))
-            group.add_argument('-G', '--generate', action='store_true', help=ReadMe.get('-G, --generate'))
+            group.add_argument('-G', '--generate', help=ReadMe.get('-G, --generate'))
             group.add_argument('-I', '--isbnPdf', action='store_true', help=ReadMe.get('-I, --isbnPdf'))
             group.add_argument('-C', '--check', action='store_true', help=ReadMe.get('-C, --check'))
             group.add_argument('-i', '--input', help=ReadMe.get('-i, --input'))
             group.add_argument('-o', '--output', help=ReadMe.get('-o, --output'))
             group.add_argument('--gui', action='store_true', help=ReadMe.get('--gui'))
 
+            argcomplete.autocomplete(parser)
+
             args = parser.parse_args()
             
             if args.help:
                 parser.print_help()
             
-            if args.gui:
+            elif args.gui:
                 self.local_run()
             
-            if args.version:
+            elif args.version:
                 import configparser
         
                 build = git_build_number()
@@ -193,26 +196,46 @@ class MainClass():
                 version = config["DEFAULT"]["version"]
                 
                 print( f"{version}+{build}" )
-            if args.webScraper and not args.output:
+            elif args.webScraper and not args.output:
                 parser.error("Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output")
+                
             elif args.webScraper:
-                src_path = args.input  # can be None
+                src_path = args.input 
                 dest_path = args.output
                 
                 if args.input:
                     iBibliotekos_paieska(src_path, dest_path)
                 else:
                     iBibliotekos_paieska_tiesiogiai(dest_path) 
-                  
-            elif args.generate:
-                barcode_generator(int(integer_val), dest_path)
-            
-            elif args.isbnPdf:
+               
+            elif args.generate and not args.output:
+                parser.error("Kai naudojamas -G/--generate, privaloma nurodyti -o/--output")   
+                
+            elif args.generate != False:
+                dest_path = args.output
                 dest_path = self.get_correct_extension(dest_path, ".pdf")
-                to_csv_file(src_path,dest_path)
+                barcode_generator(int(args.generate), dest_path)
+            
+            elif args.isbnPdf and not args.output and not args.input:
+                parser.error("Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input") 
+                  
+            elif args.isbnPdf:
+                src_path = args.input
+                
+                dest_path = args.output
+                dest_path = self.get_correct_extension(dest_path, ".pdf")
+                
+                if args.input:
+                    form_csv_to_pdf(src_path,dest_path)
+                
             
             elif args.check:
-                pass
+                dest_path = args.output
+                scanner(dest_path)
+                if args.output:
+                    scanner(dest_path)
+                else:
+                    scanner()
             
             elif args.input:
                 pass

@@ -52,22 +52,29 @@ def generate_KVM_barcode(isbn, output):
     main_barcode = barcode.get("code128", isbn, writer=ImageWriter())
     return main_barcode.save(output + str(isbn), options)   
     
-def to_csv_file(input_csv, output_csv):
+def form_csv_to_pdf(input_csv, output_csv):
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
-        rows = list(reader)
+        rows_list = list(reader)
         
-        filenameArray=[]
+        imiges_to_pdf_hart(output_csv, rows_list) 
         
-        for row in rows:
-            isbn_corect = row['Atspauzdinti']
-            caches = "caches/BarCode/"
-            is_it_directory(caches)
+def form_buffer_to_pdf(buffer_list,output_csv):
+    imiges_to_pdf_hart(output_csv, buffer_list) 
+    
+def imiges_to_pdf_hart(output_csv, rows):
+    filenameArray=[]
+        
+    for row in rows:
+        isbn_corect = row['Atspauzdinti']
+        caches = "caches/BarCode/"
+        is_it_directory(caches)
             
-            if len(isbn_corect)!=13:
-                filenameArray.append( generate_10_barcode(isbn_corect, caches) )
+        if len(isbn_corect)!=13:
+            filenameArray.append( generate_10_barcode(isbn_corect, caches) )
 
-            else:
-                filenameArray.append( generate_13_barcode(isbn_corect, caches) )
+        else:
+            filenameArray.append( generate_13_barcode(isbn_corect, caches) )
                 
-        images_to_pdf(filenameArray, output_csv) 
+    images_to_pdf(filenameArray, output_csv)
+        
