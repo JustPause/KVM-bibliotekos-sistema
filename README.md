@@ -98,19 +98,19 @@ python3 -m unittest discover -s tests
 
 ## TODO
 
-* Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
-* Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
-* Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
-* Duoti galimybe kai skanuoja pataisyti ISNB koda
-* Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
-* Padaryti GUI
-* Apmasyti funcionaluma kuris leistu is vienos lenteles sulieti lentelias, pagrinde perasant isnb koda pagal autoriu ir pavadinima
-* Knygu ieskojimas pagal pavadinima, su galimybe patikslinti su data
-* Ivedus pavadinima ir metus  galima duoti pasirinkima nnaudotojui kad pasirinktu kuri knyga
-* Duoti galimybe kai skanuoja pataisyti ISNB koda
-* Gaves knyga be bakrodo ir ISNB Nautotojas turetu galeti irastyti pavadinima, metus. Ir gauti autoriu ir isnb koda. Poto is atskiros lenteles turima galeti paiimti isnb koda ir ji atspauzdinti
-* Pasibandyti padaryti API bendravima tarp funciju ir lenteles
-* Padaryti GUI
+* [ ]  Apmąstyti funkcionalumą, kuris leistų iš vienos lentelės sulieti lenteles, pagrinde perrašant ISBN kodą pagal autorių ir pavadinimą
+* [ ] Knygų ieškojimas pagal pavadinimą, su galimybe patikslinti pagal metus
+* [ ] Įvedus pavadinimą ir metus, galima duoti pasirinkimą naudotojui, kad pasirinktų kurią knygą
+* [ ] Duoti galimybę skenavimo metu pataisyti ISBN kodą
+* [ ] Gavęs knygą be barkodo ir ISBN, naudotojas turėtų galėti įrašyti pavadinimą ir metus, ir gauti autorių bei ISBN kodą. Po to iš atskiros lentelės turėtų būti galima paimti ISBN kodą ir jį atspausdinti
+* [ ] Padaryti GUI
+* [ ] Apmąstyti funkcionalumą, kuris leistų iš vienos lentelės sulieti lenteles, pagrinde perrašant ISBN kodą pagal autorių ir pavadinimą
+* [ ] Knygų ieškojimas pagal pavadinimą, su galimybe patikslinti pagal metus
+* [ ] Įvedus pavadinimą ir metus, galima duoti pasirinkimą naudotojui, kad pasirinktų kurią knygą
+* [ ] Duoti galimybę skenavimo metu pataisyti ISBN kodą
+* [ ] Gavęs knygą be barkodo ir ISBN, naudotojas turėtų galėti įrašyti pavadinimą ir metus, ir gauti autorių bei ISBN kodą. Po to iš atskiros lentelės turėtų būti galima paimti ISBN kodą ir jį atspausdinti
+* [ ] Pasibandyti padaryti API bendravimą tarp funkcijų ir lentelės
+* [ ] Padaryti GUI
 
 ## Kas padaryta
 
