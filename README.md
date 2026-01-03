@@ -41,9 +41,9 @@ Kai viskas susiinstaliuos, paleidžiama taip:
 python3 pagrindinis.py
 ```
 
----
+## Priklausomybės / Dependencies
 
-## Naudojamos Python bibliotekos
+### Naudojamos Python bibliotekos
 
 * **reportlab** - PDF generavimui
 * **python-barcode** - barkodų kūrimui
@@ -51,7 +51,24 @@ python3 pagrindinis.py
 * **pillow** - paveikslėlių apdorojimui
 * **InquirerPy** - Python CLI UI
 
----
+### Google fonts
+
+* Inter
+* Playfair_Display
+
+## Su Kompoliavimas
+
+Veikia ir win in linux :D
+
+```bash
+python3 ./build.py
+```
+
+## Testai
+
+```bash
+python3 -m unittest discover -s tests
+```
 
 ## Panaudojimas ir nustatymai
 
@@ -82,35 +99,13 @@ python3 pagrindinis.py [Nustatymai]
 python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 ```
 
-## Su Kompoliavimas
+## TODO GUI
 
-Veikia ir win in linux :D
-
-```bash
-python3 ./build.py
-```
-
-## Testai
-
-```bash
-python3 -m unittest discover -s tests
-```
-
-## TODO
-
-* [ ]  Apmąstyti funkcionalumą, kuris leistų iš vienos lentelės sulieti lenteles, pagrinde perrašant ISBN kodą pagal autorių ir pavadinimą
-* [ ] Knygų ieškojimas pagal pavadinimą, su galimybe patikslinti pagal metus
 * [ ] Įvedus pavadinimą ir metus, galima duoti pasirinkimą naudotojui, kad pasirinktų kurią knygą
 * [ ] Duoti galimybę skenavimo metu pataisyti ISBN kodą
 * [ ] Gavęs knygą be barkodo ir ISBN, naudotojas turėtų galėti įrašyti pavadinimą ir metus, ir gauti autorių bei ISBN kodą. Po to iš atskiros lentelės turėtų būti galima paimti ISBN kodą ir jį atspausdinti
-* [ ] Padaryti GUI
-* [ ] Apmąstyti funkcionalumą, kuris leistų iš vienos lentelės sulieti lenteles, pagrinde perrašant ISBN kodą pagal autorių ir pavadinimą
-* [ ] Knygų ieškojimas pagal pavadinimą, su galimybe patikslinti pagal metus
-* [ ] Įvedus pavadinimą ir metus, galima duoti pasirinkimą naudotojui, kad pasirinktų kurią knygą
-* [ ] Duoti galimybę skenavimo metu pataisyti ISBN kodą
-* [ ] Gavęs knygą be barkodo ir ISBN, naudotojas turėtų galėti įrašyti pavadinimą ir metus, ir gauti autorių bei ISBN kodą. Po to iš atskiros lentelės turėtų būti galima paimti ISBN kodą ir jį atspausdinti
-* [ ] Pasibandyti padaryti API bendravimą tarp funkcijų ir lentelės
-* [ ] Padaryti GUI
+* [x] Pasibandyti padaryti API bendravimą tarp funkcijų ir lentelės
+* [x] Padaryti GUI
 
 ## Kas padaryta
 
@@ -125,13 +120,6 @@ python3 -m unittest discover -s tests
 
 * [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
 * [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv -> add filert to only show knygos
-
-## Dependense
-
-### Google fonts
-
-* Inter
-* Playfair_Display
 
 ### Darbo lentele
 
