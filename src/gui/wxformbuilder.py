@@ -107,7 +107,7 @@ class SideBar ( wx.Panel ):
         self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, _(u"Version 0.1 build 2026-01-01"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText29.Wrap( -1 )
 
-        self.m_staticText29.SetFont( wx.Font( 6, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+        self.m_staticText29.SetFont( wx.Font( 8, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
 
         sideNavigsionLayout.Add( self.m_staticText29, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -541,8 +541,19 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
+        bSizer51 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_button81 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer51.Add( self.m_button81, 0, wx.ALL, 5 )
+
+
+        bSizer51.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
         self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        bSizer51.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        bSizer135.Add( bSizer51, 1, wx.EXPAND, 5 )
 
 
         self.m_panel49.SetSizer( bSizer135 )
@@ -555,6 +566,7 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_button81.Bind( wx.EVT_LEFT_DOWN, self.next )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -564,6 +576,7 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
     # Virtual event handlers, override them in your derived class
     def next( self, event ):
         event.Skip()
+
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

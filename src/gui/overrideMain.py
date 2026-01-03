@@ -59,7 +59,10 @@ class IsCSV(wxformbuilder.IsCSV):
     pass
 
 class IsKlavetūrosSkaitytuvo(wxformbuilder.IsKlavetūrosSkaitytuvo):
-    pass
+    def file_free_scan():
+        pass
+    def next():
+        pass
 
 class IeskotiPagalPavadinima(wxformbuilder.IeskotiPagalPavadinima):
     pass
@@ -84,7 +87,7 @@ class SideBar(wxformbuilder.SideBar):
         config.read("config.conf")
         version = config["DEFAULT"]["version"]
         
-        return f"{version}+{build}"
+        return f"vesrija - {version}+{build}"
         
     def __PikingLable(self,Lable):
         CLASS_NAME_AND_LABLES = [
