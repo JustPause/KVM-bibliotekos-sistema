@@ -521,13 +521,13 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
         bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur išaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText66.Wrap( -1 )
 
         bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer130.Add( ( 20, 0), 0, 0, 5 )
+        bSizer130.Add( ( 20, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
         self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
         self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -536,24 +536,32 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( bSizer130, 0, 0, 5 )
+        bSizer135.Add( bSizer130, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        bSizer51 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_button81 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer51.Add( self.m_button81, 0, wx.ALL, 5 )
+        bSizer51 = wx.BoxSizer( wx.VERTICAL )
 
 
         bSizer51.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
+
+        bSizer135.Add( bSizer51, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer1301 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_button81 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer1301.Add( self.m_button81, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+
+        bSizer1301.Add( ( 0, 0), 1, wx.ALIGN_CENTER_VERTICAL, 5 )
+
         self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer51.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        bSizer1301.Add( self.m_button8, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        bSizer135.Add( bSizer51, 1, wx.EXPAND, 5 )
+        bSizer135.Add( bSizer1301, 0, wx.EXPAND, 5 )
 
 
         self.m_panel49.SetSizer( bSizer135 )
@@ -566,7 +574,7 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_button81.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.m_button81.Bind( wx.EVT_LEFT_DOWN, self.file_free_scan )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -574,9 +582,77 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def file_free_scan( self, event ):
+        event.Skip()
+
     def next( self, event ):
         event.Skip()
 
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class IsKlavetūrosSkaitytuvoEkranas
+###########################################################################
+
+class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer130 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,400 ), wx.dataview.DV_ROW_LINES )
+        bSizer130.Add( self.m_dataViewListCtrl1, 0, wx.ALL, 5 )
+
+
+        bSizer130.Add( ( 0, 64), 0, 0, 5 )
+
+        self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,100 ), wx.TAB_TRAVERSAL )
+        self.m_panel27.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
+        bSizer130.Add( self.m_panel27, 1, wx.EXPAND, 5 )
+
+
+        bSizer135.Add( bSizer130, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

@@ -59,9 +59,9 @@ class IsCSV(wxformbuilder.IsCSV):
     pass
 
 class IsKlavetūrosSkaitytuvo(wxformbuilder.IsKlavetūrosSkaitytuvo):
-    def file_free_scan():
+    def file_free_scan(self, event):
         pass
-    def next():
+    def next(self, event):
         pass
 
 class IeskotiPagalPavadinima(wxformbuilder.IeskotiPagalPavadinima):
