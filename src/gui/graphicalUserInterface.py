@@ -2,6 +2,7 @@ import os
 import wx
 import gettext
 
+from src.ibibliotekaConnection import kill_drive
 from src.gui.overrideMain import ISNBkoduAtspauzdinimas, Pagrindinis, SideBar
 
 class GUI(wx.Frame):
@@ -42,13 +43,20 @@ class GUI(wx.Frame):
 
         self.SetSizer(self.mainSizer)
         self.Layout()
-
+        
+class Barkodas(wx.App):
+    def OnExit(self):
+        print("App is quitting! Do cleanup here")
+        
+        kill_drive()
+        
+        return 0
+    
 def run():
-    app = wx.App(False)
+    app = Barkodas(False)
     frame = GUI(None)
     frame.Show()
     app.MainLoop()
-
 
 if __name__ == "__main__":
     run()

@@ -74,9 +74,11 @@ def data_extracotr(isbn):
         infoLine = numberOfObj[x].find_element(By.CSS_SELECTOR, ".c-result-item__info.h-tablet-portrait-hide")
         infoLinespam = infoLine.find_elements(By.CLASS_NAME, "ng-star-inserted")
 
-        if(infoLinespam ==2):
+        if( len(infoLinespam) == 2 ):
             key, value = infoLinespam[1].text.split(":", 1)
+            
             value = value.strip()
+            
             if(value=="SPAUSDINTINIS"):
                 corectrow=x
         else:
@@ -189,7 +191,7 @@ def iBibliotekos_paieska(input_csv, output_csv):
         for index, row in enumerate(rows):
             print( str( int( (index / lenth) * 100) ) + "%")
         
-            data = iBiblioteka_scraper(row["isbn"])
+            data = iBibliotekos_paieska_tiesiogiai_core(row["isbn"])
             
             if( data[fieldnames[ 1 ]] == "---" ):
                 newrows.append( data )
@@ -207,10 +209,6 @@ def iBibliotekos_paieska(input_csv, output_csv):
 
 def iBibliotekos_paieska_tiesiogiai(output_csv):
 
-    global driver
-        
-    connect_to_driver()
-
     while True:
         isbn = inquirer.text(message="ISBN:").execute()
         isbn = str(isbn)
@@ -219,7 +217,7 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
             kill_drive()
             break
 
-        data = iBiblioteka_scraper(isbn)
+        data = iBibliotekos_paieska_tiesiogiai_core(isbn)
 
         if conpare_with_main_sheet(data):
             continue
@@ -232,7 +230,19 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
             if file_empty:
                 writer.writeheader()
             writer.writerow(data) 
+            
+def iBibliotekos_paieska_tiesiogiai_core(isbn):
 
+    global driver
+        
+    if(driver==None): 
+        connect_to_driver()
+
+    isbn = str(isbn)
+
+    data = iBiblioteka_scraper(isbn)
+
+    return data
 def conpare_with_main_sheet(inputRows : list):
     # global mainSheet
     

@@ -2,6 +2,7 @@ import os
 import sys
 import wx
 
+from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.helpers.utils import get_fieldnames
 from src.osHelper import git_build_number
 from src.barcodeKurimas import barcode_generator
@@ -74,6 +75,15 @@ class IsKlavetūrosSkaitytuvoEkranas(wxformbuilder.IsKlavetūrosSkaitytuvoEkrana
         super().__init__(parent)
         
         self.addingColumsHeaders(self.m_dataViewListCtrl1)
+        
+    def Enter(self, event): 
+        data = iBibliotekos_paieska_tiesiogiai_core( event.GetString() ) 
+        fieldnames = get_fieldnames()
+        
+        self.m_dataViewListCtrl1.AppendItem([data[fieldnames[0]], data[fieldnames[1]], data[fieldnames[2]], data[fieldnames[3]]])
+        
+        self.m_textCtrl9.SetValue("")
+        self.m_textCtrl9.SetFocus()
     
     @staticmethod   
     def addingColumsHeaders(dataView):

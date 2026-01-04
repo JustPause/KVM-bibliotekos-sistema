@@ -130,15 +130,9 @@ class SideBar ( wx.Panel ):
     def __del__( self ):
         pass
 
-
     # Virtual event handlers, override them in your derived class
     def Click( self, event ):
         event.Skip()
-
-
-
-
-
 
     def version( self, event ):
         event.Skip()
@@ -633,10 +627,18 @@ class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
 
         bSizer130.Add( ( 0, 32), 0, 0, 5 )
 
-        self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,100 ), wx.TAB_TRAVERSAL )
+        self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TAB_TRAVERSAL )
         self.m_panel27.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
-        bSizer130.Add( self.m_panel27, 1, wx.EXPAND, 5 )
+        bSizer57 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_textCtrl9 = wx.TextCtrl( self.m_panel27, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TE_CENTER|wx.TE_PROCESS_ENTER )
+        bSizer57.Add( self.m_textCtrl9, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.m_panel27.SetSizer( bSizer57 )
+        self.m_panel27.Layout()
+        bSizer130.Add( self.m_panel27, 0, 0, 5 )
 
 
         bSizer135.Add( bSizer130, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -651,8 +653,16 @@ class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_textCtrl9.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def Enter( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
