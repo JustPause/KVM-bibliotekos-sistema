@@ -2,6 +2,7 @@ import os
 import sys
 import wx
 
+from src.helpers.utils import get_fieldnames
 from src.osHelper import git_build_number
 from src.barcodeKurimas import barcode_generator
 
@@ -61,8 +62,35 @@ class IsCSV(wxformbuilder.IsCSV):
 class IsKlavetūrosSkaitytuvo(wxformbuilder.IsKlavetūrosSkaitytuvo):
     def file_free_scan(self, event):
         pass
-    def next(self, event):
-        pass
+    def next(self, event):    
+        wx.CallAfter(
+            lambda: self.GetParent().ReplacePanelNext(IsKlavetūrosSkaitytuvoEkranas)
+        )
+
+        event.Skip()
+        
+class IsKlavetūrosSkaitytuvoEkranas(wxformbuilder.IsKlavetūrosSkaitytuvoEkranas):    
+    def __init__(self, parent):
+        super().__init__(parent)
+        
+        self.addingColumsHeaders(self.m_dataViewListCtrl1)
+    
+    @staticmethod   
+    def addingColumsHeaders(dataView):
+        
+        fieldnames = get_fieldnames()
+        
+        for field in fieldnames:
+            dataView.AppendTextColumn(field)
+            
+        cols = dataView.GetColumns()
+
+        width = dataView.GetClientSize().width
+        col_width = width // len(cols)
+
+        for col in cols:
+            col.SetWidth(col_width)
+
 
 class IeskotiPagalPavadinima(wxformbuilder.IeskotiPagalPavadinima):
     pass

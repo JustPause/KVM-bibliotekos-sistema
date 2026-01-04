@@ -628,10 +628,10 @@ class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
         bSizer130 = wx.BoxSizer( wx.VERTICAL )
 
         self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,400 ), wx.dataview.DV_ROW_LINES )
-        bSizer130.Add( self.m_dataViewListCtrl1, 0, wx.ALL, 5 )
+        bSizer130.Add( self.m_dataViewListCtrl1, 0, 0, 5 )
 
 
-        bSizer130.Add( ( 0, 64), 0, 0, 5 )
+        bSizer130.Add( ( 0, 32), 0, 0, 5 )
 
         self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,100 ), wx.TAB_TRAVERSAL )
         self.m_panel27.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
