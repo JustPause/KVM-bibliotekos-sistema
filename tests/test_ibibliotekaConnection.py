@@ -16,7 +16,7 @@ ats_array =[
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': 'KVM251027025'},
     {'Autorius': 'Hauff, Wilhelm (1802–1827)', 'Pavadinimas': 'Pasakos', 'Metai': '1993', 'isbn': '5790007279'},
     {'Autorius': '', 'Pavadinimas': 'Saliamono žiedas', 'Metai': '1991', 'isbn': '5899425733'},
-    {'Autorius': '', 'Pavadinimas': 'Žemė ir jos gėrybės', 'Metai': '1994', 'isbn': '5899500190'},
+    {'Autorius': '', 'Pavadinimas': 'Žemė ir jos gėrybės', 'Metai': '1992', 'isbn': '5899500190'},
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': '7986879477'},
     {'Autorius': '---', 'Pavadinimas': '---', 'Metai': '---', 'isbn': '9886140013'},
     {'Autorius': '', 'Pavadinimas': 'Vilkas ir septyni ožiukai ir kitos pasakos', 'Metai': '2003', 'isbn': '9955061030'},
