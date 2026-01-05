@@ -54,11 +54,13 @@ class SideBar ( wx.Panel ):
 
         self.ISNB_kodu_atspauzdinimas = wx.Button( self, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
         self.ISNB_kodu_atspauzdinimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.ISNB_kodu_atspauzdinimas.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
         BarkodaiLayout.Add( self.ISNB_kodu_atspauzdinimas, 0, wx.RIGHT|wx.LEFT, 5 )
 
-        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.Kurti_naujus_barkodus.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Kurti_naujus_barkodus.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
         BarkodaiLayout.Add( self.Kurti_naujus_barkodus, 0, wx.RIGHT|wx.LEFT, 5 )
 
@@ -78,17 +80,22 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Iš_Klavetūros_Skaitytuvo.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.RIGHT|wx.LEFT, 5 )
 
-        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), 0|wx.BORDER_STATIC )
         self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Ieškoti_pagal_pavadinima.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.RIGHT|wx.LEFT, 5 )
 
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( 52,-1 ), wx.BORDER_NONE )
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.Iš_CSV.SetForegroundColour( wx.Colour( 22, 22, 22 ) )
+        self.Iš_CSV.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
         KnyguLayout.Add( self.Iš_CSV, 0, wx.RIGHT|wx.LEFT, 5 )
 
 
@@ -109,6 +116,7 @@ class SideBar ( wx.Panel ):
 
         self.Localioje_lenteje = wx.Button( self, wx.ID_ANY, _(u"Localioje lenteje"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
         self.Localioje_lenteje.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Localioje_lenteje.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
         PatikrinimasLayout.Add( self.Localioje_lenteje, 0, wx.RIGHT|wx.LEFT, 5 )
 
