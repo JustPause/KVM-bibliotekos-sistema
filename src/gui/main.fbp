@@ -448,7 +448,7 @@
                 <property name="permission">none</property>
                 <object class="sizeritem" expanded="false">
                   <property name="border">5</property>
-                  <property name="flag">wxRIGHT|wxLEFT</property>
+                  <property name="flag">wxALIGN_LEFT|wxALIGN_RIGHT|wxEXPAND</property>
                   <property name="proportion">0</property>
                   <object class="wxButton" expanded="false">
                     <property name="BottomDockable">1</property>
@@ -461,7 +461,7 @@
                     <property name="aui_row">0</property>
                     <property name="auth_needed">0</property>
                     <property name="best_size"></property>
-                    <property name="bg">wxSYS_COLOUR_WINDOW</property>
+                    <property name="bg">wxSYS_COLOUR_BTNFACE</property>
                     <property name="bitmap"></property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
@@ -478,7 +478,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg">16,16,16</property>
+                    <property name="fg">wxSYS_COLOUR_BTNTEXT</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -507,7 +507,7 @@
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
                     <property name="size">-1,-1</property>
-                    <property name="style"></property>
+                    <property name="style">wxBU_EXACTFIT</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
                     <property name="tooltip"></property>
@@ -522,8 +522,8 @@
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
-                  <property name="border">5</property>
-                  <property name="flag">wxRIGHT|wxLEFT</property>
+                  <property name="border">0</property>
+                  <property name="flag">wxALIGN_LEFT|wxALIGN_RIGHT|wxEXPAND</property>
                   <property name="proportion">0</property>
                   <object class="wxButton" expanded="false">
                     <property name="BottomDockable">1</property>
@@ -536,7 +536,7 @@
                     <property name="aui_row">0</property>
                     <property name="auth_needed">0</property>
                     <property name="best_size"></property>
-                    <property name="bg">wxSYS_COLOUR_WINDOW</property>
+                    <property name="bg">wxSYS_COLOUR_BTNFACE</property>
                     <property name="bitmap"></property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
@@ -553,7 +553,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg">16,16,16</property>
+                    <property name="fg">wxSYS_COLOUR_BTNTEXT</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -582,7 +582,7 @@
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
                     <property name="size">-1,-1</property>
-                    <property name="style"></property>
+                    <property name="style">wxBU_EXACTFIT</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
                     <property name="tooltip"></property>
@@ -597,8 +597,8 @@
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
-                  <property name="border">5</property>
-                  <property name="flag">wxRIGHT|wxLEFT</property>
+                  <property name="border">0</property>
+                  <property name="flag">wxALIGN_LEFT|wxALIGN_RIGHT|wxEXPAND</property>
                   <property name="proportion">0</property>
                   <object class="wxButton" expanded="false">
                     <property name="BottomDockable">1</property>
@@ -611,7 +611,7 @@
                     <property name="aui_row">0</property>
                     <property name="auth_needed">0</property>
                     <property name="best_size"></property>
-                    <property name="bg">wxSYS_COLOUR_WINDOW</property>
+                    <property name="bg">wxSYS_COLOUR_BTNFACE</property>
                     <property name="bitmap"></property>
                     <property name="caption"></property>
                     <property name="caption_visible">1</property>
@@ -628,7 +628,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg">22,22,22</property>
+                    <property name="fg">wxSYS_COLOUR_BTNTEXT</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -657,7 +657,7 @@
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
                     <property name="size">-1,-1</property>
-                    <property name="style"></property>
+                    <property name="style">wxBU_EXACTFIT</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
                     <property name="tooltip"></property>

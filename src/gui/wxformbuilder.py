@@ -58,7 +58,7 @@ class SideBar ( wx.Panel ):
 
         BarkodaiLayout.Add( self.ISNB_kodu_atspauzdinimas, 0, wx.RIGHT|wx.LEFT, 5 )
 
-        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
         self.Kurti_naujus_barkodus.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
         self.Kurti_naujus_barkodus.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
@@ -80,23 +80,23 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-        self.Iš_Klavetūros_Skaitytuvo.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT )
+        self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.Iš_Klavetūros_Skaitytuvo.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
-        KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.RIGHT|wx.LEFT, 5 )
+        KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 
-        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), 0|wx.BORDER_STATIC )
-        self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-        self.Ieškoti_pagal_pavadinima.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT|wx.BORDER_STATIC )
+        self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.Ieškoti_pagal_pavadinima.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
-        KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.RIGHT|wx.LEFT, 5 )
+        KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 0 )
 
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        self.Iš_CSV.SetForegroundColour( wx.Colour( 22, 22, 22 ) )
-        self.Iš_CSV.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT )
+        self.Iš_CSV.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.Iš_CSV.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
-        KnyguLayout.Add( self.Iš_CSV, 0, wx.RIGHT|wx.LEFT, 5 )
+        KnyguLayout.Add( self.Iš_CSV, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 0 )
 
 
         sideNavigsionLayout.Add( KnyguLayout, 0, wx.EXPAND|wx.LEFT, 10 )
