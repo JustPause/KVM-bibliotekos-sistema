@@ -19,7 +19,7 @@
     <property name="lua_skip_events">1</property>
     <property name="lua_ui_table">UI</property>
     <property name="name">Barkodas</property>
-    <property name="path">/home/justinas/Programming/Valdorfas/KVM-bibliotekos-sistema/src/gui</property>
+    <property name="path">/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/src/gui</property>
     <property name="php_disconnect_events">0</property>
     <property name="php_disconnect_mode">source_name</property>
     <property name="php_skip_events">1</property>
@@ -96,7 +96,7 @@
                 <property name="docking">Left</property>
                 <property name="drag_accept_files">0</property>
                 <property name="enabled">1</property>
-                <property name="fg"></property>
+                <property name="fg">16,16,16</property>
                 <property name="floatable">1</property>
                 <property name="font">Playfair Display,90,400,32,70,0</property>
                 <property name="gripper">0</property>
@@ -169,7 +169,7 @@
                 <property name="docking">Left</property>
                 <property name="drag_accept_files">0</property>
                 <property name="enabled">1</property>
-                <property name="fg"></property>
+                <property name="fg">16,16,16</property>
                 <property name="floatable">1</property>
                 <property name="font">Inter,90,400,20,70,0</property>
                 <property name="gripper">0</property>
@@ -245,7 +245,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg"></property>
+                    <property name="fg">16,16,16</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -273,7 +273,7 @@
                     <property name="pressed"></property>
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
-                    <property name="size">180,-1</property>
+                    <property name="size">-1,-1</property>
                     <property name="style">wxBORDER_NONE</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
@@ -320,7 +320,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg"></property>
+                    <property name="fg">16,16,16</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -348,7 +348,7 @@
                     <property name="pressed"></property>
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
-                    <property name="size">150,-1</property>
+                    <property name="size">-1,-1</property>
                     <property name="style">wxBORDER_NONE</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
@@ -402,7 +402,7 @@
                 <property name="docking">Left</property>
                 <property name="drag_accept_files">0</property>
                 <property name="enabled">1</property>
-                <property name="fg"></property>
+                <property name="fg">16,16,16</property>
                 <property name="floatable">1</property>
                 <property name="font">Inter,90,400,20,70,0</property>
                 <property name="gripper">0</property>
@@ -478,7 +478,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg"></property>
+                    <property name="fg">16,16,16</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -506,7 +506,7 @@
                     <property name="pressed"></property>
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
-                    <property name="size">168,-1</property>
+                    <property name="size">-1,-1</property>
                     <property name="style">wxBORDER_NONE</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
@@ -553,7 +553,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg"></property>
+                    <property name="fg">16,16,16</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -581,7 +581,7 @@
                     <property name="pressed"></property>
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
-                    <property name="size">166,-1</property>
+                    <property name="size">-1,-1</property>
                     <property name="style">wxBORDER_NONE</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
@@ -710,7 +710,7 @@
                 <property name="docking">Left</property>
                 <property name="drag_accept_files">0</property>
                 <property name="enabled">1</property>
-                <property name="fg"></property>
+                <property name="fg">16,16,16</property>
                 <property name="floatable">1</property>
                 <property name="font">Inter,90,400,20,70,0</property>
                 <property name="gripper">0</property>
@@ -786,7 +786,7 @@
                     <property name="docking">Left</property>
                     <property name="drag_accept_files">0</property>
                     <property name="enabled">1</property>
-                    <property name="fg"></property>
+                    <property name="fg">16,16,16</property>
                     <property name="floatable">1</property>
                     <property name="focus"></property>
                     <property name="font"></property>
@@ -814,7 +814,7 @@
                     <property name="pressed"></property>
                     <property name="resize">Resizable</property>
                     <property name="show">1</property>
-                    <property name="size">114,-1</property>
+                    <property name="size">-1,-1</property>
                     <property name="style">wxBORDER_NONE</property>
                     <property name="subclass">; ; forward_declare</property>
                     <property name="toolbar_pane">0</property>
@@ -911,7 +911,7 @@
     <object class="Panel" expanded="false">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
-      <property name="bg"></property>
+      <property name="bg">38,38,38</property>
       <property name="context_help"></property>
       <property name="context_menu">1</property>
       <property name="drag_accept_files">0</property>
