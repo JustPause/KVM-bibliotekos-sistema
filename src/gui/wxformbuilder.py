@@ -171,6 +171,8 @@ class Pagrindinis ( wx.Panel ):
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
+        self.SetBackgroundColour( wx.Colour( 217, 217, 217 ) )
+
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
         arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
@@ -185,6 +187,8 @@ class Pagrindinis ( wx.Panel ):
         self.arrowText.Wrap( -1 )
 
         self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.arrowText.SetForegroundColour( wx.Colour( 22, 22, 22 ) )
+        self.arrowText.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
 
