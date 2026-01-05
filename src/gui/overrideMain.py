@@ -1,3 +1,4 @@
+import configparser
 import os
 import sys
 import wx
@@ -25,16 +26,29 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
     def __init__(self, parent):
         super().__init__(parent)
-        import configparser
         
         config = configparser.ConfigParser()
         config.read("config.conf")
         
-        ISNBkoduAtspauzdinimasIsKur = os.path.expanduser("~") if config["userData"]["ISNBkoduAtspauzdinimasIsKur"] == "" else config["userData"]["ISNBkoduAtspauzdinimasIsKur"]
-        ISNBkoduAtspauzdinimasIKur = os.path.expanduser("~") if config["userData"]["ISNBkoduAtspauzdinimasIKur"] == "" else config["userData"]["ISNBkoduAtspauzdinimasIKur"]
+        ISNBkoduAtspauzdinimasIsKur = config["userData"]["ISNBkoduAtspauzdinimasIsKur"]
+        ISNBkoduAtspauzdinimasIKur = config["userData"]["ISNBkoduAtspauzdinimasIKur"]
+        
+        ISNBkoduAtspauzdinimasIsKur = os.path.expanduser("~") if ISNBkoduAtspauzdinimasIsKur == "" else ISNBkoduAtspauzdinimasIsKur
+        ISNBkoduAtspauzdinimasIKur = os.path.expanduser("~") if ISNBkoduAtspauzdinimasIKur == "" else ISNBkoduAtspauzdinimasIKur
                 
         self.m_textCtrl2.SetValue(ISNBkoduAtspauzdinimasIsKur)
         self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
+        
+    def enterIs( self, event ):
+        config = configparser.ConfigParser()
+        config.read("config.conf")
+
+        config["userData"]["ISNBkoduAtspauzdinimasIsKur"] = event.GetString() 
+
+        with open("config.conf", "w") as f:
+            config.write(f)
+    def enterI( self, event ):
+        pass
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def __init__(self, parent):
