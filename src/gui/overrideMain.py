@@ -23,7 +23,18 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
     pass
 
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
+        import configparser
+        
+        config = configparser.ConfigParser()
+        config.read("config.conf")
+        
+        ISNBkoduAtspauzdinimasIsKur = os.path.expanduser("~") if config["userData"]["ISNBkoduAtspauzdinimasIsKur"] == "" else config["userData"]["ISNBkoduAtspauzdinimasIsKur"]
+        ISNBkoduAtspauzdinimasIKur = os.path.expanduser("~") if config["userData"]["ISNBkoduAtspauzdinimasIKur"] == "" else config["userData"]["ISNBkoduAtspauzdinimasIKur"]
+                
+        self.m_textCtrl2.SetValue(ISNBkoduAtspauzdinimasIsKur)
+        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def __init__(self, parent):
@@ -62,13 +73,13 @@ class IsCSV(wxformbuilder.IsCSV):
 
 class IsKlavetūrosSkaitytuvo(wxformbuilder.IsKlavetūrosSkaitytuvo):
     def file_free_scan(self, event):
-        pass
-    def next(self, event):    
         wx.CallAfter(
             lambda: self.GetParent().ReplacePanelNext(IsKlavetūrosSkaitytuvoEkranas)
         )
 
         event.Skip()
+    def next(self, event):    
+        pass
         
 class IsKlavetūrosSkaitytuvoEkranas(wxformbuilder.IsKlavetūrosSkaitytuvoEkranas):    
     def __init__(self, parent):
