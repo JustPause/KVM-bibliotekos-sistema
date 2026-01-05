@@ -1980,6 +1980,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
+                      <event name="OnLeftDown">click</event>
                       <event name="OnText">enterIs</event>
                     </object>
                   </object>

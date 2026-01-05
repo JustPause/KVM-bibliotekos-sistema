@@ -381,6 +381,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.click )
         self.m_textCtrl2.Bind( wx.EVT_TEXT, self.enterIs )
         self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
@@ -390,6 +391,9 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def click( self, event ):
+        event.Skip()
+
     def enterIs( self, event ):
         event.Skip()
 

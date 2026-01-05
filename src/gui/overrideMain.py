@@ -51,6 +51,22 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
 
         with open("config.conf", "w") as f:
             self.config.write(f)
+    
+    def click(self, event):
+        with wx.FileDialog(
+            self,
+            "Choose a config file",
+            wildcard="Config files (*.conf)|*.conf",
+            style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST
+        ) as dlg:
+
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                print("Selected file:", path)
+    
+    def next( self, event ):
+        pass
+
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def __init__(self, parent):
