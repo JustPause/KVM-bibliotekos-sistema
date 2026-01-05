@@ -3,6 +3,7 @@ import os
 import sys
 import wx
 
+from src.ISBNPrint import form_buffer_to_pdf
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.helpers.utils import get_fieldnames
 from src.osHelper import git_build_number
@@ -31,41 +32,46 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
         self.config = configparser.ConfigParser()
         self.config.read("config.conf")
         
-        ISNBkoduAtspauzdinimasIsKur = self.config["userData"]["ISNBkoduAtspauzdinimasIsKur"]
         ISNBkoduAtspauzdinimasIKur = self.config["userData"]["ISNBkoduAtspauzdinimasIKur"]
         
-        ISNBkoduAtspauzdinimasIsKur = os.path.expanduser("~") if ISNBkoduAtspauzdinimasIsKur == "" else ISNBkoduAtspauzdinimasIsKur
         ISNBkoduAtspauzdinimasIKur = os.path.expanduser("~") if ISNBkoduAtspauzdinimasIKur == "" else ISNBkoduAtspauzdinimasIKur
                 
-        self.m_textCtrl2.SetValue(ISNBkoduAtspauzdinimasIsKur)
         self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
         
-    def enterIs( self, event ):
-        print(self.config)
-        self.config["userData"]["ISNBkoduAtspauzdinimasIsKur"] = event.GetString() 
-
-        with open("config.conf", "w") as f:
-            self.config.write(f)
-    def enterI( self, event ):
-        self.config["userData"]["ISNBkoduAtspauzdinimasIKur"] = event.GetString() 
-
-        with open("config.conf", "w") as f:
-            self.config.write(f)
-    
-    def click(self, event):
+    def SelectingCSVPath(self, event):
+        path = ""
+        
         with wx.FileDialog(
             self,
-            "Choose a config file",
-            wildcard="Config files (*.conf)|*.conf",
+            "Pasirinkitia lokacija",
+            wildcard="Lentelė (*.csv)|*.csv",
             style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST
         ) as dlg:
-
+            
             if dlg.ShowModal() == wx.ID_OK:
                 path = dlg.GetPath()
-                print("Selected file:", path)
+                
+        self.config["userData"]["ISNBkoduAtspauzdinimasIKur"] = path
+
+        with open("config.conf", "w") as f:
+            self.config.write(f)
+            
+        self.m_textCtrl3.SetValue(path)
     
     def next( self, event ):
-        pass
+        print("working")
+        rows=[]
+        
+        for row in range(self.m_grid1.GetNumberRows()):
+            
+            value= self.m_grid1.GetCellValue(row, 0)
+            
+            if value != "":
+                rows.append( value )
+        print("Path: "+self.m_textCtrl3.GetValue())
+        print("data[0]: "+rows[0])
+            
+        form_buffer_to_pdf(rows,self.m_textCtrl3.GetValue())
 
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):

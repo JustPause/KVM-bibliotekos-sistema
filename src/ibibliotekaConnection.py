@@ -139,7 +139,7 @@ def connect_to_driver():
         
     progress.progress("Bandoma susijukti su iBiblioteka")
         
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     driver = webdriver.Firefox(options=options)
     driver.get("https://ibiblioteka.lt/metis/publication")
 

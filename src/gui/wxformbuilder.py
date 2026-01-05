@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.grid
 import wx.dataview
 
 import gettext
@@ -52,17 +53,15 @@ class SideBar ( wx.Panel ):
 
         BarkodaiLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.ISNB_kodu_atspauzdinimas = wx.Button( self, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.ISNB_kodu_atspauzdinimas = wx.Button( self, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.ISNB_kodu_atspauzdinimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-        self.ISNB_kodu_atspauzdinimas.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
-        BarkodaiLayout.Add( self.ISNB_kodu_atspauzdinimas, 0, wx.RIGHT|wx.LEFT, 5 )
+        BarkodaiLayout.Add( self.ISNB_kodu_atspauzdinimas, 0, wx.BOTTOM, 5 )
 
-        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.Kurti_naujus_barkodus = wx.Button( self, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.Kurti_naujus_barkodus.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-        self.Kurti_naujus_barkodus.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
-        BarkodaiLayout.Add( self.Kurti_naujus_barkodus, 0, wx.RIGHT|wx.LEFT, 5 )
+        BarkodaiLayout.Add( self.Kurti_naujus_barkodus, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( BarkodaiLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -80,23 +79,18 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT )
-        self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
-        self.Iš_Klavetūros_Skaitytuvo.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
+        KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.BOTTOM, 5 )
 
-        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT|wx.BORDER_STATIC )
-        self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
-        self.Ieškoti_pagal_pavadinima.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_STATIC )
+        self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 0 )
+        KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.BOTTOM, 5 )
 
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BU_EXACTFIT )
-        self.Iš_CSV.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
-        self.Iš_CSV.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
-
-        KnyguLayout.Add( self.Iš_CSV, 0, wx.ALIGN_LEFT|wx.ALIGN_RIGHT|wx.EXPAND, 0 )
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( KnyguLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -114,11 +108,10 @@ class SideBar ( wx.Panel ):
 
         PatikrinimasLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Localioje_lenteje = wx.Button( self, wx.ID_ANY, _(u"Localioje lenteje"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE )
+        self.Localioje_lenteje = wx.Button( self, wx.ID_ANY, _(u"Localioje lenteje"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.Localioje_lenteje.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-        self.Localioje_lenteje.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
 
-        PatikrinimasLayout.Add( self.Localioje_lenteje, 0, wx.RIGHT|wx.LEFT, 5 )
+        PatikrinimasLayout.Add( self.Localioje_lenteje, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( PatikrinimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -196,7 +189,6 @@ class Pagrindinis ( wx.Panel ):
 
         self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
         self.arrowText.SetForegroundColour( wx.Colour( 22, 22, 22 ) )
-        self.arrowText.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
 
@@ -349,24 +341,30 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+        self.m_grid1 = wx.grid.Grid( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,300 ), 0 )
 
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
+        # Grid
+        self.m_grid1.CreateGrid( 50, 1 )
+        self.m_grid1.EnableEditing( True )
+        self.m_grid1.EnableGridLines( True )
+        self.m_grid1.EnableDragGridSize( False )
+        self.m_grid1.SetMargins( 0, 0 )
 
-        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+        # Columns
+        self.m_grid1.SetColSize( 0, 610 )
+        self.m_grid1.EnableDragColMove( False )
+        self.m_grid1.EnableDragColSize( True )
+        self.m_grid1.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
+        # Rows
+        self.m_grid1.EnableDragRowSize( True )
+        self.m_grid1.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
-        bSizer130.Add( ( 16, 0), 0, 0, 5 )
+        # Label Appearance
 
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer135.Add( bSizer130, 0, 0, 5 )
+        # Cell Defaults
+        self.m_grid1.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+        bSizer135.Add( self.m_grid1, 0, 0, 5 )
 
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -381,7 +379,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
 
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER )
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER|wx.TE_RIGHT )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
         self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
@@ -407,8 +405,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.click )
-        self.m_textCtrl2.Bind( wx.EVT_TEXT, self.enterIs )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.click )
         self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -418,9 +415,6 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
     # Virtual event handlers, override them in your derived class
     def click( self, event ):
-        event.Skip()
-
-    def enterIs( self, event ):
         event.Skip()
 
     def enterI( self, event ):
@@ -672,8 +666,6 @@ class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
         bSizer130.Add( ( 0, 32), 0, 0, 5 )
 
         self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel27.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
         bSizer57 = wx.BoxSizer( wx.VERTICAL )
 
         self.m_textCtrl9 = wx.TextCtrl( self.m_panel27, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TE_CENTER|wx.TE_PROCESS_ENTER )
