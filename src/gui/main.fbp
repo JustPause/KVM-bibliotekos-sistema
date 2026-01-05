@@ -1968,7 +1968,7 @@
                       <property name="resize">Resizable</property>
                       <property name="show">1</property>
                       <property name="size">500,-1</property>
-                      <property name="style"></property>
+                      <property name="style">wxTE_PROCESS_ENTER</property>
                       <property name="subclass">; ; forward_declare</property>
                       <property name="toolbar_pane">0</property>
                       <property name="tooltip"></property>
@@ -1980,7 +1980,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnTextEnter">enterIs</event>
+                      <event name="OnText">enterIs</event>
                     </object>
                   </object>
                 </object>
@@ -2127,7 +2127,7 @@
                       <property name="resize">Resizable</property>
                       <property name="show">1</property>
                       <property name="size">500,-1</property>
-                      <property name="style"></property>
+                      <property name="style">wxTE_PROCESS_ENTER</property>
                       <property name="subclass">; ; forward_declare</property>
                       <property name="toolbar_pane">0</property>
                       <property name="tooltip"></property>
@@ -2139,7 +2139,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnTextEnter">enterI</event>
+                      <event name="OnText">enterI</event>
                     </object>
                   </object>
                 </object>

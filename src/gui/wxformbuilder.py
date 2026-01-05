@@ -130,9 +130,15 @@ class SideBar ( wx.Panel ):
     def __del__( self ):
         pass
 
+
     # Virtual event handlers, override them in your derived class
     def Click( self, event ):
         event.Skip()
+
+
+
+
+
 
     def version( self, event ):
         event.Skip()
@@ -327,7 +333,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         bSizer130.Add( ( 16, 0), 0, 0, 5 )
 
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER )
         self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
         self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
@@ -349,7 +355,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
 
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
         self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
@@ -375,6 +381,8 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_textCtrl2.Bind( wx.EVT_TEXT, self.enterIs )
+        self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -382,6 +390,12 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def enterIs( self, event ):
+        event.Skip()
+
+    def enterI( self, event ):
+        event.Skip()
+
     def next( self, event ):
         event.Skip()
 
