@@ -53,28 +53,31 @@ def generate_KVM_barcode(isbn, output):
     return main_barcode.save(output + str(isbn), options)   
     
 def form_csv_to_pdf(input_csv, output_csv):
+    rows = []
+    
     with open(input_csv, 'r', newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         rows_list = list(reader)
+        for row in rows_list:
+            rows.append(row["Atspauzdinti"])
         
-        imiges_to_pdf_hart(output_csv, rows_list) 
+    imiges_to_pdf_hart(output_csv, rows) 
         
 def form_buffer_to_pdf(buffer_list,output_csv):
     imiges_to_pdf_hart(output_csv, buffer_list) 
     
-def imiges_to_pdf_hart(output_csv, rows):
+def imiges_to_pdf_hart(output_csv, rows:list):
     filenameArray=[]
-        
+
     for row in rows:
-        isbn_corect = row['Atspauzdinti']
         caches = "caches/BarCode/"
         is_it_directory(caches)
             
-        if len(isbn_corect)!=13:
-            filenameArray.append( generate_10_barcode(isbn_corect, caches) )
+        if len(row)!=13:
+            filenameArray.append( generate_10_barcode(row, caches) )
 
         else:
-            filenameArray.append( generate_13_barcode(isbn_corect, caches) )
+            filenameArray.append( generate_13_barcode(row, caches) )
                 
     images_to_pdf(filenameArray, output_csv)
         

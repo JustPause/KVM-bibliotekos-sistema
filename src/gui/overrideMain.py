@@ -59,7 +59,6 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
         self.m_textCtrl3.SetValue(path)
     
     def next( self, event ):
-        print("working")
         rows=[]
         
         for row in range(self.m_grid1.GetNumberRows()):
@@ -68,10 +67,12 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
             
             if value != "":
                 rows.append( value )
-        print("Path: "+self.m_textCtrl3.GetValue())
-        print("data[0]: "+rows[0])
-            
-        form_buffer_to_pdf(rows,self.m_textCtrl3.GetValue())
+     
+        if len(rows) !=0:
+            form_buffer_to_pdf(rows,self.m_textCtrl3.GetValue())
+            Sekmingai()
+        else:
+            NeSekmingai("Parasykite bent viena eilute")
 
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
@@ -92,18 +93,24 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         
         try:
             barcode_generator(int(count), dest_path)
-            wx.MessageBox(
-                "Sėkmingai pavyko",
-                "Rezultatas",
-                wx.OK | wx.ICON_INFORMATION
-            )
+            Sekmingai()
         except:
-            wx.MessageBox(
-                "Kažkas nepavyko",
-                "Rezultatas",
-                wx.OK | wx.ICON_INFORMATION
-            )
+            NeSekmingai("Kažkas nepavyko")
         event.Skip()
+
+def NeSekmingai(text):
+    wx.MessageBox(
+            text,
+            "Rezultatas",
+            wx.OK | wx.ICON_INFORMATION
+        )
+
+def Sekmingai():
+    wx.MessageBox(
+            "Sėkmingai pavyko",
+            "Rezultatas",
+            wx.OK | wx.ICON_INFORMATION
+        )
     
 
 class IsCSV(wxformbuilder.IsCSV):
