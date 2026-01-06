@@ -90,6 +90,8 @@ class SideBar ( wx.Panel ):
         KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.BOTTOM, 5 )
 
         self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        self.Iš_CSV.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+
         KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
 
 
@@ -117,7 +119,28 @@ class SideBar ( wx.Panel ):
         sideNavigsionLayout.Add( PatikrinimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
 
-        sideNavigsionLayout.Add( ( 0, 280), 1, wx.EXPAND, 5 )
+        sideNavigsionLayout.Add( ( 0, 25), 0, wx.EXPAND, 5 )
+
+        self.Uzrasimas = wx.StaticText( self, wx.ID_ANY, _(u"Patikrinimas"), wx.DefaultPosition, wx.Size( 256,32 ), 0 )
+        self.Uzrasimas.Wrap( -1 )
+
+        self.Uzrasimas.SetFont( wx.Font( 20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.Uzrasimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+
+        sideNavigsionLayout.Add( self.Uzrasimas, 0, wx.ALL, 5 )
+
+        UzrasimasLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.Uzrasimas = wx.Button( self, wx.ID_ANY, _(u"Uzrasimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Uzrasimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+
+        UzrasimasLayout.Add( self.Uzrasimas, 0, wx.BOTTOM, 5 )
+
+
+        sideNavigsionLayout.Add( UzrasimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
+
+
+        sideNavigsionLayout.Add( ( 0, 200), 1, wx.EXPAND, 5 )
 
         self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, _(u"Version 0.1 build 2026-01-01"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText29.Wrap( -1 )
@@ -140,6 +163,7 @@ class SideBar ( wx.Panel ):
         self.Ieškoti_pagal_pavadinima.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Localioje_lenteje.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Uzrasimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.m_staticText29.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
@@ -149,6 +173,7 @@ class SideBar ( wx.Panel ):
     # Virtual event handlers, override them in your derived class
     def Click( self, event ):
         event.Skip()
+
 
 
 
@@ -172,13 +197,15 @@ class Pagrindinis ( wx.Panel ):
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
-        self.SetBackgroundColour( wx.Colour( 217, 217, 217 ) )
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
         arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
 
         self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_bitmap2.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
         arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
 
 
@@ -188,7 +215,6 @@ class Pagrindinis ( wx.Panel ):
         self.arrowText.Wrap( -1 )
 
         self.arrowText.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-        self.arrowText.SetForegroundColour( wx.Colour( 22, 22, 22 ) )
 
         mainLayout.Add( self.arrowText, 0, wx.LEFT, 245 )
 
@@ -212,6 +238,8 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -318,6 +346,8 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
 
@@ -405,7 +435,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingCSVPath )
         self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -414,7 +444,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def click( self, event ):
+    def SelectingCSVPath( self, event ):
         event.Skip()
 
     def enterI( self, event ):
@@ -436,6 +466,8 @@ class IsCSV ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -917,7 +949,7 @@ class Patikrinti ( wx.Panel ):
         bSizer31 = wx.BoxSizer( wx.VERTICAL )
 
         self.m_panel14 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel14.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_panel14.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_ACTIVEBORDER ) )
 
         bSizer54 = wx.BoxSizer( wx.VERTICAL )
 
@@ -949,6 +981,42 @@ class Patikrinti ( wx.Panel ):
 
 
 ###########################################################################
+## Class Isdavimas
+###########################################################################
+
+class Isdavimas ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        mainLayout.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+    def __del__( self ):
+        pass
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
 ## Class PopUp
 ###########################################################################
 
@@ -957,7 +1025,7 @@ class PopUp ( wx.Panel ):
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,320 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
-        self.SetBackgroundColour( wx.Colour( 217, 217, 217 ) )
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         bSizer102 = wx.BoxSizer( wx.VERTICAL )
 
@@ -976,7 +1044,7 @@ class PopUp ( wx.Panel ):
         bSizer108 = wx.BoxSizer( wx.HORIZONTAL )
 
         self.m_panel23 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel23.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
+        self.m_panel23.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
         bSizer108.Add( self.m_panel23, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
@@ -1001,7 +1069,7 @@ class PopUp ( wx.Panel ):
         bSizer1081 = wx.BoxSizer( wx.HORIZONTAL )
 
         self.m_panel231 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel231.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
+        self.m_panel231.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
         bSizer1081.Add( self.m_panel231, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
@@ -1026,7 +1094,7 @@ class PopUp ( wx.Panel ):
         bSizer1082 = wx.BoxSizer( wx.HORIZONTAL )
 
         self.m_panel232 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel232.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
+        self.m_panel232.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
         bSizer1082.Add( self.m_panel232, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
@@ -1051,7 +1119,7 @@ class PopUp ( wx.Panel ):
         bSizer1083 = wx.BoxSizer( wx.HORIZONTAL )
 
         self.m_panel233 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel233.SetBackgroundColour( wx.Colour( 201, 201, 201 ) )
+        self.m_panel233.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
         bSizer1083.Add( self.m_panel233, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
