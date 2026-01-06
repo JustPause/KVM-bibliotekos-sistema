@@ -25,7 +25,6 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
     pass
 
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
-    
     def __init__(self, parent):
         super().__init__(parent)
         
