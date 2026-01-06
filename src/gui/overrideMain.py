@@ -67,7 +67,7 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
             
             if value != "":
                 rows.append( value )
-     
+
         if len(rows) !=0:
             form_buffer_to_pdf(rows,self.m_textCtrl3.GetValue())
             Sekmingai()
@@ -165,7 +165,6 @@ class Patikrinti(wxformbuilder.Patikrinti):
     pass
 
 class SideBar(wxformbuilder.SideBar):
- 
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
