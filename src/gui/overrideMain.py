@@ -201,11 +201,11 @@ class SideBar(wxformbuilder.SideBar):
             },
             {  
                 "Class": IsCSV,
-                "Label": "Iš CSV"
+                "Label": "CSV"
             },
             {  
                 "Class": IsKlavetūrosSkaitytuvo,
-                "Label": "Iš Klavetūros / Skaitytuvo"
+                "Label": "Klavetūros / Skaitytuvo"
             },
             {  
                 "Class": IeskotiPagalPavadinima,
@@ -213,7 +213,7 @@ class SideBar(wxformbuilder.SideBar):
             },
             {  
                 "Class": Patikrinti,
-                "Label": "Localioje lenteje"
+                "Label": "Google sheets lentėja"
             },
             {  
                 "Class": Isdavimas,
