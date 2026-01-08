@@ -8,10 +8,45 @@ from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.helpers.utils import get_fieldnames
 from src.osHelper import git_build_number
 from src.barcodeKurimas import barcode_generator
+from src.gui.config import ConfigFile
 
 import src.gui.wxformbuilder as wxformbuilder
 
+def NeSekmingai(text):
+    wx.MessageBox(
+            text,
+            "Rezultatas",
+            wx.OK | wx.ICON_INFORMATION
+        )
+
+def Sekmingai():
+    wx.MessageBox(
+            "Sėkmingai pavyko",
+            "Rezultatas",
+            wx.OK | wx.ICON_INFORMATION
+        )
+    
+
+def FileDialogWithExtesion(self, extension):
+    path = ""
+    
+    with wx.FileDialog(
+        self,
+        "Pasirinkite lokaciją",
+        wildcard=f"Lentelė (*.{extension})|*.{extension}",
+        style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
+    ) as dlg:
+        if dlg.ShowModal() == wx.ID_OK:
+            path = dlg.GetPath()
+            return path
+            
+    return path
 class Pagrindinis(wxformbuilder.Pagrindinis):
+    
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.configFile = ConfigFile()
+        
     def img_path( self, bitmap_path ):
         
         if hasattr(sys, "_MEIPASS"):
@@ -25,36 +60,18 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
     pass
 
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
+    
     def __init__(self, parent):
         super().__init__(parent)
+        self.configFile = ConfigFile()
+        ISNBkoduAtspauzdinimasIKur = self.configFile.getUserData("ISNBkoduAtspauzdinimasIKur")
         
-        self.config = configparser.ConfigParser()
-        self.config.read("config.conf")
-        
-        ISNBkoduAtspauzdinimasIKur = self.config["userData"]["ISNBkoduAtspauzdinimasIKur"]
-        
-        ISNBkoduAtspauzdinimasIKur = os.path.expanduser("~") if ISNBkoduAtspauzdinimasIKur == "" else ISNBkoduAtspauzdinimasIKur
-                
         self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
-        
-    def SelectingCSVPath(self, event):
-        path = ""
-        
-        with wx.FileDialog(
-            self,
-            "Pasirinkitia lokacija",
-            wildcard="Lentelė (*.csv)|*.csv",
-            style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST
-        ) as dlg:
-            
-            if dlg.ShowModal() == wx.ID_OK:
-                path = dlg.GetPath()
-                
-        self.config["userData"]["ISNBkoduAtspauzdinimasIKur"] = path
+    
+    def SelectingPDFPath(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
 
-        with open("config.conf", "w") as f:
-            self.config.write(f)
-            
+        self.configFile.setUserData("ISNBkoduAtspauzdinimasIKur", path)
         self.m_textCtrl3.SetValue(path)
     
     def next( self, event ):
@@ -75,42 +92,33 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
 
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
+    
     def __init__(self, parent):
         super().__init__(parent)
+        self.configFile = ConfigFile()
 
-        self.SetNewPath()
-        
-    def SetNewPath(self):
-        self.m_textCtrl3.SetValue(os.path.join(os.getcwd(), "pdfs", "BarkodaiSpauzdinimui.pdf"))
+        ISNBkoduAtspauzdinimasIKur = self.configFile.getUserData("kurtinaujusbarkodus")
+
+        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
+
+    def SelectingPDFPath(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
+
+        self.configFile.setUserData("kurtinaujusbarkodus", path)
+        self.m_textCtrl3.SetValue(path)
     
     def next( self, event ):
-        dest_path=self.m_textCtrl3.GetValue()
-        count=self.m_textCtrl2.GetValue()
-        
-        print(dest_path)
-        print(count)
+        dest_path = self.m_textCtrl3.GetValue()
+        count = self.m_textCtrl2.GetValue()
         
         try:
             barcode_generator(int(count), dest_path)
             Sekmingai()
+        
         except:
             NeSekmingai("Kažkas nepavyko")
+        
         event.Skip()
-
-def NeSekmingai(text):
-    wx.MessageBox(
-            text,
-            "Rezultatas",
-            wx.OK | wx.ICON_INFORMATION
-        )
-
-def Sekmingai():
-    wx.MessageBox(
-            "Sėkmingai pavyko",
-            "Rezultatas",
-            wx.OK | wx.ICON_INFORMATION
-        )
-    
 
 class IsCSV(wxformbuilder.IsCSV):
     pass
@@ -206,7 +214,11 @@ class SideBar(wxformbuilder.SideBar):
             {  
                 "Class": Patikrinti,
                 "Label": "Localioje lenteje"
-            }
+            },
+            {  
+                "Class": Isdavimas,
+                "Label": "Išdavimas"
+            },
         ]
         
         for classlable in CLASS_NAME_AND_LABLES:
@@ -240,3 +252,5 @@ class SideBar(wxformbuilder.SideBar):
             )
         
 
+class Isdavimas(wxformbuilder.Isdavimas):
+    pass

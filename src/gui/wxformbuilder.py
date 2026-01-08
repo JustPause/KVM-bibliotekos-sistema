@@ -79,7 +79,7 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Iš_Klavetūros_Skaitytuvo = wx.Button( self, wx.ID_ANY, _(u"Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.Iš_Klavetūros_Skaitytuvo.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.BOTTOM, 5 )
@@ -89,7 +89,7 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.BOTTOM, 5 )
 
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
         self.Iš_CSV.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
@@ -110,10 +110,10 @@ class SideBar ( wx.Panel ):
 
         PatikrinimasLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Localioje_lenteje = wx.Button( self, wx.ID_ANY, _(u"Localioje lenteje"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
-        self.Localioje_lenteje.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Patikralentėja = wx.Button( self, wx.ID_ANY, _(u"Google sheets lentėja"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Patikralentėja.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        PatikrinimasLayout.Add( self.Localioje_lenteje, 0, wx.BOTTOM, 5 )
+        PatikrinimasLayout.Add( self.Patikralentėja, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( PatikrinimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -131,10 +131,10 @@ class SideBar ( wx.Panel ):
 
         UzrasimasLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.Uzrasimas = wx.Button( self, wx.ID_ANY, _(u"Uzrasimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
-        self.Uzrasimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.Isdavimas = wx.Button( self, wx.ID_ANY, _(u"Išdavimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Isdavimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        UzrasimasLayout.Add( self.Uzrasimas, 0, wx.BOTTOM, 5 )
+        UzrasimasLayout.Add( self.Isdavimas, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( UzrasimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -146,6 +146,7 @@ class SideBar ( wx.Panel ):
         self.m_staticText29.Wrap( -1 )
 
         self.m_staticText29.SetFont( wx.Font( 8, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+        self.m_staticText29.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         sideNavigsionLayout.Add( self.m_staticText29, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -162,8 +163,8 @@ class SideBar ( wx.Panel ):
         self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Ieškoti_pagal_pavadinima.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Localioje_lenteje.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Uzrasimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Isdavimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.m_staticText29.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
@@ -196,8 +197,6 @@ class Pagrindinis ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -238,8 +237,6 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -322,6 +319,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPDFPath )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -329,6 +327,9 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def SelectingPDFPath( self, event ):
+        event.Skip()
+
     def next( self, event ):
         event.Skip()
 
@@ -345,8 +346,6 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -435,7 +434,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingCSVPath )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPDFPath )
         self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -444,7 +443,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingCSVPath( self, event ):
+    def SelectingPDFPath( self, event ):
         event.Skip()
 
     def enterI( self, event ):
@@ -466,8 +465,6 @@ class IsCSV ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         mainLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -994,7 +991,7 @@ class Isdavimas ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Isdavimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText16.Wrap( -1 )
 
         self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
@@ -1024,8 +1021,6 @@ class PopUp ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,320 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         bSizer102 = wx.BoxSizer( wx.VERTICAL )
 
