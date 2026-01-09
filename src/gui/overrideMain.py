@@ -40,6 +40,21 @@ def FileDialogWithExtesion(self, extension):
             return path
             
     return os.path.abspath(".")
+
+class ThinkingDialog(wx.Dialog):
+    def __init__(self, parent, message="Thinking…"):
+        super().__init__(parent, title="Please wait", style=wx.DEFAULT_DIALOG_STYLE)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        text = wx.StaticText(self, label=message)
+        sizer.Add(text, 0, wx.ALL | wx.CENTER, 10)
+
+        self.gauge = wx.Gauge(self, range=100, style=wx.GAUGE_INDETERMINATE)
+        sizer.Add(self.gauge, 0, wx.ALL | wx.EXPAND, 10)
+
+        self.SetSizerAndFit(sizer)
+
 class Pagrindinis(wxformbuilder.Pagrindinis):
     
     def __init__(self, parent):
@@ -172,7 +187,13 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
         event.Skip()
     def next(self, event):    
-        pass
+        path = self.m_textCtrl2.GetValue()
+        
+        wx.CallAfter(
+            lambda: self.GetParent().ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
+        )
+
+        event.Skip()
 
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
@@ -181,13 +202,21 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         self.m_textCtrl2.SetValue(path)
     
 class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas):    
-    def __init__(self, parent):
+    def __init__(self, parent, path=None):
         super().__init__(parent)
+        
+        self.path = path
         
         self.addingColumsHeaders(self.m_dataViewListCtrl1)
         
     def Enter(self, event): 
+        loud = ThinkingDialog(self)
+        loud.Show()
+        
         data = iBibliotekos_paieska_tiesiogiai_core( event.GetString() ) 
+        
+        loud.Destroy()
+        
         fieldnames = get_fieldnames()
         
         self.m_dataViewListCtrl1.AppendItem([data[fieldnames[0]], data[fieldnames[1]], data[fieldnames[2]], data[fieldnames[3]]])
