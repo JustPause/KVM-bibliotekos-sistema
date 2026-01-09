@@ -1,4 +1,3 @@
-import configparser
 import os
 import sys
 import wx
@@ -125,10 +124,8 @@ class IsCSV(wxformbuilder.IsCSV):
         self.configFile = ConfigFile()
 
         csviskur = self.configFile.getUserData("csviskur")
-        csvikur = self.configFile.getUserData("csvikur")
 
         self.m_textCtrl2.SetValue(csviskur)
-        self.m_textCtrl3.SetValue(csvikur)
 
     def SelectingPathIs(self, event):
         path = FileDialogWithExtesion(self,"pdf")
@@ -140,7 +137,26 @@ class IsCSV(wxformbuilder.IsCSV):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("csvikur", path)
+
+class SukurtiCSV(wxformbuilder.SukurtiCSV):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.configFile = ConfigFile()
+
+        csvikur = self.configFile.getUserData("csvikur")
+
+        self.m_textCtrl3.SetValue(csvikur)
+
+    def SelectingPathIs(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
+
+        self.configFile.setUserData("csvikur", path)
         self.m_textCtrl3.SetValue(path)
+
+    def SelectingPathKur(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
+
+        self.configFile.setUserData("csvikur", path)
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
@@ -153,7 +169,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         wx.CallAfter(
             lambda: self.GetParent().ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
         )
-    
+
         event.Skip()
     def next(self, event):    
         pass
@@ -195,20 +211,6 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         for col in cols:
             col.SetWidth(col_width)
 
-
-class IeskotiPagalPavadinima(wxformbuilder.IeskotiPagalPavadinima):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.configFile = ConfigFile()
-        IeskotiPagalPavadinima = self.configFile.getUserData("ieskotipagalpavadinima")
-        self.m_textCtrl2.SetValue(IeskotiPagalPavadinima)
-    
-    def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self,"pdf")
-
-        self.configFile.setUserData("ieskotipagalpavadinima", path)
-        self.m_textCtrl2.SetValue(path)
-
 class Patikrinti(wxformbuilder.Patikrinti):
     pass
 
@@ -242,15 +244,15 @@ class SideBar(wxformbuilder.SideBar):
             },
             {  
                 "Class": IsCSV,
-                "Label": "CSV"
+                "Label": "CSV duomenu perkelimas"
+            },
+            {  
+                "Class": SukurtiCSV,
+                "Label": "CSV lenteles sukurimas"
             },
             {  
                 "Class": IsKlaveturosSkaitytuvo,
                 "Label": "Klavetūros / Skaitytuvo"
-            },
-            {  
-                "Class": IeskotiPagalPavadinima,
-                "Label": "Ieškoti pagal pavadinima"
             },
             {  
                 "Class": Patikrinti,

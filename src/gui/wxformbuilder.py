@@ -84,15 +84,15 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.BOTTOM, 5 )
 
-        self.Ieškoti_pagal_pavadinima = wx.Button( self, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_STATIC )
-        self.Ieškoti_pagal_pavadinima.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-
-        KnyguLayout.Add( self.Ieškoti_pagal_pavadinima, 0, wx.BOTTOM, 5 )
-
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"CSV"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"CSV duomenu perkelimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
         self.Iš_CSV.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
+
+        self.CSV_Sukurimas = wx.Button( self, wx.ID_ANY, _(u"CSV lenteles sukurimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        self.CSV_Sukurimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+
+        KnyguLayout.Add( self.CSV_Sukurimas, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( KnyguLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -161,8 +161,8 @@ class SideBar ( wx.Panel ):
         self.ISNB_kodu_atspauzdinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Kurti_naujus_barkodus.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Ieškoti_pagal_pavadinima.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.CSV_Sukurimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Isdavimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.m_staticText29.Bind( wx.EVT_LEFT_UP, self.version )
@@ -269,7 +269,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer129.Add( ( 20, 0), 0, 0, 5 )
+        bSizer129.Add( ( 16, 0), 0, 0, 5 )
 
         self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -291,7 +291,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         bSizer130.Add( self.m_staticText66, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        bSizer130.Add( ( 55, 0), 0, 0, 5 )
+        bSizer130.Add( ( 16, 0), 0, 0, 5 )
 
         self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -406,7 +406,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
+        bSizer129.Add( ( 16, 0), 1, wx.EXPAND, 5 )
 
         self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER|wx.TE_RIGHT )
         self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -476,7 +476,7 @@ class IsCSV ( wx.Panel ):
 
         bSizer128 = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš CSV"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"CSV duomenu perdavimas i google sheets"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText16.Wrap( -1 )
 
         self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
@@ -491,7 +491,7 @@ class IsCSV ( wx.Panel ):
 
         bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText66.Wrap( -1 )
 
         bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -509,26 +509,10 @@ class IsCSV ( wx.Panel ):
         bSizer135.Add( bSizer130, 0, 0, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText63.Wrap( -1 )
-
-        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer129.Add( ( 27, 0), 1, wx.EXPAND, 5 )
-
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer135.Add( bSizer129, 0, 0, 5 )
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
         self.m_panel49.SetSizer( bSizer135 )
@@ -542,7 +526,7 @@ class IsCSV ( wx.Panel ):
 
         # Connect Events
         self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathIs )
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -552,7 +536,94 @@ class IsCSV ( wx.Panel ):
     def SelectingPathIs( self, event ):
         event.Skip()
 
+    def next( self, event ):
+        event.Skip()
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class SukurtiCSV
+###########################################################################
+
+class SukurtiCSV ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Sukurti nauja CSV"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+
+        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText63.Wrap( -1 )
+
+        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer129.Add( ( 16, 0), 1, wx.EXPAND, 5 )
+
+        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        bSizer135.Add( bSizer129, 0, 0, 5 )
+
+
+        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        self.m_panel49.SetSizer( bSizer135 )
+        self.m_panel49.Layout()
+        bSizer135.Fit( self.m_panel49 )
+        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+        # Connect Events
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
+        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+
+    def __del__( self ):
+        pass
+
+
+    # Virtual event handlers, override them in your derived class
     def SelectingPathKur( self, event ):
+        event.Skip()
+
+    def next( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
@@ -594,13 +665,13 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
         bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur išaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur išaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText66.Wrap( -1 )
 
         bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer130.Add( ( 20, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        bSizer130.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
         self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
         self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -743,95 +814,6 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
     # Virtual event handlers, override them in your derived class
     def Enter( self, event ):
-        event.Skip()
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
-## Class IeskotiPagalPavadinima
-###########################################################################
-
-class IeskotiPagalPavadinima ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-
-        mainLayout.Add( ( 0, 40), 0, 0, 5 )
-
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel49.SetMaxSize( wx.Size( 800,-1 ) )
-
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
-
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
-
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Ieškoti pagal pavadinima"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
-
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
-
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
-
-        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer130.Add( ( 20, 0), 0, 0, 5 )
-
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer135.Add( bSizer130, 0, 0, 5 )
-
-
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
-
-
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-        # Connect Events
-        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
-
-    def __del__( self ):
-        pass
-
-
-    # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
-        event.Skip()
-
-    def next( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
