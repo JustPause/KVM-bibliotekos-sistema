@@ -2661,7 +2661,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">SelectingPathIs</event>
                     </object>
                   </object>
                 </object>
@@ -2820,7 +2820,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">SelectingPathKur</event>
                     </object>
                   </object>
                 </object>

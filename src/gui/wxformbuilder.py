@@ -541,17 +541,19 @@ class IsCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathIs )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
 
     def __del__( self ):
         pass
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def SelectingPathIs( self, event ):
         event.Skip()
 
+    def SelectingPathKur( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

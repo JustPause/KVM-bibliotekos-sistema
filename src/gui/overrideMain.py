@@ -64,14 +64,14 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        ISNBkoduAtspauzdinimasIKur = self.configFile.getUserData("ISNBkoduAtspauzdinimasIKur")
+        ISNBkoduAtspauzdinimas = self.configFile.getUserData("ISNBkoduAtspauzdinimas")
         
-        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
+        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimas)
     
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
-        self.configFile.setUserData("ISNBkoduAtspauzdinimasIKur", path)
+        self.configFile.setUserData("isnbkoduatspauzdinimas", path)
         self.m_textCtrl3.SetValue(path)
     
     def next( self, event ):
@@ -90,16 +90,15 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
         else:
             NeSekmingai("Parasykite bent viena eilute")
 
-
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        ISNBkoduAtspauzdinimasIKur = self.configFile.getUserData("kurtinaujusbarkodus")
+        KurtiNaujusBarkodus = self.configFile.getUserData("kurtinaujusbarkodus")
 
-        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimasIKur)
+        self.m_textCtrl3.SetValue(KurtiNaujusBarkodus)
 
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
@@ -121,14 +120,35 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         event.Skip()
 
 class IsCSV(wxformbuilder.IsCSV):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.configFile = ConfigFile()
+
+        csviskur = self.configFile.getUserData("csviskur")
+        csvikur = self.configFile.getUserData("csvikur")
+
+        self.m_textCtrl2.SetValue(csviskur)
+        self.m_textCtrl3.SetValue(csvikur)
+
+    def SelectingPathIs(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
+
+        self.configFile.setUserData("csviskur", path)
+        self.m_textCtrl2.SetValue(path)
+
+    def SelectingPathKur(self, event):
+        path = FileDialogWithExtesion(self,"pdf")
+
+        self.configFile.setUserData("csvikur", path)
+        self.m_textCtrl3.SetValue(path)
+
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        ISNBkoduAtspauzdinimasIKur = self.configFile.getUserData("kurtinaujusbarkodus")
-        self.m_textCtrl2.SetValue(ISNBkoduAtspauzdinimasIKur)
+        IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
+        self.m_textCtrl2.SetValue(IsKlaveturosSkaitytuvo)
     
     def file_free_scan(self, event):
         wx.CallAfter(
@@ -178,10 +198,16 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
 
 
 class IeskotiPagalPavadinima(wxformbuilder.IeskotiPagalPavadinima):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.configFile = ConfigFile()
+        IeskotiPagalPavadinima = self.configFile.getUserData("ieskotipagalpavadinima")
+        self.m_textCtrl2.SetValue(IeskotiPagalPavadinima)
+    
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
-        self.configFile.setUserData("isklaveturosskaitytuvo", path)
+        self.configFile.setUserData("ieskotipagalpavadinima", path)
         self.m_textCtrl2.SetValue(path)
 
 class Patikrinti(wxformbuilder.Patikrinti):
