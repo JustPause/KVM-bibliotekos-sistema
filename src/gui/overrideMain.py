@@ -142,7 +142,6 @@ class IsCSV(wxformbuilder.IsCSV):
         self.configFile.setUserData("csvikur", path)
         self.m_textCtrl3.SetValue(path)
 
-
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
         super().__init__(parent)
