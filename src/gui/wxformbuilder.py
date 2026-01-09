@@ -319,7 +319,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPDFPath )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -327,7 +327,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPDFPath( self, event ):
+    def SelectingPath( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -380,7 +380,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.m_grid1.SetMargins( 0, 0 )
 
         # Columns
-        self.m_grid1.SetColSize( 0, 610 )
+        self.m_grid1.SetColSize( 0, 640 )
         self.m_grid1.EnableDragColMove( False )
         self.m_grid1.EnableDragColSize( True )
         self.m_grid1.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
@@ -393,7 +393,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         # Cell Defaults
         self.m_grid1.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-        bSizer135.Add( self.m_grid1, 0, 0, 5 )
+        bSizer135.Add( self.m_grid1, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -434,7 +434,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPDFPath )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -443,7 +443,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPDFPath( self, event ):
+    def SelectingPath( self, event ):
         event.Skip()
 
     def enterI( self, event ):
@@ -540,8 +540,18 @@ class IsCSV ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def SelectingPath( self, event ):
+        event.Skip()
+
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -549,10 +559,10 @@ class IsCSV ( wx.Panel ):
 
 
 ###########################################################################
-## Class IsKlavetūrosSkaitytuvo
+## Class IsKlaveturosSkaitytuvo
 ###########################################################################
 
-class IsKlavetūrosSkaitytuvo ( wx.Panel ):
+class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
@@ -635,6 +645,7 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.m_button81.Bind( wx.EVT_LEFT_DOWN, self.file_free_scan )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -643,6 +654,9 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def SelectingPath( self, event ):
+        event.Skip()
+
     def file_free_scan( self, event ):
         event.Skip()
 
@@ -655,10 +669,10 @@ class IsKlavetūrosSkaitytuvo ( wx.Panel ):
 
 
 ###########################################################################
-## Class IsKlavetūrosSkaitytuvoEkranas
+## Class IsKlaveturosSkaitytuvoEkranas
 ###########################################################################
 
-class IsKlavetūrosSkaitytuvoEkranas ( wx.Panel ):
+class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
@@ -804,6 +818,7 @@ class IeskotiPagalPavadinima ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -811,6 +826,9 @@ class IeskotiPagalPavadinima ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def SelectingPath( self, event ):
+        event.Skip()
+
     def next( self, event ):
         event.Skip()
 

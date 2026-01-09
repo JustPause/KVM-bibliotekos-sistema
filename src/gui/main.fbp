@@ -1559,7 +1559,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPDFPath</event>
+                      <event name="OnLeftDown">SelectingPath</event>
                     </object>
                   </object>
                 </object>
@@ -1836,7 +1836,7 @@
       <property name="window_extra_style"></property>
       <property name="window_name"></property>
       <property name="window_style">wxTAB_TRAVERSAL</property>
-      <object class="wxBoxSizer" expanded="true">
+      <object class="wxBoxSizer" expanded="false">
         <property name="minimum_size"></property>
         <property name="name">mainLayout</property>
         <property name="orient">wxVERTICAL</property>
@@ -1851,11 +1851,11 @@
             <property name="width">0</property>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">25</property>
           <property name="flag">wxALIGN_CENTER_HORIZONTAL</property>
           <property name="proportion">0</property>
-          <object class="wxPanel" expanded="true">
+          <object class="wxPanel" expanded="false">
             <property name="BottomDockable">1</property>
             <property name="LeftDockable">1</property>
             <property name="RightDockable">1</property>
@@ -1907,7 +1907,7 @@
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
-            <object class="wxBoxSizer" expanded="true">
+            <object class="wxBoxSizer" expanded="false">
               <property name="minimum_size"></property>
               <property name="name">bSizer135</property>
               <property name="orient">wxVERTICAL</property>
@@ -1997,7 +1997,7 @@
               </object>
               <object class="sizeritem" expanded="false">
                 <property name="border">5</property>
-                <property name="flag"></property>
+                <property name="flag">wxALIGN_CENTER_HORIZONTAL</property>
                 <property name="proportion">0</property>
                 <object class="wxGrid" expanded="false">
                   <property name="BottomDockable">1</property>
@@ -2026,7 +2026,7 @@
                   <property name="col_label_values"></property>
                   <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                   <property name="cols">1</property>
-                  <property name="column_sizes">610</property>
+                  <property name="column_sizes">640</property>
                   <property name="context_help"></property>
                   <property name="context_menu">1</property>
                   <property name="default_pane">0</property>
@@ -2094,11 +2094,11 @@
                   <property name="width">0</property>
                 </object>
               </object>
-              <object class="sizeritem" expanded="true">
+              <object class="sizeritem" expanded="false">
                 <property name="border">5</property>
                 <property name="flag"></property>
                 <property name="proportion">0</property>
-                <object class="wxBoxSizer" expanded="true">
+                <object class="wxBoxSizer" expanded="false">
                   <property name="minimum_size"></property>
                   <property name="name">bSizer129</property>
                   <property name="orient">wxHORIZONTAL</property>
@@ -2238,7 +2238,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPDFPath</event>
+                      <event name="OnLeftDown">SelectingPath</event>
                       <event name="OnText">enterI</event>
                     </object>
                   </object>
@@ -2661,6 +2661,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
+                      <event name="OnLeftDown">SelectingPath</event>
                     </object>
                   </object>
                 </object>
@@ -2819,6 +2820,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
+                      <event name="OnLeftDown">SelectingPath</event>
                     </object>
                   </object>
                 </object>
@@ -2843,7 +2845,7 @@
       <property name="id">wxID_ANY</property>
       <property name="maximum_size"></property>
       <property name="minimum_size"></property>
-      <property name="name">IsKlavetūrosSkaitytuvo</property>
+      <property name="name">IsKlaveturosSkaitytuvo</property>
       <property name="pos"></property>
       <property name="size">1024,720</property>
       <property name="subclass">; ; forward_declare</property>
@@ -3155,6 +3157,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
+                      <event name="OnLeftDown">SelectingPath</event>
                     </object>
                   </object>
                 </object>
@@ -3366,7 +3369,7 @@
         </object>
       </object>
     </object>
-    <object class="Panel" expanded="false">
+    <object class="Panel" expanded="true">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg"></property>
@@ -3381,7 +3384,7 @@
       <property name="id">wxID_ANY</property>
       <property name="maximum_size"></property>
       <property name="minimum_size"></property>
-      <property name="name">IsKlavetūrosSkaitytuvoEkranas</property>
+      <property name="name">IsKlaveturosSkaitytuvoEkranas</property>
       <property name="pos"></property>
       <property name="size">1024,720</property>
       <property name="subclass">; ; forward_declare</property>
@@ -4060,6 +4063,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
+                      <event name="OnLeftDown">SelectingPath</event>
                     </object>
                   </object>
                 </object>
