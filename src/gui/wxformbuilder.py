@@ -263,7 +263,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
         bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus failus"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus failus (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText63.Wrap( -1 )
 
         bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -380,7 +380,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.m_grid1.SetMargins( 0, 0 )
 
         # Columns
-        self.m_grid1.SetColSize( 0, 640 )
+        self.m_grid1.SetColSize( 0, 680 )
         self.m_grid1.EnableDragColMove( False )
         self.m_grid1.EnableDragColSize( True )
         self.m_grid1.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
@@ -400,7 +400,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText63.Wrap( -1 )
 
         bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )

@@ -1457,7 +1457,7 @@
                       <property name="gripper">0</property>
                       <property name="hidden">0</property>
                       <property name="id">wxID_ANY</property>
-                      <property name="label">Kur isaugoti norimus failus</property>
+                      <property name="label">Kur isaugoti norimus failus (PDF)</property>
                       <property name="markup">0</property>
                       <property name="max_size"></property>
                       <property name="maximize_button">0</property>
@@ -1836,7 +1836,7 @@
       <property name="window_extra_style"></property>
       <property name="window_name"></property>
       <property name="window_style">wxTAB_TRAVERSAL</property>
-      <object class="wxBoxSizer" expanded="false">
+      <object class="wxBoxSizer" expanded="true">
         <property name="minimum_size"></property>
         <property name="name">mainLayout</property>
         <property name="orient">wxVERTICAL</property>
@@ -2026,7 +2026,7 @@
                   <property name="col_label_values"></property>
                   <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                   <property name="cols">1</property>
-                  <property name="column_sizes">640</property>
+                  <property name="column_sizes">680</property>
                   <property name="context_help"></property>
                   <property name="context_menu">1</property>
                   <property name="default_pane">0</property>
@@ -2136,7 +2136,7 @@
                       <property name="gripper">0</property>
                       <property name="hidden">0</property>
                       <property name="id">wxID_ANY</property>
-                      <property name="label">Kur isaugoti norimus faila</property>
+                      <property name="label">Kur isaugoti norimus faila (PDF)</property>
                       <property name="markup">0</property>
                       <property name="max_size"></property>
                       <property name="maximize_button">0</property>

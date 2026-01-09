@@ -153,7 +153,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         wx.CallAfter(
             lambda: self.GetParent().ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
         )
-
+    
         event.Skip()
     def next(self, event):    
         pass
