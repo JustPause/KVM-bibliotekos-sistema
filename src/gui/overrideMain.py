@@ -25,7 +25,6 @@ def Sekmingai():
             wx.OK | wx.ICON_INFORMATION
         )
     
-
 def FileDialogWithExtesion(self, extension):
     path = ""
     
@@ -43,14 +42,14 @@ def FileDialogWithExtesion(self, extension):
 
 class ThinkingDialog(wx.Dialog):
     def __init__(self, parent, message="Thinking…"):
-        super().__init__(parent, title="Please wait", style=wx.DEFAULT_DIALOG_STYLE)
+        super().__init__(parent, title="Kantrybes", style=wx.DEFAULT_DIALOG_STYLE)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         text = wx.StaticText(self, label=message)
         sizer.Add(text, 0, wx.ALL | wx.CENTER, 10)
 
-        self.gauge = wx.Gauge(self, range=100, style=wx.GAUGE_INDETERMINATE)
+        self.gauge = wx.Gauge(self, range=100)
         sizer.Add(self.gauge, 0, wx.ALL | wx.EXPAND, 10)
 
         self.SetSizerAndFit(sizer)
@@ -80,26 +79,26 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
         self.configFile = ConfigFile()
         ISNBkoduAtspauzdinimas = self.configFile.getUserData("ISNBkoduAtspauzdinimas")
         
-        self.m_textCtrl3.SetValue(ISNBkoduAtspauzdinimas)
+        self.textCtrl1.SetValue(ISNBkoduAtspauzdinimas)
     
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("isnbkoduatspauzdinimas", path)
-        self.m_textCtrl3.SetValue(path)
+        self.textCtrl1.SetValue(path)
     
     def next( self, event ):
         rows=[]
         
-        for row in range(self.m_grid1.GetNumberRows()):
+        for row in range(self.table.GetNumberRows()):
             
-            value= self.m_grid1.GetCellValue(row, 0)
+            value= self.table.GetCellValue(row, 0)
             
             if value != "":
                 rows.append( value )
 
         if len(rows) !=0:
-            form_buffer_to_pdf(rows,self.m_textCtrl3.GetValue())
+            form_buffer_to_pdf(rows,self.textCtrl1.GetValue())
             Sekmingai()
         else:
             NeSekmingai("Parasykite bent viena eilute")
@@ -112,17 +111,17 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
         KurtiNaujusBarkodus = self.configFile.getUserData("kurtinaujusbarkodus")
 
-        self.m_textCtrl3.SetValue(KurtiNaujusBarkodus)
+        self.inputText1.SetValue(KurtiNaujusBarkodus)
 
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("kurtinaujusbarkodus", path)
-        self.m_textCtrl3.SetValue(path)
+        self.inputText1.SetValue(path)
     
     def next( self, event ):
-        dest_path = self.m_textCtrl3.GetValue()
-        count = self.m_textCtrl2.GetValue()
+        dest_path = self.inputText1.GetValue()
+        count = self.inputText2.GetValue()
         
         try:
             barcode_generator(int(count), dest_path)
@@ -140,13 +139,13 @@ class IsCSV(wxformbuilder.IsCSV):
 
         csviskur = self.configFile.getUserData("csviskur")
 
-        self.m_textCtrl2.SetValue(csviskur)
+        self.textCtrl1.SetValue(csviskur)
 
     def SelectingPathIs(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("csviskur", path)
-        self.m_textCtrl2.SetValue(path)
+        self.textCtrl1.SetValue(path)
 
     def SelectingPathKur(self, event):
         path = FileDialogWithExtesion(self,"pdf")
@@ -160,13 +159,13 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 
         csvikur = self.configFile.getUserData("csvikur")
 
-        self.m_textCtrl3.SetValue(csvikur)
+        self.textCtrl1.SetValue(csvikur)
 
     def SelectingPathIs(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("csvikur", path)
-        self.m_textCtrl3.SetValue(path)
+        self.textCtrl1.SetValue(path)
 
     def SelectingPathKur(self, event):
         path = FileDialogWithExtesion(self,"pdf")
@@ -178,7 +177,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         super().__init__(parent)
         self.configFile = ConfigFile()
         IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
-        self.m_textCtrl2.SetValue(IsKlaveturosSkaitytuvo)
+        self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
     
     def file_free_scan(self, event):
         wx.CallAfter(
@@ -187,7 +186,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
         event.Skip()
     def next(self, event):    
-        path = self.m_textCtrl2.GetValue()
+        path = self.textCtrl1.GetValue()
         
         wx.CallAfter(
             lambda: self.GetParent().ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
@@ -196,10 +195,10 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         event.Skip()
 
     def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self,"pdf")
+        path = FileDialogWithExtesion(self,"csv")
 
         self.configFile.setUserData("isklaveturosskaitytuvo", path)
-        self.m_textCtrl2.SetValue(path)
+        self.textCtrl1.SetValue(path)
     
 class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas):    
     def __init__(self, parent, path=None):
@@ -207,7 +206,7 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         
         self.path = path
         
-        self.addingColumsHeaders(self.m_dataViewListCtrl1)
+        self.addingColumsHeaders(self.dataViewList)
         
     def Enter(self, event): 
         loud = ThinkingDialog(self)
@@ -219,10 +218,10 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         
         fieldnames = get_fieldnames()
         
-        self.m_dataViewListCtrl1.AppendItem([data[fieldnames[0]], data[fieldnames[1]], data[fieldnames[2]], data[fieldnames[3]]])
+        self.dataViewList.AppendItem([data[fieldnames[0]], data[fieldnames[1]], data[fieldnames[2]], data[fieldnames[3]]])
         
-        self.m_textCtrl9.SetValue("")
-        self.m_textCtrl9.SetFocus()
+        self.ISBN.SetValue("")
+        self.ISBN.SetFocus()
     
     @staticmethod   
     def addingColumsHeaders(dataView):
@@ -249,7 +248,7 @@ class SideBar(wxformbuilder.SideBar):
         self.parent = parent
         
         full_version=self.VersionAndBuild()
-        self.m_staticText29.SetLabel(full_version)
+        self.versija.SetLabel(full_version)
 
     def VersionAndBuild(self):
         import configparser

@@ -28,7 +28,7 @@ class SideBar ( wx.Panel ):
 
         sideLayout = wx.BoxSizer( wx.VERTICAL )
 
-        Titulas_BarkodasBoxSizer = wx.BoxSizer( wx.VERTICAL )
+        titulas_BarkodasBoxSizer = wx.BoxSizer( wx.VERTICAL )
 
         self.Titulas_Barkodas = wx.StaticText( self, wx.ID_ANY, _(u"Barkodas"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.Titulas_Barkodas.Wrap( -1 )
@@ -36,10 +36,10 @@ class SideBar ( wx.Panel ):
         self.Titulas_Barkodas.SetFont( wx.Font( 32, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
         self.Titulas_Barkodas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        Titulas_BarkodasBoxSizer.Add( self.Titulas_Barkodas, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP|wx.BOTTOM, 25 )
+        titulas_BarkodasBoxSizer.Add( self.Titulas_Barkodas, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP|wx.BOTTOM, 25 )
 
 
-        sideLayout.Add( Titulas_BarkodasBoxSizer, 0, wx.EXPAND, 5 )
+        sideLayout.Add( titulas_BarkodasBoxSizer, 0, wx.EXPAND, 5 )
 
         sideNavigsionLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -84,15 +84,15 @@ class SideBar ( wx.Panel ):
 
         KnyguLayout.Add( self.Iš_Klavetūros_Skaitytuvo, 0, wx.BOTTOM, 5 )
 
-        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"CSV duomenu perkelimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
-        self.Iš_CSV.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-
-        KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
-
         self.CSV_Sukurimas = wx.Button( self, wx.ID_ANY, _(u"CSV lenteles sukurimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
         self.CSV_Sukurimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         KnyguLayout.Add( self.CSV_Sukurimas, 0, wx.BOTTOM, 5 )
+
+        self.Iš_CSV = wx.Button( self, wx.ID_ANY, _(u"CSV duomenu perkelimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT|wx.BORDER_NONE )
+        self.Iš_CSV.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+
+        KnyguLayout.Add( self.Iš_CSV, 0, wx.BOTTOM, 5 )
 
 
         sideNavigsionLayout.Add( KnyguLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -142,13 +142,13 @@ class SideBar ( wx.Panel ):
 
         sideNavigsionLayout.Add( ( 0, 200), 1, wx.EXPAND, 5 )
 
-        self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, _(u"Version 0.1 build 2026-01-01"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText29.Wrap( -1 )
+        self.versija = wx.StaticText( self, wx.ID_ANY, _(u"Version 0.1 build 2026-01-01"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.versija.Wrap( -1 )
 
-        self.m_staticText29.SetFont( wx.Font( 8, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
-        self.m_staticText29.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
+        self.versija.SetFont( wx.Font( 8, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+        self.versija.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
-        sideNavigsionLayout.Add( self.m_staticText29, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        sideNavigsionLayout.Add( self.versija, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         sideLayout.Add( sideNavigsionLayout, 0, wx.EXPAND|wx.LEFT, 10 )
@@ -161,11 +161,11 @@ class SideBar ( wx.Panel ):
         self.ISNB_kodu_atspauzdinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Kurti_naujus_barkodus.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.CSV_Sukurimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Isdavimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.m_staticText29.Bind( wx.EVT_LEFT_UP, self.version )
+        self.versija.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
         pass
@@ -202,10 +202,10 @@ class Pagrindinis ( wx.Panel ):
 
         arrowLayout = wx.GridSizer( 0, 2, 0, 0 )
 
-        self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_bitmap2.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        self.Arrow = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( self.img_path( u"img/Vector.png" ), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.Arrow.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
-        arrowLayout.Add( self.m_bitmap2, 0, wx.TOP, 160 )
+        arrowLayout.Add( self.Arrow, 0, wx.TOP, 160 )
 
 
         mainLayout.Add( arrowLayout, 0, wx.LEFT, 25 )
@@ -243,84 +243,92 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kurti naujus barkodus"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus failus (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText63.Wrap( -1 )
-
-        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer129.Add( ( 16, 0), 0, 0, 5 )
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        input1_layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        self.staticText1 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kur isaugoti norimus failus (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText1.Wrap( -1 )
 
-
-        bSizer135.Add( bSizer129, 0, 0, 5 )
+        input1_layout.Add( self.staticText1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        input1_layout.Add( ( 16, 0), 0, 0, 5 )
 
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
+        self.inputText1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.inputText1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.inputText1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kiek sukurti barkodu"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
-
-        bSizer130.Add( self.m_staticText66, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
-
-
-        bSizer130.Add( ( 16, 0), 0, 0, 5 )
-
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        input1_layout.Add( self.inputText1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( bSizer130, 0, 0, 5 )
+        layout.Add( input1_layout, 0, 0, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+        layout.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        input2_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.staticText2 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kiek sukurti barkodu"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText2.Wrap( -1 )
+
+        input2_layout.Add( self.staticText2, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        input2_layout.Add( ( 16, 0), 0, 0, 5 )
+
+        self.inputText2 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.inputText2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.inputText2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        input2_layout.Add( self.inputText2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        layout.Add( input2_layout, 0, 0, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.inputText1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -352,91 +360,92 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"ISNB kodu atspauzdinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_grid1 = wx.grid.Grid( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,300 ), 0 )
+
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        self.table = wx.grid.Grid( self.mainWindowPanel, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,300 ), 0 )
 
         # Grid
-        self.m_grid1.CreateGrid( 50, 1 )
-        self.m_grid1.EnableEditing( True )
-        self.m_grid1.EnableGridLines( True )
-        self.m_grid1.EnableDragGridSize( False )
-        self.m_grid1.SetMargins( 0, 0 )
+        self.table.CreateGrid( 50, 1 )
+        self.table.EnableEditing( True )
+        self.table.EnableGridLines( True )
+        self.table.EnableDragGridSize( False )
+        self.table.SetMargins( 0, 0 )
 
         # Columns
-        self.m_grid1.SetColSize( 0, 680 )
-        self.m_grid1.EnableDragColMove( False )
-        self.m_grid1.EnableDragColSize( True )
-        self.m_grid1.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+        self.table.SetColSize( 0, 640 )
+        self.table.EnableDragColMove( False )
+        self.table.EnableDragColSize( True )
+        self.table.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
         # Rows
-        self.m_grid1.EnableDragRowSize( True )
-        self.m_grid1.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+        self.table.AutoSizeRows()
+        self.table.EnableDragRowSize( True )
+        self.table.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
         # Label Appearance
 
         # Cell Defaults
-        self.m_grid1.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-        bSizer135.Add( self.m_grid1, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        self.table.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+        layout.Add( self.table, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        layout.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
+        input_layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText63.Wrap( -1 )
+        self.staticText1 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kur isaugoti norimus faila (PDF)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText1.Wrap( -1 )
 
-        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-
-
-        bSizer129.Add( ( 16, 0), 1, wx.EXPAND, 5 )
-
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER|wx.TE_RIGHT )
-        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
-
-        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        input_layout.Add( self.staticText1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( bSizer129, 0, 0, 5 )
+        input_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+        self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER|wx.TE_RIGHT )
+        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
-
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        layout.Add( input_layout, 0, 0, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        layout.Add( ( 0, 16), 0, 0, 5 )
+
+        self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.m_textCtrl3.Bind( wx.EVT_TEXT, self.enterI )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.textCtrl1.Bind( wx.EVT_TEXT, self.enterI )
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -471,62 +480,62 @@ class IsCSV ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"CSV duomenu perdavimas i google sheets"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"CSV duomenu perdavimas i google sheets"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš kur norimus failua apimti (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
-
-        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer130.Add( ( 16, 0), 0, 0, 5 )
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        input_layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        self.staticText1 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Iš kur norimus failua apimti (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText1.Wrap( -1 )
 
-
-        bSizer135.Add( bSizer130, 0, 0, 5 )
+        input_layout.Add( self.staticText1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+        input_layout.Add( ( 16, 0), 0, 0, 5 )
 
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        layout.Add( input_layout, 0, 0, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathIs )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathIs )
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -558,62 +567,62 @@ class SukurtiCSV ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Sukurti nauja CSV"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Sukurti nauja CSV"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer129 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText63 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur isaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText63.Wrap( -1 )
-
-        bSizer129.Add( self.m_staticText63, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer129.Add( ( 16, 0), 1, wx.EXPAND, 5 )
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_textCtrl3 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl3.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        input_layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer129.Add( self.m_textCtrl3, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        self.staticText1 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kur isaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText1.Wrap( -1 )
 
-
-        bSizer135.Add( bSizer129, 0, 0, 5 )
+        input_layout.Add( self.staticText1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+        input_layout.Add( ( 16, 0), 1, wx.EXPAND, 5 )
 
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer135.Add( self.m_button8, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        layout.Add( input_layout, 0, 0, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl3.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -645,82 +654,74 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer130 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText66 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Kur išaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText66.Wrap( -1 )
-
-        bSizer130.Add( self.m_staticText66, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer130.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_textCtrl2 = wx.TextCtrl( self.m_panel49, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.m_textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.m_textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        input_layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer130.Add( self.m_textCtrl2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+        self.staticText1 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kur išaugoti norimus faila (CSV)"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText1.Wrap( -1 )
 
-
-        bSizer135.Add( bSizer130, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        input_layout.Add( self.staticText1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer135.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        input_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
-        bSizer51 = wx.BoxSizer( wx.VERTICAL )
+        self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
 
-
-        bSizer51.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-        bSizer135.Add( bSizer51, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer1301 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_button81 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer1301.Add( self.m_button81, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+        input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        bSizer1301.Add( ( 0, 0), 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-
-        self.m_button8 = wx.Button( self.m_panel49, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer1301.Add( self.m_button8, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+        layout.Add( input_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( bSizer1301, 0, wx.EXPAND, 5 )
+        layout.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        button_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.testi_be_failo = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        button_layout.Add( self.testi_be_failo, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        button_layout.Add( ( 0, 0), 1, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+        self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        button_layout.Add( self.testi, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+
+        layout.Add( button_layout, 0, wx.EXPAND, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl2.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.m_button81.Bind( wx.EVT_LEFT_DOWN, self.file_free_scan )
-        self.m_button8.Bind( wx.EVT_LEFT_DOWN, self.next )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.testi_be_failo.Bind( wx.EVT_LEFT_DOWN, self.file_free_scan )
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
         pass
@@ -755,58 +756,55 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_panel49 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
-        bSizer135 = wx.BoxSizer( wx.VERTICAL )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer128 = wx.BoxSizer( wx.VERTICAL )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16 = wx.StaticText( self.m_panel49, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        bSizer128.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        bSizer135.Add( bSizer128, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer135.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        bSizer130 = wx.BoxSizer( wx.VERTICAL )
-
-        self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,400 ), wx.dataview.DV_ROW_LINES )
-        bSizer130.Add( self.m_dataViewListCtrl1, 0, 0, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        bSizer130.Add( ( 0, 32), 0, 0, 5 )
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.m_panel27 = wx.Panel( self.m_panel49, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TAB_TRAVERSAL )
-        bSizer57 = wx.BoxSizer( wx.VERTICAL )
+        data_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_textCtrl9 = wx.TextCtrl( self.m_panel27, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TE_CENTER|wx.TE_PROCESS_ENTER )
-        bSizer57.Add( self.m_textCtrl9, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        self.m_panel27.SetSizer( bSizer57 )
-        self.m_panel27.Layout()
-        bSizer130.Add( self.m_panel27, 0, 0, 5 )
+        self.dataViewList = wx.dataview.DataViewListCtrl( self.mainWindowPanel, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,400 ), wx.dataview.DV_ROW_LINES )
+        data_layout.Add( self.dataViewList, 0, 0, 5 )
 
 
-        bSizer135.Add( bSizer130, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        data_layout.Add( ( 0, 32), 0, 0, 5 )
+
+        input_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.ISBN = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 800,-1 ), wx.TE_CENTER|wx.TE_PROCESS_ENTER )
+        input_layout.Add( self.ISBN, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        self.m_panel49.SetSizer( bSizer135 )
-        self.m_panel49.Layout()
-        bSizer135.Fit( self.m_panel49 )
-        mainLayout.Add( self.m_panel49, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
+        data_layout.Add( input_layout, 1, wx.EXPAND, 5 )
+
+
+        layout.Add( data_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 25 )
 
 
         self.SetSizer( mainLayout )
         self.Layout()
 
         # Connect Events
-        self.m_textCtrl9.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.ISBN.Bind( wx.EVT_TEXT_ENTER, self.Enter )
 
     def __del__( self ):
         pass
@@ -835,137 +833,132 @@ class Patikrinti ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.Title = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.Title.Wrap( -1 )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        self.Title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
 
-        mainLayout.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        mainLayout.Add( self.Title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        bSizer29 = wx.BoxSizer( wx.HORIZONTAL )
+        layout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer30 = wx.BoxSizer( wx.VERTICAL )
+        data_layout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer32 = wx.BoxSizer( wx.VERTICAL )
+        self.outputAutorius = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        autoriusLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_panel15 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        bSizer33 = wx.BoxSizer( wx.HORIZONTAL )
+        self.autorius_staticText = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.autorius_staticText.Wrap( -1 )
 
-        self.m_staticText17 = wx.StaticText( self.m_panel15, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText17.Wrap( -1 )
-
-        bSizer33.Add( self.m_staticText17, 0, wx.ALL, 5 )
+        autoriusLayout.Add( self.autorius_staticText, 0, wx.ALL, 5 )
 
 
-        bSizer33.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+        autoriusLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-        self.m_staticText18 = wx.StaticText( self.m_panel15, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText18.Wrap( -1 )
+        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.autorius_output.Wrap( -1 )
 
-        bSizer33.Add( self.m_staticText18, 0, wx.ALL, 5 )
-
-
-        self.m_panel15.SetSizer( bSizer33 )
-        self.m_panel15.Layout()
-        bSizer33.Fit( self.m_panel15 )
-        bSizer32.Add( self.m_panel15, 0, wx.ALL|wx.EXPAND, 5 )
-
-        self.m_panel151 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        bSizer331 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText171 = wx.StaticText( self.m_panel151, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText171.Wrap( -1 )
-
-        bSizer331.Add( self.m_staticText171, 0, wx.ALL, 5 )
+        autoriusLayout.Add( self.autorius_output, 0, wx.ALL, 5 )
 
 
-        bSizer331.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+        self.outputAutorius.SetSizer( autoriusLayout )
+        self.outputAutorius.Layout()
+        autoriusLayout.Fit( self.outputAutorius )
+        data_layout.Add( self.outputAutorius, 0, wx.ALL|wx.EXPAND, 5 )
 
-        self.m_staticText181 = wx.StaticText( self.m_panel151, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText181.Wrap( -1 )
+        self.outputPavadinimas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        pavadinimasLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer331.Add( self.m_staticText181, 0, wx.ALL, 5 )
+        self.pavadinimas_staticText = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.pavadinimas_staticText.Wrap( -1 )
 
-
-        self.m_panel151.SetSizer( bSizer331 )
-        self.m_panel151.Layout()
-        bSizer331.Fit( self.m_panel151 )
-        bSizer32.Add( self.m_panel151, 0, wx.EXPAND|wx.ALL, 5 )
-
-        self.m_panel152 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        bSizer332 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText172 = wx.StaticText( self.m_panel152, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText172.Wrap( -1 )
-
-        bSizer332.Add( self.m_staticText172, 0, wx.ALL, 5 )
+        pavadinimasLayout.Add( self.pavadinimas_staticText, 0, wx.ALL, 5 )
 
 
-        bSizer332.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+        pavadinimasLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-        self.m_staticText182 = wx.StaticText( self.m_panel152, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText182.Wrap( -1 )
+        self.pavadinimas_output = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.pavadinimas_output.Wrap( -1 )
 
-        bSizer332.Add( self.m_staticText182, 0, wx.ALL, 5 )
-
-
-        self.m_panel152.SetSizer( bSizer332 )
-        self.m_panel152.Layout()
-        bSizer332.Fit( self.m_panel152 )
-        bSizer32.Add( self.m_panel152, 0, wx.ALL|wx.EXPAND, 5 )
-
-        self.m_panel153 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        bSizer333 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_staticText173 = wx.StaticText( self.m_panel153, wx.ID_ANY, _(u"ISNB"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText173.Wrap( -1 )
-
-        bSizer333.Add( self.m_staticText173, 0, wx.ALL, 5 )
+        pavadinimasLayout.Add( self.pavadinimas_output, 0, wx.ALL, 5 )
 
 
-        bSizer333.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+        self.outputPavadinimas.SetSizer( pavadinimasLayout )
+        self.outputPavadinimas.Layout()
+        pavadinimasLayout.Fit( self.outputPavadinimas )
+        data_layout.Add( self.outputPavadinimas, 0, wx.EXPAND|wx.ALL, 5 )
 
-        self.m_staticText183 = wx.StaticText( self.m_panel153, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText183.Wrap( -1 )
+        self.outputMetai = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        metaiLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer333.Add( self.m_staticText183, 0, wx.ALL, 5 )
+        self.metai_staticText = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.metai_staticText.Wrap( -1 )
 
-
-        self.m_panel153.SetSizer( bSizer333 )
-        self.m_panel153.Layout()
-        bSizer333.Fit( self.m_panel153 )
-        bSizer32.Add( self.m_panel153, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-        bSizer30.Add( bSizer32, 1, wx.EXPAND, 5 )
+        metaiLayout.Add( self.metai_staticText, 0, wx.ALL, 5 )
 
 
-        bSizer29.Add( bSizer30, 1, wx.EXPAND, 5 )
+        metaiLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-        bSizer31 = wx.BoxSizer( wx.VERTICAL )
+        self.metai_output = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.metai_output.Wrap( -1 )
 
-        self.m_panel14 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel14.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_ACTIVEBORDER ) )
-
-        bSizer54 = wx.BoxSizer( wx.VERTICAL )
-
-        self.m_dataViewListCtrl1 = wx.dataview.DataViewListCtrl( self.m_panel14, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
-        bSizer54.Add( self.m_dataViewListCtrl1, 1, wx.EXPAND|wx.ALL, 5 )
+        metaiLayout.Add( self.metai_output, 0, wx.ALL, 5 )
 
 
-        self.m_panel14.SetSizer( bSizer54 )
-        self.m_panel14.Layout()
-        bSizer54.Fit( self.m_panel14 )
-        bSizer31.Add( self.m_panel14, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 25 )
+        self.outputMetai.SetSizer( metaiLayout )
+        self.outputMetai.Layout()
+        metaiLayout.Fit( self.outputMetai )
+        data_layout.Add( self.outputMetai, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.outputISBN = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        outputLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.isbn_staticText = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.isbn_staticText.Wrap( -1 )
+
+        outputLayout.Add( self.isbn_staticText, 0, wx.ALL, 5 )
 
 
-        bSizer29.Add( bSizer31, 1, wx.EXPAND, 5 )
+        outputLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.isbn_output = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.isbn_output.Wrap( -1 )
+
+        outputLayout.Add( self.isbn_output, 0, wx.ALL, 5 )
 
 
-        mainLayout.Add( bSizer29, 1, wx.EXPAND, 5 )
+        self.outputISBN.SetSizer( outputLayout )
+        self.outputISBN.Layout()
+        outputLayout.Fit( self.outputISBN )
+        data_layout.Add( self.outputISBN, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        layout.Add( data_layout, 1, wx.LEFT, 25 )
+
+        history_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.history = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.history.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_ACTIVEBORDER ) )
+
+        dataViewList_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.history_table = wx.dataview.DataViewListCtrl( self.history, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
+        dataViewList_layout.Add( self.history_table, 1, wx.EXPAND, 5 )
+
+
+        self.history.SetSizer( dataViewList_layout )
+        self.history.Layout()
+        dataViewList_layout.Fit( self.history )
+        history_layout.Add( self.history, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 25 )
+
+
+        layout.Add( history_layout, 1, wx.EXPAND, 5 )
+
+
+        mainLayout.Add( layout, 1, wx.EXPAND, 5 )
 
 
         self.SetSizer( mainLayout )
@@ -993,15 +986,34 @@ class Isdavimas ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, _(u"Isdavimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText16.Wrap( -1 )
+        self.mainWindowPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+        layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_staticText16.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+        title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        mainLayout.Add( self.m_staticText16, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Išdavimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title.Wrap( -1 )
+
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
+
+        title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+        layout.Add( title_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        data_layout = wx.BoxSizer( wx.VERTICAL )
+
+
+        layout.Add( data_layout, 1, wx.EXPAND, 5 )
+
+
+        self.mainWindowPanel.SetSizer( layout )
+        self.mainWindowPanel.Layout()
+        layout.Fit( self.mainWindowPanel )
+        mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         self.SetSizer( mainLayout )
@@ -1021,10 +1033,10 @@ class Isdavimas ( wx.Panel ):
 
 class PopUp ( wx.Panel ):
 
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,320 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,411 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
-        bSizer102 = wx.BoxSizer( wx.VERTICAL )
+        data_layout = wx.BoxSizer( wx.VERTICAL )
 
         Titulas_BarkodasBoxSizer = wx.BoxSizer( wx.VERTICAL )
 
@@ -1036,110 +1048,188 @@ class PopUp ( wx.Panel ):
         Titulas_BarkodasBoxSizer.Add( self.Titulas_Barkodas, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP|wx.BOTTOM, 25 )
 
 
-        bSizer102.Add( Titulas_BarkodasBoxSizer, 1, wx.EXPAND, 5 )
+        data_layout.Add( Titulas_BarkodasBoxSizer, 1, wx.EXPAND, 5 )
 
-        bSizer108 = wx.BoxSizer( wx.HORIZONTAL )
+        Compare_Autroius = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_panel23 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel23.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
+        self.panel_autorius = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.panel_autorius.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
-        bSizer108.Add( self.m_panel23, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        main_layout_autorius = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer110 = wx.BoxSizer( wx.VERTICAL )
+        self.old_text_autorius = wx.StaticText( self.panel_autorius, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.old_text_autorius.Wrap( -1 )
 
-        self.m_panel28 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel28.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
+        main_layout_autorius.Add( self.old_text_autorius, 0, wx.ALL, 5 )
 
-        bSizer110.Add( self.m_panel28, 1, wx.ALL, 5 )
+        self.new_text_autorius = wx.StaticText( self.panel_autorius, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.new_text_autorius.Wrap( -1 )
 
-        self.m_panel29 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel29.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
-
-        bSizer110.Add( self.m_panel29, 1, wx.ALL, 5 )
+        main_layout_autorius.Add( self.new_text_autorius, 0, wx.ALL, 5 )
 
 
-        bSizer108.Add( bSizer110, 0, wx.EXPAND, 5 )
+        self.panel_autorius.SetSizer( main_layout_autorius )
+        self.panel_autorius.Layout()
+        main_layout_autorius.Fit( self.panel_autorius )
+        Compare_Autroius.Add( self.panel_autorius, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+
+        autorius_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.red1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.red1.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
+
+        autorius_layout.Add( self.red1, 1, wx.ALL, 5 )
+
+        self.green1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.green1.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
+
+        autorius_layout.Add( self.green1, 1, wx.ALL, 5 )
 
 
-        bSizer102.Add( bSizer108, 1, wx.EXPAND, 5 )
-
-        bSizer1081 = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.m_panel231 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel231.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
-
-        bSizer1081.Add( self.m_panel231, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
-
-        bSizer1101 = wx.BoxSizer( wx.VERTICAL )
-
-        self.m_panel281 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel281.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
-
-        bSizer1101.Add( self.m_panel281, 1, wx.ALL, 5 )
-
-        self.m_panel291 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel291.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
-
-        bSizer1101.Add( self.m_panel291, 1, wx.ALL, 5 )
+        Compare_Autroius.Add( autorius_layout, 0, wx.EXPAND, 5 )
 
 
-        bSizer1081.Add( bSizer1101, 0, wx.EXPAND, 5 )
+        data_layout.Add( Compare_Autroius, 1, wx.EXPAND, 5 )
+
+        Compare_Pavadinimas = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.panel_pavadinimas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.panel_pavadinimas.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
+
+        main_layout_pavadinimas = wx.BoxSizer( wx.VERTICAL )
+
+        self.old_text_pavadinimas = wx.StaticText( self.panel_pavadinimas, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.old_text_pavadinimas.Wrap( -1 )
+
+        main_layout_pavadinimas.Add( self.old_text_pavadinimas, 0, wx.ALL, 5 )
+
+        self.new_text_pavadinimas = wx.StaticText( self.panel_pavadinimas, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.new_text_pavadinimas.Wrap( -1 )
+
+        main_layout_pavadinimas.Add( self.new_text_pavadinimas, 0, wx.ALL, 5 )
 
 
-        bSizer102.Add( bSizer1081, 1, wx.EXPAND, 5 )
+        self.panel_pavadinimas.SetSizer( main_layout_pavadinimas )
+        self.panel_pavadinimas.Layout()
+        main_layout_pavadinimas.Fit( self.panel_pavadinimas )
+        Compare_Pavadinimas.Add( self.panel_pavadinimas, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
-        bSizer1082 = wx.BoxSizer( wx.HORIZONTAL )
+        pavadinimas_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_panel232 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel232.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
+        self.red2 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.red2.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
 
-        bSizer1082.Add( self.m_panel232, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        pavadinimas_layout.Add( self.red2, 1, wx.ALL, 5 )
 
-        bSizer1102 = wx.BoxSizer( wx.VERTICAL )
+        self.green2 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.green2.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
 
-        self.m_panel282 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel282.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
-
-        bSizer1102.Add( self.m_panel282, 1, wx.ALL, 5 )
-
-        self.m_panel292 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel292.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
-
-        bSizer1102.Add( self.m_panel292, 1, wx.ALL, 5 )
+        pavadinimas_layout.Add( self.green2, 1, wx.ALL, 5 )
 
 
-        bSizer1082.Add( bSizer1102, 0, wx.EXPAND, 5 )
+        Compare_Pavadinimas.Add( pavadinimas_layout, 0, wx.EXPAND, 5 )
 
 
-        bSizer102.Add( bSizer1082, 1, wx.EXPAND, 5 )
+        data_layout.Add( Compare_Pavadinimas, 1, wx.EXPAND, 5 )
 
-        bSizer1083 = wx.BoxSizer( wx.HORIZONTAL )
+        Compare_Metai = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_panel233 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel233.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
+        self.panel_metai = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.panel_metai.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
 
-        bSizer1083.Add( self.m_panel233, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        main_layout_metai = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer1103 = wx.BoxSizer( wx.VERTICAL )
+        self.old_text_metai = wx.StaticText( self.panel_metai, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.old_text_metai.Wrap( -1 )
 
-        self.m_panel283 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel283.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
+        main_layout_metai.Add( self.old_text_metai, 0, wx.ALL, 5 )
 
-        bSizer1103.Add( self.m_panel283, 1, wx.ALL, 5 )
+        self.new_text_metai = wx.StaticText( self.panel_metai, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.new_text_metai.Wrap( -1 )
 
-        self.m_panel293 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
-        self.m_panel293.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
-
-        bSizer1103.Add( self.m_panel293, 1, wx.ALL, 5 )
+        main_layout_metai.Add( self.new_text_metai, 0, wx.ALL, 5 )
 
 
-        bSizer1083.Add( bSizer1103, 0, wx.EXPAND, 5 )
+        self.panel_metai.SetSizer( main_layout_metai )
+        self.panel_metai.Layout()
+        main_layout_metai.Fit( self.panel_metai )
+        Compare_Metai.Add( self.panel_metai, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+
+        metai_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.red3 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.red3.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
+
+        metai_layout.Add( self.red3, 1, wx.ALL, 5 )
+
+        self.green3 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.green3.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
+
+        metai_layout.Add( self.green3, 1, wx.ALL, 5 )
 
 
-        bSizer102.Add( bSizer1083, 1, wx.EXPAND, 5 )
+        Compare_Metai.Add( metai_layout, 0, wx.EXPAND, 5 )
 
 
-        self.SetSizer( bSizer102 )
+        data_layout.Add( Compare_Metai, 1, wx.EXPAND, 5 )
+
+        Compare_ISBN = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.panel_isbn = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.panel_isbn.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_3DLIGHT ) )
+
+        main_layout_isbn = wx.BoxSizer( wx.VERTICAL )
+
+        self.old_text_isbn = wx.StaticText( self.panel_isbn, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.old_text_isbn.Wrap( -1 )
+
+        main_layout_isbn.Add( self.old_text_isbn, 0, wx.ALL, 5 )
+
+        self.new_text_isbn = wx.StaticText( self.panel_isbn, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.new_text_isbn.Wrap( -1 )
+
+        main_layout_isbn.Add( self.new_text_isbn, 0, wx.ALL, 5 )
+
+
+        self.panel_isbn.SetSizer( main_layout_isbn )
+        self.panel_isbn.Layout()
+        main_layout_isbn.Fit( self.panel_isbn )
+        Compare_ISBN.Add( self.panel_isbn, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+
+        isbn_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.red4 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.red4.SetBackgroundColour( wx.Colour( 233, 12, 0 ) )
+
+        isbn_layout.Add( self.red4, 1, wx.ALL, 5 )
+
+        self.green4 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 2,-1 ), wx.TAB_TRAVERSAL )
+        self.green4.SetBackgroundColour( wx.Colour( 65, 139, 36 ) )
+
+        isbn_layout.Add( self.green4, 1, wx.ALL, 5 )
+
+
+        Compare_ISBN.Add( isbn_layout, 0, wx.EXPAND, 5 )
+
+
+        data_layout.Add( Compare_ISBN, 1, wx.EXPAND, 5 )
+
+        button_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.atsisakyti = wx.Button( self, wx.ID_ANY, _(u"atsisakyti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        button_layout.Add( self.atsisakyti, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+
+        button_layout.Add( ( 0, 0), 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+
+        self.sutikti = wx.Button( self, wx.ID_ANY, _(u"sutikti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        button_layout.Add( self.sutikti, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
+
+
+        data_layout.Add( button_layout, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+
+
+        self.SetSizer( data_layout )
         self.Layout()
 
     def __del__( self ):
