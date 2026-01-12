@@ -1,3 +1,4 @@
+import csv
 import os
 import sys
 import wx
@@ -5,7 +6,7 @@ import wx
 from src.ISBNPrint import form_buffer_to_pdf
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.helpers.utils import get_fieldnames
-from src.osHelper import git_build_number
+from src.osHelper import git_build_number, get_correct_extension
 from src.barcodeKurimas import barcode_generator
 from src.gui.config import ConfigFile
 
@@ -161,16 +162,23 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 
         self.textCtrl1.SetValue(csvikur)
 
-    def SelectingPathIs(self, event):
-        path = FileDialogWithExtesion(self,"pdf")
-
-        self.configFile.setUserData("csvikur", path)
-        self.textCtrl1.SetValue(path)
-
     def SelectingPathKur(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
         self.configFile.setUserData("csvikur", path)
+
+    def next(self, event):
+        path = self.textCtrl1.GetValue()
+
+        path = get_correct_extension(path,".csv")
+
+        with open(path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=get_fieldnames(),
+                extrasaction='ignore'
+            )
+            writer.writeheader()
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
@@ -290,6 +298,10 @@ class SideBar(wxformbuilder.SideBar):
                 "Class": Isdavimas,
                 "Label": "Išdavimas"
             },
+            {  
+                "Class": Grazinimas,
+                "Label": "Sugrazinimas"
+            },
         ]
         
         for classlable in CLASS_NAME_AND_LABLES:
@@ -324,4 +336,7 @@ class SideBar(wxformbuilder.SideBar):
         
 
 class Isdavimas(wxformbuilder.Isdavimas):
+    pass
+
+class Grazinimas(wxformbuilder.Sugrazinimas):
     pass

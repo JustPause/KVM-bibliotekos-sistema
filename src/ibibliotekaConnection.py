@@ -18,10 +18,11 @@ search_box = None
 mainSheet = None
 fieldnames = get_fieldnames()
 
-
 def iBiblioteka_scraper(isbn):
     if driver is None:
         connect_to_driver()
+    
+    assert driver is not None
 
     if str(isbn).strip() == "":
         return {"Autorius": "---", "Pavadinimas": "---", "Metai": "---", "isbn": isbn}
@@ -43,6 +44,8 @@ def iBiblioteka_scraper(isbn):
 
 
 def data_extracotr(isbn):
+    assert driver is not None
+    
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
@@ -90,10 +93,12 @@ def data_extracotr(isbn):
     row_dict = {}
 
     for row in rows:
-        print(row.text)
         if row.text.find(":") != -1:
             key, value = row.text.split(":", 1)
         else:
+            print(row.text + "Negerai")
+
+            key = "neGerai"
             value = row.text
 
         match key:
@@ -152,7 +157,6 @@ def connect_to_driver():
     )
 
     progress.progress("Pasiruosia priimti duomenis")
-
 
 def input_form_user(isbn):
     local_isbn = isbn
@@ -257,7 +261,6 @@ def conpare_with_main_sheet(inputRows: list):
     #         return True
 
     return False
-
 
 def input_form_user(pavadinimas="", metai=""):
     while True:

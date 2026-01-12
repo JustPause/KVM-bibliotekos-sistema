@@ -2,7 +2,7 @@ import os
 import sys
 from InquirerPy import prompt,inquirer
 from InquirerPy.validator import EmptyInputValidator, PathValidator
-from src.osHelper import git_build_number
+from src.osHelper import git_build_number,get_correct_extension
 from src.ibibliotekaConnection import iBibliotekos_paieska,iBibliotekos_paieska_tiesiogiai
 from src.barcodeKurimas import barcode_generator
 from src.ISBNPrint import form_csv_to_pdf
@@ -35,20 +35,6 @@ class MainClass():
     ]
 
     klaidos="Nurodykite teisingą failo kelią"
-    @staticmethod
-    def get_correct_extension(path,ending):
-        path = str(path)
-
-        if not path.endswith(ending):
-            if "." in os.path.basename(path):  # only strip extension from filename
-                path = path.rsplit(".", 1)[0]
-            path += ending
-
-        directory = os.path.dirname(path)
-        if directory:  # avoids calling makedirs("") 
-            os.makedirs(directory, exist_ok=True)
-
-        return path
 
     def prompting(self):
         result = prompt(self.KLAUSIMU_FORMUOTE)
@@ -93,7 +79,7 @@ class MainClass():
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
                 
-                dest_path=self.get_correct_extension(dest_path,".csv")
+                dest_path=get_correct_extension(dest_path,".csv")
 
                 iBibliotekos_paieska(src_path, dest_path)
                 
@@ -109,7 +95,7 @@ class MainClass():
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
 
-                dest_path=self.get_correct_extension(dest_path,".csv")
+                dest_path=get_correct_extension(dest_path,".csv")
 
                 iBibliotekos_paieska_tiesiogiai(dest_path)   
                 
@@ -132,7 +118,7 @@ class MainClass():
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
                 
-                dest_path = self.get_correct_extension(dest_path, ".pdf")
+                dest_path = get_correct_extension(dest_path, ".pdf")
 
                 form_csv_to_pdf(src_path,dest_path)
                 
@@ -204,23 +190,23 @@ class MainClass():
                     iBibliotekos_paieska(src_path, dest_path)
                 else:
                     iBibliotekos_paieska_tiesiogiai(dest_path) 
-               
+
             elif args.generate and not args.output:
                 parser.error("Kai naudojamas -G/--generate, privaloma nurodyti -o/--output")   
                 
             elif args.generate != False:
                 dest_path = args.output
-                dest_path = self.get_correct_extension(dest_path, ".pdf")
+                dest_path = get_correct_extension(dest_path, ".pdf")
                 barcode_generator(int(args.generate), dest_path)
             
             elif args.isbnPdf and not args.output and not args.input:
                 parser.error("Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input") 
-                  
+
             elif args.isbnPdf:
                 src_path = args.input
                 
                 dest_path = args.output
-                dest_path = self.get_correct_extension(dest_path, ".pdf")
+                dest_path = get_correct_extension(dest_path, ".pdf")
                 
                 if args.input:
                     form_csv_to_pdf(src_path,dest_path)
