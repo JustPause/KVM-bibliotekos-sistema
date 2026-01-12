@@ -138,34 +138,31 @@ class IsCSV(wxformbuilder.IsCSV):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        csviskur = self.configFile.getUserData("csviskur")
+        csviskur = self.configFile.getUserData("duomenuperkelimas")
 
         self.textCtrl1.SetValue(csviskur)
 
-    def SelectingPathIs(self, event):
-        path = FileDialogWithExtesion(self,"pdf")
+    def SelectingPathDuomenuPerkelimas(self, event):
+        print("Hi")
+        # path = FileDialogWithExtesion(self,"pdf")
 
-        self.configFile.setUserData("csviskur", path)
-        self.textCtrl1.SetValue(path)
+        # self.configFile.setUserData("duomenuperkelimas", path)
+        # self.textCtrl1.SetValue(path)
 
-    def SelectingPathKur(self, event):
-        path = FileDialogWithExtesion(self,"pdf")
-
-        self.configFile.setUserData("csvikur", path)
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        csvikur = self.configFile.getUserData("csvikur")
+        csvikur = self.configFile.getUserData("lentelessukurimas")
 
         self.textCtrl1.SetValue(csvikur)
 
     def SelectingPathKur(self, event):
         path = FileDialogWithExtesion(self,"pdf")
 
-        self.configFile.setUserData("csvikur", path)
+        self.configFile.setUserData("lentelessukurimas", path)
 
     def next(self, event):
         path = self.textCtrl1.GetValue()
