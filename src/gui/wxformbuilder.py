@@ -311,7 +311,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -391,6 +391,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
         self.table.SetColSize( 0, 640 )
         self.table.EnableDragColMove( False )
         self.table.EnableDragColSize( True )
+        self.table.SetColLabelValue( 0, _(u"ISBN") )
         self.table.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
         # Rows
@@ -431,6 +432,14 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
         layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         self.mainWindowPanel.SetSizer( layout )
@@ -524,6 +533,14 @@ class IsCSV ( wx.Panel ):
         layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
         self.mainWindowPanel.SetSizer( layout )
         self.mainWindowPanel.Layout()
         layout.Fit( self.mainWindowPanel )
@@ -609,6 +626,14 @@ class SukurtiCSV ( wx.Panel ):
 
         self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
         layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         self.mainWindowPanel.SetSizer( layout )
@@ -709,6 +734,14 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
         layout.Add( button_layout, 0, wx.EXPAND, 5 )
 
 
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
         self.mainWindowPanel.SetSizer( layout )
         self.mainWindowPanel.Layout()
         layout.Fit( self.mainWindowPanel )
@@ -792,6 +825,14 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
 
         layout.Add( data_layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         self.mainWindowPanel.SetSizer( layout )
@@ -936,7 +977,35 @@ class Patikrinti ( wx.Panel ):
         data_layout.Add( self.outputISBN, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        layout.Add( data_layout, 1, wx.LEFT, 25 )
+        data_layout.Add( ( 0, 16), 0, 0, 5 )
+
+        self.description = wx.StaticText( self, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        data_layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        data_layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.ISBN_window_title = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        ISBN_window_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.ISBN_window_title_text = wx.StaticText( self.ISBN_window_title, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.ISBN_window_title_text.Wrap( -1 )
+
+        ISBN_window_layout.Add( self.ISBN_window_title_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        self.ISBN_window_input = wx.TextCtrl( self.ISBN_window_title, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        ISBN_window_layout.Add( self.ISBN_window_input, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        self.ISBN_window_title.SetSizer( ISBN_window_layout )
+        self.ISBN_window_title.Layout()
+        ISBN_window_layout.Fit( self.ISBN_window_title )
+        data_layout.Add( self.ISBN_window_title, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        layout.Add( data_layout, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 25 )
 
         history_layout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1004,16 +1073,175 @@ class Isdavimas ( wx.Panel ):
 
         layout.Add( ( 0, 40), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        data_layout = wx.BoxSizer( wx.VERTICAL )
-
-
-        layout.Add( data_layout, 1, wx.EXPAND, 5 )
-
 
         self.mainWindowPanel.SetSizer( layout )
         self.mainWindowPanel.Layout()
         layout.Fit( self.mainWindowPanel )
         mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        data_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.KnygosSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        KnygosSideLayout = wx.BoxSizer( wx.VERTICAL )
+
+        KnygosISBNLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.KngosISBNLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Knygos ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KngosISBNLable.Wrap( -1 )
+
+        KnygosISBNLayout.Add( self.KngosISBNLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        self.KngosISBNInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        KnygosISBNLayout.Add( self.KngosISBNInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.KngosISBNRezult = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KngosISBNRezult.Wrap( -1 )
+
+        KnygosISBNLayout.Add( self.KngosISBNRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        KnygosSideLayout.Add( KnygosISBNLayout, 0, wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+
+        AutoriusLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.AutoriusLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.AutoriusLable.Wrap( -1 )
+
+        AutoriusLayout.Add( self.AutoriusLable, 0, wx.ALL, 5 )
+
+        self.AutoriusInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        AutoriusLayout.Add( self.AutoriusInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( AutoriusLayout, 0, wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+
+        PavadinisLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.PavadinimasLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.PavadinimasLable.Wrap( -1 )
+
+        PavadinisLayout.Add( self.PavadinimasLable, 0, wx.ALL, 5 )
+
+        self.PavadinimasInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        PavadinisLayout.Add( self.PavadinimasInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( PavadinisLayout, 0, wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+
+        MetaiLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.MetaiLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.MetaiLable.Wrap( -1 )
+
+        MetaiLayout.Add( self.MetaiLable, 0, wx.ALL, 5 )
+
+        self.MetaiInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        MetaiLayout.Add( self.MetaiInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( MetaiLayout, 0, wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+
+        ISBNLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.ISBNLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.ISBNLable.Wrap( -1 )
+
+        ISBNLayout.Add( self.ISBNLable, 0, wx.ALL, 5 )
+
+        self.ISBNInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        ISBNLayout.Add( self.ISBNInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KnygosSideLayout.Add( ISBNLayout, 0, wx.EXPAND, 5 )
+
+
+        self.KnygosSide.SetSizer( KnygosSideLayout )
+        self.KnygosSide.Layout()
+        KnygosSideLayout.Fit( self.KnygosSide )
+        data_layout.Add( self.KnygosSide, 1, wx.EXPAND |wx.ALL, 25 )
+
+        self.Tarpas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.Tarpas.SetBackgroundColour( wx.Colour( 127, 0, 0 ) )
+
+        data_layout.Add( self.Tarpas, 0, wx.EXPAND, 5 )
+
+        self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        KorelesLayout = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer80 = wx.BoxSizer( wx.VERTICAL )
+
+        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KorelesLable.Wrap( -1 )
+
+        bSizer80.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer80.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KortelesRezult.Wrap( -1 )
+
+        bSizer80.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        KorelesLayout.Add( bSizer80, 0, wx.EXPAND, 5 )
+
+        VardasLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.VardasLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Vardas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.VardasLable.Wrap( -1 )
+
+        VardasLayout.Add( self.VardasLable, 0, wx.ALL, 5 )
+
+        self.VardasInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        VardasLayout.Add( self.VardasInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KorelesLayout.Add( VardasLayout, 0, wx.EXPAND, 5 )
+
+        KlaseLayout = wx.BoxSizer( wx.VERTICAL )
+
+        self.KlaseLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Klase"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KlaseLable.Wrap( -1 )
+
+        KlaseLayout.Add( self.KlaseLable, 0, wx.ALL, 5 )
+
+        self.KlaseInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        KlaseLayout.Add( self.KlaseInput, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        KorelesLayout.Add( KlaseLayout, 0, wx.EXPAND, 5 )
+
+
+        KorelesLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+
+        self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        self.description.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
+        KorelesLayout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        self.NaudotojoSide.SetSizer( KorelesLayout )
+        self.NaudotojoSide.Layout()
+        KorelesLayout.Fit( self.NaudotojoSide )
+        data_layout.Add( self.NaudotojoSide, 1, wx.EXPAND |wx.ALL, 25 )
+
+
+        mainLayout.Add( data_layout, 1, wx.EXPAND, 5 )
 
 
         self.SetSizer( mainLayout )

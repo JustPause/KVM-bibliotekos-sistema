@@ -272,6 +272,6 @@ class MainClass():
             
 
 if __name__ == "__main__":
-    app = MainClass()      # create an instance
+    app = MainClass()      
     app.main()   
     

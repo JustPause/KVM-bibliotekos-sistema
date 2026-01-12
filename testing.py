@@ -1,12 +1,9 @@
 import argparse
-import sys
-
 
 parser = argparse.ArgumentParser(
                     prog='Barkodas',
                     description='A library book management system. The program connects to Google Sheets and helps users manage books.'
 )
-
 
 parent_parser = argparse.ArgumentParser(add_help=False)
 

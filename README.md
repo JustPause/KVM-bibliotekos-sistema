@@ -128,6 +128,7 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv -> add filert to only show knygos
 * [ ] Padaryti naudotojo instrucija, kad galeima butu visada paziureti ir zinoti kaip kas veikia. Kaip dokumnetacija tik naudotojui
 * [ ] I build.py priedeti md to pdf formatavima
+* [ ] pridegti sugrazinimo sistema
 
 ### Darbo lentele
 
