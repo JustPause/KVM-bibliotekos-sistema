@@ -136,11 +136,6 @@ class SideBar ( wx.Panel ):
 
         UzrasimasLayout.Add( self.Isdavimas, 0, wx.BOTTOM, 5 )
 
-        self.Sugrazinimas = wx.Button( self, wx.ID_ANY, _(u"Sugrazinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
-        self.Sugrazinimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
-
-        UzrasimasLayout.Add( self.Sugrazinimas, 0, wx.BOTTOM, 5 )
-
 
         sideNavigsionLayout.Add( UzrasimasLayout, 0, wx.EXPAND|wx.LEFT, 10 )
 
@@ -170,7 +165,6 @@ class SideBar ( wx.Panel ):
         self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.Isdavimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Sugrazinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
         self.versija.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
@@ -180,7 +174,6 @@ class SideBar ( wx.Panel ):
     # Virtual event handlers, override them in your derived class
     def Click( self, event ):
         event.Skip()
-
 
 
 
@@ -1187,23 +1180,23 @@ class Isdavimas ( wx.Panel ):
         self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer80 = wx.BoxSizer( wx.VERTICAL )
+        KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
         self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KorelesLable.Wrap( -1 )
 
-        bSizer80.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
         self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer80.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
+        KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KortelesRezult.Wrap( -1 )
 
-        bSizer80.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KorelesLayout.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        KorelesLayout.Add( bSizer80, 0, wx.EXPAND, 5 )
+        KorelesLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
 
         VardasLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1263,10 +1256,10 @@ class Isdavimas ( wx.Panel ):
 
 
 ###########################################################################
-## Class Sugrazinimas
+## Class Gazinimas
 ###########################################################################
 
-class Sugrazinimas ( wx.Panel ):
+class Gazinimas ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
@@ -1281,7 +1274,7 @@ class Sugrazinimas ( wx.Panel ):
 
         title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Sugrazinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Gazinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.title.Wrap( -1 )
 
         self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )
@@ -1305,18 +1298,21 @@ class Sugrazinimas ( wx.Panel ):
         self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        bSizer80 = wx.BoxSizer( wx.VERTICAL )
+        KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
         self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KorelesLable.Wrap( -1 )
 
-        bSizer80.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
         self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer80.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
+        KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesLayout.Add( bSizer80, 0, wx.EXPAND, 5 )
+        KorelesLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
+
+
+        KorelesLayout.Add( ( 0, 16), 0, 0, 5 )
 
         self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.description.Wrap( -1 )
