@@ -25,6 +25,12 @@ Tai atlieka programa **ISBNGenotator.py** – ji paima duomenis iš **.csv** fai
 
 ---
 
+## Naudojimo instrucija
+
+[Naudojimo_Instrucija](./naudojimo_Instrucija.md)
+
+---
+
 ## Kaip paleisti
 
 Norint paleisti programą (pvz., Linux sistemoje), reikia sukurti Python virtualią aplinką:
@@ -120,6 +126,8 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 
 * [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
 * [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv -> add filert to only show knygos
+* [ ] Padaryti naudotojo instrucija, kad galeima butu visada paziureti ir zinoti kaip kas veikia. Kaip dokumnetacija tik naudotojui
+* [ ] I build.py priedeti md to pdf formatavima
 
 ### Darbo lentele
 
