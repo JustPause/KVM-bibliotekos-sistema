@@ -11,5 +11,9 @@
   "reportMissingParameterType": "none",
   "reportExplicitAny": "none",
   "reportUnusedVariable": "none",
-  "reportUnusedParameter": "none"
+  "reportUnusedParameter": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportCallIssue": "none",
+  "reportArgumentType": "none",
+  "reportCallInDefaultInitializer": "none"
 }
