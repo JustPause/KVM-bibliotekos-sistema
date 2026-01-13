@@ -331,6 +331,7 @@ class SideBar(wxformbuilder.SideBar):
 
         return None
 
+    @override
     def Click(self, event):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
@@ -339,6 +340,7 @@ class SideBar(wxformbuilder.SideBar):
 
         event.Skip()
 
+    @override
     def version(self, event):
         import configparser
 
