@@ -1348,22 +1348,22 @@ class Gazinimas ( wx.Panel ):
 
 class PromtForReplacment ( wx.Panel ):
 
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,411 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 600,460 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
         data_layout = wx.BoxSizer( wx.VERTICAL )
 
         Titulas_BarkodasBoxSizer = wx.BoxSizer( wx.VERTICAL )
 
-        self.Titulas_Barkodas = wx.StaticText( self, wx.ID_ANY, _(u"Barkodas"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.Titulas_Barkodas = wx.StaticText( self, wx.ID_ANY, _(u"Pakeitimas"), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.Titulas_Barkodas.Wrap( -1 )
 
-        self.Titulas_Barkodas.SetFont( wx.Font( 32, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
+        self.Titulas_Barkodas.SetFont( wx.Font( 24, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
 
         Titulas_BarkodasBoxSizer.Add( self.Titulas_Barkodas, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP|wx.BOTTOM, 25 )
 
 
-        data_layout.Add( Titulas_BarkodasBoxSizer, 1, wx.EXPAND, 5 )
+        data_layout.Add( Titulas_BarkodasBoxSizer, 0, wx.EXPAND, 5 )
 
         Compare_Autroius = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1386,7 +1386,7 @@ class PromtForReplacment ( wx.Panel ):
         self.panel_autorius.SetSizer( main_layout_autorius )
         self.panel_autorius.Layout()
         main_layout_autorius.Fit( self.panel_autorius )
-        Compare_Autroius.Add( self.panel_autorius, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        Compare_Autroius.Add( self.panel_autorius, 1, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
         autorius_layout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1404,7 +1404,7 @@ class PromtForReplacment ( wx.Panel ):
         Compare_Autroius.Add( autorius_layout, 0, wx.EXPAND, 5 )
 
 
-        data_layout.Add( Compare_Autroius, 1, wx.EXPAND, 5 )
+        data_layout.Add( Compare_Autroius, 0, wx.EXPAND, 5 )
 
         Compare_Pavadinimas = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1427,7 +1427,7 @@ class PromtForReplacment ( wx.Panel ):
         self.panel_pavadinimas.SetSizer( main_layout_pavadinimas )
         self.panel_pavadinimas.Layout()
         main_layout_pavadinimas.Fit( self.panel_pavadinimas )
-        Compare_Pavadinimas.Add( self.panel_pavadinimas, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        Compare_Pavadinimas.Add( self.panel_pavadinimas, 1, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
         pavadinimas_layout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1445,7 +1445,7 @@ class PromtForReplacment ( wx.Panel ):
         Compare_Pavadinimas.Add( pavadinimas_layout, 0, wx.EXPAND, 5 )
 
 
-        data_layout.Add( Compare_Pavadinimas, 1, wx.EXPAND, 5 )
+        data_layout.Add( Compare_Pavadinimas, 0, wx.EXPAND, 5 )
 
         Compare_Metai = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1468,7 +1468,7 @@ class PromtForReplacment ( wx.Panel ):
         self.panel_metai.SetSizer( main_layout_metai )
         self.panel_metai.Layout()
         main_layout_metai.Fit( self.panel_metai )
-        Compare_Metai.Add( self.panel_metai, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        Compare_Metai.Add( self.panel_metai, 1, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
         metai_layout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1486,7 +1486,7 @@ class PromtForReplacment ( wx.Panel ):
         Compare_Metai.Add( metai_layout, 0, wx.EXPAND, 5 )
 
 
-        data_layout.Add( Compare_Metai, 1, wx.EXPAND, 5 )
+        data_layout.Add( Compare_Metai, 0, wx.EXPAND, 5 )
 
         Compare_ISBN = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1509,7 +1509,7 @@ class PromtForReplacment ( wx.Panel ):
         self.panel_isbn.SetSizer( main_layout_isbn )
         self.panel_isbn.Layout()
         main_layout_isbn.Fit( self.panel_isbn )
-        Compare_ISBN.Add( self.panel_isbn, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+        Compare_ISBN.Add( self.panel_isbn, 1, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 
         isbn_layout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1527,7 +1527,7 @@ class PromtForReplacment ( wx.Panel ):
         Compare_ISBN.Add( isbn_layout, 0, wx.EXPAND, 5 )
 
 
-        data_layout.Add( Compare_ISBN, 1, wx.EXPAND, 5 )
+        data_layout.Add( Compare_ISBN, 0, wx.EXPAND, 5 )
 
         button_layout = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1535,13 +1535,13 @@ class PromtForReplacment ( wx.Panel ):
         button_layout.Add( self.atsisakyti, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        button_layout.Add( ( 0, 0), 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+        button_layout.Add( ( 0, 0), 1, 0, 5 )
 
         self.sutikti = wx.Button( self, wx.ID_ANY, _(u"sutikti"), wx.DefaultPosition, wx.DefaultSize, 0 )
         button_layout.Add( self.sutikti, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        data_layout.Add( button_layout, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+        data_layout.Add( button_layout, 1, wx.EXPAND, 5 )
 
 
         self.SetSizer( data_layout )

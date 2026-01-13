@@ -7943,7 +7943,7 @@
         </object>
       </object>
     </object>
-    <object class="Panel" expanded="false">
+    <object class="Panel" expanded="true">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg"></property>
@@ -7960,14 +7960,14 @@
       <property name="minimum_size"></property>
       <property name="name">PromtForReplacment</property>
       <property name="pos"></property>
-      <property name="size">480,411</property>
+      <property name="size">600,460</property>
       <property name="subclass">; ; forward_declare</property>
       <property name="tooltip"></property>
       <property name="two_step_creation">0</property>
       <property name="window_extra_style"></property>
       <property name="window_name"></property>
       <property name="window_style">wxTAB_TRAVERSAL</property>
-      <object class="wxBoxSizer" expanded="false">
+      <object class="wxBoxSizer" expanded="true">
         <property name="minimum_size"></property>
         <property name="name">data_layout</property>
         <property name="orient">wxVERTICAL</property>
@@ -7975,7 +7975,7 @@
         <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND</property>
-          <property name="proportion">1</property>
+          <property name="proportion">0</property>
           <object class="wxBoxSizer" expanded="false">
             <property name="minimum_size"></property>
             <property name="name">Titulas_BarkodasBoxSizer</property>
@@ -8010,11 +8010,11 @@
                 <property name="enabled">1</property>
                 <property name="fg"></property>
                 <property name="floatable">1</property>
-                <property name="font">Playfair Display,90,400,32,70,0</property>
+                <property name="font">Playfair Display,90,400,24,70,0</property>
                 <property name="gripper">0</property>
                 <property name="hidden">0</property>
                 <property name="id">wxID_ANY</property>
-                <property name="label">Barkodas</property>
+                <property name="label">Pakeitimas</property>
                 <property name="markup">0</property>
                 <property name="max_size"></property>
                 <property name="maximize_button">0</property>
@@ -8045,10 +8045,10 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="false">
+        <object class="sizeritem" expanded="true">
           <property name="border">5</property>
           <property name="flag">wxEXPAND</property>
-          <property name="proportion">1</property>
+          <property name="proportion">0</property>
           <object class="wxBoxSizer" expanded="false">
             <property name="minimum_size"></property>
             <property name="name">Compare_Autroius</property>
@@ -8056,7 +8056,7 @@
             <property name="permission">none</property>
             <object class="sizeritem" expanded="false">
               <property name="border">5</property>
-              <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND|wxTOP|wxBOTTOM|wxLEFT</property>
+              <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxLEFT</property>
               <property name="proportion">1</property>
               <object class="wxPanel" expanded="false">
                 <property name="BottomDockable">1</property>
@@ -8374,7 +8374,7 @@
         <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND</property>
-          <property name="proportion">1</property>
+          <property name="proportion">0</property>
           <object class="wxBoxSizer" expanded="false">
             <property name="minimum_size"></property>
             <property name="name">Compare_Pavadinimas</property>
@@ -8382,7 +8382,7 @@
             <property name="permission">none</property>
             <object class="sizeritem" expanded="false">
               <property name="border">5</property>
-              <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND|wxTOP|wxBOTTOM|wxLEFT</property>
+              <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxLEFT</property>
               <property name="proportion">1</property>
               <object class="wxPanel" expanded="false">
                 <property name="BottomDockable">1</property>
@@ -8700,7 +8700,7 @@
         <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND</property>
-          <property name="proportion">1</property>
+          <property name="proportion">0</property>
           <object class="wxBoxSizer" expanded="false">
             <property name="minimum_size"></property>
             <property name="name">Compare_Metai</property>
@@ -8708,7 +8708,7 @@
             <property name="permission">none</property>
             <object class="sizeritem" expanded="false">
               <property name="border">5</property>
-              <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND|wxTOP|wxBOTTOM|wxLEFT</property>
+              <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxLEFT</property>
               <property name="proportion">1</property>
               <object class="wxPanel" expanded="false">
                 <property name="BottomDockable">1</property>
@@ -9026,7 +9026,7 @@
         <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND</property>
-          <property name="proportion">1</property>
+          <property name="proportion">0</property>
           <object class="wxBoxSizer" expanded="false">
             <property name="minimum_size"></property>
             <property name="name">Compare_ISBN</property>
@@ -9034,7 +9034,7 @@
             <property name="permission">none</property>
             <object class="sizeritem" expanded="false">
               <property name="border">5</property>
-              <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND|wxTOP|wxBOTTOM|wxLEFT</property>
+              <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxLEFT</property>
               <property name="proportion">1</property>
               <object class="wxPanel" expanded="false">
                 <property name="BottomDockable">1</property>
@@ -9349,11 +9349,11 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="false">
+        <object class="sizeritem" expanded="true">
           <property name="border">5</property>
-          <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxEXPAND</property>
-          <property name="proportion">0</property>
-          <object class="wxBoxSizer" expanded="false">
+          <property name="flag">wxEXPAND</property>
+          <property name="proportion">1</property>
+          <object class="wxBoxSizer" expanded="true">
             <property name="minimum_size"></property>
             <property name="name">button_layout</property>
             <property name="orient">wxHORIZONTAL</property>
@@ -9434,7 +9434,7 @@
             </object>
             <object class="sizeritem" expanded="false">
               <property name="border">5</property>
-              <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND</property>
+              <property name="flag"></property>
               <property name="proportion">1</property>
               <object class="spacer" expanded="false">
                 <property name="height">0</property>

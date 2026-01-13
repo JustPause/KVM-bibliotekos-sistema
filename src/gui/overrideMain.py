@@ -165,8 +165,11 @@ class IsCSV(wxformbuilder.IsCSV):
                 if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
                     tmp_index=index+2
 
-                    PromtForReplacment(sheet_row,row)
+                    dlg=PromptForReplacementDialog(self,sheet_row,row)
                     print(str(tmp_index) + " - " + row[fieldnames[1]])
+
+                    dlg.ShowModal()
+                    # dlg.Destroy()
                     
         print("DONE")
         # request=append_rows([[1,2,3,4],[5,6,7,8]])
@@ -361,8 +364,16 @@ class Isdavimas(wxformbuilder.Isdavimas):
 class Grazinimas(wxformbuilder.Gazinimas):
     pass
 
-class PromtForReplacment(wxformbuilder.PromtForReplacment):
-    
-    def __init__(self, old_row, new_row):
-        print(old_row)
-        print(new_row)
+class PromptForReplacementDialog(wx.Dialog):
+    def __init__(self, parent, sheet_row, row):
+        super().__init__(
+            parent,
+            title="Replace existing row?",
+            style=wx.DEFAULT_DIALOG_STYLE | wx.STAY_ON_TOP,
+        )
+
+        panel = wxformbuilder.PromtForReplacment(self)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(panel, 1, wx.EXPAND | wx.ALL, 10)
+        self.SetSizerAndFit(sizer)
