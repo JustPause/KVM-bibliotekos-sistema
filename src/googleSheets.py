@@ -1,5 +1,6 @@
 import json
 import os.path
+from typing import Any
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -11,7 +12,8 @@ from src.helpers.utils import get_fieldnames
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-def connect_to_sheet():
+
+def connect_to_sheet() -> Any:
     """Shows basic usage of the Sheets API.
     Prints values from a sample spreadsheet.
     """
@@ -29,7 +31,9 @@ def connect_to_sheet():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(client_secret, SCOPES)
-            creds = flow.run_local_server(port=0, access_type='offline', prompt='consent')
+            creds = flow.run_local_server(
+                port=0, access_type="offline", prompt="consent"
+            )
         with open(token, "w") as token:
             token.write(creds.to_json())
 
@@ -37,99 +41,103 @@ def connect_to_sheet():
         service = build("sheets", "v4", credentials=creds)
 
         sheet = service.spreadsheets()
-        
+
         return sheet
-        
+
     except HttpError as err:
         print(err)
-        
+
         return None
 
-def get_data(sheet,sheet_id,sheet_range):
 
-    result = (
-            sheet.values()
-            .get(spreadsheetId=sheet_id, range=sheet_range)
-            .execute()
-        )
+def get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
+    result = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
     values = result.get("values", [])
 
     if not values:
         print("No data found.")
         return None
-    
+
     return values
+
 
 def padding_row_data(row, local_range):
     data = list(row)
-                
-    for i in range(local_range):
+
+    for _ in range(local_range):
         data.append("")
     return data
 
+
 def get_sheet_rows():
-    sheet_id, rage,range_template = congig_json()
-    
+    sheet_id, rage, _ = congig_json()
+
     sheet = connect_to_sheet()
-    rows = get_data(sheet,sheet_id,rage)
+    rows = get_data(sheet, sheet_id, rage)
+
+    if rows is None:
+        raise ValueError("rows cannot be None")
+
     heads = rows[0]
     rows = rows[1:-1]
-    
+
     working_sheet = list()
     for row in rows:
-
         match len(row):
-            case 1:  
-                data= padding_row_data(row,4-1)
-                data_dict =	making_dictionary_pairs(heads, data)    
+            case 1:
+                data = padding_row_data(row, 4 - 1)
+                data_dict = making_dictionary_pairs(heads, data)
                 working_sheet.append(data_dict)
-                
+
             case 2:
-                data= padding_row_data(row,4-2)
-                data_dict =	making_dictionary_pairs(heads, data)    
+                data = padding_row_data(row, 4 - 2)
+                data_dict = making_dictionary_pairs(heads, data)
                 working_sheet.append(data_dict)
-                
+
             case 3:
-                data= padding_row_data(row,4-3)
-                data_dict =	making_dictionary_pairs(heads, data)    
+                data = padding_row_data(row, 4 - 3)
+                data_dict = making_dictionary_pairs(heads, data)
                 working_sheet.append(data_dict)
-                
+
             case 4:
-                data= padding_row_data(row,4-4)
-                data_dict =	making_dictionary_pairs(heads, data)    
+                data = padding_row_data(row, 4 - 4)
+                data_dict = making_dictionary_pairs(heads, data)
                 working_sheet.append(data_dict)
-                
+
             case _:
                 raise IndexError
     return working_sheet
 
-def congig_json():
-    with open("src/.env/sheet.json", 'r') as sheet_json:
+
+def congig_json() -> tuple[str, str, str]:
+    with open("src/.env/sheet.json", "r") as sheet_json:
         sheet = json.load(sheet_json)
 
         sheet_id = sheet["sheet_id"]
         rage = sheet["rage"]
-        range_template=["range_template"]
-    return sheet_id,rage,range_template
+        range_template = ["range_template"]
+    return sheet_id, rage, str(range_template)
 
-def set_book_isnb_in_sheet(rowid, newData):
-    sheet_id, rage,range_template = congig_json()
+
+def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
+    sheet_id, _, range_template = congig_json()
 
     sheet = connect_to_sheet()
 
-    rowid=rowid + 2# one is head, one is counting form 0 but sheet counts form 1
+    rowid = rowid + 2  # one is head, one is counting form 0 but sheet counts form 1
+
+    if sheet is None:
+        raise ValueError("sheet object is None")
 
     sheet_result = (
-        sheet.values()
-        .get(spreadsheetId=sheet_id, range=range_template)
-        .execute()
+        sheet.values().get(spreadsheetId=sheet_id, range=range_template).execute()
     )
 
     sheet_values = list(sheet_result.get("values", [])[0])
     returnValues = dict()
     fieldnames = get_fieldnames()
 
-    for index in range(len(fieldnames)-len(sheet_values)):
+    for index in range(len(fieldnames) - len(sheet_values)):
         sheet_values.append("---")
 
     returnValues = [
@@ -139,56 +147,55 @@ def set_book_isnb_in_sheet(rowid, newData):
         newData["isbn"],
     ]
 
-    return set_row(rowid, sheet_id, returnValues)
+    return set_row(rowid, returnValues)
+
 
 def set_row(rowid, returnValues):
-    sheet_id, rage,range_template = congig_json()
-    
+    sheet_id, rage, range_template = congig_json()
+
+    range_with_row = range_template.format(row=rowid)
+
     sheet = connect_to_sheet()
     values = [
-        [
-            returnValues
-        ],
+        [returnValues],
     ]
 
     body = {"values": values}
-    
+
     result = (
         sheet.values()
         .update(
             spreadsheetId=sheet_id,
-            range=range_template,
+            range=range_with_row,
             valueInputOption="USER_ENTERED",
             body=body,
-        ).execute()
+        )
+        .execute()
     )
-    print(f"{result.get('updatedCells')} cells updated.")
-    
+
     return result
 
+
 def append_rows(rows):
-    sheet_id, rage,range_template = congig_json()
-    
+    sheet_id, rage, range_template = congig_json()
+
     sheet = connect_to_sheet()
 
     body = {"values": rows}
-    
-    result=(
+
+    result = (
         sheet.values()
         .append(
-            spreadsheetId=sheet_id,       
-            range=rage,          
-            valueInputOption="USER_ENTERED",   
-            body=body
-        ).execute()
+            spreadsheetId=sheet_id,
+            range=rage,
+            valueInputOption="USER_ENTERED",
+            body=body,
+        )
+        .execute()
     )
 
-    return result['updates']
+    return result["updates"]
+
 
 def making_dictionary_pairs(heads, data):
-    return {
-        heads[0]: data[0],
-        heads[1]: data[1],
-        heads[2]: data[2],
-        heads[3]: data[3]
-    }
+    return {heads[0]: data[0], heads[1]: data[1], heads[2]: data[2], heads[3]: data[3]}
