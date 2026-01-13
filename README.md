@@ -129,6 +129,7 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * [ ] Padaryti naudotojo instrucija, kad galeima butu visada paziureti ir zinoti kaip kas veikia. Kaip dokumnetacija tik naudotojui
 * [ ] I build.py priedeti md to pdf formatavima
 * [ ] pridegti sugrazinimo sistema
+* [ ] sutvarkyti pup up is skaityti is klaveuros skanerio
 
 ### Darbo lentele
 

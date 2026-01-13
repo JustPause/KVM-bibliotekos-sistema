@@ -9,7 +9,7 @@ from googleapiclient.errors import HttpError
 
 from src.helpers.utils import get_fieldnames
 
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 def connect_to_sheet():
     """Shows basic usage of the Sheets API.
@@ -68,11 +68,7 @@ def padding_row_data(row, local_range):
     return data
 
 def get_sheet_rows():
-    with open("src/.env/sheet.json", 'r') as sheet_json:
-        sheet = json.load(sheet_json)
-
-        sheet_id = sheet["sheet_id"]
-        rage = sheet["rage"]
+    sheet_id, rage,range_template = congig_json()
     
     sheet = connect_to_sheet()
     rows = get_data(sheet,sheet_id,rage)
@@ -107,12 +103,17 @@ def get_sheet_rows():
                 raise IndexError
     return working_sheet
 
-def set_book_isnb_in_sheet(rowid, newData):
+def congig_json():
     with open("src/.env/sheet.json", 'r') as sheet_json:
-        sheet_ = json.load(sheet_json)
+        sheet = json.load(sheet_json)
 
-        sheet_id = sheet_["sheet_id"]
-        rage = sheet_["rage"]
+        sheet_id = sheet["sheet_id"]
+        rage = sheet["rage"]
+        range_template=["range_template"]
+    return sheet_id,rage,range_template
+
+def set_book_isnb_in_sheet(rowid, newData):
+    sheet_id, rage,range_template = congig_json()
 
     sheet = connect_to_sheet()
 
@@ -120,7 +121,7 @@ def set_book_isnb_in_sheet(rowid, newData):
 
     sheet_result = (
         sheet.values()
-        .get(spreadsheetId=sheet_id, range=f"VIsos knygos!A{rowid}:D{rowid}")
+        .get(spreadsheetId=sheet_id, range=range_template)
         .execute()
     )
 
@@ -140,7 +141,9 @@ def set_book_isnb_in_sheet(rowid, newData):
 
     return set_row(rowid, sheet_id, returnValues)
 
-def set_row(rowid, sheet_id, returnValues):
+def set_row(rowid, returnValues):
+    sheet_id, rage,range_template = congig_json()
+    
     sheet = connect_to_sheet()
     values = [
         [
@@ -154,15 +157,33 @@ def set_row(rowid, sheet_id, returnValues):
         sheet.values()
         .update(
             spreadsheetId=sheet_id,
-            range=f"VIsos knygos!A{rowid}:D{rowid}",
+            range=range_template,
             valueInputOption="USER_ENTERED",
             body=body,
-        )
-        .execute()
+        ).execute()
     )
     print(f"{result.get('updatedCells')} cells updated.")
     
     return result
+
+def append_rows(rows):
+    sheet_id, rage,range_template = congig_json()
+    
+    sheet = connect_to_sheet()
+
+    body = {"values": rows}
+    
+    result=(
+        sheet.values()
+        .append(
+            spreadsheetId=sheet_id,       
+            range=rage,          
+            valueInputOption="USER_ENTERED",   
+            body=body
+        ).execute()
+    )
+
+    return result['updates']
 
 def making_dictionary_pairs(heads, data):
     return {

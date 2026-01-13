@@ -551,7 +551,7 @@ class IsCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathIs )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathDuomenuPerkelimas )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -559,7 +559,7 @@ class IsCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPathIs( self, event ):
+    def SelectingPathDuomenuPerkelimas( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -646,7 +646,7 @@ class SukurtiCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathKur )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathDuomenuPerkelimas )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -654,7 +654,7 @@ class SukurtiCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPathKur( self, event ):
+    def SelectingPathDuomenuPerkelimas( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -1343,10 +1343,10 @@ class Gazinimas ( wx.Panel ):
 
 
 ###########################################################################
-## Class PopUp
+## Class PromtForReplacment
 ###########################################################################
 
-class PopUp ( wx.Panel ):
+class PromtForReplacment ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 480,411 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )

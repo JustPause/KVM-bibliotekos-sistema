@@ -2805,7 +2805,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPathIs</event>
+                      <event name="OnLeftDown">SelectingPathDuomenuPerkelimas</event>
                     </object>
                   </object>
                 </object>
@@ -3299,7 +3299,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPathKur</event>
+                      <event name="OnLeftDown">SelectingPathDuomenuPerkelimas</event>
                     </object>
                   </object>
                 </object>
@@ -7958,7 +7958,7 @@
       <property name="id">wxID_ANY</property>
       <property name="maximum_size"></property>
       <property name="minimum_size"></property>
-      <property name="name">PopUp</property>
+      <property name="name">PromtForReplacment</property>
       <property name="pos"></property>
       <property name="size">480,411</property>
       <property name="subclass">; ; forward_declare</property>

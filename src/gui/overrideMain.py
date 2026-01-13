@@ -3,6 +3,7 @@ import os
 import sys
 import wx
 
+from src.googleSheets import append_rows, get_sheet_rows
 from src.ISBNPrint import form_buffer_to_pdf
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.helpers.utils import get_fieldnames
@@ -26,14 +27,14 @@ def Sekmingai():
             wx.OK | wx.ICON_INFORMATION
         )
     
-def FileDialogWithExtesion(self, extension):
+def FileDialogWithExtesion(self, extension, overwrite = True):
     path = ""
     
     with wx.FileDialog(
         self,
         "Pasirinkite lokaciją",
         wildcard=f"Lentelė (*.{extension})|*.{extension}",
-        style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
+        style = wx.FD_SAVE | (wx.FD_OVERWRITE_PROMPT if overwrite else 0)
     ) as dlg:
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
@@ -143,12 +144,34 @@ class IsCSV(wxformbuilder.IsCSV):
         self.textCtrl1.SetValue(csviskur)
 
     def SelectingPathDuomenuPerkelimas(self, event):
-        print("Hi")
-        # path = FileDialogWithExtesion(self,"pdf")
+        path = FileDialogWithExtesion(self,"csv",False)
 
-        # self.configFile.setUserData("duomenuperkelimas", path)
-        # self.textCtrl1.SetValue(path)
+        self.configFile.setUserData("duomenuperkelimas", path)
+        self.textCtrl1.SetValue(path)
 
+    def next(self,event):
+        path=self.textCtrl1.GetValue()
+        rows = None
+        
+        with open(path, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+        print(rows)
+        sheet_rows=get_sheet_rows()
+        fieldnames=get_fieldnames()
+        
+        for row in rows:
+            for index, sheet_row in enumerate(sheet_rows):
+                if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
+                    tmp_index=index+2
+
+                    PromtForReplacment(sheet_row,row)
+                    print(str(tmp_index) + " - " + row[fieldnames[1]])
+                    
+        print("DONE")
+        # request=append_rows([[1,2,3,4],[5,6,7,8]])
+
+        # print(request)
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
     def __init__(self, parent):
@@ -335,5 +358,11 @@ class SideBar(wxformbuilder.SideBar):
 class Isdavimas(wxformbuilder.Isdavimas):
     pass
 
-class Grazinimas(wxformbuilder.Sugrazinimas):
+class Grazinimas(wxformbuilder.Gazinimas):
     pass
+
+class PromtForReplacment(wxformbuilder.PromtForReplacment):
+    
+    def __init__(self, old_row, new_row):
+        print(old_row)
+        print(new_row)
