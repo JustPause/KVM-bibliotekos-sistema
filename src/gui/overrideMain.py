@@ -1,5 +1,6 @@
 import csv
 import os
+import sys
 from typing import override
 
 import wx
@@ -60,15 +61,14 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
 
     @override
     def img_path(self, bitmap_path):
-        # if hasattr(sys, "_MEIPASS"):
-        #     base_path = sys._MEIPASS
-        # else:
-        #     base_path = os.path.abspath(".")
+        if hasattr(sys, "_MEIPASS"):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.abspath(".")
 
-        # bitmap_path = os.path.join(base_path, "src", "gui", bitmap_path)
+        bitmap_path = os.path.join(base_path, "src", "gui", bitmap_path)
 
-        # return bitmap_path
-        pass
+        return bitmap_path
 
 
 class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
@@ -214,20 +214,24 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
     @override
     def file_free_scan(self, event):
-        wx.CallAfter(
-            lambda: self.GetParent().ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
-        )
+        from src.gui.graphicalUserInterface import GUI
+
+        parent = self.GetParent()
+        assert isinstance(parent, GUI)
+
+        wx.CallAfter(lambda: parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas))
 
         event.Skip()
 
     @override
     def next(self, event):
-        path = self.textCtrl1.GetValue()
+        from src.gui.graphicalUserInterface import GUI
 
+        path = self.textCtrl1.GetValue()
+        parent = self.GetParent()
+        assert isinstance(parent, GUI)
         wx.CallAfter(
-            lambda: self.GetParent().ReplacePanelNext(
-                IsKlaveturosSkaitytuvoEkranas, path
-            )
+            lambda: parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
         )
 
         event.Skip()
