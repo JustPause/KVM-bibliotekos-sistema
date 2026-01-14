@@ -13,15 +13,23 @@ from src.gui.config import ConfigFile
 from src.helpers.utils import get_fieldnames
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
-from src.osHelper import get_correct_extension, git_build_number
+from src.osHelper import get_correct_extension, git_build_number, is_it_an_validate_path
 
 
-def NeSekmingai(text):
+def NeSekmingai(text) -> None:
     wx.MessageBox(text, "Rezultatas", wx.OK | wx.ICON_INFORMATION)
 
 
-def Sekmingai():
+def Sekmingai() -> None:
     wx.MessageBox("Sėkmingai pavyko", "Rezultatas", wx.OK | wx.ICON_INFORMATION)
+
+
+def KlaidingasTakas() -> None:
+    wx.MessageBox(
+        "Ar failas tikrai tenais?",
+        "Klaidingas failo takas",
+        wx.ICON_WARNING | wx.OK,
+    )
 
 
 def FileDialogWithExtesion(self, extension, overwrite=True):
@@ -91,6 +99,11 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
     def next(self, event):
         rows = []
 
+        path = self.textCtrl1.GetValue()
+        if not is_it_an_validate_path(path):
+            KlaidingasTakas()
+            return
+
         for row in range(self.table.GetNumberRows()):
             value = self.table.GetCellValue(row, 0)
 
@@ -98,7 +111,7 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
                 rows.append(value)
 
         if len(rows) != 0:
-            form_buffer_to_pdf(rows, self.textCtrl1.GetValue())
+            form_buffer_to_pdf(rows, path)
             Sekmingai()
         else:
             NeSekmingai("Parasykite bent viena eilute")
@@ -124,6 +137,10 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def next(self, event):
         dest_path = self.inputText1.GetValue()
         count = self.inputText2.GetValue()
+
+        if not is_it_an_validate_path(dest_path):
+            KlaidingasTakas()
+            return
 
         try:
             barcode_generator(int(count), dest_path)
@@ -153,12 +170,17 @@ class IsCSV(wxformbuilder.IsCSV):
     @override
     def next(self, event):
         path = self.textCtrl1.GetValue()
+
+        if not is_it_an_validate_path(path):
+            KlaidingasTakas()
+            return
+
         rows = None
 
         with open(path, "r", newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             rows = list(reader)
-        print(rows)
+
         sheet_rows = get_sheet_rows()
         fieldnames = get_fieldnames()
 
@@ -196,6 +218,10 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
     def next(self, event):
         path = self.textCtrl1.GetValue()
 
+        if not is_it_an_validate_path(path):
+            KlaidingasTakas()
+            return
+
         path = get_correct_extension(path, ".csv")
 
         with open(path, "w", newline="", encoding="utf-8") as f:
@@ -228,6 +254,10 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     @override
     def next(self, event):
         path = self.textCtrl1.GetValue()
+
+        if not is_it_an_validate_path(path):
+            KlaidingasTakas()
+            return
 
         wx.CallAfter(self.update_panel, path)
         event.Skip()
@@ -315,7 +345,7 @@ class SideBar(wxformbuilder.SideBar):
     def __PikingLable(self, Lable):
         CLASS_NAME_AND_LABLES = [
             {"Class": KurtiNaujusBarkodus, "Label": "Kurti naujus barkodus"},
-            {"Class": ISNBkoduAtspauzdinimas, "Label": "ISNB kodu atspauždinimas"},
+            {"Class": ISNBkoduAtspauzdinimas, "Label": "ISBN kodu atspauždinimas"},
             {"Class": IsCSV, "Label": "CSV duomenu perkelimas"},
             {"Class": SukurtiCSV, "Label": "CSV lenteles sukurimas"},
             {"Class": IsKlaveturosSkaitytuvo, "Label": "Klaviatūros / Skaitytuvo"},

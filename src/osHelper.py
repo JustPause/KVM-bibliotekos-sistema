@@ -43,3 +43,7 @@ def get_correct_extension(path, ending):
         os.makedirs(directory, exist_ok=True)
 
     return path
+
+
+def is_it_an_validate_path(path):
+    return os.path.isfile(path)

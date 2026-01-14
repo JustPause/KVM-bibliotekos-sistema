@@ -53,7 +53,7 @@ class SideBar ( wx.Panel ):
 
         BarkodaiLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.ISNB_kodu_atspauzdinimas = wx.Button( self, wx.ID_ANY, _(u"ISNB kodu atspauždinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.ISNB_kodu_atspauzdinimas = wx.Button( self, wx.ID_ANY, _(u"ISBN kodu atspauždinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.ISNB_kodu_atspauzdinimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         BarkodaiLayout.Add( self.ISNB_kodu_atspauzdinimas, 0, wx.BOTTOM, 5 )
