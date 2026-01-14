@@ -12,6 +12,7 @@ import gettext
 import wx
 import wx.dataview
 import wx.grid
+import wx.xrc
 
 _ = gettext.gettext
 
@@ -253,6 +254,18 @@ class SideBar(wx.Panel):
 
         UzrasimasLayout.Add(self.Isdavimas, 0, wx.BOTTOM, 5)
 
+        self.Grazinimas = wx.Button(
+            self,
+            wx.ID_ANY,
+            _("Grazinimas"),
+            wx.DefaultPosition,
+            wx.Size(-1, -1),
+            wx.BORDER_NONE | wx.BU_EXACTFIT,
+        )
+        self.Grazinimas.SetForegroundColour(wx.Colour(16, 16, 16))
+
+        UzrasimasLayout.Add(self.Grazinimas, 0, wx.BOTTOM, 5)
+
         sideNavigsionLayout.Add(UzrasimasLayout, 0, wx.EXPAND | wx.LEFT, 10)
 
         sideNavigsionLayout.Add((0, 200), 1, wx.EXPAND, 5)
@@ -294,6 +307,7 @@ class SideBar(wx.Panel):
         self.Iš_CSV.Bind(wx.EVT_LEFT_DOWN, self.Click)
         self.Patikralentėja.Bind(wx.EVT_LEFT_DOWN, self.Click)
         self.Isdavimas.Bind(wx.EVT_LEFT_DOWN, self.Click)
+        self.Grazinimas.Bind(wx.EVT_LEFT_DOWN, self.Click)
         self.versija.Bind(wx.EVT_LEFT_UP, self.version)
 
     def __del__(self):

@@ -317,7 +317,7 @@ class SideBar(wxformbuilder.SideBar):
             {"Class": IsKlaveturosSkaitytuvo, "Label": "Klavetūros / Skaitytuvo"},
             {"Class": Patikrinti, "Label": "Google sheets lentėja"},
             {"Class": Isdavimas, "Label": "Išdavimas"},
-            {"Class": Grazinimas, "Label": "Sugrazinimas"},
+            {"Class": Grazinimas, "Label": "Grazinimas"},
         ]
 
         for classlable in CLASS_NAME_AND_LABLES:
@@ -359,10 +359,8 @@ class SideBar(wxformbuilder.SideBar):
 class Isdavimas(wxformbuilder.Isdavimas):
     pass
 
-
 class Grazinimas(wxformbuilder.Gazinimas):
     pass
-
 
 class PromptForReplacementDialog(wx.Dialog):
     def __init__(self, parent, sheet_row, row):

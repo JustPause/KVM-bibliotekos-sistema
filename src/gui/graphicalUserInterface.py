@@ -6,6 +6,7 @@ import wx
 from src.gui.overrideMain import Pagrindinis, SideBar
 from src.ibibliotekaConnection import kill_drive
 
+
 class GUI(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(
@@ -28,7 +29,7 @@ class GUI(wx.Frame):
 
         self.SetSizer(self.mainSizer)
         self.Layout()
-        
+
     def ReplacePanel(self, mainPanelClass) -> None:
         self.mainSizer.Detach(self.mainPanel)
 
@@ -48,6 +49,7 @@ class GUI(wx.Frame):
 
         self.SetSizer(self.mainSizer)
         self.Layout()
+
 
 class Barkodas(wx.App):
     @override

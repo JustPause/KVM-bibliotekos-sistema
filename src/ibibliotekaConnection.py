@@ -3,11 +3,11 @@ import re
 
 from InquirerPy import inquirer
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import WebDriverException
 
 # from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.helpers.utils import get_fieldnames
@@ -19,10 +19,11 @@ search_box = None
 mainSheet = None
 fieldnames = get_fieldnames()
 
+
 def iBiblioteka_scraper(isbn):
     if driver is None:
         connect_to_driver()
-    
+
     assert driver is not None
 
     if str(isbn).strip() == "":
@@ -46,7 +47,7 @@ def iBiblioteka_scraper(isbn):
 
 def data_extracotr(isbn):
     assert driver is not None
-    
+
     WebDriverWait(driver, 10).until_not(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".spinner-background.active"))
     )
@@ -126,7 +127,7 @@ def data_extracotr(isbn):
                 key = key.strip()
                 value = value.strip()
                 row_dict[key] = value
-                
+
             case _:
                 pass
 
@@ -164,6 +165,7 @@ def connect_to_driver():
     )
 
     progress.progress("Pasiruosia priimti duomenis")
+
 
 # def input_form_user(isbn):
 #     local_isbn = isbn
@@ -268,6 +270,7 @@ def conpare_with_main_sheet(inputRows: list[str]):
     #         return True
 
     return False
+
 
 # def input_form_user(pavadinimas="", metai=""):
 #     while True:
