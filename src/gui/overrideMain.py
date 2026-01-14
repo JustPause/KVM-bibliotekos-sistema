@@ -214,7 +214,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
     @override
     def file_free_scan(self, event):
-        from src.gui.graphicalUserInterface import GUI
+        from src.gui.gui import GUI
 
         parent = self.GetParent()
         assert isinstance(parent, GUI)
@@ -225,7 +225,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
     @override
     def next(self, event):
-        from src.gui.graphicalUserInterface import GUI
+        from src.gui.gui import GUI
 
         path = self.textCtrl1.GetValue()
         parent = self.GetParent()

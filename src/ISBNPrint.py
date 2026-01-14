@@ -66,7 +66,7 @@ def form_csv_to_pdf(input_csv, output_csv):
 def form_buffer_to_pdf(buffer_list,output_csv):
     imiges_to_pdf_hart(output_csv, buffer_list) 
     
-def imiges_to_pdf_hart(output_csv, rows:list):
+def imiges_to_pdf_hart(output_csv, rows:list[str]):
     filenameArray=[]
 
     for row in rows:

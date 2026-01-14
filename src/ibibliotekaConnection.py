@@ -7,8 +7,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import WebDriverException
 
-from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
+# from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.helpers.utils import get_fieldnames
 from src.osHelper import is_file_empty
 from src.progress import Progress
@@ -125,6 +126,9 @@ def data_extracotr(isbn):
                 key = key.strip()
                 value = value.strip()
                 row_dict[key] = value
+                
+            case _:
+                pass
 
     for key in fieldnames:
         if key not in row_dict:
@@ -144,7 +148,10 @@ def connect_to_driver():
 
     options.add_argument("--headless")
     driver = webdriver.Firefox(options=options)
-    driver.get("https://ibiblioteka.lt/metis/publication")
+    try:
+        driver.get("https://ibiblioteka.lt/metis/publication")
+    except WebDriverException:
+        pass
 
     progress.progress("Susijukta su iBiblioteka")
 
@@ -158,29 +165,29 @@ def connect_to_driver():
 
     progress.progress("Pasiruosia priimti duomenis")
 
-def input_form_user(isbn):
-    local_isbn = isbn
+# def input_form_user(isbn):
+#     local_isbn = isbn
 
-    while True:
-        Autorius = inquirer.text(message="Autorius:").execute()
-        Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
-        Metai = inquirer.text(message="Metai:").execute()
-        proceed = inquirer.select(
-            message="Choose one option:",
-            choices=["Testi", "Bandyti dar kart", "Pataisyti ISNB"],
-        ).execute()
+#     while True:
+#         Autorius = inquirer.text(message="Autorius:").execute()
+#         Pavadinimas = inquirer.text(message="Pavadinimas:").execute()
+#         Metai = inquirer.text(message="Metai:").execute()
+#         proceed = inquirer.select(
+#             message="Choose one option:",
+#             choices=["Testi", "Bandyti dar kart", "Pataisyti ISNB"],
+#         ).execute()
 
-        if proceed == "Testi":
-            break
-        elif proceed == "Pataisyti ISNB":
-            local_isbn = inquirer.text(message="Naujas ISNB:").execute()
+#         if proceed == "Testi":
+#             break
+#         elif proceed == "Pataisyti ISNB":
+#             local_isbn = inquirer.text(message="Naujas ISNB:").execute()
 
-    r_dict = {}
-    r_dict["Autorius"] = Autorius
-    r_dict["Pavadinimas"] = Pavadinimas
-    r_dict["Metai"] = Metai
-    r_dict["isbn"] = local_isbn
-    return r_dict
+#     r_dict = {}
+#     r_dict["Autorius"] = Autorius
+#     r_dict["Pavadinimas"] = Pavadinimas
+#     r_dict["Metai"] = Metai
+#     r_dict["isbn"] = local_isbn
+#     return r_dict
 
 
 def iBibliotekos_paieska(input_csv, output_csv):
@@ -238,7 +245,7 @@ def iBibliotekos_paieska_tiesiogiai(output_csv):
 def iBibliotekos_paieska_tiesiogiai_core(isbn):
     global driver
 
-    if driver == None:
+    if driver is None:
         connect_to_driver()
 
     isbn = str(isbn)
@@ -248,7 +255,7 @@ def iBibliotekos_paieska_tiesiogiai_core(isbn):
     return data
 
 
-def conpare_with_main_sheet(inputRows: list):
+def conpare_with_main_sheet(inputRows: list[str]):
     # global mainSheet
 
     # if not mainSheet:
@@ -262,22 +269,22 @@ def conpare_with_main_sheet(inputRows: list):
 
     return False
 
-def input_form_user(pavadinimas="", metai=""):
-    while True:
-        Autorius = inquirer.text(message="Autorius:").execute()
-        Pavadinimas = inquirer.text(
-            message="Pavadinimas:", default=pavadinimas
-        ).execute()
-        Metai = inquirer.text(message="Metai:", default=metai).execute()
-        Isnb = inquirer.text(message="ISBN:", default=metai).execute()
-        proceed = inquirer.select(
-            message="Choose one option:", choices=["Testi", "Bandyti dar kart"]
-        ).execute()
+# def input_form_user(pavadinimas="", metai=""):
+#     while True:
+#         Autorius = inquirer.text(message="Autorius:").execute()
+#         Pavadinimas = inquirer.text(
+#             message="Pavadinimas:", default=pavadinimas
+#         ).execute()
+#         Metai = inquirer.text(message="Metai:", default=metai).execute()
+#         Isnb = inquirer.text(message="ISBN:", default=metai).execute()
+#         proceed = inquirer.select(
+#             message="Choose one option:", choices=["Testi", "Bandyti dar kart"]
+#         ).execute()
 
-        if proceed == "Testi":
-            break
+#         if proceed == "Testi":
+#             break
 
-    return [Autorius, Pavadinimas, Metai, Isnb]
+#     return [Autorius, Pavadinimas, Metai, Isnb]
 
 
 def kill_drive():

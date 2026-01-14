@@ -1,8 +1,9 @@
-import sys
+from typing import override
 import pagrindinis
 
 
 class MainClassGUI(pagrindinis.MainClass):
+    @override
     def main(self):
         self.local_run()  
             
