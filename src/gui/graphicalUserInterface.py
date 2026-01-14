@@ -1,3 +1,4 @@
+import asyncio
 import gettext
 from typing import override
 

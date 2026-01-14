@@ -1,10 +1,11 @@
 import csv
 import os
 import sys
-import src.gui.wxformbuilder as wxformbuilder
+from typing import override
+
 import wx
 
-from typing import override
+import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
 from src.googleSheets import get_sheet_rows
 from src.gui.config import ConfigFile
@@ -211,7 +212,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
-    def update_panel(self ,path=None) -> None:
+    def update_panel(self, path=None) -> None:
         parent = self.GetParent()
         if path is None:
             parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
@@ -287,7 +288,10 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
 
 
 class Patikrinti(wxformbuilder.Patikrinti):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # rows = get_sheet_rows()
 
 
 class SideBar(wxformbuilder.SideBar):
@@ -311,13 +315,13 @@ class SideBar(wxformbuilder.SideBar):
     def __PikingLable(self, Lable):
         CLASS_NAME_AND_LABLES = [
             {"Class": KurtiNaujusBarkodus, "Label": "Kurti naujus barkodus"},
-            {"Class": ISNBkoduAtspauzdinimas, "Label": "ISNB kodu atspauzdinimas"},
+            {"Class": ISNBkoduAtspauzdinimas, "Label": "ISNB kodu atspauždinimas"},
             {"Class": IsCSV, "Label": "CSV duomenu perkelimas"},
             {"Class": SukurtiCSV, "Label": "CSV lenteles sukurimas"},
-            {"Class": IsKlaveturosSkaitytuvo, "Label": "Klavetūros / Skaitytuvo"},
-            {"Class": Patikrinti, "Label": "Google sheets lentėja"},
+            {"Class": IsKlaveturosSkaitytuvo, "Label": "Klaviatūros / Skaitytuvo"},
+            {"Class": Patikrinti, "Label": "Google sheets lentėje"},
             {"Class": Isdavimas, "Label": "Išdavimas"},
-            {"Class": Grazinimas, "Label": "Grazinimas"},
+            {"Class": Grazinimas, "Label": "Grąžinimas"},
         ]
 
         for classlable in CLASS_NAME_AND_LABLES:
@@ -330,9 +334,9 @@ class SideBar(wxformbuilder.SideBar):
     def Click(self, event):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
-        
+
         self.GetParent().ReplacePanel(btnClickClass)
-        
+
         event.Skip()
 
     @override
@@ -359,8 +363,10 @@ class SideBar(wxformbuilder.SideBar):
 class Isdavimas(wxformbuilder.Isdavimas):
     pass
 
+
 class Grazinimas(wxformbuilder.Gazinimas):
     pass
+
 
 class PromptForReplacementDialog(wx.Dialog):
     def __init__(self, parent, sheet_row, row):

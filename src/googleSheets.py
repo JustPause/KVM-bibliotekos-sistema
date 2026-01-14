@@ -68,7 +68,6 @@ def padding_row_data(row, local_range):
         data.append("")
     return data
 
-
 def get_sheet_rows():
     sheet_id, rage, _ = congig_json()
 
