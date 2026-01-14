@@ -331,7 +331,7 @@ class SideBar(wxformbuilder.SideBar):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
         
-        print(self.GetParent().ReplacePanel(btnClickClass))
+        self.GetParent().ReplacePanel(btnClickClass)
         
         event.Skip()
 
