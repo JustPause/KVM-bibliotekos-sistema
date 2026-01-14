@@ -1,11 +1,10 @@
 import csv
 import os
 import sys
-from typing import override
-
+import src.gui.wxformbuilder as wxformbuilder
 import wx
 
-import src.gui.wxformbuilder as wxformbuilder
+from typing import override
 from src.barcodeKurimas import barcode_generator
 from src.googleSheets import get_sheet_rows
 from src.gui.config import ConfigFile
@@ -212,28 +211,24 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
+    def update_panel(self ,path=None) -> None:
+        parent = self.GetParent()
+        if path is None:
+            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
+        else:
+            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
+
     @override
     def file_free_scan(self, event):
-        from src.gui.gui import GUI
-
-        parent = self.GetParent()
-        assert isinstance(parent, GUI)
-
-        wx.CallAfter(lambda: parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas))
+        wx.CallAfter(self.update_panel)
 
         event.Skip()
 
     @override
     def next(self, event):
-        from src.gui.gui import GUI
-
         path = self.textCtrl1.GetValue()
-        parent = self.GetParent()
-        assert isinstance(parent, GUI)
-        wx.CallAfter(
-            lambda: parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
-        )
 
+        wx.CallAfter(self.update_panel, path)
         event.Skip()
 
     @override
@@ -335,9 +330,9 @@ class SideBar(wxformbuilder.SideBar):
     def Click(self, event):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
-
-        self.GetParent().ReplacePanel(btnClickClass)
-
+        
+        print(self.GetParent().ReplacePanel(btnClickClass))
+        
         event.Skip()
 
     @override
