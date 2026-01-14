@@ -1,6 +1,7 @@
 import csv
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from typing import override
 
 import wx
@@ -172,7 +173,6 @@ class IsCSV(wxformbuilder.IsCSV):
                     dlg.ShowModal()
                     # dlg.Destroy()
 
-        print("DONE")
         # request=append_rows([[1,2,3,4],[5,6,7,8]])
 
         # print(request)
@@ -290,8 +290,8 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
 class Patikrinti(wxformbuilder.Patikrinti):
     def __init__(self, parent):
         super().__init__(parent)
-
-        # rows = get_sheet_rows()
+        self.executor = ThreadPoolExecutor()
+        self.rows_promise = self.executor.submit(get_sheet_rows)
 
 
 class SideBar(wxformbuilder.SideBar):

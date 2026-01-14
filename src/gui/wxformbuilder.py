@@ -136,7 +136,7 @@ class SideBar ( wx.Panel ):
 
         UzrasimasLayout.Add( self.Išdavimas, 0, wx.BOTTOM, 5 )
 
-        self.Grąžinimas = wx.Button( self, wx.ID_ANY, _(u"Grazinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
+        self.Grąžinimas = wx.Button( self, wx.ID_ANY, _(u"Grąžinimas"), wx.DefaultPosition, wx.Size( -1,-1 ), wx.BORDER_NONE|wx.BU_EXACTFIT )
         self.Grąžinimas.SetForegroundColour( wx.Colour( 16, 16, 16 ) )
 
         UzrasimasLayout.Add( self.Grąžinimas, 0, wx.BOTTOM, 5 )

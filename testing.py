@@ -1,22 +1,32 @@
-import argparse
+from concurrent.futures import ThreadPoolExecutor
+from time import sleep
 
-parser = argparse.ArgumentParser(
-                    prog='Barkodas',
-                    description='A library book management system. The program connects to Google Sheets and helps users manage books.'
-)
 
-parent_parser = argparse.ArgumentParser(add_help=False)
+class Thunrd:
+    def print(self):
+        sleep(5)
+        return [1, 2, 3]
 
-parent_parser.add_argument('--parent', type=int)
 
-foo_parser = argparse.ArgumentParser(parents=[parent_parser])
+class Second:
+    def __init__(self):
+        self.thunrd = Thunrd()
+        self.executor = ThreadPoolExecutor()
 
-foo_parser.add_argument('foo')
+    def call_print_async(self):
+        future = self.executor.submit(self.thunrd.print)
+        return future
 
-foo_parser.parse_args(['--parent', '2', 'XXX'])
 
-bar_parser = argparse.ArgumentParser(parents=[parent_parser])
+class First:
+    second = Second()
+    future = second.call_print_async()
+    for count in range(3):
+        print(count)
+        sleep(1)
 
-bar_parser.add_argument('--bar')
+    result = future.result()  # waits when needed
+    print(result)
 
-bar_parser.parse_args(['--bar', 'YYY'])
+
+First()
