@@ -14,6 +14,7 @@ from src.helpers.utils import get_fieldnames
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
 from src.osHelper import get_correct_extension, git_build_number, is_it_an_validate_path
+from src.threads import BackgroundWorker
 
 
 def NeSekmingai(text) -> None:
@@ -49,18 +50,23 @@ def FileDialogWithExtesion(self, extension, overwrite=True):
 
 
 class ThinkingDialog(wx.Dialog):
-    def __init__(self, parent, message="Thinking…"):
-        super().__init__(parent, title="Kantrybes", style=wx.DEFAULT_DIALOG_STYLE)
+    def __init__(self, parent, title="Good Name"):
+        super().__init__(parent, title=title, size=(250, 150))
 
-        sizer = wx.BoxSizer(wx.VERTICAL)
+        panel = wx.Panel(self)
 
-        text = wx.StaticText(self, label=message)
-        sizer.Add(text, 0, wx.ALL | wx.CENTER, 10)
+        self.label = wx.StaticText(
+            panel,
+            label="Please wait...",
+            pos=(25, 20),
+        )
 
-        self.gauge = wx.Gauge(self, range=100)
-        sizer.Add(self.gauge, 0, wx.ALL | wx.EXPAND, 10)
-
-        self.SetSizerAndFit(sizer)
+        self.gauge = wx.Gauge(
+            panel,
+            range=100,
+            size=(200, 20),
+            pos=(25, 60),
+        )
 
 
 class Pagrindinis(wxformbuilder.Pagrindinis):
@@ -275,28 +281,28 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         super().__init__(parent)
 
         self.path = path
-
         self.addingColumsHeaders(self.dataViewList)
 
     @override
     def Enter(self, event):
-        loud = ThinkingDialog(self)
-        loud.Show()
-
-        data = iBibliotekos_paieska_tiesiogiai_core(event.GetString())
-
-        loud.Destroy()
-
-        fieldnames = get_fieldnames()
-
-        self.dataViewList.AppendItem(
-            [
-                data[fieldnames[0]],
-                data[fieldnames[1]],
-                data[fieldnames[2]],
-                data[fieldnames[3]],
-            ]
-        )
+        worker = BackgroundWorker(self, "Searching", "Please wait...")
+    
+        def do_search():
+            return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
+    
+        def on_search_done(result):
+            fieldnames = get_fieldnames()
+    
+            self.dataViewList.AppendItem(
+                [
+                    result[fieldnames[0]],
+                    result[fieldnames[1]],
+                    result[fieldnames[2]],
+                    result[fieldnames[3]],
+                ]
+            )
+    
+        worker.run(work_func=do_search, on_done=on_search_done)
 
         self.ISBN.SetValue("")
         self.ISBN.SetFocus()

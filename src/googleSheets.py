@@ -195,6 +195,5 @@ def append_rows(rows):
 
     return result["updates"]
 
-
 def making_dictionary_pairs(heads, data):
     return {heads[0]: data[0], heads[1]: data[1], heads[2]: data[2], heads[3]: data[3]}

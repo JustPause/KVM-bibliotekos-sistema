@@ -1,32 +1,19 @@
 from concurrent.futures import ThreadPoolExecutor
 from time import sleep
 
+values = [3,4,5,6]
 
-class Thunrd:
-    def print(self):
-        sleep(5)
-        return [1, 2, 3]
-
-
-class Second:
-    def __init__(self):
-        self.thunrd = Thunrd()
-        self.executor = ThreadPoolExecutor()
-
-    def call_print_async(self):
-        future = self.executor.submit(self.thunrd.print)
-        return future
+def cube(x):
+    sleep(5)
+    return 3232133
 
 
-class First:
-    second = Second()
-    future = second.call_print_async()
-    for count in range(3):
-        print(count)
-        sleep(1)
-
-    result = future.result()  # waits when needed
-    print(result)
-
-
-First()
+if __name__ == '__main__':
+    resul = []
+    with ThreadPoolExecutor(max_workers=1) as thread:
+        future = thread.submit(cube, 2)
+        result = future.result() 
+        result.append(resul)
+    
+    for r in resul:
+        print(r)
