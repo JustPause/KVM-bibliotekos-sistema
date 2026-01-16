@@ -10,7 +10,7 @@ import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
 from src.googleSheets import append_rows, get_sheet_rows
 from src.gui.config import ConfigFile
-from src.helpers.utils import get_fieldnames,fromDicToArray
+from src.helpers.utils import fromDicToArray, fromDicToArrayAddCatalog, get_fieldnames
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
 from src.osHelper import get_correct_extension, git_build_number, is_it_an_validate_path
@@ -183,7 +183,7 @@ class IsCSV(wxformbuilder.IsCSV):
 
         rows = None
 
-        with open(path, "r", newline="", encoding="utf-8") as f:
+        with open(path, "r", newline="", encoding="UTF-8") as f:
             reader = csv.DictReader(f)
             rows = list(reader)
 
@@ -206,10 +206,10 @@ class IsCSV(wxformbuilder.IsCSV):
                     break
             returnRows.append(fromDicToArray(row))
 
-        # print(returnRows)
+        print(returnRows)
         # print([[1, 2, 3, 4], [5, 6, 7, 8]])
 
-        request=append_rows([[1, 2, 3, 4], [5, 6, 7, 8]])
+        request = append_rows([[1, 2, 3, 4], [5, 6, 7, 8]])
 
         print(request)
 
@@ -306,28 +306,9 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
             return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
 
         def on_pabaigimo(result):
-            fieldnames = get_fieldnames()
+            self.dataViewList.AppendItem(fromDicToArray(result))
 
-            self.dataViewList.AppendItem(
-                [
-                    result[fieldnames[0]],
-                    result[fieldnames[1]],
-                    result[fieldnames[2]],
-                    result[fieldnames[3]],
-                ]
-            )
-
-            append_rows(
-                [
-                    [
-                        result[fieldnames[0]],
-                        result[fieldnames[1]],
-                        result[fieldnames[2]],
-                        result[fieldnames[3]],
-                        self.catalog,
-                    ]
-                ]
-            )
+            append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
 
         worker.run(work_func=paieska, on_done=on_pabaigimo)
 
