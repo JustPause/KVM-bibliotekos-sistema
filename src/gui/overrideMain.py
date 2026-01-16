@@ -10,7 +10,7 @@ import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
 from src.googleSheets import append_rows, get_sheet_rows
 from src.gui.config import ConfigFile
-from src.helpers.utils import get_fieldnames
+from src.helpers.utils import get_fieldnames,fromDicToArray
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
 from src.osHelper import get_correct_extension, git_build_number, is_it_an_validate_path
@@ -190,6 +190,8 @@ class IsCSV(wxformbuilder.IsCSV):
         sheet_rows = get_sheet_rows()
         fieldnames = get_fieldnames()
 
+        returnRows = []
+
         for row in rows:
             for index, sheet_row in enumerate(sheet_rows):
                 if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
@@ -199,11 +201,17 @@ class IsCSV(wxformbuilder.IsCSV):
                     print(str(tmp_index) + " - " + row[fieldnames[1]])
 
                     dlg.ShowModal()
-                    # dlg.Destroy()
 
-        # request=append_rows([[1,2,3,4],[5,6,7,8]])
+                    row = ["Update", "Update", "Update", "Update"]
+                    break
+            returnRows.append(fromDicToArray(row))
 
-        # print(request)
+        # print(returnRows)
+        # print([[1, 2, 3, 4], [5, 6, 7, 8]])
+
+        request=append_rows([[1, 2, 3, 4], [5, 6, 7, 8]])
+
+        print(request)
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):

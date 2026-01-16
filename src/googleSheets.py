@@ -70,7 +70,7 @@ def padding_row_data(row, local_range):
 
 
 def get_sheet_rows():
-    sheet_id, rage, _ = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = congig_json()
 
     sheet = connect_to_sheet()
     rows = get_data(sheet, sheet_id, rage)
