@@ -726,6 +726,28 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
         layout.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
+        input_katalogas_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.staticText2 = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Kuris katalogos bus"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticText2.Wrap( -1 )
+
+        input_katalogas_layout.Add( self.staticText2, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        input_katalogas_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+        self.textCtrl2 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"Už spintos"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
+        self.textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+        self.textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+
+        input_katalogas_layout.Add( self.textCtrl2, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        layout.Add( input_katalogas_layout, 0, wx.EXPAND, 5 )
+
+
+        layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
         button_layout = wx.BoxSizer( wx.HORIZONTAL )
 
         self.testi_be_failo = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Skanuoti be išvedimo"), wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -801,7 +823,7 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
         title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Iš Klavetūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Klaviatūros / Skaitytuvo"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.title.Wrap( -1 )
 
         self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Inter" ) )

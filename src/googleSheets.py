@@ -68,6 +68,7 @@ def padding_row_data(row, local_range):
         data.append("")
     return data
 
+
 def get_sheet_rows():
     sheet_id, rage, _ = congig_json()
 
@@ -108,18 +109,19 @@ def get_sheet_rows():
     return working_sheet
 
 
-def congig_json() -> tuple[str, str, str]:
+def congig_json() -> tuple[str, str, str, str]:
     with open("src/.env/sheet.json", "r") as sheet_json:
         sheet = json.load(sheet_json)
 
         sheet_id = sheet["sheet_id"]
         rage = sheet["rage"]
+        rage_with_catalog = sheet["rage_with_catalog"]
         range_template = ["range_template"]
-    return sheet_id, rage, str(range_template)
+    return sheet_id, rage, rage_with_catalog, str(range_template)
 
 
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
-    sheet_id, _, range_template = congig_json()
+    sheet_id, _, _, range_template = congig_json()
 
     sheet = connect_to_sheet()
 
@@ -150,7 +152,7 @@ def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
 
 
 def set_row(rowid, returnValues):
-    sheet_id, rage, range_template = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = congig_json()
 
     range_with_row = range_template.format(row=rowid)
 
@@ -176,7 +178,7 @@ def set_row(rowid, returnValues):
 
 
 def append_rows(rows):
-    sheet_id, rage, range_template = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = congig_json()
 
     sheet = connect_to_sheet()
 
@@ -186,7 +188,7 @@ def append_rows(rows):
         sheet.values()
         .append(
             spreadsheetId=sheet_id,
-            range=rage,
+            range=rage_with_catalog,
             valueInputOption="USER_ENTERED",
             body=body,
         )
@@ -194,6 +196,7 @@ def append_rows(rows):
     )
 
     return result["updates"]
+
 
 def making_dictionary_pairs(heads, data):
     return {heads[0]: data[0], heads[1]: data[1], heads[2]: data[2], heads[3]: data[3]}

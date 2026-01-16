@@ -130,7 +130,8 @@ python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
 * [ ] I build.py priedeti md to pdf formatavima
 * [ ] pridegti sugrazinimo sistema
 * [ ] sutvarkyti pup up is skaityti is klaveuros skanerio
-
+* [ ] **Skaitimas is klaveturos** Turi buti funcionalumas i koki katalogi idetos bus knygos
+ 
 ### Darbo lentele
 
 Kas kur turetu buti, koki funcionaluma turi tureti **cli** aplikacija ir **gui** palikacija

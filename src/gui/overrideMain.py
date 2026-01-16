@@ -8,7 +8,7 @@ import wx
 
 import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
-from src.googleSheets import get_sheet_rows
+from src.googleSheets import append_rows, get_sheet_rows
 from src.gui.config import ConfigFile
 from src.helpers.utils import get_fieldnames
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
@@ -244,28 +244,30 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
-    def update_panel(self, path=None) -> None:
+    def update_panel(self, catalog, path=None) -> None:
         parent = self.GetParent()
         if path is None:
-            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas)
+            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, catalog)
         else:
-            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, path)
+            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, catalog, path)
 
     @override
     def file_free_scan(self, event):
-        wx.CallAfter(self.update_panel)
+        catalog = self.textCtrl2.GetValue()
+        wx.CallAfter(self.update_panel, catalog)
 
         event.Skip()
 
     @override
     def next(self, event):
         path = self.textCtrl1.GetValue()
+        catalog = self.textCtrl2.GetValue()
 
         if not is_it_an_validate_path(path):
             KlaidingasTakas()
             return
 
-        wx.CallAfter(self.update_panel, path)
+        wx.CallAfter(self.update_panel, catalog, path)
         event.Skip()
 
     @override
@@ -277,22 +279,27 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
 
 class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas):
-    def __init__(self, parent, path=None):
+    def __init__(
+        self,
+        parent,
+        catalog,
+        path=None,
+    ):
         super().__init__(parent)
-
+        self.catalog = catalog
         self.path = path
         self.addingColumsHeaders(self.dataViewList)
 
     @override
     def Enter(self, event):
         worker = BackgroundWorker(self, "Searching", "Please wait...")
-    
-        def do_search():
+
+        def paieska():
             return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
-    
-        def on_search_done(result):
+
+        def on_pabaigimo(result):
             fieldnames = get_fieldnames()
-    
+
             self.dataViewList.AppendItem(
                 [
                     result[fieldnames[0]],
@@ -301,8 +308,20 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
                     result[fieldnames[3]],
                 ]
             )
-    
-        worker.run(work_func=do_search, on_done=on_search_done)
+
+            append_rows(
+                [
+                    [
+                        result[fieldnames[0]],
+                        result[fieldnames[1]],
+                        result[fieldnames[2]],
+                        result[fieldnames[3]],
+                        self.catalog,
+                    ]
+                ]
+            )
+
+        worker.run(work_func=paieska, on_done=on_pabaigimo)
 
         self.ISBN.SetValue("")
         self.ISBN.SetFocus()
