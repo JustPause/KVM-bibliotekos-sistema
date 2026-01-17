@@ -318,10 +318,10 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Naujas barkodu kurimas, tai langas kuremia galima sukurti lapa kuriama butu pagal pasirenkta skaiciu tam tikras kiekis barkodu, juos galima atsispauzdinti, prilipinti ir sudeti i lentelia"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
-        layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        layout.Add( self.description, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
         self.mainWindowPanel.SetSizer( layout )
@@ -443,7 +443,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Turint knyga su ISBN kodu, bet be barkodo. Galima nuskanuoti cia. Parasius norima kieki, reiketu issaugoti ir atsispauzdinti. Kad uzklijuoti\n"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -542,7 +542,7 @@ class IsCSV ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Sis lapas leidzia pasirinkti faila i kuri yra surasyi struktirizuota csv lapa, I google lentelia"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -637,7 +637,7 @@ class SukurtiCSV ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Leidzia sukuri CSV dokumenta i kuri ranka galima surasti duomenis"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -765,7 +765,7 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Leidzia, tiesei is klaveturos apeinant CSV failus surasyti duomenis tiesei i google lentelia, su funcionalumu jei knyga nerasta kad butu surasoma i atskira csv faila kuri galima bus ranka uzpildyti"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -838,7 +838,7 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
         data_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.dataViewList = wx.dataview.DataViewListCtrl( self.mainWindowPanel, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,400 ), wx.dataview.DV_ROW_LINES )
+        self.dataViewList = wx.dataview.DataViewListCtrl( self.mainWindowPanel, wx.ID_ANY, wx.DefaultPosition, wx.Size( 800,350 ), wx.dataview.DV_ROW_LINES )
         data_layout.Add( self.dataViewList, 0, 0, 5 )
 
 
@@ -858,7 +858,7 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Leidzia, tiesei is klaveturos apeinant CSV failus surasyti duomenis tiesei i google lentelia, su funcionalumu jei knyga nerasta kad butu surasoma i atskira csv faila kuri galima bus ranka uzpildyti"), wx.DefaultPosition, wx.Size( 500,150 ), 0 )
         self.description.Wrap( -1 )
 
         layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -1005,10 +1005,32 @@ class Patikrinti ( wx.Panel ):
         outputLayout.Fit( self.outputISBN )
         data_layout.Add( self.outputISBN, 0, wx.ALL|wx.EXPAND, 5 )
 
+        self.outputKatalogas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        outputLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.katalogas_staticText = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"Katalogas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.katalogas_staticText.Wrap( -1 )
+
+        outputLayout.Add( self.katalogas_staticText, 0, wx.ALL, 5 )
+
+
+        outputLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.katalogas_output = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.katalogas_output.Wrap( -1 )
+
+        outputLayout.Add( self.katalogas_output, 0, wx.ALL, 5 )
+
+
+        self.outputKatalogas.SetSizer( outputLayout )
+        self.outputKatalogas.Layout()
+        outputLayout.Fit( self.outputKatalogas )
+        data_layout.Add( self.outputKatalogas, 0, wx.EXPAND |wx.ALL, 5 )
+
 
         data_layout.Add( ( 0, 16), 0, 0, 5 )
 
-        self.description = wx.StaticText( self, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self, wx.ID_ANY, _(u"Duoda galimybe patikrinti ar knyga yra lenteleja "), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.description.Wrap( -1 )
 
         data_layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -1211,7 +1233,7 @@ class Isdavimas ( wx.Panel ):
 
         KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KorelesLable.Wrap( -1 )
 
         KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -1254,12 +1276,10 @@ class Isdavimas ( wx.Panel ):
         KorelesSideLayout.Add( KlaseLayout, 0, wx.EXPAND, 5 )
 
 
-        KorelesSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+        KorelesSideLayout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
-        self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Duoda galimybe lengvai isduoti knuyga, surasant, Knygos ISBN, Korteles Koda"), wx.DefaultPosition, wx.Size( 400,100 ), 0 )
         self.description.Wrap( -1 )
-
-        self.description.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
         KorelesSideLayout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -1327,11 +1347,9 @@ class Gazinimas ( wx.Panel ):
         data_layout = wx.BoxSizer( wx.HORIZONTAL )
 
         self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        KorelesMainLayout = wx.BoxSizer( wx.VERTICAL )
-
         KorelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KorelesLable.Wrap( -1 )
 
         KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -1340,22 +1358,15 @@ class Gazinimas ( wx.Panel ):
         KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesMainLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
+        KorelesLayout.Add( ( 0, 16), 0, 0, 5 )
+
+        self.testi = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        KorelesLayout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
-        KorelesMainLayout.Add( ( 0, 16), 0, 0, 5 )
-
-        self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"description"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.description.Wrap( -1 )
-
-        self.description.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
-        KorelesMainLayout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        self.NaudotojoSide.SetSizer( KorelesMainLayout )
+        self.NaudotojoSide.SetSizer( KorelesLayout )
         self.NaudotojoSide.Layout()
-        KorelesMainLayout.Fit( self.NaudotojoSide )
+        KorelesLayout.Fit( self.NaudotojoSide )
         data_layout.Add( self.NaudotojoSide, 1, wx.EXPAND |wx.ALL, 25 )
 
 
@@ -1365,8 +1376,16 @@ class Gazinimas ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -1406,12 +1425,14 @@ class PromtForReplacment ( wx.Panel ):
         self.old_text_autorius = wx.StaticText( self.panel_autorius, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.old_text_autorius.Wrap( -1 )
 
-        self.old_text_autorius.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        self.old_text_autorius.SetForegroundColour( wx.Colour( 153, 8, 0 ) )
 
         main_layout_autorius.Add( self.old_text_autorius, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.new_text_autorius = wx.StaticText( self.panel_autorius, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.new_text_autorius.Wrap( -1 )
+
+        self.new_text_autorius.SetForegroundColour( wx.Colour( 52, 112, 29 ) )
 
         main_layout_autorius.Add( self.new_text_autorius, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1449,10 +1470,14 @@ class PromtForReplacment ( wx.Panel ):
         self.old_text_pavadinimas = wx.StaticText( self.panel_pavadinimas, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.old_text_pavadinimas.Wrap( -1 )
 
+        self.old_text_pavadinimas.SetForegroundColour( wx.Colour( 153, 8, 0 ) )
+
         main_layout_pavadinimas.Add( self.old_text_pavadinimas, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.new_text_pavadinimas = wx.StaticText( self.panel_pavadinimas, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.new_text_pavadinimas.Wrap( -1 )
+
+        self.new_text_pavadinimas.SetForegroundColour( wx.Colour( 52, 112, 29 ) )
 
         main_layout_pavadinimas.Add( self.new_text_pavadinimas, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1490,10 +1515,14 @@ class PromtForReplacment ( wx.Panel ):
         self.old_text_metai = wx.StaticText( self.panel_metai, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.old_text_metai.Wrap( -1 )
 
+        self.old_text_metai.SetForegroundColour( wx.Colour( 153, 8, 0 ) )
+
         main_layout_metai.Add( self.old_text_metai, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.new_text_metai = wx.StaticText( self.panel_metai, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.new_text_metai.Wrap( -1 )
+
+        self.new_text_metai.SetForegroundColour( wx.Colour( 52, 112, 29 ) )
 
         main_layout_metai.Add( self.new_text_metai, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1531,10 +1560,14 @@ class PromtForReplacment ( wx.Panel ):
         self.old_text_isbn = wx.StaticText( self.panel_isbn, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.old_text_isbn.Wrap( -1 )
 
+        self.old_text_isbn.SetForegroundColour( wx.Colour( 153, 8, 0 ) )
+
         main_layout_isbn.Add( self.old_text_isbn, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.new_text_isbn = wx.StaticText( self.panel_isbn, wx.ID_ANY, _(u"MyLabel"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.new_text_isbn.Wrap( -1 )
+
+        self.new_text_isbn.SetForegroundColour( wx.Colour( 52, 112, 29 ) )
 
         main_layout_isbn.Add( self.new_text_isbn, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1562,6 +1595,9 @@ class PromtForReplacment ( wx.Panel ):
 
         data_layout.Add( Compare_ISBN, 0, wx.EXPAND, 5 )
 
+
+        data_layout.Add( ( 0, 16), 0, 0, 5 )
+
         button_layout = wx.BoxSizer( wx.HORIZONTAL )
 
         self.atsisakyti = wx.Button( self, wx.ID_ANY, _(u"atsisakyti"), wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1574,14 +1610,26 @@ class PromtForReplacment ( wx.Panel ):
         button_layout.Add( self.sutikti, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 
-        data_layout.Add( button_layout, 1, wx.EXPAND, 5 )
+        data_layout.Add( button_layout, 0, wx.EXPAND, 5 )
 
 
         self.SetSizer( data_layout )
         self.Layout()
 
+        # Connect Events
+        self.atsisakyti.Bind( wx.EVT_LEFT_DOWN, self.cancel )
+        self.sutikti.Bind( wx.EVT_LEFT_DOWN, self.next )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def cancel( self, event ):
+        event.Skip()
+
+    def next( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

@@ -7,15 +7,10 @@ class ConfigFile:
         self.config = configparser.ConfigParser()
         self.config.read("config.conf")
 
-    def getUserData(self, name):
-        ISNBkoduAtspauzdinimasIKur = self.config["userData"][name]
-        return (
-            os.path.expanduser("~")
-            if ISNBkoduAtspauzdinimasIKur == ""
-            else ISNBkoduAtspauzdinimasIKur
-        )
+    def getUserData(self, name: str):
+        return self.config["userData"][name]
 
-    def setUserData(self, name, path):
+    def setUserData(self, name: str, path: str):
         self.config["userData"][name] = path
 
         with open("config.conf", "w") as f:

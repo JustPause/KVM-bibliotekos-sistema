@@ -13,7 +13,13 @@ from src.gui.config import ConfigFile
 from src.helpers.utils import fromDicToArray, fromDicToArrayAddCatalog, get_fieldnames
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
-from src.osHelper import get_correct_extension, git_build_number, is_it_an_validate_path
+from src.osHelper import (
+    get_correct_extension,
+    get_correct_extension_ending,
+    git_build_number,
+    is_file_empty,
+    is_it_an_validate_path,
+)
 from src.threads import BackgroundWorker
 
 
@@ -44,6 +50,9 @@ def FileDialogWithExtesion(self, extension, overwrite=True):
     ) as dlg:
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
+
+            path = get_correct_extension_ending(path, extension)
+
             return path
 
     return os.path.abspath(".")
@@ -96,9 +105,9 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
 
     @override
     def SelectingPath(self, event) -> None:
-        path = FileDialogWithExtesion(self, "pdf")
+        path = FileDialogWithExtesion(self, "pdf", False)
 
-        self.configFile.setUserData("isnbkoduatspauzdinimas", path)
+        self.configFile.setUserData("ISNBkoduAtspauzdinimas", path)
         self.textCtrl1.SetValue(path)
 
     @override
@@ -106,9 +115,6 @@ class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
         rows = []
 
         path = self.textCtrl1.GetValue()
-        if not is_it_an_validate_path(path):
-            KlaidingasTakas()
-            return
 
         for row in range(self.table.GetNumberRows()):
             value = self.table.GetCellValue(row, 0)
@@ -129,12 +135,11 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         self.configFile = ConfigFile()
 
         KurtiNaujusBarkodus = self.configFile.getUserData("kurtinaujusbarkodus")
-
         self.inputText1.SetValue(KurtiNaujusBarkodus)
 
     @override
     def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self, "pdf")
+        path = FileDialogWithExtesion(self, "pdf", False)
 
         self.configFile.setUserData("kurtinaujusbarkodus", path)
         self.inputText1.SetValue(path)
@@ -143,10 +148,6 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def next(self, event):
         dest_path = self.inputText1.GetValue()
         count = self.inputText2.GetValue()
-
-        if not is_it_an_validate_path(dest_path):
-            KlaidingasTakas()
-            return
 
         try:
             barcode_generator(int(count), dest_path)
@@ -256,15 +257,15 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        IsKlaveturosSkaitytuvo = self.configFile.getUserData("kurtinaujusbarkodus")
+        IsKlaveturosSkaitytuvo = self.configFile.getUserData("isklaveturosskaitytuvo")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
     def update_panel(self, catalog, path=None) -> None:
         parent = self.GetParent()
         if path is None:
-            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, catalog)
+            parent.ReplacePanelCatalog(IsKlaveturosSkaitytuvoEkranas, catalog)
         else:
-            parent.ReplacePanelNext(IsKlaveturosSkaitytuvoEkranas, catalog, path)
+            parent.ReplacePanelCatalog(IsKlaveturosSkaitytuvoEkranas, catalog, path)
 
     @override
     def file_free_scan(self, event):
@@ -277,10 +278,6 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def next(self, event):
         path = self.textCtrl1.GetValue()
         catalog = self.textCtrl2.GetValue()
-
-        if not is_it_an_validate_path(path):
-            KlaidingasTakas()
-            return
 
         wx.CallAfter(self.update_panel, catalog, path)
         event.Skip()
@@ -307,7 +304,7 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
 
     @override
     def Enter(self, event):
-        worker = BackgroundWorker(self, "Searching", "Please wait...")
+        worker = BackgroundWorker(self, "Ieskoma", "Kantrybes, ieskoma")
 
         def paieska():
             return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
@@ -315,7 +312,40 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         def on_pabaigimo(result):
             self.dataViewList.AppendItem(fromDicToArray(result))
 
-            append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
+            if self.path:
+                l_result = fromDicToArrayAddCatalog(result, self.catalog)
+                loc_result = l_result
+
+                if (
+                    l_result[0] == "---"
+                    and l_result[1] == "---"
+                    and l_result[2] == "---"
+                ):
+                    fieldnames = get_fieldnames()
+
+                    with open(self.path, "a", newline="", encoding="utf-8") as f:
+                        writer = csv.DictWriter(
+                            f, fieldnames=fieldnames, extrasaction="ignore"
+                        )
+
+                        if is_file_empty(self.path):
+                            writer.writeheader()
+                        writer.writerow(
+                            {
+                                fieldnames[0]: "",
+                                fieldnames[1]: "",
+                                fieldnames[2]: "",
+                                fieldnames[3]: l_result[3],
+                            }
+                        )
+
+                        NeSekmingai(
+                            "Knygos nera, gerai butu padeti i sona kad poto surasyti"
+                        )
+                else:
+                    append_rows([loc_result])
+            else:
+                append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
 
         worker.run(work_func=paieska, on_done=on_pabaigimo)
 
@@ -424,9 +454,6 @@ class PromtForReplacment(wxformbuilder.PromtForReplacment):
         super().__init__(parent)
 
         fieldnames = get_fieldnames()
-
-        print(old_row)
-        print(new_row)
 
         self.old_text_autorius.SetLabel(old_row[fieldnames[0]])
         self.old_text_pavadinimas.SetLabel(old_row[fieldnames[1]])

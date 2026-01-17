@@ -34,14 +34,22 @@ def get_correct_extension(path, ending):
     path = str(path)
 
     if not path.endswith(ending):
-        if "." in os.path.basename(path):  # only strip extension from filename
+        if "." in os.path.basename(path):
             path = path.rsplit(".", 1)[0]
         path += ending
 
     directory = os.path.dirname(path)
-    if directory:  # avoids calling makedirs("")
+    if directory:
         os.makedirs(directory, exist_ok=True)
 
+    return path
+
+
+def get_correct_extension_ending(path: str, ending: str):
+    if not path.endswith(ending):
+        if "." in os.path.basename(path):
+            path = path.rsplit(".", 1)[0]
+        path = path + "." + ending
     return path
 
 

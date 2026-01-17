@@ -15,7 +15,7 @@ class GUI(wx.Frame):
             id=wx.ID_ANY,
             title=gettext.gettext("Pagrindinis"),
             pos=wx.DefaultPosition,
-            size=wx.Size(1280, 720),
+            size=wx.Size(1280, 740),
             style=wx.CLOSE_BOX | wx.DEFAULT_FRAME_STYLE,
         )
 
@@ -45,6 +45,16 @@ class GUI(wx.Frame):
 
         self.mainPanel.Destroy()
         self.mainPanel = mainPanelClass(self, path)
+        self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
+
+        self.SetSizer(self.mainSizer)
+        self.Layout()
+
+    def ReplacePanelCatalog(self, mainPanelClass, catalog, path=None):
+        self.mainSizer.Detach(self.mainPanel)
+
+        self.mainPanel.Destroy()
+        self.mainPanel = mainPanelClass(self, catalog, path)
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
         self.SetSizer(self.mainSizer)
