@@ -194,22 +194,29 @@ class IsCSV(wxformbuilder.IsCSV):
 
         for row in rows:
             for index, sheet_row in enumerate(sheet_rows):
+                sheet_row["isbn"] = sheet_row.pop("Kodas")
+
                 if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
+                    print(row)
                     tmp_index = index + 2
 
-                    dlg = PromptForReplacementDialog(self, sheet_row, row)
+                    pfrd = PromptForReplacementDialog(
+                        self, old_row=sheet_row, new_row=row
+                    )
                     print(str(tmp_index) + " - " + row[fieldnames[1]])
 
-                    dlg.ShowModal()
+                    pfrd.ShowModal()
 
-                    row = ["Update", "Update", "Update", "Update"]
+                    row = {
+                        "Autorius": "Update",
+                        "Pavadinimas": "Update",
+                        "Metai": "Update",
+                        "isbn": "Update",
+                    }
                     break
             returnRows.append(fromDicToArray(row))
 
-        print(returnRows)
-        # print([[1, 2, 3, 4], [5, 6, 7, 8]])
-
-        request = append_rows([[1, 2, 3, 4], [5, 6, 7, 8]])
+        request = append_rows(returnRows)
 
         print(request)
 
@@ -412,15 +419,35 @@ class Grazinimas(wxformbuilder.Gazinimas):
     pass
 
 
+class PromtForReplacment(wxformbuilder.PromtForReplacment):
+    def __init__(self, parent, old_row, new_row):
+        super().__init__(parent)
+
+        fieldnames = get_fieldnames()
+
+        print(old_row)
+        print(new_row)
+
+        self.old_text_autorius.SetLabel(old_row[fieldnames[0]])
+        self.old_text_pavadinimas.SetLabel(old_row[fieldnames[1]])
+        self.old_text_metai.SetLabel(old_row[fieldnames[2]])
+        self.old_text_isbn.SetLabel(old_row[fieldnames[3]])
+
+        self.new_text_autorius.SetLabel(new_row[fieldnames[0]])
+        self.new_text_pavadinimas.SetLabel(new_row[fieldnames[1]])
+        self.new_text_metai.SetLabel(new_row[fieldnames[2]])
+        self.new_text_isbn.SetLabel(new_row[fieldnames[3]])
+
+
 class PromptForReplacementDialog(wx.Dialog):
-    def __init__(self, parent, sheet_row, row):
+    def __init__(self, parent, old_row, new_row):
         super().__init__(
             parent,
             title="Replace existing row?",
             style=wx.DEFAULT_DIALOG_STYLE | wx.STAY_ON_TOP,
         )
 
-        panel = wxformbuilder.PromtForReplacment(self)
+        panel = PromtForReplacment(self, old_row, new_row)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(panel, 1, wx.EXPAND | wx.ALL, 10)
