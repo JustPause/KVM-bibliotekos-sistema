@@ -168,7 +168,7 @@ class IsCSV(wxformbuilder.IsCSV):
         self.textCtrl1.SetValue(csviskur)
 
     @override
-    def SelectingPathDuomenuPerkelimas(self, event):
+    def SelectingPath(self, event):
         path = FileDialogWithExtesion(self, "csv", False)
 
         self.configFile.setUserData("duomenuperkelimas", path)
@@ -195,24 +195,23 @@ class IsCSV(wxformbuilder.IsCSV):
 
         for row in rows:
             for index, sheet_row in enumerate(sheet_rows):
-                sheet_row["isbn"] = sheet_row.pop("Kodas")
+                if "Kodas" in sheet_row:
+                    sheet_row["isbn"] = sheet_row.pop("Kodas")
 
                 if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
-                    print(row)
-                    tmp_index = index + 2
+                    # tmp_index = index + 2
 
                     pfrd = PromptForReplacementDialog(
                         self, old_row=sheet_row, new_row=row
                     )
-                    print(str(tmp_index) + " - " + row[fieldnames[1]])
 
                     pfrd.ShowModal()
 
                     row = {
-                        "Autorius": "Update",
-                        "Pavadinimas": "Update",
-                        "Metai": "Update",
-                        "isbn": "Update",
+                        "Autorius": "---",
+                        "Pavadinimas": "---",
+                        "Metai": "---",
+                        "isbn": "---",
                     }
                     break
             returnRows.append(fromDicToArray(row))
@@ -231,18 +230,15 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 
         self.textCtrl1.SetValue(csvikur)
 
-    def SelectingPathKur(self, event):
-        path = FileDialogWithExtesion(self, "pdf")
+    @override
+    def SelectingPath(self, event):
+        path = FileDialogWithExtesion(self, "csv", False)
 
         self.configFile.setUserData("lentelessukurimas", path)
 
     @override
     def next(self, event):
         path = self.textCtrl1.GetValue()
-
-        if not is_it_an_validate_path(path):
-            KlaidingasTakas()
-            return
 
         path = get_correct_extension(path, ".csv")
 
@@ -251,6 +247,8 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
                 f, fieldnames=get_fieldnames(), extrasaction="ignore"
             )
             writer.writeheader()
+
+        Sekmingai()
 
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
@@ -454,6 +452,10 @@ class PromtForReplacment(wxformbuilder.PromtForReplacment):
         super().__init__(parent)
 
         fieldnames = get_fieldnames()
+
+        print(old_row)
+        print(new_row)
+        print(fieldnames)
 
         self.old_text_autorius.SetLabel(old_row[fieldnames[0]])
         self.old_text_pavadinimas.SetLabel(old_row[fieldnames[1]])

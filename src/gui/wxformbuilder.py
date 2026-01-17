@@ -558,7 +558,7 @@ class IsCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathDuomenuPerkelimas )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -566,7 +566,7 @@ class IsCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPathDuomenuPerkelimas( self, event ):
+    def SelectingPath( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -653,7 +653,7 @@ class SukurtiCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPathDuomenuPerkelimas )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -661,7 +661,7 @@ class SukurtiCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPathDuomenuPerkelimas( self, event ):
+    def SelectingPath( self, event ):
         event.Skip()
 
     def next( self, event ):
