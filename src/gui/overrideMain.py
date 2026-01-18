@@ -15,6 +15,7 @@ from src.helpers.utils import (
     fromDicToArray,
     fromDicToArrayAddCatalog,
     get_fieldnames,
+    get_fieldnames_extra,
 )
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
@@ -374,18 +375,20 @@ class Patikrinti(wxformbuilder.Patikrinti):
         for row in self.sheet_rows:
             if row["Kodas"] == isbn:
                 found = True
-
-                edited_row = row
+                edited_row = dict(row)
                 edited_row["isbn"] = edited_row.pop("Kodas")
 
-                self.history_table.AppendItem(fromDicToArray(row))
+                fieldnames_extra = get_fieldnames_extra()
 
-                self.autorius_output.SetLabel(edited_row[self.fieldnames[0]])
-                self.pavadinimas_output.SetLabel(edited_row[self.fieldnames[1]])
-                self.metai_output.SetLabel(edited_row[self.fieldnames[2]])
-                self.isbn_output.SetLabel(edited_row[self.fieldnames[3]])
-                self.katalogas_output.SetLabel(edited_row[self.fieldnames[4]])
+                self.autorius_output.SetLabel(edited_row[fieldnames_extra[0]])
+                self.pavadinimas_output.SetLabel(edited_row[fieldnames_extra[1]])
+                self.metai_output.SetLabel(edited_row[fieldnames_extra[2]])
+                self.isbn_output.SetLabel(edited_row[fieldnames_extra[3]])
+                self.katalogas_output.SetLabel(edited_row[fieldnames_extra[4]])
 
+                edited_row.pop("Kategorija")
+
+                self.history_table.AppendItem(fromDicToArray(edited_row))
         if not found:
             text = "Nerasta"
             self.autorius_output.SetLabel(text)

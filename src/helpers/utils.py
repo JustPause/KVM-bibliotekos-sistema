@@ -1,7 +1,12 @@
 fieldnames = ["Autorius", "Pavadinimas", "Metai", "isbn"]
 
 
-def get_fieldnames():
+def get_fieldnames() -> list[str]:
+    return fieldnames
+
+
+def get_fieldnames_extra() -> list[str]:
+    fieldnames.append("Kategorija")
     return fieldnames
 
 
