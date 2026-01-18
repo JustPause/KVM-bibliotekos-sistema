@@ -925,7 +925,7 @@ class Patikrinti ( wx.Panel ):
 
         autoriusLayout.Add( self.autorius_staticText, 0, wx.ALL, 5 )
 
-        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT|wx.ST_ELLIPSIZE_END )
+        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
         self.autorius_output.Wrap( -1 )
 
         autoriusLayout.Add( self.autorius_output, 1, wx.ALL, 5 )
