@@ -1326,6 +1326,7 @@ class Isdavimas ( wx.Panel ):
         # Connect Events
         self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
         self.KorelesInput.Bind( wx.EVT_TEXT_ENTER, self.EnterKortele )
+        self.Isduoti.Bind( wx.EVT_LEFT_DOWN, self.isduoti )
 
     def __del__( self ):
         pass
@@ -1336,6 +1337,9 @@ class Isdavimas ( wx.Panel ):
         event.Skip()
 
     def EnterKortele( self, event ):
+        event.Skip()
+
+    def isduoti( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.

@@ -509,7 +509,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 )
                 self.KngosISBNRezult.Show(True)
                 self.Layout()
-                knygaData = row
+                self.knygaData = row
                 manual_input = False
                 break
 
