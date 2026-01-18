@@ -422,10 +422,16 @@ class SideBar(wxformbuilder.SideBar):
     def __PikingLable(self, Lable):
         CLASS_NAME_AND_LABLES = [
             {"Class": KurtiNaujusBarkodus, "Label": "Kurti naujus barkodus"},
-            {"Class": ISNBkoduAtspauzdinimas, "Label": "ISBN kodu atspauždinimas"},
+            {
+                "Class": ISNBkoduAtspauzdinimas,
+                "Label": "ISBN kodu atspauždinimas",
+            },
             {"Class": IsCSV, "Label": "CSV duomenu perkelimas"},
             {"Class": SukurtiCSV, "Label": "CSV lenteles sukurimas"},
-            {"Class": IsKlaveturosSkaitytuvo, "Label": "Klaviatūros / Skaitytuvo"},
+            {
+                "Class": IsKlaveturosSkaitytuvo,
+                "Label": "Klaviatūros / Skaitytuvo",
+            },
             {"Class": Patikrinti, "Label": "Google sheets lentėje"},
             {"Class": Isdavimas, "Label": "Išdavimas"},
             {"Class": Grazinimas, "Label": "Grąžinimas"},
@@ -470,10 +476,79 @@ class SideBar(wxformbuilder.SideBar):
 class Isdavimas(wxformbuilder.Isdavimas):
     def __init__(self, parent):
         super().__init__(parent)
+        self.sheet_rows = get_sheet_rows()
+        self.filenames = list(self.sheet_rows[0].keys())
+
+        self.knygaData = None
+
+    def ShowInputBoxes(self, bool: bool):
+        self.AutoriusLable.Show(bool)
+        self.AutoriusInput.Show(bool)
+
+        self.PavadinimasLable.Show(bool)
+        self.PavadinimasInput.Show(bool)
+
+        self.MetaiLable.Show(bool)
+        self.MetaiInput.Show(bool)
+
+        self.ISBNLable.Show(bool)
+        self.ISBNInput.Show(bool)
+
+    @override
+    def EnterISBN(self, event):
+        KngosISBNInput = self.KngosISBNInput.GetValue()
+
+        manual_input = True
+
+        self.ShowInputBoxes(False)
+
+        for row in self.sheet_rows:
+            if KngosISBNInput in row[self.filenames[3]]:
+                self.KngosISBNRezult.SetLabel(
+                    "Surasta knyga" + " " + row[self.filenames[1]]
+                )
+                self.KngosISBNRezult.Show(True)
+                self.Layout()
+                knygaData = row
+                manual_input = False
+                break
+
+        if manual_input:
+            self.KngosISBNRezult.SetLabel("Nesekminga")
+            self.KngosISBNRezult.Show(True)
+
+            self.ShowInputBoxes(True)
+
+            self.Layout()
+
+        # if Korteles is valid:
+        # -> return row
+        # -> if row is not None:
+        # -> -> update KortelesRezult and show it
+        # -> else:
+        # -> -> show the manual input rows
+
+    @override
+    def EnterKortele(self, event):
+        print(self.KorelesInput.GetValue())
+
+    @override
+    def Isduoti(self, event):
+        # data = [
+        #     self.AutoriusInput.GetValue(),
+        #     self.PavadinimasInput.GetValue(),
+        #     self.MetaiInput.GetValue(),
+        #     self.ISBNInput.GetValue(),
+        # ]
+        print(self.knygaData)
+        # if KortelesData is Valid && ISBNData is Valid
+        # -> append data
+        # -> Sentd to google sheet
 
 
 class Grazinimas(wxformbuilder.Gazinimas):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):

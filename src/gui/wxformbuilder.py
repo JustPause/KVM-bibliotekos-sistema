@@ -1135,10 +1135,10 @@ class Isdavimas ( wx.Panel ):
 
         KnygosISBNLayout.Add( self.KngosISBNLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.KngosISBNInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KngosISBNInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
         KnygosISBNLayout.Add( self.KngosISBNInput, 0, wx.ALL|wx.EXPAND, 5 )
 
-        self.KngosISBNRezult = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KngosISBNRezult = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.Size( 400,-1 ), wx.ALIGN_CENTER_HORIZONTAL )
         self.KngosISBNRezult.Wrap( -1 )
 
         self.KngosISBNRezult.Hide()
@@ -1249,7 +1249,7 @@ class Isdavimas ( wx.Panel ):
 
         KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
         KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
         self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1299,6 +1299,9 @@ class Isdavimas ( wx.Panel ):
 
         KorelesSideLayout.Add( KlaseLayout, 0, wx.EXPAND, 5 )
 
+        self.Isduoti = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Isduoti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        KorelesSideLayout.Add( self.Isduoti, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
 
         KorelesSideLayout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
@@ -1320,8 +1323,20 @@ class Isdavimas ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
+        self.KorelesInput.Bind( wx.EVT_TEXT_ENTER, self.EnterKortele )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def EnterISBN( self, event ):
+        event.Skip()
+
+    def EnterKortele( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):
@@ -1401,6 +1416,7 @@ class Gazinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.KorelesInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -1408,6 +1424,9 @@ class Gazinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
+    def Enter( self, event ):
+        event.Skip()
+
     def next( self, event ):
         event.Skip()
 
