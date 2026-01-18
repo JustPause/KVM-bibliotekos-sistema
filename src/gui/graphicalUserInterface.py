@@ -64,7 +64,7 @@ class GUI(wx.Frame):
 class Barkodas(wx.App):
     @override
     def OnExit(self):
-        print("App is quitting! Do cleanup here")
+        print("Pragrama isjungema: Duomenis pravalomi. uzdaromi langai")
 
         kill_drive()
 

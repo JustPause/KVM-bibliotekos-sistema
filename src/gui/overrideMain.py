@@ -468,7 +468,8 @@ class SideBar(wxformbuilder.SideBar):
 
 
 class Isdavimas(wxformbuilder.Isdavimas):
-    pass
+    def __init__(self, parent):
+        super().__init__(parent)
 
 
 class Grazinimas(wxformbuilder.Gazinimas):

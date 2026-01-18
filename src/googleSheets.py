@@ -82,7 +82,6 @@ def get_sheet_rows(rage_with_cata=False):
         raise ValueError("rows cannot be None")
 
     heads = rows[0]
-    print(heads)
     rows = rows[1:-1]
 
     working_sheet = list()

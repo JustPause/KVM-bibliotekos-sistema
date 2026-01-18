@@ -1141,6 +1141,8 @@ class Isdavimas ( wx.Panel ):
         self.KngosISBNRezult = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KngosISBNRezult.Wrap( -1 )
 
+        self.KngosISBNRezult.Hide()
+
         KnygosISBNLayout.Add( self.KngosISBNRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
@@ -1154,9 +1156,13 @@ class Isdavimas ( wx.Panel ):
         self.AutoriusLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.AutoriusLable.Wrap( -1 )
 
+        self.AutoriusLable.Hide()
+
         AutoriusLayout.Add( self.AutoriusLable, 0, wx.ALL, 5 )
 
         self.AutoriusInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.AutoriusInput.Hide()
+
         AutoriusLayout.Add( self.AutoriusInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1170,9 +1176,13 @@ class Isdavimas ( wx.Panel ):
         self.PavadinimasLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.PavadinimasLable.Wrap( -1 )
 
+        self.PavadinimasLable.Hide()
+
         PavadinisLayout.Add( self.PavadinimasLable, 0, wx.ALL, 5 )
 
         self.PavadinimasInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.PavadinimasInput.Hide()
+
         PavadinisLayout.Add( self.PavadinimasInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1186,9 +1196,13 @@ class Isdavimas ( wx.Panel ):
         self.MetaiLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.MetaiLable.Wrap( -1 )
 
+        self.MetaiLable.Hide()
+
         MetaiLayout.Add( self.MetaiLable, 0, wx.ALL, 5 )
 
         self.MetaiInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.MetaiInput.Hide()
+
         MetaiLayout.Add( self.MetaiInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1202,9 +1216,13 @@ class Isdavimas ( wx.Panel ):
         self.ISBNLable = wx.StaticText( self.KnygosSide, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.ISBNLable.Wrap( -1 )
 
+        self.ISBNLable.Hide()
+
         ISBNLayout.Add( self.ISBNLable, 0, wx.ALL, 5 )
 
         self.ISBNInput = wx.TextCtrl( self.KnygosSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.ISBNInput.Hide()
+
         ISBNLayout.Add( self.ISBNInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1237,19 +1255,28 @@ class Isdavimas ( wx.Panel ):
         self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KortelesRezult.Wrap( -1 )
 
+        self.KortelesRezult.Hide()
+
         KorelesLayout.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
         KorelesSideLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
+
+
+        KorelesSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
 
         VardasLayout = wx.BoxSizer( wx.VERTICAL )
 
         self.VardasLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Vardas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.VardasLable.Wrap( -1 )
 
+        self.VardasLable.Hide()
+
         VardasLayout.Add( self.VardasLable, 0, wx.ALL, 5 )
 
         self.VardasInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.VardasInput.Hide()
+
         VardasLayout.Add( self.VardasInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1260,9 +1287,13 @@ class Isdavimas ( wx.Panel ):
         self.KlaseLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Klase"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KlaseLable.Wrap( -1 )
 
+        self.KlaseLable.Hide()
+
         KlaseLayout.Add( self.KlaseLable, 0, wx.ALL, 5 )
 
         self.KlaseInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KlaseInput.Hide()
+
         KlaseLayout.Add( self.KlaseInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
