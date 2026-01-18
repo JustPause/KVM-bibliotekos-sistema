@@ -25,6 +25,21 @@ def fromDicToArrayAddCatalog(dict, catalog):
         catalog,
     ]
 
-    print(data)
+    # print(data)
 
     return data
+
+
+def addingColumsHeaders(dataView):
+    fieldnames = get_fieldnames()
+
+    for field in fieldnames:
+        dataView.AppendTextColumn(field)
+
+    cols = dataView.GetColumns()
+
+    width = dataView.GetClientSize().width
+    col_width = width // len(cols)
+
+    for col in cols:
+        col.SetWidth(col_width)

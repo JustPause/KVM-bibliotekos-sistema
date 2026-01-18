@@ -10,7 +10,12 @@ import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
 from src.googleSheets import append_rows, get_sheet_rows
 from src.gui.config import ConfigFile
-from src.helpers.utils import fromDicToArray, fromDicToArrayAddCatalog, get_fieldnames
+from src.helpers.utils import (
+    addingColumsHeaders,
+    fromDicToArray,
+    fromDicToArrayAddCatalog,
+    get_fieldnames,
+)
 from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
 from src.ISBNPrint import form_buffer_to_pdf
 from src.osHelper import (
@@ -298,7 +303,7 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         super().__init__(parent)
         self.catalog = catalog
         self.path = path
-        self.addingColumsHeaders(self.dataViewList)
+        addingColumsHeaders(self.dataViewList)
 
     @override
     def Enter(self, event):
@@ -350,27 +355,47 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         self.ISBN.SetValue("")
         self.ISBN.SetFocus()
 
-    @staticmethod
-    def addingColumsHeaders(dataView):
-        fieldnames = get_fieldnames()
-
-        for field in fieldnames:
-            dataView.AppendTextColumn(field)
-
-        cols = dataView.GetColumns()
-
-        width = dataView.GetClientSize().width
-        col_width = width // len(cols)
-
-        for col in cols:
-            col.SetWidth(col_width)
-
 
 class Patikrinti(wxformbuilder.Patikrinti):
     def __init__(self, parent):
         super().__init__(parent)
         self.executor = ThreadPoolExecutor()
-        self.rows_promise = self.executor.submit(get_sheet_rows)
+        # self.rows_promise = self.executor.submit(get_sheet_rows)
+        self.sheet_rows = get_sheet_rows(True)
+        self.fieldnames = get_fieldnames()
+
+        addingColumsHeaders(self.history_table)
+
+    @override
+    def Enter(self, event):
+        isbn = self.ISBN_window_input.GetValue()
+        found = False
+
+        for row in self.sheet_rows:
+            if row["Kodas"] == isbn:
+                found = True
+
+                edited_row = row
+                edited_row["isbn"] = edited_row.pop("Kodas")
+
+                self.history_table.AppendItem(fromDicToArray(row))
+
+                self.autorius_output.SetLabel(edited_row[self.fieldnames[0]])
+                self.pavadinimas_output.SetLabel(edited_row[self.fieldnames[1]])
+                self.metai_output.SetLabel(edited_row[self.fieldnames[2]])
+                self.isbn_output.SetLabel(edited_row[self.fieldnames[3]])
+                self.katalogas_output.SetLabel(edited_row[self.fieldnames[4]])
+
+        if not found:
+            text = "Nerasta"
+            self.autorius_output.SetLabel(text)
+            self.pavadinimas_output.SetLabel(text)
+            self.metai_output.SetLabel(text)
+            self.isbn_output.SetLabel(text)
+            self.katalogas_output.SetLabel("TODO")
+
+        self.ISBN_window_input.SetValue("")
+        self.ISBN_window_input.SetFocus()
 
 
 class SideBar(wxformbuilder.SideBar):
@@ -452,10 +477,6 @@ class PromtForReplacment(wxformbuilder.PromtForReplacment):
         super().__init__(parent)
 
         fieldnames = get_fieldnames()
-
-        print(old_row)
-        print(new_row)
-        print(fieldnames)
 
         self.old_text_autorius.SetLabel(old_row[fieldnames[0]])
         self.old_text_pavadinimas.SetLabel(old_row[fieldnames[1]])

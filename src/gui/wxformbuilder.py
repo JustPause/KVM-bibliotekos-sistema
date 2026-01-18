@@ -920,18 +920,15 @@ class Patikrinti ( wx.Panel ):
         self.outputAutorius = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         autoriusLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.autorius_staticText = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.autorius_staticText = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
         self.autorius_staticText.Wrap( -1 )
 
         autoriusLayout.Add( self.autorius_staticText, 0, wx.ALL, 5 )
 
-
-        autoriusLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT|wx.ST_ELLIPSIZE_END )
         self.autorius_output.Wrap( -1 )
 
-        autoriusLayout.Add( self.autorius_output, 0, wx.ALL, 5 )
+        autoriusLayout.Add( self.autorius_output, 1, wx.ALL, 5 )
 
 
         self.outputAutorius.SetSizer( autoriusLayout )
@@ -942,18 +939,15 @@ class Patikrinti ( wx.Panel ):
         self.outputPavadinimas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         pavadinimasLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.pavadinimas_staticText = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.pavadinimas_staticText = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
         self.pavadinimas_staticText.Wrap( -1 )
 
         pavadinimasLayout.Add( self.pavadinimas_staticText, 0, wx.ALL, 5 )
 
-
-        pavadinimasLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-        self.pavadinimas_output = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.pavadinimas_output = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
         self.pavadinimas_output.Wrap( -1 )
 
-        pavadinimasLayout.Add( self.pavadinimas_output, 0, wx.ALL, 5 )
+        pavadinimasLayout.Add( self.pavadinimas_output, 1, wx.ALL, 5 )
 
 
         self.outputPavadinimas.SetSizer( pavadinimasLayout )
@@ -964,18 +958,15 @@ class Patikrinti ( wx.Panel ):
         self.outputMetai = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         metaiLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.metai_staticText = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.metai_staticText = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
         self.metai_staticText.Wrap( -1 )
 
         metaiLayout.Add( self.metai_staticText, 0, wx.ALL, 5 )
 
-
-        metaiLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-        self.metai_output = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.metai_output = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
         self.metai_output.Wrap( -1 )
 
-        metaiLayout.Add( self.metai_output, 0, wx.ALL, 5 )
+        metaiLayout.Add( self.metai_output, 1, wx.ALL, 5 )
 
 
         self.outputMetai.SetSizer( metaiLayout )
@@ -986,18 +977,15 @@ class Patikrinti ( wx.Panel ):
         self.outputISBN = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         outputLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.isbn_staticText = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.isbn_staticText = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
         self.isbn_staticText.Wrap( -1 )
 
         outputLayout.Add( self.isbn_staticText, 0, wx.ALL, 5 )
 
-
-        outputLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-        self.isbn_output = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.isbn_output = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
         self.isbn_output.Wrap( -1 )
 
-        outputLayout.Add( self.isbn_output, 0, wx.ALL, 5 )
+        outputLayout.Add( self.isbn_output, 1, wx.ALL, 5 )
 
 
         self.outputISBN.SetSizer( outputLayout )
@@ -1008,18 +996,15 @@ class Patikrinti ( wx.Panel ):
         self.outputKatalogas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         outputLayout = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.katalogas_staticText = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"Katalogas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.katalogas_staticText = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"Katalogas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
         self.katalogas_staticText.Wrap( -1 )
 
         outputLayout.Add( self.katalogas_staticText, 0, wx.ALL, 5 )
 
-
-        outputLayout.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-        self.katalogas_output = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.katalogas_output = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
         self.katalogas_output.Wrap( -1 )
 
-        outputLayout.Add( self.katalogas_output, 0, wx.ALL, 5 )
+        outputLayout.Add( self.katalogas_output, 1, wx.ALL, 5 )
 
 
         self.outputKatalogas.SetSizer( outputLayout )
@@ -1046,7 +1031,7 @@ class Patikrinti ( wx.Panel ):
 
         ISBN_window_layout.Add( self.ISBN_window_title_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.ISBN_window_input = wx.TextCtrl( self.ISBN_window_title, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.ISBN_window_input = wx.TextCtrl( self.ISBN_window_title, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
         ISBN_window_layout.Add( self.ISBN_window_input, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -1084,8 +1069,16 @@ class Patikrinti ( wx.Panel ):
         self.SetSizer( mainLayout )
         self.Layout()
 
+        # Connect Events
+        self.ISBN_window_input.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+
     def __del__( self ):
         pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def Enter( self, event ):
+        event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
     def img_path( self, bitmap_path ):

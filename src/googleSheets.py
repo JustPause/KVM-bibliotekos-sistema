@@ -61,51 +61,40 @@ def get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     return values
 
 
-def padding_row_data(row, local_range):
+def padding_row_data(row, padding_needed):
     data = list(row)
-
-    for _ in range(local_range):
+    for _ in range(padding_needed):
         data.append("")
+
     return data
 
 
-def get_sheet_rows():
+def get_sheet_rows(rage_with_cata=False):
     sheet_id, rage, rage_with_catalog, range_template = congig_json()
 
     sheet = connect_to_sheet()
-    rows = get_data(sheet, sheet_id, rage)
+    if rage_with_cata:
+        rows = get_data(sheet, sheet_id, rage_with_catalog)
+    else:
+        rows = get_data(sheet, sheet_id, rage)
 
     if rows is None:
         raise ValueError("rows cannot be None")
 
     heads = rows[0]
+    print(heads)
     rows = rows[1:-1]
 
     working_sheet = list()
+
     for row in rows:
-        match len(row):
-            case 1:
-                data = padding_row_data(row, 4 - 1)
-                data_dict = making_dictionary_pairs(heads, data)
-                working_sheet.append(data_dict)
+        if len(row) > len(heads):
+            raise IndexError
 
-            case 2:
-                data = padding_row_data(row, 4 - 2)
-                data_dict = making_dictionary_pairs(heads, data)
-                working_sheet.append(data_dict)
-
-            case 3:
-                data = padding_row_data(row, 4 - 3)
-                data_dict = making_dictionary_pairs(heads, data)
-                working_sheet.append(data_dict)
-
-            case 4:
-                data = padding_row_data(row, 4 - 4)
-                data_dict = making_dictionary_pairs(heads, data)
-                working_sheet.append(data_dict)
-
-            case _:
-                raise IndexError
+        padding_needed = len(heads) - len(row)
+        data = padding_row_data(row, padding_needed)
+        data_dict = making_dictionary_pairs(heads, data)
+        working_sheet.append(data_dict)
     return working_sheet
 
 
@@ -199,4 +188,8 @@ def append_rows(rows):
 
 
 def making_dictionary_pairs(heads, data):
-    return {heads[0]: data[0], heads[1]: data[1], heads[2]: data[2], heads[3]: data[3]}
+    result = {}
+
+    for i in range(len(heads)):
+        result[heads[i]] = data[i]
+    return result
