@@ -51,3 +51,13 @@ class Config:
         with open("src/.env/sheet.json", "r") as sheet_json:
             sheet = json.load(sheet_json)
             return sheet["rage_func"]
+
+    def get_card_table_id(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["card_table_id"]
+
+    def get_card_table_name(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["card_table_name"]

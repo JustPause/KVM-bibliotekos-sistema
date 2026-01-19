@@ -147,11 +147,10 @@ def set_korteles_id(rowid, data):
     rage_korteles = rage_korteles.format(row=rowid)
     rage_data = rage_data.format(row=rowid)
 
-    result_korteles = execute_googleSheet(data, id, rage_korteles)
+    execute_googleSheet(data, id, rage_korteles)
 
     today_date = datetime.today().strftime("%Y-%m-%d")
     result_data = execute_googleSheet(today_date, id, rage_data)
-
     return result_data
 
 
@@ -232,7 +231,7 @@ def append_rows(rows: list[str]):
 
     rage_func = config.get_rage_func().format(row=rowNumber)
 
-    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("{url}", "{tableName}"), "0")),"SELECT Col1, Col4 WHERE Col6 = '" & IF(H{rowNumber} = "", "-", H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = "", "-", H{rowNumber}) & "'"),"-")"""
+    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0"));"SELECT Col1; Col4 WHERE Col6 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "'");"-")"""
 
     body = {"values": [[formula]]}
 
