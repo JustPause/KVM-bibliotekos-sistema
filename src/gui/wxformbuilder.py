@@ -890,202 +890,6 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
 
 
 ###########################################################################
-## Class Patikrinti
-###########################################################################
-
-class Patikrinti ( wx.Panel ):
-
-    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
-        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
-
-        mainLayout = wx.BoxSizer( wx.VERTICAL )
-
-
-        mainLayout.Add( ( 0, 40), 0, 0, 5 )
-
-        self.Title = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.Title.Wrap( -1 )
-
-        self.Title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
-
-        mainLayout.Add( self.Title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        mainLayout.Add( ( 0, 40), 0, 0, 5 )
-
-        layout = wx.BoxSizer( wx.HORIZONTAL )
-
-        data_layout = wx.BoxSizer( wx.VERTICAL )
-
-        self.outputAutorius = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        autoriusLayout = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.autorius_staticText = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
-        self.autorius_staticText.Wrap( -1 )
-
-        autoriusLayout.Add( self.autorius_staticText, 0, wx.ALL, 5 )
-
-        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-        self.autorius_output.Wrap( -1 )
-
-        autoriusLayout.Add( self.autorius_output, 1, wx.ALL, 5 )
-
-
-        self.outputAutorius.SetSizer( autoriusLayout )
-        self.outputAutorius.Layout()
-        autoriusLayout.Fit( self.outputAutorius )
-        data_layout.Add( self.outputAutorius, 0, wx.ALL|wx.EXPAND, 5 )
-
-        self.outputPavadinimas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        pavadinimasLayout = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.pavadinimas_staticText = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
-        self.pavadinimas_staticText.Wrap( -1 )
-
-        pavadinimasLayout.Add( self.pavadinimas_staticText, 0, wx.ALL, 5 )
-
-        self.pavadinimas_output = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-        self.pavadinimas_output.Wrap( -1 )
-
-        pavadinimasLayout.Add( self.pavadinimas_output, 1, wx.ALL, 5 )
-
-
-        self.outputPavadinimas.SetSizer( pavadinimasLayout )
-        self.outputPavadinimas.Layout()
-        pavadinimasLayout.Fit( self.outputPavadinimas )
-        data_layout.Add( self.outputPavadinimas, 0, wx.EXPAND|wx.ALL, 5 )
-
-        self.outputMetai = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        metaiLayout = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.metai_staticText = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
-        self.metai_staticText.Wrap( -1 )
-
-        metaiLayout.Add( self.metai_staticText, 0, wx.ALL, 5 )
-
-        self.metai_output = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-        self.metai_output.Wrap( -1 )
-
-        metaiLayout.Add( self.metai_output, 1, wx.ALL, 5 )
-
-
-        self.outputMetai.SetSizer( metaiLayout )
-        self.outputMetai.Layout()
-        metaiLayout.Fit( self.outputMetai )
-        data_layout.Add( self.outputMetai, 0, wx.ALL|wx.EXPAND, 5 )
-
-        self.outputISBN = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        outputLayout = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.isbn_staticText = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
-        self.isbn_staticText.Wrap( -1 )
-
-        outputLayout.Add( self.isbn_staticText, 0, wx.ALL, 5 )
-
-        self.isbn_output = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-        self.isbn_output.Wrap( -1 )
-
-        outputLayout.Add( self.isbn_output, 1, wx.ALL, 5 )
-
-
-        self.outputISBN.SetSizer( outputLayout )
-        self.outputISBN.Layout()
-        outputLayout.Fit( self.outputISBN )
-        data_layout.Add( self.outputISBN, 0, wx.ALL|wx.EXPAND, 5 )
-
-        self.outputKatalogas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        outputLayout = wx.BoxSizer( wx.HORIZONTAL )
-
-        self.katalogas_staticText = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"Katalogas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
-        self.katalogas_staticText.Wrap( -1 )
-
-        outputLayout.Add( self.katalogas_staticText, 0, wx.ALL, 5 )
-
-        self.katalogas_output = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-        self.katalogas_output.Wrap( -1 )
-
-        outputLayout.Add( self.katalogas_output, 1, wx.ALL, 5 )
-
-
-        self.outputKatalogas.SetSizer( outputLayout )
-        self.outputKatalogas.Layout()
-        outputLayout.Fit( self.outputKatalogas )
-        data_layout.Add( self.outputKatalogas, 0, wx.EXPAND |wx.ALL, 5 )
-
-
-        data_layout.Add( ( 0, 16), 0, 0, 5 )
-
-        self.description = wx.StaticText( self, wx.ID_ANY, _(u"Duoda galimybe patikrinti ar knyga yra lenteleja "), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.description.Wrap( -1 )
-
-        data_layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-        data_layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
-
-        self.ISBN_window_title = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        ISBN_window_layout = wx.BoxSizer( wx.VERTICAL )
-
-        self.ISBN_window_title_text = wx.StaticText( self.ISBN_window_title, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.ISBN_window_title_text.Wrap( -1 )
-
-        ISBN_window_layout.Add( self.ISBN_window_title_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-        self.ISBN_window_input = wx.TextCtrl( self.ISBN_window_title, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
-        ISBN_window_layout.Add( self.ISBN_window_input, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-        self.ISBN_window_title.SetSizer( ISBN_window_layout )
-        self.ISBN_window_title.Layout()
-        ISBN_window_layout.Fit( self.ISBN_window_title )
-        data_layout.Add( self.ISBN_window_title, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-        layout.Add( data_layout, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 25 )
-
-        history_layout = wx.BoxSizer( wx.VERTICAL )
-
-        self.history = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.history.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_ACTIVEBORDER ) )
-
-        dataViewList_layout = wx.BoxSizer( wx.VERTICAL )
-
-        self.history_table = wx.dataview.DataViewListCtrl( self.history, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
-        dataViewList_layout.Add( self.history_table, 1, wx.EXPAND, 5 )
-
-
-        self.history.SetSizer( dataViewList_layout )
-        self.history.Layout()
-        dataViewList_layout.Fit( self.history )
-        history_layout.Add( self.history, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 25 )
-
-
-        layout.Add( history_layout, 1, wx.EXPAND, 5 )
-
-
-        mainLayout.Add( layout, 1, wx.EXPAND, 5 )
-
-
-        self.SetSizer( mainLayout )
-        self.Layout()
-
-        # Connect Events
-        self.ISBN_window_input.Bind( wx.EVT_TEXT_ENTER, self.Enter )
-
-    def __del__( self ):
-        pass
-
-
-    # Virtual event handlers, override them in your derived class
-    def Enter( self, event ):
-        event.Skip()
-
-    # Virtual image path resolution method. Override this in your derived class.
-    def img_path( self, bitmap_path ):
-        return bitmap_path
-
-
-###########################################################################
 ## Class Isdavimas
 ###########################################################################
 
@@ -1252,30 +1056,36 @@ class Isdavimas ( wx.Panel ):
         self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
         KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
-        self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Nerasta"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.KortelesRezult.Wrap( -1 )
-
-        self.KortelesRezult.Hide()
-
-        KorelesLayout.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
 
         KorelesSideLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
 
 
         KorelesSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
 
+        PakeistiLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.KortelesRezult = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Jei neturi korteles"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KortelesRezult.Wrap( -1 )
+
+        PakeistiLayout.Add( self.KortelesRezult, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+        self.Pakeisti = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Pakeisti"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        PakeistiLayout.Add( self.Pakeisti, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        KorelesSideLayout.Add( PakeistiLayout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
         VardasLayout = wx.BoxSizer( wx.VERTICAL )
 
         self.VardasLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Vardas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.VardasLable.Wrap( -1 )
 
-        self.VardasLable.Hide()
+        self.VardasLable.Enable( False )
 
         VardasLayout.Add( self.VardasLable, 0, wx.ALL, 5 )
 
         self.VardasInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.VardasInput.Hide()
+        self.VardasInput.Enable( False )
 
         VardasLayout.Add( self.VardasInput, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1287,12 +1097,12 @@ class Isdavimas ( wx.Panel ):
         self.KlaseLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Klase"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KlaseLable.Wrap( -1 )
 
-        self.KlaseLable.Hide()
+        self.KlaseLable.Enable( False )
 
         KlaseLayout.Add( self.KlaseLable, 0, wx.ALL, 5 )
 
         self.KlaseInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.KlaseInput.Hide()
+        self.KlaseInput.Enable( False )
 
         KlaseLayout.Add( self.KlaseInput, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -1325,8 +1135,12 @@ class Isdavimas ( wx.Panel ):
 
         # Connect Events
         self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
-        self.KorelesInput.Bind( wx.EVT_TEXT_ENTER, self.EnterKortele )
-        self.Isduoti.Bind( wx.EVT_LEFT_DOWN, self.isduoti )
+        self.KorelesInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKortele )
+        self.KortelesRezult.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
+        self.Pakeisti.Bind( wx.EVT_LEFT_DOWN, self.Pakeisti_button )
+        self.VardasInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedName )
+        self.KlaseInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKlase )
+        self.Isduoti.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
 
     def __del__( self ):
         pass
@@ -1336,10 +1150,216 @@ class Isdavimas ( wx.Panel ):
     def EnterISBN( self, event ):
         event.Skip()
 
-    def EnterKortele( self, event ):
+    def SlectedKortele( self, event ):
         event.Skip()
 
-    def isduoti( self, event ):
+    def Isduoti_button( self, event ):
+        event.Skip()
+
+    def Pakeisti_button( self, event ):
+        event.Skip()
+
+    def SlectedName( self, event ):
+        event.Skip()
+
+    def SlectedKlase( self, event ):
+        event.Skip()
+
+
+    # Virtual image path resolution method. Override this in your derived class.
+    def img_path( self, bitmap_path ):
+        return bitmap_path
+
+
+###########################################################################
+## Class Patikrinti
+###########################################################################
+
+class Patikrinti ( wx.Panel ):
+
+    def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+        wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+        mainLayout = wx.BoxSizer( wx.VERTICAL )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        self.Title = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.Title.Wrap( -1 )
+
+        self.Title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
+
+        mainLayout.Add( self.Title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        mainLayout.Add( ( 0, 40), 0, 0, 5 )
+
+        layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        data_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.outputAutorius = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        autoriusLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.autorius_staticText = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"Autorius"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
+        self.autorius_staticText.Wrap( -1 )
+
+        autoriusLayout.Add( self.autorius_staticText, 0, wx.ALL, 5 )
+
+        self.autorius_output = wx.StaticText( self.outputAutorius, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+        self.autorius_output.Wrap( -1 )
+
+        autoriusLayout.Add( self.autorius_output, 1, wx.ALL, 5 )
+
+
+        self.outputAutorius.SetSizer( autoriusLayout )
+        self.outputAutorius.Layout()
+        autoriusLayout.Fit( self.outputAutorius )
+        data_layout.Add( self.outputAutorius, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.outputPavadinimas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        pavadinimasLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.pavadinimas_staticText = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"Pavadinimas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
+        self.pavadinimas_staticText.Wrap( -1 )
+
+        pavadinimasLayout.Add( self.pavadinimas_staticText, 0, wx.ALL, 5 )
+
+        self.pavadinimas_output = wx.StaticText( self.outputPavadinimas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+        self.pavadinimas_output.Wrap( -1 )
+
+        pavadinimasLayout.Add( self.pavadinimas_output, 1, wx.ALL, 5 )
+
+
+        self.outputPavadinimas.SetSizer( pavadinimasLayout )
+        self.outputPavadinimas.Layout()
+        pavadinimasLayout.Fit( self.outputPavadinimas )
+        data_layout.Add( self.outputPavadinimas, 0, wx.EXPAND|wx.ALL, 5 )
+
+        self.outputMetai = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        metaiLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.metai_staticText = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"Metai"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
+        self.metai_staticText.Wrap( -1 )
+
+        metaiLayout.Add( self.metai_staticText, 0, wx.ALL, 5 )
+
+        self.metai_output = wx.StaticText( self.outputMetai, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+        self.metai_output.Wrap( -1 )
+
+        metaiLayout.Add( self.metai_output, 1, wx.ALL, 5 )
+
+
+        self.outputMetai.SetSizer( metaiLayout )
+        self.outputMetai.Layout()
+        metaiLayout.Fit( self.outputMetai )
+        data_layout.Add( self.outputMetai, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.outputISBN = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        outputLayout1 = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.isbn_staticText = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
+        self.isbn_staticText.Wrap( -1 )
+
+        outputLayout1.Add( self.isbn_staticText, 0, wx.ALL, 5 )
+
+        self.isbn_output = wx.StaticText( self.outputISBN, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+        self.isbn_output.Wrap( -1 )
+
+        outputLayout1.Add( self.isbn_output, 1, wx.ALL, 5 )
+
+
+        self.outputISBN.SetSizer( outputLayout1 )
+        self.outputISBN.Layout()
+        outputLayout1.Fit( self.outputISBN )
+        data_layout.Add( self.outputISBN, 0, wx.ALL|wx.EXPAND, 5 )
+
+        self.outputKatalogas = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        outputLayout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.katalogas_staticText = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"Katalogas"), wx.DefaultPosition, wx.Size( 100,-1 ), 0 )
+        self.katalogas_staticText.Wrap( -1 )
+
+        outputLayout.Add( self.katalogas_staticText, 0, wx.ALL, 5 )
+
+        self.katalogas_output = wx.StaticText( self.outputKatalogas, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
+        self.katalogas_output.Wrap( -1 )
+
+        outputLayout.Add( self.katalogas_output, 1, wx.ALL, 5 )
+
+
+        self.outputKatalogas.SetSizer( outputLayout )
+        self.outputKatalogas.Layout()
+        outputLayout.Fit( self.outputKatalogas )
+        data_layout.Add( self.outputKatalogas, 0, wx.EXPAND |wx.ALL, 5 )
+
+
+        data_layout.Add( ( 0, 16), 0, 0, 5 )
+
+        self.description = wx.StaticText( self, wx.ID_ANY, _(u"Duoda galimybe patikrinti ar knyga yra lenteleja "), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.description.Wrap( -1 )
+
+        data_layout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        data_layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+
+        self.ISBN_window_title = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        ISBN_window_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.ISBN_window_title_text = wx.StaticText( self.ISBN_window_title, wx.ID_ANY, _(u"ISBN"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.ISBN_window_title_text.Wrap( -1 )
+
+        ISBN_window_layout.Add( self.ISBN_window_title_text, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+        self.ISBN_window_input = wx.TextCtrl( self.ISBN_window_title, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
+        ISBN_window_layout.Add( self.ISBN_window_input, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        self.ISBN_window_title.SetSizer( ISBN_window_layout )
+        self.ISBN_window_title.Layout()
+        ISBN_window_layout.Fit( self.ISBN_window_title )
+        data_layout.Add( self.ISBN_window_title, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        layout.Add( data_layout, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 25 )
+
+        history_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.history = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.history.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_ACTIVEBORDER ) )
+
+        dataViewList_layout = wx.BoxSizer( wx.VERTICAL )
+
+        self.history_table = wx.dataview.DataViewListCtrl( self.history, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES )
+        dataViewList_layout.Add( self.history_table, 1, wx.EXPAND, 5 )
+
+
+        self.history.SetSizer( dataViewList_layout )
+        self.history.Layout()
+        dataViewList_layout.Fit( self.history )
+        history_layout.Add( self.history, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 25 )
+
+
+        layout.Add( history_layout, 1, wx.EXPAND, 5 )
+
+
+        mainLayout.Add( layout, 1, wx.EXPAND, 5 )
+
+
+        self.SetSizer( mainLayout )
+        self.Layout()
+
+        # Connect Events
+        self.ISBN_window_input.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+
+    def __del__( self ):
+        pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def Enter( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.

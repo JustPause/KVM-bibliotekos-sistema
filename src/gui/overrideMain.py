@@ -498,7 +498,8 @@ class Isdavimas(wxformbuilder.Isdavimas):
     def EnterISBN(self, event):
         KngosISBNInput = self.KngosISBNInput.GetValue()
 
-        manual_input = True
+        manual_ISBN_input = True
+        manual_User_input = False
 
         self.ShowInputBoxes(False)
 
@@ -510,10 +511,12 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 self.KngosISBNRezult.Show(True)
                 self.Layout()
                 self.knygaData = row
-                manual_input = False
+                manual_ISBN_input = False
                 break
 
-        if manual_input:
+        if manual_ISBN_input:
+            self.knygaData = None
+
             self.KngosISBNRezult.SetLabel("Nesekminga")
             self.KngosISBNRezult.Show(True)
 
@@ -521,29 +524,52 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
             self.Layout()
 
-        # if Korteles is valid:
-        # -> return row
-        # -> if row is not None:
-        # -> -> update KortelesRezult and show it
-        # -> else:
-        # -> -> show the manual input rows
+        # ---
+
+        korelesInput = self.KorelesInput.GetValue()
+
+        if korelesInput == "":
+            manual_User_input = True
+
+            self.VardasInput.GetValue()
+            self.KlaseInput.GetValue()
+
+        # ---
+    
+        #google sheets set user
 
     @override
-    def EnterKortele(self, event):
-        print(self.KorelesInput.GetValue())
+    def Isduoti_button(self, event):
+        if self.knygaData is None:
+            self.knygaData = [
+                self.AutoriusInput.GetValue(),
+                self.PavadinimasInput.GetValue(),
+                self.MetaiInput.GetValue(),
+                self.ISBNInput.GetValue(),
+            ]
 
-    @override
-    def Isduoti(self, event):
-        # data = [
-        #     self.AutoriusInput.GetValue(),
-        #     self.PavadinimasInput.GetValue(),
-        #     self.MetaiInput.GetValue(),
-        #     self.ISBNInput.GetValue(),
-        # ]
         print(self.knygaData)
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
+
+    @override
+    def Pakeisti_button(self, event):
+        if self.KorelesInput.Enabled:
+            self.KorelesInput.SetValue("")
+
+            self.KorelesInput.Enable(False)
+
+            self.VardasInput.Enable(True)
+            self.KlaseInput.Enable(True)
+        else:
+            self.VardasInput.SetValue("")
+            self.KlaseInput.SetValue("")
+
+            self.KorelesInput.Enable(True)
+
+            self.VardasInput.Enable(False)
+            self.KlaseInput.Enable(False)
 
 
 class Grazinimas(wxformbuilder.Gazinimas):
