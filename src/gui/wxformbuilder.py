@@ -1044,23 +1044,23 @@ class Isdavimas ( wx.Panel ):
         data_layout.Add( self.Tarpas, 0, wx.EXPAND, 5 )
 
         self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        KorelesSideLayout = wx.BoxSizer( wx.VERTICAL )
+        KortelesSideLayout = wx.BoxSizer( wx.VERTICAL )
 
-        KorelesLayout = wx.BoxSizer( wx.VERTICAL )
+        KortelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.KorelesLable.Wrap( -1 )
+        self.KortelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Korteles"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KortelesLable.Wrap( -1 )
 
-        KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KortelesLayout.Add( self.KortelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
-        KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-        KorelesSideLayout.Add( KorelesLayout, 0, wx.EXPAND, 5 )
+        self.KortelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
+        KortelesLayout.Add( self.KortelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
+        KortelesSideLayout.Add( KortelesLayout, 0, wx.EXPAND, 5 )
+
+
+        KortelesSideLayout.Add( ( 0, 16), 0, wx.EXPAND, 5 )
 
         PakeistiLayout = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1073,7 +1073,7 @@ class Isdavimas ( wx.Panel ):
         PakeistiLayout.Add( self.Pakeisti, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        KorelesSideLayout.Add( PakeistiLayout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KortelesSideLayout.Add( PakeistiLayout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
         VardasLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1088,7 +1088,7 @@ class Isdavimas ( wx.Panel ):
         VardasLayout.Add( self.VardasInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesSideLayout.Add( VardasLayout, 0, wx.EXPAND, 5 )
+        KortelesSideLayout.Add( VardasLayout, 0, wx.EXPAND, 5 )
 
         KlaseLayout = wx.BoxSizer( wx.VERTICAL )
 
@@ -1103,23 +1103,23 @@ class Isdavimas ( wx.Panel ):
         KlaseLayout.Add( self.KlaseInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesSideLayout.Add( KlaseLayout, 0, wx.EXPAND, 5 )
+        KortelesSideLayout.Add( KlaseLayout, 0, wx.EXPAND, 5 )
 
         self.Isduoti = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Isduoti"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        KorelesSideLayout.Add( self.Isduoti, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        KortelesSideLayout.Add( self.Isduoti, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
-        KorelesSideLayout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
+        KortelesSideLayout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
         self.description = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Duoda galimybe lengvai isduoti knuyga, surasant, Knygos ISBN, Korteles Koda"), wx.DefaultPosition, wx.Size( 400,100 ), 0 )
         self.description.Wrap( -1 )
 
-        KorelesSideLayout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        KortelesSideLayout.Add( self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
-        self.NaudotojoSide.SetSizer( KorelesSideLayout )
+        self.NaudotojoSide.SetSizer( KortelesSideLayout )
         self.NaudotojoSide.Layout()
-        KorelesSideLayout.Fit( self.NaudotojoSide )
+        KortelesSideLayout.Fit( self.NaudotojoSide )
         data_layout.Add( self.NaudotojoSide, 1, wx.EXPAND |wx.ALL, 25 )
 
 
@@ -1131,7 +1131,7 @@ class Isdavimas ( wx.Panel ):
 
         # Connect Events
         self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
-        self.KorelesInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKortele )
+        self.KortelesInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKortele )
         self.KortelesRezult.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
         self.Pakeisti.Bind( wx.EVT_LEFT_DOWN, self.Pakeisti_button )
         self.VardasInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedName )
@@ -1406,26 +1406,26 @@ class Gazinimas ( wx.Panel ):
         data_layout = wx.BoxSizer( wx.HORIZONTAL )
 
         self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        KorelesLayout = wx.BoxSizer( wx.VERTICAL )
+        kortelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.KorelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Koreles"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.KorelesLable.Wrap( -1 )
+        self.kortelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"korteles"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.kortelesLable.Wrap( -1 )
 
-        KorelesLayout.Add( self.KorelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        kortelesLayout.Add( self.kortelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        self.KorelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        KorelesLayout.Add( self.KorelesInput, 0, wx.ALL|wx.EXPAND, 5 )
+        self.kortelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        kortelesLayout.Add( self.kortelesInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        KorelesLayout.Add( ( 0, 16), 0, 0, 5 )
+        kortelesLayout.Add( ( 0, 16), 0, 0, 5 )
 
         self.testi = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        KorelesLayout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        kortelesLayout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
-        self.NaudotojoSide.SetSizer( KorelesLayout )
+        self.NaudotojoSide.SetSizer( kortelesLayout )
         self.NaudotojoSide.Layout()
-        KorelesLayout.Fit( self.NaudotojoSide )
+        kortelesLayout.Fit( self.NaudotojoSide )
         data_layout.Add( self.NaudotojoSide, 1, wx.EXPAND |wx.ALL, 25 )
 
 
@@ -1436,7 +1436,7 @@ class Gazinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.KorelesInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.kortelesInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):

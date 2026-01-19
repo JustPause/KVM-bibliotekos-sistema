@@ -32,10 +32,10 @@ class Config:
             sheet = json.load(sheet_json)
             return sheet["range_template"]
 
-    def get_rage_koreles(self) -> str:
+    def get_rage_korteles(self) -> str:
         with open("src/.env/sheet.json", "r") as sheet_json:
             sheet = json.load(sheet_json)
-            return sheet["rage_koreles"]
+            return sheet["rage_korteles"]
 
     def get_rage_vardas(self) -> str:
         with open("src/.env/sheet.json", "r") as sheet_json:
@@ -46,3 +46,8 @@ class Config:
         with open("src/.env/sheet.json", "r") as sheet_json:
             sheet = json.load(sheet_json)
             return sheet["rage_data"]
+
+    def get_rage_func(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["rage_func"]

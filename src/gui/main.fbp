@@ -5843,7 +5843,7 @@
                 <property name="window_style">wxTAB_TRAVERSAL</property>
                 <object class="wxBoxSizer" expanded="true">
                   <property name="minimum_size"></property>
-                  <property name="name">KorelesSideLayout</property>
+                  <property name="name">KortelesSideLayout</property>
                   <property name="orient">wxVERTICAL</property>
                   <property name="permission">none</property>
                   <object class="sizeritem" expanded="false">
@@ -5852,7 +5852,7 @@
                     <property name="proportion">0</property>
                     <object class="wxBoxSizer" expanded="false">
                       <property name="minimum_size"></property>
-                      <property name="name">KorelesLayout</property>
+                      <property name="name">KortelesLayout</property>
                       <property name="orient">wxVERTICAL</property>
                       <property name="permission">none</property>
                       <object class="sizeritem" expanded="false">
@@ -5888,7 +5888,7 @@
                           <property name="gripper">0</property>
                           <property name="hidden">0</property>
                           <property name="id">wxID_ANY</property>
-                          <property name="label">Koreles</property>
+                          <property name="label">Korteles</property>
                           <property name="markup">0</property>
                           <property name="max_size"></property>
                           <property name="maximize_button">0</property>
@@ -5897,7 +5897,7 @@
                           <property name="minimize_button">0</property>
                           <property name="minimum_size"></property>
                           <property name="moveable">1</property>
-                          <property name="name">KorelesLable</property>
+                          <property name="name">KortelesLable</property>
                           <property name="pane_border">1</property>
                           <property name="pane_position"></property>
                           <property name="pane_size"></property>
@@ -5958,7 +5958,7 @@
                           <property name="minimize_button">0</property>
                           <property name="minimum_size"></property>
                           <property name="moveable">1</property>
-                          <property name="name">KorelesInput</property>
+                          <property name="name">KortelesInput</property>
                           <property name="pane_border">1</property>
                           <property name="pane_position"></property>
                           <property name="pane_size"></property>
@@ -6179,7 +6179,7 @@
                           <property name="dock_fixed">0</property>
                           <property name="docking">Left</property>
                           <property name="drag_accept_files">0</property>
-                          <property name="enabled">0</property>
+                          <property name="enabled">1</property>
                           <property name="fg"></property>
                           <property name="floatable">1</property>
                           <property name="font"></property>
@@ -6318,7 +6318,7 @@
                           <property name="dock_fixed">0</property>
                           <property name="docking">Left</property>
                           <property name="drag_accept_files">0</property>
-                          <property name="enabled">0</property>
+                          <property name="enabled">1</property>
                           <property name="fg"></property>
                           <property name="floatable">1</property>
                           <property name="font"></property>
@@ -8281,7 +8281,7 @@
                 <property name="window_style">wxTAB_TRAVERSAL</property>
                 <object class="wxBoxSizer" expanded="false">
                   <property name="minimum_size"></property>
-                  <property name="name">KorelesLayout</property>
+                  <property name="name">kortelesLayout</property>
                   <property name="orient">wxVERTICAL</property>
                   <property name="permission">none</property>
                   <object class="sizeritem" expanded="false">
@@ -8317,7 +8317,7 @@
                       <property name="gripper">0</property>
                       <property name="hidden">0</property>
                       <property name="id">wxID_ANY</property>
-                      <property name="label">Koreles</property>
+                      <property name="label">korteles</property>
                       <property name="markup">0</property>
                       <property name="max_size"></property>
                       <property name="maximize_button">0</property>
@@ -8326,7 +8326,7 @@
                       <property name="minimize_button">0</property>
                       <property name="minimum_size"></property>
                       <property name="moveable">1</property>
-                      <property name="name">KorelesLable</property>
+                      <property name="name">kortelesLable</property>
                       <property name="pane_border">1</property>
                       <property name="pane_position"></property>
                       <property name="pane_size"></property>
@@ -8387,7 +8387,7 @@
                       <property name="minimize_button">0</property>
                       <property name="minimum_size"></property>
                       <property name="moveable">1</property>
-                      <property name="name">KorelesInput</property>
+                      <property name="name">kortelesInput</property>
                       <property name="pane_border">1</property>
                       <property name="pane_position"></property>
                       <property name="pane_size"></property>

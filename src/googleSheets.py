@@ -1,5 +1,5 @@
-
 import os.path
+from datetime import datetime
 from typing import Any
 
 from google.auth.transport.requests import Request
@@ -51,7 +51,7 @@ def connect_to_sheet() -> Any:
         return None
 
 
-def get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
+def __get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     result = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
     values = result.get("values", [])
 
@@ -71,13 +71,13 @@ def __padding_row_data(row, padding_needed):
 
 
 def get_sheet_rows(rage_with_cata=False):
-    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config().congig_json()
 
     sheet = connect_to_sheet()
     if rage_with_cata:
-        rows = get_data(sheet, sheet_id, rage_with_catalog)
+        rows = __get_data(sheet, sheet_id, rage_with_catalog)
     else:
-        rows = get_data(sheet, sheet_id, rage)
+        rows = __get_data(sheet, sheet_id, rage)
 
     if rows is None:
         raise ValueError("rows cannot be None")
@@ -98,11 +98,8 @@ def get_sheet_rows(rage_with_cata=False):
     return working_sheet
 
 
-
-
-
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
-    sheet_id, _, _, range_template = Config.congig_json()
+    sheet_id, _, _, range_template = Config().congig_json()
 
     sheet = connect_to_sheet()
 
@@ -133,27 +130,61 @@ def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
 
 
 def set_vardas(rowid, returnValues):
+    # range_template.format(row=rowid)
     # Paraso i J Stulpeli
     # Paraso i K Stulpeli data
 
     pass
 
 
-def set_korteles_id(rowid, returnValues):
-    # Paraso i H Stulpeli
-    # Paraso i K Stulpeli data
+def set_korteles_id(rowid, data):
+    config = Config()
 
-    pass
+    id = config.get_sheet_id()
+    rage_korteles = config.get_rage_korteles()
+    rage_data = config.get_rage_data()
+
+    rage_korteles = rage_korteles.format(row=rowid)
+    rage_data = rage_data.format(row=rowid)
+
+    result_korteles = execute_googleSheet(data, id, rage_korteles)
+
+    today_date = datetime.today().strftime("%Y-%m-%d")
+    result_data = execute_googleSheet(today_date, id, rage_data)
+
+    return result_data
 
 
-def set_row(rowid, returnValues):
-    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
+def execute_googleSheet(data, sheet_id, range):
+    sheet = connect_to_sheet()
+    values = [
+        [data],
+    ]
+
+    body = {"values": values}
+
+    result = (
+        sheet.values()
+        .update(
+            spreadsheetId=sheet_id,
+            range=range,
+            valueInputOption="USER_ENTERED",
+            body=body,
+        )
+        .execute()
+    )
+
+    return result
+
+
+def set_row(rowid, data):
+    sheet_id, rage, rage_with_catalog, range_template = Config().congig_json()
 
     range_with_row = range_template.format(row=rowid)
 
     sheet = connect_to_sheet()
     values = [
-        [returnValues],
+        [data],
     ]
 
     body = {"values": values}
@@ -172,12 +203,18 @@ def set_row(rowid, returnValues):
     return result
 
 
-def append_rows(rows):
-    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
+def append_rows(rows: list[str]):
+    config = Config()
+    sheet_id, rage, rage_with_catalog, range_template = config.congig_json()
 
     sheet = connect_to_sheet()
 
+    # userCheckFunc = userCheckFunc.format(row)
+
+    # rows.append("").append("").append("").append(userCheckFunc)
+
     body = {"values": rows}
+    print(rows)
 
     result = (
         sheet.values()
@@ -189,8 +226,28 @@ def append_rows(rows):
         )
         .execute()
     )
+    rowNumber = (
+        str(result["updates"]["updatedRange"]).split("!")[1].split(":")[0].strip("A")
+    )
 
-    return result["updates"]
+    rage_func = config.get_rage_func().format(row=rowNumber)
+
+    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("{url}", "{tableName}"), "0")),"SELECT Col1, Col4 WHERE Col6 = '" & IF(H{rowNumber} = "", "-", H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = "", "-", H{rowNumber}) & "'"),"-")"""
+
+    body = {"values": [[formula]]}
+
+    result = (
+        sheet.values()
+        .append(
+            spreadsheetId=sheet_id,
+            range=rage_func,
+            valueInputOption="USER_ENTERED",
+            body=body,
+        )
+        .execute()
+    )
+
+    return result
 
 
 def making_dictionary_pairs(heads, data):
