@@ -8,7 +8,7 @@ import wx
 
 import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
-from src.googleSheets import append_rows, get_sheet_rows, set_korteles_id
+from src.googleSheets import append_rows, get_sheet_rows, set_korteles_id, set_vardas
 from src.gui.config import ConfigFile
 from src.helpers.utils import (
     addingColumsHeaders,
@@ -347,12 +347,12 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
                             "Knygos nera, gerai butu padeti i sona kad poto surasyti"
                         )
                 else:
-                    r=append_rows([loc_result])
+                    r = append_rows([loc_result])
                     print(r)
             else:
-                r=append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
+                r = append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
                 print(r)
-            
+
         worker.run(work_func=paieska, on_done=on_pabaigimo)
 
         self.ISBN.SetValue("")
@@ -485,6 +485,11 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.row_id = None
 
     def ShowInputBoxes(self, bool: bool):
+        self.AutoriusInput.SetValue("")
+        self.PavadinimasInput.SetValue("")
+        self.MetaiInput.SetValue("")
+        self.ISBNInput.SetValue("")
+
         self.AutoriusLable.Show(bool)
         self.AutoriusInput.Show(bool)
 
@@ -502,12 +507,10 @@ class Isdavimas(wxformbuilder.Isdavimas):
         KngosISBNInput = self.KngosISBNInput.GetValue()
 
         manual_ISBN_input = True
-        manual_User_input = False
 
         self.ShowInputBoxes(False)
-
         for index, row in enumerate(self.sheet_rows):
-            if KngosISBNInput in row[self.filenames[3]]:
+            if KngosISBNInput == row[self.filenames[3]]:
                 self.KngosISBNRezult.SetLabel(
                     "Surasta knyga" + " " + row[self.filenames[1]]
                 )
@@ -530,6 +533,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
     @override
     def Isduoti_button(self, event):
+        print(self.knygaData)
         if self.knygaData is None:
             self.knygaData = [
                 self.AutoriusInput.GetValue(),
@@ -538,12 +542,15 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 self.ISBNInput.GetValue(),
             ]
 
+            if self.knygaData[1] == "":
+                NeSekmingai("Reikia bent pavadinimo")
+
+                return
         # ---
 
         kortelesInput = self.KortelesInput.GetValue()
 
         if kortelesInput == "":
-            print("manual")
             kortelesInput = (
                 self.VardasInput.GetValue() + " " + self.KlaseInput.GetValue()
             )
@@ -556,21 +563,35 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
         if self.row_id is not None:
             id = self.row_id + 2
-            print("lenteles id: " + str(id))
-            print(str(self.knygaData) + " : " + str(kortelesInput))
-
-            print("Manual input: " + str(manual_User_input))
 
             if manual_User_input:
-                pass
+                set_vardas(id, kortelesInput)
             else:
                 set_korteles_id(id, kortelesInput)
         else:
-            print("Prideti knyga")
-            print(str(self.knygaData) + " : " + str(kortelesInput))
+            result = append_rows([self.knygaData])
 
-            print("Manual input: " + str(manual_User_input))
+            id = (
+                result["updates"]["updatedRange"].split("!")[1].split(":")[0].strip("I")
+            )
 
+            if manual_User_input:
+                set_vardas(id, kortelesInput)
+            else:
+                set_korteles_id(id, kortelesInput)
+
+        self.knygaData = None
+        self.row_id = None
+
+        self.KngosISBNInput.SetValue("")
+        self.KngosISBNRezult.SetLabel("")
+
+        self.AutoriusInput.SetValue("")
+        self.PavadinimasInput.SetValue("")
+        self.MetaiInput.SetValue("")
+        self.ISBNInput.SetValue("")
+
+        Sekmingai()
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
@@ -584,6 +605,10 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
             self.VardasInput.Enable(True)
             self.KlaseInput.Enable(True)
+
+            self.VardasLable.Enable(True)
+            self.KlaseLable.Enable(True)
+
         else:
             self.VardasInput.SetValue("")
             self.KlaseInput.SetValue("")
@@ -592,6 +617,9 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
             self.VardasInput.Enable(False)
             self.KlaseInput.Enable(False)
+
+            self.VardasLable.Enable(False)
+            self.KlaseLable.Enable(False)
 
 
 class Grazinimas(wxformbuilder.Gazinimas):

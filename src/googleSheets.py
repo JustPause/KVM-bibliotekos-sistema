@@ -83,7 +83,7 @@ def get_sheet_rows(rage_with_cata=False):
         raise ValueError("rows cannot be None")
 
     heads = rows[0]
-    rows = rows[1:-1]
+    rows = rows[1:]
 
     working_sheet = list()
 
@@ -95,6 +95,7 @@ def get_sheet_rows(rage_with_cata=False):
         data = __padding_row_data(row, padding_needed)
         data_dict = making_dictionary_pairs(heads, data)
         working_sheet.append(data_dict)
+
     return working_sheet
 
 
@@ -129,12 +130,21 @@ def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
     return set_row(rowid, returnValues)
 
 
-def set_vardas(rowid, returnValues):
-    # range_template.format(row=rowid)
-    # Paraso i J Stulpeli
-    # Paraso i K Stulpeli data
+def set_vardas(rowid, data):
+    config = Config()
 
-    pass
+    id = config.get_sheet_id()
+    rage_vardas = config.get_rage_vardas()
+    rage_data = config.get_rage_data()
+
+    rage_vardas = rage_vardas.format(row=rowid)
+    rage_data = rage_data.format(row=rowid)
+
+    execute_googleSheet(data, id, rage_vardas)
+
+    today_date = datetime.today().strftime("%Y-%m-%d")
+    result_data = execute_googleSheet(today_date, id, rage_data)
+    return result_data
 
 
 def set_korteles_id(rowid, data):
@@ -213,7 +223,6 @@ def append_rows(rows: list[str]):
     # rows.append("").append("").append("").append(userCheckFunc)
 
     body = {"values": rows}
-    print(rows)
 
     result = (
         sheet.values()
@@ -231,7 +240,7 @@ def append_rows(rows: list[str]):
 
     rage_func = config.get_rage_func().format(row=rowNumber)
 
-    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0"));"SELECT Col1; Col4 WHERE Col6 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "'");"-")"""
+    formula = f"""=IFERROR( QUERY( ARRAYFORMULA( TEXT( IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "'"); "-")"""
 
     body = {"values": [[formula]]}
 
