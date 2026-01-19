@@ -1,4 +1,4 @@
-import json
+
 import os.path
 from typing import Any
 
@@ -8,6 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from src.config import Config
 from src.helpers.utils import get_fieldnames
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -61,7 +62,7 @@ def get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     return values
 
 
-def padding_row_data(row, padding_needed):
+def __padding_row_data(row, padding_needed):
     data = list(row)
     for _ in range(padding_needed):
         data.append("")
@@ -70,7 +71,7 @@ def padding_row_data(row, padding_needed):
 
 
 def get_sheet_rows(rage_with_cata=False):
-    sheet_id, rage, rage_with_catalog, range_template = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
 
     sheet = connect_to_sheet()
     if rage_with_cata:
@@ -91,25 +92,17 @@ def get_sheet_rows(rage_with_cata=False):
             raise IndexError
 
         padding_needed = len(heads) - len(row)
-        data = padding_row_data(row, padding_needed)
+        data = __padding_row_data(row, padding_needed)
         data_dict = making_dictionary_pairs(heads, data)
         working_sheet.append(data_dict)
     return working_sheet
 
 
-def congig_json() -> tuple[str, str, str, str]:
-    with open("src/.env/sheet.json", "r") as sheet_json:
-        sheet = json.load(sheet_json)
 
-        sheet_id = sheet["sheet_id"]
-        rage = sheet["rage"]
-        rage_with_catalog = sheet["rage_with_catalog"]
-        range_template = ["range_template"]
-    return sheet_id, rage, rage_with_catalog, str(range_template)
 
 
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
-    sheet_id, _, _, range_template = congig_json()
+    sheet_id, _, _, range_template = Config.congig_json()
 
     sheet = connect_to_sheet()
 
@@ -139,8 +132,22 @@ def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
     return set_row(rowid, returnValues)
 
 
+def set_vardas(rowid, returnValues):
+    # Paraso i J Stulpeli
+    # Paraso i K Stulpeli data
+
+    pass
+
+
+def set_korteles_id(rowid, returnValues):
+    # Paraso i H Stulpeli
+    # Paraso i K Stulpeli data
+
+    pass
+
+
 def set_row(rowid, returnValues):
-    sheet_id, rage, rage_with_catalog, range_template = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
 
     range_with_row = range_template.format(row=rowid)
 
@@ -166,7 +173,7 @@ def set_row(rowid, returnValues):
 
 
 def append_rows(rows):
-    sheet_id, rage, rage_with_catalog, range_template = congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config.congig_json()
 
     sheet = connect_to_sheet()
 

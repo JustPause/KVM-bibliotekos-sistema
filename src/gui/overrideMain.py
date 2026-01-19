@@ -480,6 +480,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.filenames = list(self.sheet_rows[0].keys())
 
         self.knygaData = None
+        self.row_id = None
 
     def ShowInputBoxes(self, bool: bool):
         self.AutoriusLable.Show(bool)
@@ -503,7 +504,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
         self.ShowInputBoxes(False)
 
-        for row in self.sheet_rows:
+        for index, row in enumerate(self.sheet_rows):
             if KngosISBNInput in row[self.filenames[3]]:
                 self.KngosISBNRezult.SetLabel(
                     "Surasta knyga" + " " + row[self.filenames[1]]
@@ -512,6 +513,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 self.Layout()
                 self.knygaData = row
                 manual_ISBN_input = False
+                self.row_id = index
                 break
 
         if manual_ISBN_input:
@@ -524,20 +526,6 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
             self.Layout()
 
-        # ---
-
-        korelesInput = self.KorelesInput.GetValue()
-
-        if korelesInput == "":
-            manual_User_input = True
-
-            self.VardasInput.GetValue()
-            self.KlaseInput.GetValue()
-
-        # ---
-    
-        #google sheets set user
-
     @override
     def Isduoti_button(self, event):
         if self.knygaData is None:
@@ -548,7 +536,46 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 self.ISBNInput.GetValue(),
             ]
 
-        print(self.knygaData)
+        # ---
+
+        korelesInput = self.KorelesInput.GetValue()
+
+        if korelesInput == "":
+            print("manual")
+            korelesInput = (
+                self.VardasInput.GetValue() + " " + self.KlaseInput.GetValue()
+            )
+
+        # ---
+
+        manual_User_input = not self.KorelesInput.Enabled
+
+        # ---
+
+        if self.row_id is not None:
+            id = self.row_id + 2
+            print("lenteles id: " + str(id))
+            print(self.knygaData)
+
+            print(
+                "Gavejas: "
+                + korelesInput
+                + " "
+                + "Manual input: "
+                + str(manual_User_input)
+            )
+        else:
+            print("Prideti knyga")
+            print(self.knygaData)
+
+            print(
+                "Gavejas: "
+                + korelesInput
+                + " "
+                + "Manual input: "
+                + str(manual_User_input)
+            )
+
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet

@@ -1080,8 +1080,6 @@ class Isdavimas ( wx.Panel ):
         self.VardasLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Vardas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.VardasLable.Wrap( -1 )
 
-        self.VardasLable.Enable( False )
-
         VardasLayout.Add( self.VardasLable, 0, wx.ALL, 5 )
 
         self.VardasInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1096,8 +1094,6 @@ class Isdavimas ( wx.Panel ):
 
         self.KlaseLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Klase"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KlaseLable.Wrap( -1 )
-
-        self.KlaseLable.Enable( False )
 
         KlaseLayout.Add( self.KlaseLable, 0, wx.ALL, 5 )
 
