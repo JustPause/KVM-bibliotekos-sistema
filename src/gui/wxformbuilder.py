@@ -1080,6 +1080,8 @@ class Isdavimas ( wx.Panel ):
         self.VardasLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Vardas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.VardasLable.Wrap( -1 )
 
+        self.VardasLable.Enable( False )
+
         VardasLayout.Add( self.VardasLable, 0, wx.ALL, 5 )
 
         self.VardasInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1094,6 +1096,8 @@ class Isdavimas ( wx.Panel ):
 
         self.KlaseLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"Klase"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.KlaseLable.Wrap( -1 )
+
+        self.KlaseLable.Enable( False )
 
         KlaseLayout.Add( self.KlaseLable, 0, wx.ALL, 5 )
 
@@ -1403,30 +1407,64 @@ class Gazinimas ( wx.Panel ):
         layout.Fit( self.mainWindowPanel )
         mainLayout.Add( self.mainWindowPanel, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-        data_layout = wx.BoxSizer( wx.HORIZONTAL )
+        data_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.NaudotojoSide = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         kortelesLayout = wx.BoxSizer( wx.VERTICAL )
 
-        self.kortelesLable = wx.StaticText( self.NaudotojoSide, wx.ID_ANY, _(u"korteles"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.kortelesLable.Wrap( -1 )
+        self.KnygosLable = wx.StaticText( self, wx.ID_ANY, _(u"Knygos isbn"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KnygosLable.Wrap( -1 )
 
-        kortelesLayout.Add( self.kortelesLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        self.KnygosLable.SetFont( wx.Font( 16, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
 
-        self.kortelesInput = wx.TextCtrl( self.NaudotojoSide, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        kortelesLayout.Add( self.kortelesInput, 0, wx.ALL|wx.EXPAND, 5 )
+        kortelesLayout.Add( self.KnygosLable, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-
-        kortelesLayout.Add( ( 0, 16), 0, 0, 5 )
-
-        self.testi = wx.Button( self.NaudotojoSide, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        kortelesLayout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+        self.KnygosInput = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PROCESS_ENTER )
+        kortelesLayout.Add( self.KnygosInput, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        self.NaudotojoSide.SetSizer( kortelesLayout )
-        self.NaudotojoSide.Layout()
-        kortelesLayout.Fit( self.NaudotojoSide )
-        data_layout.Add( self.NaudotojoSide, 1, wx.EXPAND |wx.ALL, 25 )
+        kortelesLayout.Add( ( 0, 24), 1, wx.EXPAND, 5 )
+
+
+        data_layout.Add( kortelesLayout, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 64 )
+
+        Grazintojo_Layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        Inner_grazintojo_layout = wx.BoxSizer( wx.HORIZONTAL )
+
+        self.KnygosLable = wx.StaticText( self, wx.ID_ANY, _(u"Grazinta knyga :"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KnygosLable.Wrap( -1 )
+
+        Inner_grazintojo_layout.Add( self.KnygosLable, 0, 0, 5 )
+
+        self.KnygosStaticText = wx.StaticText( self, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.KnygosStaticText.Wrap( -1 )
+
+        Inner_grazintojo_layout.Add( self.KnygosStaticText, 0, wx.LEFT, 5 )
+
+
+        Inner_grazintojo_layout.Add( ( 128, 0), 0, 0, 5 )
+
+        self.NaudotojoLable = wx.StaticText( self, wx.ID_ANY, _(u"Kas grazinto knyga :"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.NaudotojoLable.Wrap( -1 )
+
+        Inner_grazintojo_layout.Add( self.NaudotojoLable, 0, 0, 5 )
+
+        self.NaudotojoStaticText = wx.StaticText( self, wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.NaudotojoStaticText.Wrap( -1 )
+
+        Inner_grazintojo_layout.Add( self.NaudotojoStaticText, 0, wx.LEFT, 5 )
+
+
+        Grazintojo_Layout.Add( Inner_grazintojo_layout, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
+
+
+        data_layout.Add( Grazintojo_Layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+        data_layout.Add( ( 0, 16), 0, 0, 5 )
+
+        self.testi = wx.Button( self, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        data_layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
         mainLayout.Add( data_layout, 1, wx.EXPAND, 5 )
@@ -1436,7 +1474,7 @@ class Gazinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.kortelesInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.KnygosInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):

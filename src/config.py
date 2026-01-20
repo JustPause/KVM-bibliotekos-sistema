@@ -17,6 +17,16 @@ class Config:
             sheet = json.load(sheet_json)
             return sheet["sheet_id"]
 
+    def get_rage_isbn_collom(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["rage_isbn_collom"]
+
+    def get_rage_all(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["rage_all"]
+
     def get_rage(self) -> str:
         with open("src/.env/sheet.json", "r") as sheet_json:
             sheet = json.load(sheet_json)
@@ -37,10 +47,20 @@ class Config:
             sheet = json.load(sheet_json)
             return sheet["rage_korteles"]
 
-    def get_rage_vardas(self) -> str:
+    def get_rage_asmeniniai_duomenys(self) -> str:
         with open("src/.env/sheet.json", "r") as sheet_json:
             sheet = json.load(sheet_json)
-            return sheet["rage_vardas"]
+            return sheet["rage_asmeniniai_duomenys"]
+
+    def get_rage_asmeniniai_duomenys_row(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["rage_asmeniniai_duomenys_row"]
+
+    def get_rage_visos_korteles(self) -> str:
+        with open("src/.env/sheet.json", "r") as sheet_json:
+            sheet = json.load(sheet_json)
+            return sheet["rage_visos_korteles"]
 
     def get_rage_data(self) -> str:
         with open("src/.env/sheet.json", "r") as sheet_json:

@@ -99,6 +99,64 @@ def get_sheet_rows(rage_with_cata=False):
     return working_sheet
 
 
+def get_book_row_with_id(id):
+    config = Config()
+
+    sheet_id = config.get_sheet_id()
+    sheet_range = config.get_range_template()
+
+    f_sheet_range = sheet_range.format(row=id)
+
+    sheet = connect_to_sheet()
+    return sheet.values().get(spreadsheetId=sheet_id, range=f_sheet_range).execute()
+
+
+def get_isbn(isnb):
+    config = Config()
+
+    sheet_id = config.get_sheet_id()
+    sheet_range = config.get_range_template()
+
+    f_sheet_range = sheet_range.format(row=id)
+
+    sheet = connect_to_sheet()
+    return sheet.values().get(spreadsheetId=sheet_id, range=f_sheet_range).execute()
+
+
+def get_isbn_collom():
+    config = Config()
+
+    sheet_id = config.get_sheet_id()
+    sheet_range = config.get_rage_isbn_collom()
+
+    sheet = connect_to_sheet()
+
+    rows = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
+    rows = rows["values"]
+
+    heads = rows[0]
+    rows = rows[1:]
+
+    return rows
+
+
+def get_all_data():
+    config = Config()
+
+    sheet_id = config.get_sheet_id()
+    sheet_range = config.get_rage_all()
+
+    sheet = connect_to_sheet()
+
+    rows = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
+    rows = rows["values"]
+
+    heads = rows[0]
+    rows = rows[1:]
+
+    return rows
+
+
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
     sheet_id, _, _, range_template = Config().congig_json()
 
@@ -128,6 +186,15 @@ def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
     ]
 
     return set_row(rowid, returnValues)
+
+
+def get_korteles_ir_naudotojei():
+    config = Config()
+    sheet_id = config.get_sheet_id()
+    rage = config.get_rage_asmeniniai_duomenys()
+    sheet = connect_to_sheet()
+
+    return __get_data(sheet, sheet_id, rage)
 
 
 def set_vardas(rowid, data):
@@ -203,6 +270,35 @@ def set_row(rowid, data):
         .update(
             spreadsheetId=sheet_id,
             range=range_with_row,
+            valueInputOption="USER_ENTERED",
+            body=body,
+        )
+        .execute()
+    )
+
+    return result
+
+
+def set_row_retruning_book(id):
+    config = Config()
+    sheet = connect_to_sheet()
+
+    sheet_id = config.get_sheet_id()
+    rage = config.get_rage_asmeniniai_duomenys_row()
+
+    rage = rage.format(row=id)
+    formula = f"""=IFERROR( QUERY( ARRAYFORMULA( TEXT( IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{id} = ""; "-"; H{id}) & "' OR Col5 = '" & IF(H{id} = ""; "-"; H{id}) & "'"); "-")"""
+    data = ["", formula, ""]
+
+    values = [data]
+
+    body = {"values": values}
+
+    result = (
+        sheet.values()
+        .update(
+            spreadsheetId=sheet_id,
+            range=rage,
             valueInputOption="USER_ENTERED",
             body=body,
         )

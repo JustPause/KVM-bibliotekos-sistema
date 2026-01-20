@@ -8,7 +8,17 @@ import wx
 
 import src.gui.wxformbuilder as wxformbuilder
 from src.barcodeKurimas import barcode_generator
-from src.googleSheets import append_rows, get_sheet_rows, set_korteles_id, set_vardas
+from src.googleSheets import (
+    append_rows,
+    get_all_data,
+    get_book_row_with_id,
+    get_isbn_collom,
+    get_korteles_ir_naudotojei,
+    get_sheet_rows,
+    set_korteles_id,
+    set_row_retruning_book,
+    set_vardas,
+)
 from src.gui.config import ConfigFile
 from src.helpers.utils import (
     addingColumsHeaders,
@@ -533,7 +543,6 @@ class Isdavimas(wxformbuilder.Isdavimas):
 
     @override
     def Isduoti_button(self, event):
-        print(self.knygaData)
         if self.knygaData is None:
             self.knygaData = [
                 self.AutoriusInput.GetValue(),
@@ -625,6 +634,30 @@ class Isdavimas(wxformbuilder.Isdavimas):
 class Grazinimas(wxformbuilder.Gazinimas):
     def __init__(self, parent):
         super().__init__(parent)
+        self.data = get_all_data()
+
+    @override
+    def Enter(self, event):
+        knygos = self.KnygosInput.GetValue()
+
+        if self.data is None:
+            NeSekmingai("Nepavyko gauti duomenu is duomenu bazes")
+            return
+
+        for index, row in enumerate(self.data):
+            if knygos == row[3]:
+                print(row[3])
+                #     print(str(index)+" "+row[0])
+                #     l_index = index + 2
+                    # bookName = row[0]
+                    # userName = row[2]
+
+                    # result = set_row_retruning_book(l_index)
+                    # bookName = get_book_row_with_id(l_index)[1]
+
+                    # self.KnygosStaticText.SetLabel(bookName)
+
+                    # self.NaudotojoStaticText.SetLabel(userName)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):
