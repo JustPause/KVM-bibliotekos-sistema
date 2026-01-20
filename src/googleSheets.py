@@ -70,6 +70,18 @@ def __padding_row_data(row, padding_needed):
     return data
 
 
+def __padding_row_data_v2(rows: list[list[str]], reqerd_len):
+    data = list()
+
+    for row in rows:
+        for _ in range(reqerd_len - len(row)):
+            row.append("")
+
+        data.append(row)
+
+    return data
+
+
 def get_sheet_rows(rage_with_cata=False):
     sheet_id, rage, rage_with_catalog, range_template = Config().congig_json()
 
@@ -134,7 +146,7 @@ def get_isbn_collom():
     rows = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
     rows = rows["values"]
 
-    heads = rows[0]
+    # heads = rows[0]
     rows = rows[1:]
 
     return rows
@@ -154,7 +166,9 @@ def get_all_data():
     heads = rows[0]
     rows = rows[1:]
 
-    return rows
+    edited_rows = __padding_row_data_v2(rows, len(heads))
+
+    return edited_rows
 
 
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
@@ -284,14 +298,14 @@ def set_row_retruning_book(id):
     sheet = connect_to_sheet()
 
     sheet_id = config.get_sheet_id()
-    rage = config.get_rage_asmeniniai_duomenys_row()
+    rage = config.get_rage_asmeniniai_duomenys_row_plius_data()
 
     rage = rage.format(row=id)
+
     formula = f"""=IFERROR( QUERY( ARRAYFORMULA( TEXT( IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{id} = ""; "-"; H{id}) & "' OR Col5 = '" & IF(H{id} = ""; "-"; H{id}) & "'"); "-")"""
-    data = ["", formula, ""]
 
+    data = ["", formula, "", ""]
     values = [data]
-
     body = {"values": values}
 
     result = (

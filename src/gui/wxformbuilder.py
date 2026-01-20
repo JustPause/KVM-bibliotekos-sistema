@@ -1442,7 +1442,7 @@ class Gazinimas ( wx.Panel ):
         Inner_grazintojo_layout.Add( self.KnygosStaticText, 0, wx.LEFT, 5 )
 
 
-        Inner_grazintojo_layout.Add( ( 128, 0), 0, 0, 5 )
+        Inner_grazintojo_layout.Add( ( 300, 0), 0, 0, 5 )
 
         self.NaudotojoLable = wx.StaticText( self, wx.ID_ANY, _(u"Kas grazinto knyga :"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.NaudotojoLable.Wrap( -1 )
@@ -1458,7 +1458,7 @@ class Gazinimas ( wx.Panel ):
         Grazintojo_Layout.Add( Inner_grazintojo_layout, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
-        data_layout.Add( Grazintojo_Layout, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        data_layout.Add( Grazintojo_Layout, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT|wx.LEFT, 170 )
 
 
         data_layout.Add( ( 0, 16), 0, 0, 5 )

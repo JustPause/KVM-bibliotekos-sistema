@@ -11,9 +11,6 @@ from src.barcodeKurimas import barcode_generator
 from src.googleSheets import (
     append_rows,
     get_all_data,
-    get_book_row_with_id,
-    get_isbn_collom,
-    get_korteles_ir_naudotojei,
     get_sheet_rows,
     set_korteles_id,
     set_row_retruning_book,
@@ -215,8 +212,6 @@ class IsCSV(wxformbuilder.IsCSV):
                     sheet_row["isbn"] = sheet_row.pop("Kodas")
 
                 if row[fieldnames[1]] == sheet_row[fieldnames[1]]:
-                    # tmp_index = index + 2
-
                     pfrd = PromptForReplacementDialog(
                         self, old_row=sheet_row, new_row=row
                     )
@@ -635,10 +630,14 @@ class Grazinimas(wxformbuilder.Gazinimas):
     def __init__(self, parent):
         super().__init__(parent)
         self.data = get_all_data()
+        self.l_index = None
 
     @override
     def Enter(self, event):
         knygos = self.KnygosInput.GetValue()
+
+        bookName = None
+        userName = None
 
         if self.data is None:
             NeSekmingai("Nepavyko gauti duomenu is duomenu bazes")
@@ -646,18 +645,17 @@ class Grazinimas(wxformbuilder.Gazinimas):
 
         for index, row in enumerate(self.data):
             if knygos == row[3]:
-                print(row[3])
-                #     print(str(index)+" "+row[0])
-                #     l_index = index + 2
-                    # bookName = row[0]
-                    # userName = row[2]
+                self.l_index = index + 2
+                bookName = row[1]
+                userName = row[9]
 
-                    # result = set_row_retruning_book(l_index)
-                    # bookName = get_book_row_with_id(l_index)[1]
+        self.KnygosStaticText.SetLabel(bookName)
+        self.NaudotojoStaticText.SetLabel(userName)
 
-                    # self.KnygosStaticText.SetLabel(bookName)
-
-                    # self.NaudotojoStaticText.SetLabel(userName)
+    @override
+    def next(self, event):
+        set_row_retruning_book(self.l_index)
+        Sekmingai()
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):
