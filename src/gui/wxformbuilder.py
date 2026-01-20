@@ -1134,8 +1134,8 @@ class Isdavimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.KngosISBNInput.Bind( wx.EVT_LEAVE_WINDOW, self.EnterISBN )
         self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
-        self.KortelesInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKortele )
         self.KortelesRezult.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
         self.Pakeisti.Bind( wx.EVT_LEFT_DOWN, self.Pakeisti_button )
         self.VardasInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedName )
@@ -1150,8 +1150,6 @@ class Isdavimas ( wx.Panel ):
     def EnterISBN( self, event ):
         event.Skip()
 
-    def SlectedKortele( self, event ):
-        event.Skip()
 
     def Isduoti_button( self, event ):
         event.Skip()
@@ -1474,6 +1472,7 @@ class Gazinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
+        self.KnygosInput.Bind( wx.EVT_LEAVE_WINDOW, self.Enter )
         self.KnygosInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -1484,6 +1483,7 @@ class Gazinimas ( wx.Panel ):
     # Virtual event handlers, override them in your derived class
     def Enter( self, event ):
         event.Skip()
+
 
     def next( self, event ):
         event.Skip()
