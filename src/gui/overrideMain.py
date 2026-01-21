@@ -229,7 +229,7 @@ class IsCSV(wxformbuilder.IsCSV):
 
         request = append_rows(returnRows)
 
-        print(request)
+        Sekmingai()
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
@@ -237,15 +237,17 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        csvikur = self.configFile.getUserData("lentelessukurimas")
+        path = self.configFile.getUserData("lentelessukurimas")
 
-        self.textCtrl1.SetValue(csvikur)
+        self.textCtrl1.SetValue(path)
 
     @override
     def SelectingPath(self, event):
         path = FileDialogWithExtesion(self, "csv", False)
 
         self.configFile.setUserData("lentelessukurimas", path)
+        
+        self.textCtrl1.SetValue(path)
 
     @override
     def next(self, event):

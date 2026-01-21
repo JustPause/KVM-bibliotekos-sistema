@@ -27,7 +27,9 @@ Tai atlieka programa **ISBNGenotator.py** – ji paima duomenis iš **.csv** fai
 
 ## Naudojimo instrucija
 
-[Naudojimo_Instrucija](./naudojimo_Instrucija.md)
+```sh
+git clone https://github.com/JustPause/KVM-bibliotekos-sistema.git
+```
 
 ---
 

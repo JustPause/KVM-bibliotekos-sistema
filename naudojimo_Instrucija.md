@@ -1,1 +1,0 @@
-# Naudojimo instrucija

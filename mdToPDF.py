@@ -32,7 +32,7 @@ def makeMDtoPDF(md_path:Path, css_path: Path):
 """
 
     HTML(string=html, base_url=md_path.parent).write_pdf(
-    Path("pdfs") / md_path.with_suffix(".pdf").name,
+    Path("docs") / md_path.with_suffix(".pdf").name,
     stylesheets=[CSS(filename=css_path)]
 )
 
