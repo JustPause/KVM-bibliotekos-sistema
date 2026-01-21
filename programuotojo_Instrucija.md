@@ -3,23 +3,44 @@
 ###### versija: 0.1.0 
 ###### Data: 2026 01 21
 	
-Programa leidzia lengviau atlikti darbus bibliotekos google sheet leteliai. Programa yra padaryta sesifiskai pagal Kauno Valdorfo mokyklos reikalavimus, del to galimai nebutu tobulai pritaikia kitoms bibliotekos sistemoms, bet suprantant **koda** galima prisideti koki tik nori fincianaluma. Programa leidiza bibliotekos administratoriai (-ui), atlikti knygu surasima, barkodu sukurima ir paruosima atspauzdinti, isdavima bei sugrazinima.
+Programa leidžia lengviau atlikti darbus bibliotekos **Google Sheets** lentelėse. Ji sukurta specifiškai pagal **Kauno Valdorfo mokyklos** reikalavimus, todėl gali nebūti idealiai pritaikyta kitoms bibliotekų sistemoms. Tačiau, suprantant **kodą**, galima nesunkiai pridėti bet kokį norimą funkcionalumą.
+
+Programa leidžia bibliotekos administratoriui (-ei):
+
+- Atlikti knygų inventorizaciją,
+- Kurti barkodus ir paruošti juos spausdinimui,
+- Vykdyti knygų išdavimą ir grąžinimą.
 
 ## Auditorija
 
-Programa yra skirta paprastam naudotojui vadinamam **galutins vartotojas**, programos tikslas yra buti suprantamai ir parastai siai zmoniu grupei.
+Programa skirta paprastam naudotojui – *galutiniam vartotojui*. Pagrindinis tikslas – būti kuo *paprastesnei*, *aiškesnei* ir *lengvai naudojamai* šiai naudotojų grupei.
 
 ## Sisteminiai reikalavimai
 
-Programa geriausiai istestuota ant **Linux (Linux 6.12)**, **Debian** ir **Manjaro**. Programa kartais isoka iki 3 GB ram naudojumo, kai naudojema automatine knygu surasimo sistema. Del to rekomaneuoja buti bent 4GB ram. Procesoriaus nereikia galingo gal tik modrnaus kad palaikytu operacines sitemos funcionaluma. Bendros vietos nereikia daug, bent 2GB butu patenkinama. programa daug duomenu neisaugo kompiuterija
+Programa geriausiai ištestuota **Linux (Linux 6.12)** aplinkoje, ypač **Debian** ir **Manjaro** sistemose.
+
+- RAM naudojimas kartais gali siekti iki **3 GB**, ypač naudojant automatinę knygų surašymo sistemą.
+- Rekomenduojama turėti bent **4 GB RAM**.
+- Procesorius gali būti vidutinio našumo – svarbu, kad palaikytų operacinės sistemos funkcionalumą.
+- Disko vietos poreikis nedidelis – **apie 2 GB**.
+- Programa daug duomenų kompiuteryje nesaugo.
 
 ## Ideigimas
 
-Ideigent programa reikes pasinaudoti terminalu, bei keliomis programomis. Pati sverbiausia **Python3** programa, su **python3-dev** palaikimu, systema taip pat turetu tureti **build-essential**. programa naudotoja:
+Diegiant programą reikės naudotis terminalu ir keliomis pagalbinėmis programomis.
+
+Svarbiausia:
+
+- **Python 3** su **python3-dev**
+- **build-essential**
+
+Programa naudoja šias sistemas ir bibliotekas:
 
 ## Sistemos
 
 ### wxPython
+
+Reikalingos bibliotekos:
 
 > libgtk-3-dev
 > libglib2.0-dev
@@ -58,6 +79,8 @@ Ideigent programa reikes pasinaudoti terminalu, bei keliomis programomis. Pati s
 
 ### Internetas & SSL
 
+Naudojamos bibliotekos:
+
 > google-api-*
 > requests
 > oauthlib
@@ -65,13 +88,13 @@ Ideigent programa reikes pasinaudoti terminalu, bei keliomis programomis. Pati s
 
 ## Diegimo vadovas
 
-yra keli budai gauti programa viens per git kitas, per narsykle arba terminalo alternatva [nuorodoje](https://github.com/JustPause/KVM-bibliotekos-sistema)
+Yra keli būdai gauti programą: per Git, per naršyklę arba naudojant terminalą. Alternatyvus būdas pateiktas šioje [nuorodoje](https://github.com/JustPause/KVM-bibliotekos-sistema)
 
 ```sh
 git clone https://github.com/JustPause/KVM-bibliotekos-sistema.git
 ```
 
-šaltinio koda (source code) galima patartina per terminala atsisiusti pagalbines biblioetelas, man bent reikalaja sukurti vituralia aplinka visoms salutinems bibliotekoms
+Rekomenduojama visas priklausomybes diegti **virtualioje aplinkoje**:
 
 ```sh
 python3 -m venv .venv 
@@ -79,25 +102,27 @@ source .vvenv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-Jei sekmingai vakyko vadinasi galima paleisti programa ir paziurtei kaip ji atrodo, tai galima padaryti su komanda
+Jeigu diegimas pavyko, programą galima paleisti **GUI** režimu:
 
 ```sh
 python3 ./pagrindinis.py --gui     
 ```
 
-Norint sudaryti atskira programa reiketu panaudoti
-Prisijungimas labai svarbus nes be jo nevieks susijungimas su google sheets lentelia
+## Programos sukūrimas (build)
+
+Norint sukurti atskirą vykdomąjį failą, reikia paleisti:
 
 ```sh
 python3 ./build.py
 ```
 
-naujemia aplankalia **dist** turetu buti vienas norimas failas. 
+Prisijungimas yra labai svarbus – be jo neveiks ryšys su **Google Sheets** lentelėmis.
+
+Sukūrimo metu aplanke **dist/** turėtų atsirasti vienas vykdomasis failas.
 
 ## Greitas paleidimas (Quick Start)
 
-Taigi greita komanda viskam greitai padaryti
-aplankalia **dist** turetu buti vienas norimas failas
+Visa komanda vienu kartu:
 
 ```sh
 git clone https://github.com/JustPause/KVM-bibliotekos-sistema.git
@@ -106,20 +131,32 @@ source .vvenv/bin/activate
 pip3 install -r requirements.txt
 python3 ./build.py
 ```
+
+Gautas failas bus aplanke dist/.
 
 # TODO
 - Pagrindinių funkcijų aprašymas
 	- Skyrius po skyriaus: kas daroma, kaip naudotis, pavyzdinės užduotys su veiksmų seka ir ekrano pavyzdžiais.
 
 ## konfigūracija ir nustatymai
-Visa konfigutacija yra ```sh src/.env/sheet.json```
-Kitas config.json failas tesiog duoda mano kontaktus ir pragramos konfiguracija kur nusistato beveikent. 
+Visa pagrindinė konfigūracija yra faile: 
+
+```sh
+src/.env/sheet.json
+```
+
+Failas ```config.json``` pateikia autoriaus kontaktus bei pagrindinius programos nustatymus.
 
 ## Saugumas ir privatumas
-Daug saugumo nera, tesiog reikia neaviesinta savo google api rakto ir pagrinde viskas
+
+Aukšto lygio saugumo nėra. Svarbiausia:
+
+- neviešinti **Google API** rakto,
+- saugoti prisijungimo duomenis.
 
 ## Licenzija
-GPL-3
+
+GPL-3 [LICENSE](LICENSE.md)
 
 ## Kontaktai ir pagalba
 Butu gerai tiesie i [GitHub](https://github.com/JustPause/KVM-bibliotekos-sistema)
