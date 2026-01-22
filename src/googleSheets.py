@@ -355,7 +355,7 @@ def append_rows(rows: list[str]):
 
     rage_func = config.get_rage_func().format(row=rowNumber)
 
-    formula = getFormula(id, config)
+    formula = getFormula(rowNumber, config)
 
     body = {"values": [[formula]]}
 
