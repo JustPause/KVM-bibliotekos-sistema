@@ -293,6 +293,11 @@ def set_row(rowid, data):
     return result
 
 
+def getFormula(id, config):
+    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{id} = ""; "-"; H{id}) & "' OR Col5 = '" & IF(H{id} = ""; "-"; H{id}) & "'"); "-")"""
+    return formula
+
+
 def set_row_retruning_book(id):
     config = Config()
     sheet = connect_to_sheet()
@@ -302,7 +307,7 @@ def set_row_retruning_book(id):
 
     rage = rage.format(row=id)
 
-    formula = f"""=IFERROR( QUERY( ARRAYFORMULA( TEXT( IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{id} = ""; "-"; H{id}) & "' OR Col5 = '" & IF(H{id} = ""; "-"; H{id}) & "'"); "-")"""
+    formula = getFormula(id, config)
 
     data = ["", formula, "", ""]
     values = [data]
@@ -350,7 +355,7 @@ def append_rows(rows: list[str]):
 
     rage_func = config.get_rage_func().format(row=rowNumber)
 
-    formula = f"""=IFERROR( QUERY( ARRAYFORMULA( TEXT( IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "' OR Col5 = '" & IF(H{rowNumber} = ""; "-"; H{rowNumber}) & "'"); "-")"""
+    formula = getFormula(id, config)
 
     body = {"values": [[formula]]}
 
