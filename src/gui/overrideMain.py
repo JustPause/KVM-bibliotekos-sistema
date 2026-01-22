@@ -40,8 +40,12 @@ def NeSekmingai(text) -> None:
     wx.MessageBox(text, "Rezultatas", wx.OK | wx.ICON_INFORMATION)
 
 
-def Sekmingai() -> None:
-    wx.MessageBox("Sėkmingai pavyko", "Rezultatas", wx.OK | wx.ICON_INFORMATION)
+def Sekmingai(parent) -> None:
+    wx.MessageBox("Sėkmingai pavyko", 
+            "Rezultatas",
+            wx.OK | wx.ICON_INFORMATION, 
+            parent)
+    wx.CallAfter(parent.SetFocus)
 
 
 def KlaidingasTakas() -> None:
@@ -137,7 +141,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 
         if len(rows) != 0:
             form_buffer_to_pdf(rows, path)
-            Sekmingai()
+            Sekmingai(self)
         else:
             NeSekmingai("Parasykite bent viena eilute")
 
@@ -164,12 +168,9 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
         try:
             barcode_generator(int(count), dest_path)
-            Sekmingai()
+            Sekmingai(self)
         except ValueError:
             NeSekmingai("Kažkas nepavyko")
-
-        event.Skip()
-
 
 class IsCSV(wxformbuilder.IsCSV):
     def __init__(self, parent):
@@ -229,7 +230,7 @@ class IsCSV(wxformbuilder.IsCSV):
 
         request = append_rows(returnRows)
 
-        Sekmingai()
+        Sekmingai(self)
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
@@ -261,7 +262,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
             )
             writer.writeheader()
 
-        Sekmingai()
+        Sekmingai(self)
 
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
@@ -597,7 +598,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.MetaiInput.SetValue("")
         self.ISBNInput.SetValue("")
 
-        Sekmingai()
+        Sekmingai(self)
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
@@ -657,7 +658,7 @@ class Grazinimas(wxformbuilder.Gazinimas):
     @override
     def next(self, event):
         set_row_retruning_book(self.l_index)
-        Sekmingai()
+        Sekmingai(self)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):

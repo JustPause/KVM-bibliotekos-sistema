@@ -279,8 +279,8 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         input1_layout.Add( ( 16, 0), 0, 0, 5 )
 
         self.inputText1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.inputText1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.inputText1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.inputText1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.inputText1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input1_layout.Add( self.inputText1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -410,7 +410,7 @@ class ISBNkoduAtspauzdinimas ( wx.Panel ):
 
         # Cell Defaults
         self.table.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-        layout.Add( self.table, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        layout.Add( self.table, 0, wx.EXPAND, 5 )
 
 
         layout.Add( ( 0, 16), 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
