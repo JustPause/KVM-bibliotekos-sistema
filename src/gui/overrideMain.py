@@ -41,10 +41,7 @@ def NeSekmingai(text) -> None:
 
 
 def Sekmingai(parent) -> None:
-    wx.MessageBox("Sėkmingai pavyko", 
-            "Rezultatas",
-            wx.OK | wx.ICON_INFORMATION, 
-            parent)
+    wx.MessageBox("Sėkmingai pavyko", "Rezultatas", wx.OK | wx.ICON_INFORMATION, parent)
     wx.CallAfter(parent.SetFocus)
 
 
@@ -171,6 +168,7 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
             Sekmingai(self)
         except ValueError:
             NeSekmingai("Kažkas nepavyko")
+
 
 class IsCSV(wxformbuilder.IsCSV):
     def __init__(self, parent):
@@ -405,7 +403,7 @@ class Patikrinti(wxformbuilder.Patikrinti):
             self.pavadinimas_output.SetLabel(text)
             self.metai_output.SetLabel(text)
             self.isbn_output.SetLabel(text)
-            self.katalogas_output.SetLabel("TODO")
+            self.katalogas_output.SetLabel(text)
 
         self.ISBN_window_input.SetValue("")
         self.ISBN_window_input.SetFocus()
@@ -493,11 +491,6 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.row_id = None
 
     def ShowInputBoxes(self, bool: bool):
-        self.AutoriusInput.SetValue("")
-        self.PavadinimasInput.SetValue("")
-        self.MetaiInput.SetValue("")
-        self.ISBNInput.SetValue("")
-
         self.AutoriusLable.Show(bool)
         self.AutoriusInput.Show(bool)
 
@@ -548,6 +541,11 @@ class Isdavimas(wxformbuilder.Isdavimas):
                 self.MetaiInput.GetValue(),
                 self.ISBNInput.GetValue(),
             ]
+
+            self.AutoriusInput.SetValue("")
+            self.PavadinimasInput.SetValue("")
+            self.MetaiInput.SetValue("")
+            self.ISBNInput.SetValue("")
 
             if self.knygaData[1] == "":
                 NeSekmingai("Reikia bent pavadinimo")
