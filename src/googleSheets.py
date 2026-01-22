@@ -294,7 +294,7 @@ def set_row(rowid, data):
 
 
 def getFormula(id, config):
-    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1; Col4 WHERE Col6 = '" & IF(H{id} = ""; "-"; H{id}) & "' OR Col5 = '" & IF(H{id} = ""; "-"; H{id}) & "'"); "-")"""
+    formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1, Col4 WHERE Col6 = '"  & IF(H{id} = ""; "-"; H{id}) &  "' OR Col5 = '"  & IF(H{id} = ""; "-"; H{id}) &  "'");"-")"""
     return formula
 
 
