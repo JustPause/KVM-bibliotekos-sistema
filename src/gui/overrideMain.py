@@ -507,6 +507,9 @@ class Isdavimas(wxformbuilder.Isdavimas):
     def EnterISBN(self, event):
         KngosISBNInput = self.KngosISBNInput.GetValue()
 
+        if KngosISBNInput == "":
+            return
+
         manual_ISBN_input = True
 
         self.ShowInputBoxes(False)
