@@ -354,10 +354,10 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
 
 ###########################################################################
-## Class ISNBkoduAtspauzdinimas
+## Class ISBNkoduAtspauzdinimas
 ###########################################################################
 
-class ISNBkoduAtspauzdinimas ( wx.Panel ):
+class ISBNkoduAtspauzdinimas ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 1024,720 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
@@ -372,7 +372,7 @@ class ISNBkoduAtspauzdinimas ( wx.Panel ):
 
         title_layout = wx.BoxSizer( wx.VERTICAL )
 
-        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"ISNB kodu atspauždinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"ISBN kodu atspauždinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.title.Wrap( -1 )
 
         self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )

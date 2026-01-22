@@ -108,13 +108,13 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
         return bitmap_path
 
 
-class ISNBkoduAtspauzdinimas(wxformbuilder.ISNBkoduAtspauzdinimas):
+class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        ISNBkoduAtspauzdinimas = self.configFile.getUserData("ISNBkoduAtspauzdinimas")
+        ISBNkoduAtspauzdinimas = self.configFile.getUserData("ISNBkoduAtspauzdinimas")
 
-        self.textCtrl1.SetValue(ISNBkoduAtspauzdinimas)
+        self.textCtrl1.SetValue(ISBNkoduAtspauzdinimas)
 
     @override
     def SelectingPath(self, event) -> None:
@@ -246,7 +246,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
         path = FileDialogWithExtesion(self, "csv", False)
 
         self.configFile.setUserData("lentelessukurimas", path)
-        
+
         self.textCtrl1.SetValue(path)
 
     @override
@@ -432,7 +432,7 @@ class SideBar(wxformbuilder.SideBar):
         CLASS_NAME_AND_LABLES = [
             {"Class": KurtiNaujusBarkodus, "Label": "Kurti naujus barkodus"},
             {
-                "Class": ISNBkoduAtspauzdinimas,
+                "Class": ISBNkoduAtspauzdinimas,
                 "Label": "ISBN kodu atspauždinimas",
             },
             {"Class": IsCSV, "Label": "CSV duomenu perkelimas"},
