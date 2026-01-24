@@ -1183,7 +1183,7 @@ class Patikrinti ( wx.Panel ):
 
         mainLayout.Add( ( 0, 40), 0, 0, 5 )
 
-        self.Title = wx.StaticText( self, wx.ID_ANY, _(u"Didzioji lentele"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.Title = wx.StaticText( self, wx.ID_ANY, _(u"Didžioji lentelė"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.Title.Wrap( -1 )
 
         self.Title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
@@ -1389,7 +1389,7 @@ class Gazinimas ( wx.Panel ):
         self.title = wx.StaticText( self.mainWindowPanel, wx.ID_ANY, _(u"Grąžinimas"), wx.DefaultPosition, wx.DefaultSize, 0 )
         self.title.Wrap( -1 )
 
-        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Playfair Display" ) )
+        self.title.SetFont( wx.Font( 28, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Playfair Display" ) )
 
         title_layout.Add( self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
