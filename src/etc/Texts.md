@@ -1,78 +1,89 @@
-## Use Case Diagram.drawio
+Use Case Diagram.drawio
+
 
 Programos paleidimas
 
-Pasirinkite kokia funcija norite atlikti
+Pasirinkite, kokią funkciją norite atlikti
 
-Irasyti knyga su barkodu
+Įrašyti knygą su barkodu
 
-Susijunkti su ibilioteka
+Susijungti su iBiblioteka
 
-Pagal barkoda dauti duomenis
+Pagal barkodą gauti duomenis
 
-Irasyti knyga be barkodo
- bet su ISNB
+Įrašyti knygą be barkodo,
 
-Ranka nurasyti barkoda
+bet su ISBN
 
-Atspauzdinti
+Ranka nurašyti barkodą
 
-Irasyti knyga be nieko
+Atspausdinti
 
-Ranka nurasyti duomenis
+Įrašyti knygą be nieko
 
-Locali lentele
+Ranka nurašyti duomenis
 
-Patikrinti knygas esancias 
-duomenu bazeja
+Lokali lentelė
 
-ISNB kodas
+Patikrinti knygas, esančias
 
-Ranke ikelema
-i google 
-sheets
+duomenų bazėje
 
-Atspauzdinti duoemis
+ISBN kodas
 
-Atspauzdinti
+Rankiniu būdu įkeliama
 
-Nuotoline lentele
+į Google Sheets
 
-## Process Activity Diagrams.drawio
+Atspausdinti duomenis
 
-Pasiema knyga
+Atspausdinti
 
-Ar yra laisvu atspauzdintu barkodu
+Nuotolinė lentelė
+
+
+---
+
+Process Activity Diagrams.drawio
+
+
+Pasiimama knyga
+
+Ar yra laisvų atspausdintų barkodų
 
 Ar yra barkodas ant knygos galo
 
-Atspauzdinti barkodus
+Atspausdinti barkodus
 
-Nurasyti barkoda
+Nurašyti barkodą
 
-Atspaudinti karkoda
+Atspausdinti barkodą
 
 Priklijuoti
 
-Nuskaityti barkoda
+Nuskaityti barkodą
 
-Paiimti duomenis is iBiblioteka
+Paimti duomenis iš iBiblioteka
 
-Jei neranda duomenu juos papraso irasyti
+Jei neranda duomenų, juos paprašo įrašyti
 
-Irasyti Naujus duomenis
+Įrašyti naujus duomenis
 
-Paklausti naudotojo ar anaujinti google sheet su naujais duomenimis
+Paklausti naudotojo, ar atnaujinti Google Sheet su naujais duomenimis
 
-Patikrina Google sheet ar yra dublikatu
+Patikrina Google Sheet, ar yra dublikatų
 
-Ivedami nauji duomenys
+Įvedami nauji duomenys
 
-Isaugomi duomenys pagrindineje lenteleja
+Išsaugomi duomenys pagrindinėje lentelėje
 
-## Naudotojai
 
-Surasyti knygas
+---
+
+Naudotojai
+
+
+Surašyti knygas
 
 iBiblioteka
 
@@ -80,26 +91,30 @@ Sutikrinti knygas
 
 Google Sheet
 
-Sukurti PDF lapa spauzdinimui
+Sukurti PDF lapą spausdinimui
 
-## Component diagrama ir jos aprašymas
 
-Šoninis Langas
+---
+
+Component diagrama ir jos aprašymas
+
+
+Šoninis langas
 
 Pagrindinis langas
 
 KurtiNaujusBarkodus
 
-ISBNkoduAtspauzdinimas
+ISBNKoduAtspausdinimas
 
-IsCSV
+IšCSV
 
 SukurtiCSV
 
-IsKlaveturosSkaitytuvo
+IšKlaviatūrosSkaitytuvo
 
 Patikrinti
 
-Isdavimas
+Išdavimas
 
-Grazinimas
+Grąžinimas

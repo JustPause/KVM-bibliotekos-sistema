@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ZAAEYxy-JoWDUkcFrf78" name="Page-1">
-        <mxGraphModel dx="1066" dy="502" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="372" dy="570" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -18,7 +18,7 @@
                         <mxPoint x="-21" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="5" value="Surasyti knygas" style="ellipse;" parent="1" vertex="1">
+                <mxCell id="5" value="Surašyti knygas" style="ellipse;" parent="1" vertex="1">
                     <mxGeometry x="200" y="80" width="180" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="6" target="24" edge="1">
@@ -29,7 +29,7 @@
                 <mxCell id="6" value="Sutikrinti knygas" style="ellipse;" parent="1" vertex="1">
                     <mxGeometry x="200" y="150" width="180" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="Sukurti PDF lapa spauzdinimui" style="ellipse;" parent="1" vertex="1">
+                <mxCell id="7" value="Sukurti PDF lapą spausdinimui" style="ellipse;" parent="1" vertex="1">
                     <mxGeometry x="200" y="220" width="180" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="11" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;jumpStyle=line;" parent="1" source="2" target="5" edge="1">

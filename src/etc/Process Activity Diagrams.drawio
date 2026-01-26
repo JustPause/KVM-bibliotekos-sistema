@@ -1,13 +1,13 @@
 <mxfile host="65bd71144e">
     <diagram id="V9BDwPBMHRrcfCa0-BD2" name="Page-1">
-        <mxGraphModel dx="627" dy="295" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="216" dy="331" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="swimlane;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="swimlane;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;html=1;" parent="1" vertex="1">
                     <mxGeometry x="180" y="20" width="520" height="750" as="geometry"/>
                 </mxCell>
-                <mxCell id="44" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2" source="43" target="46">
+                <mxCell id="44" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="2" source="43" target="46" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="160" y="560" as="targetPoint"/>
                         <Array as="points">
@@ -18,28 +18,28 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="48" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2" source="41" target="47">
+                <mxCell id="48" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="2" source="41" target="47" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="180" y="430"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="3" value="Naudotojas" style="swimlane;startSize=20;html=1;" vertex="1" parent="2">
+                <mxCell id="3" value="Naudotojas" style="swimlane;startSize=20;html=1;" parent="2" vertex="1">
                     <mxGeometry y="20" width="400" height="730" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="3" source="6" target="14">
+                <mxCell id="8" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="6" target="14" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="125" y="80" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="6" value="Pasiema knyga" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="3">
+                <mxCell id="6" value="Pasiema knyga" style="rounded=1;whiteSpace=wrap;html=1;" parent="3" vertex="1">
                     <mxGeometry x="135" y="30" width="100" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="Nuskaityti barkoda" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="3">
+                <mxCell id="10" value="Nuskaityti barkodą" style="whiteSpace=wrap;html=1;rounded=1;" parent="3" vertex="1">
                     <mxGeometry x="120" y="330" width="120" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="3" source="14" target="31">
+                <mxCell id="20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="14" target="31" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="250" y="120" as="targetPoint"/>
                         <Array as="points">
@@ -47,10 +47,10 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="14" value="Ar yra isnb" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=10;" vertex="1" parent="3">
+                <mxCell id="14" value="Ar yra isnb" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=10;" parent="3" vertex="1">
                     <mxGeometry x="135" y="80" width="100" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="3" source="22" target="27">
+                <mxCell id="29" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="22" target="27" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="165" y="200" as="targetPoint"/>
                         <Array as="points">
@@ -60,10 +60,10 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="22" value="Ar yra laisvu atspauzdintu barkodu" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" vertex="1" parent="3">
+                <mxCell id="22" value="Ar yra laisvų atspausdintų barkodų" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" parent="3" vertex="1">
                     <mxGeometry x="35" y="120" width="100" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="3" source="14" target="22">
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="14" target="22" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="375" y="130" as="sourcePoint"/>
                         <mxPoint x="360" y="160" as="targetPoint"/>
@@ -72,22 +72,22 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="37" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="3" source="27" target="10">
+                <mxCell id="37" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="3" source="27" target="10" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="27" value="Priklijuoti" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="3">
+                <mxCell id="27" value="Priklijuoti" style="whiteSpace=wrap;html=1;rounded=1;" parent="3" vertex="1">
                     <mxGeometry x="20" y="330" width="70" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="34" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=none;" edge="1" parent="3" source="31" target="33">
+                <mxCell id="34" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=none;" parent="3" source="31" target="33" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="170" y="145"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="38" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="3" source="31" target="10">
+                <mxCell id="38" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="3" source="31" target="10" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="340" y="145"/>
@@ -95,16 +95,16 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="31" value="Ar yra barkodas ant knygos galo" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" vertex="1" parent="3">
+                <mxCell id="31" value="Ar yra barkodas ant knygos galo" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" parent="3" vertex="1">
                     <mxGeometry x="183" y="120" width="135" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="33" value="Nurasyti barkoda" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="3">
+                <mxCell id="33" value="Nurašyti barkodą" style="whiteSpace=wrap;html=1;rounded=1;" parent="3" vertex="1">
                     <mxGeometry x="121" y="240" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="Paklausti naudotojo ar anaujinti google sheet su naujais duomenimis" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" vertex="1" parent="3">
+                <mxCell id="46" value="Paklausti naudotojo, ar atnaujinti Google Sheet su naujais duomenimis" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=20;" parent="3" vertex="1">
                     <mxGeometry x="140" y="540" width="160" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="51" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="3" source="47" target="52">
+                <mxCell id="51" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="47" target="52" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="85" y="550" as="targetPoint"/>
                         <Array as="points">
@@ -112,13 +112,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="47" value="Jei neranda duomenu juos papraso irasyti" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=10;" vertex="1" parent="3">
+                <mxCell id="47" value="Jei neranda duomenų, juos paprašo įrašyti" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;size=10;" parent="3" vertex="1">
                     <mxGeometry x="100" y="440" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="52" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Irasyti Naujus duomenis&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="3">
+                <mxCell id="52" value="Įrašyti naujus duomenis" style="whiteSpace=wrap;html=1;rounded=1;" parent="3" vertex="1">
                     <mxGeometry x="28" y="510" width="72" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="58" style="edgeStyle=none;html=1;" edge="1" parent="3" source="57">
+                <mxCell id="58" style="edgeStyle=none;html=1;" parent="3" source="57" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="460" y="660" as="targetPoint"/>
                         <Array as="points">
@@ -126,10 +126,10 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="57" value="Ivedami nauji duomenys" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="3">
+                <mxCell id="57" value="Įvedami nauji duomenys" style="rounded=1;whiteSpace=wrap;html=1;" parent="3" vertex="1">
                     <mxGeometry x="270" y="620" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="54" style="edgeStyle=none;html=1;" edge="1" parent="3" source="46" target="57">
+                <mxCell id="54" style="edgeStyle=none;html=1;" parent="3" source="46" target="57" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="320" y="590" as="targetPoint"/>
                         <Array as="points">
@@ -137,32 +137,32 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="4" value="Sistema" style="swimlane;startSize=20;html=1;" vertex="1" parent="2">
+                <mxCell id="4" value="Sistema" style="swimlane;startSize=20;html=1;" parent="2" vertex="1">
                     <mxGeometry x="400" y="20" width="120" height="730" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="Atspaudinti karkoda" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="4">
+                <mxCell id="13" value="Atspausdinti barkodą" style="whiteSpace=wrap;html=1;rounded=1;" parent="4" vertex="1">
                     <mxGeometry x="10" y="280" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" value="Atspauzdinti barkodus" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="4">
+                <mxCell id="26" value="Atspausdinti barkodus" style="whiteSpace=wrap;html=1;rounded=1;" parent="4" vertex="1">
                     <mxGeometry x="10" y="200" width="100" height="45" as="geometry"/>
                 </mxCell>
-                <mxCell id="41" value="Paiimti duomenis is iBiblioteka" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="4">
+                <mxCell id="41" value="Paimti duomenis iš iBiblioteka" style="whiteSpace=wrap;html=1;rounded=1;" parent="4" vertex="1">
                     <mxGeometry x="10" y="390" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="43" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Patikrina Google sheet ar yra dublikatu&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="4">
+                <mxCell id="43" value="Patikrina Google Sheet, ar yra dublikatų" style="whiteSpace=wrap;html=1;rounded=1;" parent="4" vertex="1">
                     <mxGeometry x="20" y="520" width="80" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="61" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Isaugomi duomenys pagrindineje lenteleja&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="4">
+                <mxCell id="61" value="Išsaugomi duomenys pagrindinėje lentelėje" style="whiteSpace=wrap;html=1;rounded=1;" parent="4" vertex="1">
                     <mxGeometry x="20" y="660" width="80" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="50" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2" source="47" target="43">
+                <mxCell id="50" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="2" source="47" target="43" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="460" y="480"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="53" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="2" source="52" target="43">
+                <mxCell id="53" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="2" source="52" target="43" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="56" y="605" as="sourcePoint"/>
                         <mxPoint x="300" y="575" as="targetPoint"/>
@@ -173,7 +173,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="35" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" edge="1" parent="2" source="33" target="13">
+                <mxCell id="35" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" parent="2" source="33" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="365" y="320" as="targetPoint"/>
                         <Array as="points">
@@ -181,7 +181,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="40" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2" source="10" target="41">
+                <mxCell id="40" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="2" source="10" target="41" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="365" y="460" as="targetPoint"/>
                         <Array as="points">
@@ -190,7 +190,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="55" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="2" source="46" target="61">
+                <mxCell id="55" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="2" source="46" target="61" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="120" y="610" as="targetPoint"/>
                         <Array as="points">
@@ -199,7 +199,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="36" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" edge="1" parent="2" source="13" target="27">
+                <mxCell id="36" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" parent="2" source="13" target="27" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="40" y="350" as="targetPoint"/>
                         <Array as="points">
@@ -207,7 +207,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="30" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;jumpStyle=line;" edge="1" parent="2" source="26" target="27">
+                <mxCell id="30" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;jumpStyle=line;" parent="2" source="26" target="27" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="200" y="240"/>
@@ -215,7 +215,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="25" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" edge="1" parent="2" source="22" target="26">
+                <mxCell id="25" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=line;" parent="2" source="22" target="26" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="-70" y="210" as="targetPoint"/>
                         <Array as="points">

@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="XFP9pB4hucEtcL7-L3a0" name="Page-1">
-        <mxGraphModel dx="695" dy="261" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="268" dy="295" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -17,13 +17,13 @@
                 <mxCell id="8" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Programos paleidimas&lt;/font&gt;&lt;/span&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="144" y="30" width="100" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;font&gt;Pasirinkite kokia funcija norite atlikti&lt;/font&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="10" value="&lt;div&gt;&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Pasirinkite, kokią funkciją norite atlikti&lt;/font&gt;&lt;/span&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="114" y="140" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" source="11" target="29" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="&lt;font&gt;Irasyti knyga su barkodu&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;shadow=0;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="11" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Įrašyti knygą su barkodu&lt;/font&gt;&lt;/span&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;shadow=0;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="89" y="245" width="210" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="34" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="13" target="33" edge="1">
@@ -32,19 +32,19 @@
                 <mxCell id="38" style="edgeStyle=none;html=1;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="13" target="16" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="&lt;div&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;font&gt;Irasyti knyga be barkodo&lt;/font&gt;&lt;div&gt;&lt;font&gt;&amp;nbsp;bet su ISNB&lt;/font&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="13" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Įrašyti knygą be barkodo,&lt;/font&gt;&lt;/span&gt;&lt;div&gt;&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp;bet su ISBN&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="89" y="345" width="210" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="41" style="edgeStyle=none;html=1;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="16" target="40" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="&lt;font&gt;Irasyti knyga be nieko&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="16" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Įrašyti knygą be nieko&lt;/font&gt;&lt;/span&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="89" y="455" width="210" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="55" style="edgeStyle=none;html=1;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="18" target="50" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="&lt;div&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;font&gt;Patikrinti knygas esancias&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font&gt;duomenu bazeja&lt;/font&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="18" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Patikrinti knygas,&amp;nbsp;&lt;/font&gt;&lt;/span&gt;&lt;div&gt;&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;esančias duomenų bazėje&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="89" y="555" width="210" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" source="10" target="11" edge="1">
@@ -56,13 +56,13 @@
                 <mxCell id="48" style="edgeStyle=none;html=1;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="29" target="44" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" value="&lt;font&gt;Susijunkti su ibilioteka&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
+                <mxCell id="29" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Susijungti su iBiblioteka&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="340" y="257.5" width="100" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="36" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="33" target="35" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="33" value="&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;Ranka nurasyti barkoda&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="33" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Ranka nurašyti barkodą&lt;/font&gt;&lt;/span&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="340" y="350" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="37" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" source="35" target="29" edge="1">
@@ -73,7 +73,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="35" value="&lt;font&gt;Atspauzdinti&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
+                <mxCell id="35" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Atspausdinti&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="640" y="362.5" width="100" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="39" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="16" target="18" edge="1">
@@ -88,7 +88,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="40" value="&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;Ranka nurasyti duomenis&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="40" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Ranka nurašyti duomenis&lt;/font&gt;&lt;/span&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="340" y="455" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="46" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="44" target="45" edge="1">
@@ -100,25 +100,25 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="44" value="&lt;font&gt;Pagal barkoda dauti duomenis&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
+                <mxCell id="44" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Pagal barkodą gauti duomenis&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="620" y="257.5" width="100" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="59" style="edgeStyle=none;html=1;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="45" target="58" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="45" value="&lt;font&gt;Locali lentele&lt;/font&gt;" style="shape=internalStorage;whiteSpace=wrap;html=1;dx=15;dy=15;rounded=1;arcSize=8;strokeWidth=2;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
+                <mxCell id="45" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Lokali lentelė&lt;/font&gt;&lt;/span&gt;" style="shape=internalStorage;whiteSpace=wrap;html=1;dx=15;dy=15;rounded=1;arcSize=8;strokeWidth=2;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
                     <mxGeometry x="590" y="475" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="52" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="50" target="51" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="50" value="&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;font&gt;ISNB kodas&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                <mxCell id="50" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;ISBN kodas&lt;/font&gt;&lt;/span&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fillColor=none;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
                     <mxGeometry x="340" y="560" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="57" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="51" target="56" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="51" value="&lt;font&gt;Atspauzdinti&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
+                <mxCell id="51" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Atspausdinti&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="370" y="665" width="100" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="54" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="53" target="51" edge="1">
@@ -130,7 +130,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="53" value="&lt;font&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Nuotoline lentele&lt;/font&gt;" style="shape=internalStorage;whiteSpace=wrap;html=1;dx=15;dy=15;rounded=1;arcSize=8;strokeWidth=2;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
+                <mxCell id="53" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Nuotolinė lentelė&lt;/font&gt;&lt;/span&gt;" style="shape=internalStorage;whiteSpace=wrap;html=1;dx=15;dy=15;rounded=1;arcSize=8;strokeWidth=2;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
                     <mxGeometry x="590" y="675" width="70" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="61" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="56" target="10" edge="1">
@@ -142,13 +142,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="56" value="&lt;font&gt;Atspauzdinti duoemis&lt;/font&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
+                <mxCell id="56" value="&lt;span&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Atspausdinti duomenis&lt;/font&gt;&lt;/span&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;" parent="1" vertex="1">
                     <mxGeometry x="144" y="657.5" width="100" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="60" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=default;" parent="1" source="58" target="53" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="58" value="&lt;font&gt;Ranke ikelema&lt;/font&gt;&lt;div&gt;&lt;font&gt;i google&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font&gt;sheets&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;size=0.23;arcSize=10;flipV=1;labelPosition=center;align=center;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;strokeWidth=2;" parent="1" vertex="1">
+                <mxCell id="58" value="&lt;br&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;į Google&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;Sheets&lt;/font&gt;&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;size=0.23;arcSize=10;flipV=1;labelPosition=center;align=center;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);fillColor=none;strokeColor=default;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="575" y="575" width="100" height="60" as="geometry"/>
                 </mxCell>
             </root>
