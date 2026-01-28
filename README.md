@@ -1,17 +1,17 @@
 # KVM Bibliotekos Sistema
 
-Mano užduotis buvo sukurti programą knygų apdorojimui ir jų suvedimui į pagrindinę **Google Sheets** lentelę.
+Si programa yra skirta knygų apdorojimui ir jų suvedimui į pagrindinę **Google Sheets** lentelę. Benaudojent webscraping metoda
 Tam buvo sukurta programa **WebScraper.py**. Pagal idėją, ši programa gauna lentelę **(.csv)**, iš jos perskaito po vieną eilutę ir pagal pateiktą informaciją ieško duomenų svetainėje [**iBiblioteka**](https://ibiblioteka.lt/metis/).
 Gauti rezultatai išsaugomi naujame faile (taip patogiau perkelti duomenis į pagrindinę lentelę). Šis naujas failas vėliau importuojamas į didįjį **Google Sheets** dokumentą.
 
----
+## Kam šis projektas skirtas
+
+Programa skirta mazu biblioteku vadovams, kur norisi laikyti knygas. Ir zinoti kas yra bibliotekoja kas nera biliotekoja, ko truksta ir ko neturksta, kas yra skoliniknai kas nera skoninikai
 
 ## Antroji dalis
 
 Kai kurios knygos neturi savo **barkodo** arba **ISBN**. Tokias knygas nepatogu skenuoti, todėl joms reikia sugeneruoti barkodą.
 Faile **LaisviBarkodai.csv** yra pateikti laisvi kodai, kuriuos galima atspausdinti, taip pat yra galimybė juos eksportuoti tiesiai į **PDF** failą.
-
----
 
 ## Trečiasis funkcionalumas
 
