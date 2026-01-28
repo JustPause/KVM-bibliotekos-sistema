@@ -1,154 +1,114 @@
 # KVM Bibliotekos Sistema
 
-Si programa yra skirta knygų apdorojimui ir jų suvedimui į pagrindinę **Google Sheets** lentelę. Benaudojent webscraping metoda
-Tam buvo sukurta programa **WebScraper.py**. Pagal idėją, ši programa gauna lentelę **(.csv)**, iš jos perskaito po vieną eilutę ir pagal pateiktą informaciją ieško duomenų svetainėje [**iBiblioteka**](https://ibiblioteka.lt/metis/).
-Gauti rezultatai išsaugomi naujame faile (taip patogiau perkelti duomenis į pagrindinę lentelę). Šis naujas failas vėliau importuojamas į didįjį **Google Sheets** dokumentą.
+KVM Bibliotekos Sistema – tai Python pagrindu sukurta **CLI / GUI aplikacija**, skirta
+bibliotekų knygų duomenų apdorojimui, barkodų generavimui ir integracijai su
+**Google Sheets** bei **iBiblioteka** sistema.
 
-## Kam šis projektas skirtas
+Projektas skirtas realiam bibliotekos darbui: knygų skenavimui, ISBN tvarkymui
+ir efektyviam barkodų spausdinimui.
 
-Programa skirta mazu biblioteku vadovams, kur norisi laikyti knygas. Ir zinoti kas yra bibliotekoja kas nera biliotekoja, ko truksta ir ko neturksta, kas yra skoliniknai kas nera skoninikai
+## Ką ši sistema daro?
 
-## Antroji dalis
+- Nuskaito knygų duomenis iš CSV arba skanerio
+- Ieško knygų informacijos iBiblioteka svetainėje
+- Generuoja barkodus knygoms su arba be ISBN
+- Kuria PDF failus, optimizuotus A4 spausdinimui
+- Tikrina duomenų atitikimą Google Sheets
+- Palaiko CLI ir GUI režimus
 
-Kai kurios knygos neturi savo **barkodo** arba **ISBN**. Tokias knygas nepatogu skenuoti, todėl joms reikia sugeneruoti barkodą.
-Faile **LaisviBarkodai.csv** yra pateikti laisvi kodai, kuriuos galima atspausdinti, taip pat yra galimybė juos eksportuoti tiesiai į **PDF** failą.
+## Greitas paleidimas
 
-## Trečiasis funkcionalumas
+### Repositorijos konavimas
 
-Paskutinis, bet labai svarbus funkcionalumas – tai knygų, turinčių **ISBN**, bet neturinčių barkodų, suradimas.
-Kai kurios knygos randamos [**iBibliotekoje**](https://ibiblioteka.lt/metis/), tačiau dalies ten nėra.
-Tokiems įrašams reikia sugeneruoti barkodus ir juos atspausdinti, kad būtų galima užklijuoti ant knygų.
-
-Kita problema – popieriaus taupymas: reikia sudėti kuo daugiau barkodų ant vieno **A4** lapo, bet tuo pačiu turėti galimybę žinoti, kuris barkodas priklauso kuriai knygai.
-Mano sprendimas – generuoti barkodus kartu su knygos pavadinimu.
-Tai atlieka programa **ISBNGenotator.py** – ji paima duomenis iš **.csv** failo, atskiria, kur yra 10 simbolių senasis ISBN (iki 2007 m.) ir 13 simbolių naujasis, sugeneruoja **PDF** failą, kurį galima atspausdinti ir priklijuoti.
-
----
-
-## Naudojimo instrucija
-
-```sh
+```bash
 git clone https://github.com/JustPause/KVM-bibliotekos-sistema.git
+cd KVM-bibliotekos-sistema
 ```
 
----
-
-## Kaip paleisti
-
-Norint paleisti programą (pvz., Linux sistemoje), reikia sukurti Python virtualią aplinką:
+### Virtualios aplinkos sukūrimas
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-Kai viskas susiinstaliuos, paleidžiama taip:
+### Programos paleidimas
 
 ```bash
 python3 pagrindinis.py
 ```
 
-## Priklausomybės / Dependencies
-
-### Naudojamos Python bibliotekos
-
-* **reportlab** - PDF generavimui
-* **python-barcode** - barkodų kūrimui
-* **selenium** - duomenų nuskaitymui iš svetainės
-* **pillow** - paveikslėlių apdorojimui
-* **InquirerPy** - Python CLI UI
-
-### Google fonts
-
-* Inter
-* Playfair_Display
-
-## Su Kompoliavimas
-
-Veikia ir win in linux :D
+su GUI
 
 ```bash
-python3 ./build.py
+python3 ./pagrindinis.py --gui
 ```
 
-## Testai
+---
+
+## CLI naudojimas
+
+```bash
+python3 pagrindinis.py [parinktys]
+```
+
+### Galimos parinktys
+<!-- Start_Helptable -->
+| Parinktis | Aprašymas |
+|----------|----------|
+| `-h, --help` | Parodo pagalbos informaciją |
+| `-v, --version` | Parodo programos versiją |
+| `-S, --webScraper` | Nuskaito duomenis iš iBiblioteka |
+| `-G, --generate` | Generuoja naujus barkodus |
+| `-I, --isbnPdf` | Konvertuoja ISBN CSV į PDF |
+| `-C, --check` | Tikrina duomenis su Google Sheets |
+| `-i, --input` | Įvedimo failas |
+| `-o, --output` | Išvedimo failas |
+| `--gui` | Paleidžia grafinę sąsają |
+<!-- End_Helptable -->
+
+
+### Pavyzdys
+
+```bash
+python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_parsitytos.csv
+```
+
+---
+
+## Testavimas
 
 ```bash
 python3 -m unittest discover -s tests
 ```
 
-## Panaudojimas ir nustatymai
+---
 
-Yra galimybė pagreitinti darbą naudojant **komandų eilutės nustatymus (runtime variables):**
+## Priklausomybės
 
-```bash
-python3 pagrindinis.py [Nustatymai]
-```
+### Python bibliotekos
+- `reportlab` – PDF generavimui
+- `python-barcode` – barkodų kūrimui
+- `selenium` – duomenų nuskaitymui iš svetainės
+- `pillow` – paveikslėlių apdorojimui
+- `InquirerPy` – CLI vartotojo sąsaja
 
-### Galimos parinktys
-<!-- Start_Helptable -->
-| Parinktis          | Aprašymas                                                                                                |
-| ------------------ | -------------------------------------------------------------------------------------------------------- |
-| `-h, --help`       | Parodo pagalbos lentelę                                                                                  |
-| `-v, --version`    | Parodo versiją                                                                                           |
-| `-S, --webScraper` | Paleidžia „WebScraper“ modulį, kuris paima duomenis iš iBibliotekos ir surašo juos į lentelę             |
-| `-G, --generate`   | Sugeneruoja lentelę su brūkšninių kodų tekstais, leidžia pasirinkti, kiek norima brūkšninių kodų (1–100) |
-| `-I, --isbnPdf`    | Surašytus ISBN kodus paverčia lengvai spausdinama brūkšninių kodų matrica                                |
-| `-C, --check`      | Tikrina knygų duomenis ir ar teisingai užklijuoti brūkšniniai kodai                                      |
-| `-i, --input`      | Įvedimo failas                                                                                           |
-| `-o, --output`     | išvedimo failas                                                                                          |
-| `--gui`            | Paleisti grafinę vartotojo sąsają                                                                        |
-<!-- End_Helptable -->
-
-### Pavyzdys
-
-```bash
-python3 pagrindinis.py -S -i ./csv/Knygos.csv -o ./csv/Knygos_perasityos.csv
-```
-
-## TODO GUI
-
-* [ ] Įvedus pavadinimą ir metus, galima duoti pasirinkimą naudotojui, kad pasirinktų kurią knygą
-* [ ] Duoti galimybę skenavimo metu pataisyti ISBN kodą
-* [ ] Gavęs knygą be barkodo ir ISBN, naudotojas turėtų galėti įrašyti pavadinimą ir metus, ir gauti autorių bei ISBN kodą. Po to iš atskiros lentelės turėtų būti galima paimti ISBN kodą ir jį atspausdinti
-* [x] Pasibandyti padaryti API bendravimą tarp funkcijų ir lentelės
-* [x] Padaryti GUI
-
-## Kas padaryta
-
-* [x] "Brūkšninio kodo kūrimas",
-* [ ] "Knygų rašymas į iBiblioteką pagal ISBN CSV",
-* [ ] "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
-* [ ] "ISBN iš CSV į PDF",
-* [ ] "Lėtesnė knygų paieška (Knygos_Su_Viskuom)",
-* [ ] "Lėtesnė knygų paieška (Bibliotekos Knygos - VIsos knygos)",
-* [ ] "Suvedimas pagal pavadinima"
-* [x] prideti versijos parodima kamputija su mano duomenimis
-
-* [ ] prideti buksinio kodu genervimo sistemai vietoje cash i temp dir ikelima kaip per test aplinka yra padaryta
-* [ ] Kodas kurio ieskau - 123 , python3 ./pagrindinis.py -S -o ./tests/file.csv -> add filert to only show knygos
-* [ ] Padaryti naudotojo instrucija, kad galeima butu visada paziureti ir zinoti kaip kas veikia. Kaip dokumnetacija tik naudotojui
-* [ ] I build.py priedeti md to pdf formatavima
-* [ ] pridegti sugrazinimo sistema
-* [ ] sutvarkyti pup up is skaityti is klaveuros skanerio
-* [ ] **Skaitimas is klaveturos** Turi buti funcionalumas i koki katalogi idetos bus knygos
+### Šriftai
+- Inter
+- Playfair Display
  
-### Darbo lentele
+## Roadmap / TODO
 
-Kas kur turetu buti, koki funcionaluma turi tureti **cli** aplikacija ir **gui** palikacija
+- [ ] ISBN taisymas skenavimo metu
+- [ ] Knygų be ISBN atpažinimas pagal pavadinimą
+- [ ] API integracija su Google Sheets
+- [ ] PDF naudotojo dokumentacija
+- [x] GUI realizacija
 
-| versija | webScraper | generate | isbnPdf | check | input | output | gui | comentaas                                             |
-| ------- | ---------- | -------- | ------- | ----- | ----- | ------ | --- | ----------------------------------------------------- |
-| x       |            |          |         |       |       |        |     | versija                                               |
-|         | x          |          |         |       |       |        |     | Skanavimas is klaveturos / Scannerio                  |
-|         | x          |          |         |       | x     |        |     | Skanavimas is failo                                   |
-|         |            | x        |         |       |       | x      |     | Sugeneravimas nauju barkodu                           |
-|         |            |          | x       |       | x     | x      |     | is exel i pdf kad atspauzdintu                        |
-|         |            |          |         | x     |       |        |     | patikrina ar yra google sheets                        |
-|         |            |          |         | x     |       | x      |     | patikrina ar yra google sheets jei nera suraso i exel |
-| x       |            |          |         |       |       |        | x   | parodyti versija                                      |
-|         | x          |          |         |       |       |        | x   | Skanavimas is klaveturos / Scannerio                  |
-|         |            | x        |         |       |       | x      | x   | Sugeneravimas nauju barkodu                           |
-|         |            |          | x       |       |       | x      | x   | Is buffer kuri iraso programai veikent                |
-|         |            |          |         | x     |       | x      | x   | patikrinti ar yra google sheets                       |
+---
+
+## Autorius
+
+**Justinas**  
+Projektas skirtas bibliotekos darbo automatizavimui ir procesų optimizavimui.
