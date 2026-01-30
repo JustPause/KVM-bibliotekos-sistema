@@ -142,7 +142,7 @@ Gautas failas bus aplanke dist/.
 Visa pagrindinė konfigūracija yra faile: 
 
 ```sh
-src/.env/sheet.json
+config/.env/sheet.json
 ```
 
 Failas ```config.json``` pateikia autoriaus kontaktus bei pagrindinius programos nustatymus.
