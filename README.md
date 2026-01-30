@@ -35,9 +35,41 @@ pip install -r requirements.txt
 
 ### Google sujungimas
 
-Kadangi programam daug naudoje google sheets API reiketu suteikti to prieeiga tai galima padaryti sekant **Authorize credentials for a desktop application** svetaineja <https://developers.google.com/workspace/sheets/api/quickstart/python>
+Kadangi programa daug naudoja **Google Sheets API**, reikia suteikti jai prieigą. Tai galima padaryti sekant **Authorize credentials for a desktop application** instrukciją svetainėje:  
+<https://developers.google.com/workspace/sheets/api/quickstart/python>
 
-atsisiuntus, reiketu sudeti
+Atsisiuntus, reikia įdėti failą į ```RepoHome/config/.env/sheet.json.```. Ten turėtų būti **client_secret.json**.
+
+### Su kongiguravimas
+
+Taip pat dar reikia sukonfigūruoti **sheet.json**:
+```json
+{
+  "sheet_id": "lentelės id",
+  "range_template": "Lapo pavadinimas!A{row}:D{row}",
+  "rage": "Lapo pavadinimas!A:D",
+  "rage_with_catalog": "Lapo pavadinimas!A:I",
+  "rage_isbn_collom": "Lapo pavadinimas!D:D",
+  "rage_all": "Lapo pavadinimas!A:K",
+
+  "rage_korteles": "Lapo pavadinimas!H{row}:H{row}",
+  "rage_isbn": "Lapo pavadinimas!D{row}:D{row}",
+  "rage_vardas": "Lapo pavadinimas!J{row}:J{row}",
+  "rage_data": "Lapo pavadinimas!K{row}:K{row}",
+  "rage_func": "Lapo pavadinimas!I{row}:I{row}",
+
+  "card_table_id": "kortelių sistemos ID",
+  "card_table_name": "Lapo pavadinimas!A:F",
+
+  "rage_asmeniniai_duomenys": "Lapo pavadinimas!H:J",
+  "rage_asmeniniai_duomenys_row": "Lapo pavadinimas!H{row}:J{row}",
+  "rage_asmeniniai_duomenys_row_plius_data": "Lapo pavadinimas!H{row}:K{row}"
+}
+```
+
+Su laiku turėtų būti galima padaryti, kad nereikėtų tiek daug suvesti ranka.
+
+Šis JSON failas gyvens: ```RepoHome/config/.env/sheet.json```
 
 ### Programos paleidimas
 
