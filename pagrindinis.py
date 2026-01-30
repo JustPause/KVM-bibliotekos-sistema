@@ -15,12 +15,9 @@ from src.ibibliotekaConnection import (
 from src.ISBNPrint import form_csv_to_pdf
 from src.osHelper import get_correct_extension, git_build_number
 
-# Joku komentaru del Anglu ir Lietuviu kalbos naudojimo. Nors tai nepagal visas taisykles, angla kalbiai neskaitys sio kodo
-# Okay trying to make the new bracnh
-
 
 class MainClass:
-    KLAUSIMAI = [
+    QUESTIONS = [
         "Brūkšninio kodo kūrimas",
         "Knygų rašymas į iBiblioteką pagal ISBN CSV",
         "Knygų rašymas į iBiblioteką pagal ISBN Scanner",
@@ -30,20 +27,20 @@ class MainClass:
         # "Suvedimas pagal pavadinima"
     ]
 
-    KLAUSIMU_FORMUOTE = [
+    QUESTIONS_FUNCTION = [
         {
             "type": "list",
             "name": "veiksmas",
             "message": "Pasirinkite, kokią funkciją norite atlikti:",
-            "choices": KLAUSIMAI,
+            "choices": QUESTIONS,
         }
     ]
 
     klaidos = "Nurodykite teisingą failo kelią"
 
     def prompting(self):
-        result = prompt(self.KLAUSIMU_FORMUOTE)
-        pasirinkimo_indexas: int = self.KLAUSIMAI.index(str(result["veiksmas"]))
+        result = prompt(self.QUESTIONS_FUNCTION)
+        pasirinkimo_indexas: int = self.QUESTIONS.index(str(result["veiksmas"]))
 
         match pasirinkimo_indexas:
             case 0:  # Brūkšninio kodo kūrimas
