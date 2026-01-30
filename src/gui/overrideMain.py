@@ -418,12 +418,9 @@ class SideBar(wxformbuilder.SideBar):
         self.versija.SetLabel(full_version)
 
     def VersionAndBuild(self):
-        import configparser
-
         build = git_build_number()
-        config = configparser.ConfigParser()
-        config.read("config.conf")
-        version = config["DEFAULT"]["version"]
+        config = ConfigFile()
+        version = config.getDefaultData("version")
 
         return f"vesrija - {version}+{build}"
 

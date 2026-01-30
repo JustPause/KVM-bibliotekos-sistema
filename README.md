@@ -33,16 +33,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Google sujungimas
+
+Kadangi programam daug naudoje google sheets API reiketu suteikti to prieeiga tai galima padaryti sekant **Authorize credentials for a desktop application** svetaineja <https://developers.google.com/workspace/sheets/api/quickstart/python>
+
+atsisiuntus, reiketu sudeti
+
 ### Programos paleidimas
 
 ```bash
 python3 pagrindinis.py
 ```
 
-su GUI
+Norint pamatyti GUI 
 
 ```bash
-python3 ./pagrindinis.py --gui
+python3 pagrindinis.py --gui
 ```
 
 ---
