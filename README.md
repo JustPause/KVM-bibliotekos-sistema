@@ -1,6 +1,6 @@
 # KVM Bibliotekos Sistema
 
-KVM Bibliotekos Sistema – tai Python pagrindu sukurta **CLI / GUI aplikacija**, skirta
+KVM Bibliotekos Sistema - tai Python pagrindu sukurta **CLI / GUI aplikacija**, skirta
 bibliotekų knygų duomenų apdorojimui, barkodų generavimui ir integracijai su
 **Google Sheets** bei **iBiblioteka** sistema.
 
@@ -94,11 +94,11 @@ python3 -m unittest discover -s tests
 ## Priklausomybės
 
 ### Python bibliotekos
-- `reportlab` – PDF generavimui
-- `python-barcode` – barkodų kūrimui
-- `selenium` – duomenų nuskaitymui iš svetainės
-- `pillow` – paveikslėlių apdorojimui
-- `InquirerPy` – CLI vartotojo sąsaja
+- `reportlab` - PDF generavimui
+- `python-barcode` - barkodų kūrimui
+- `selenium` - duomenų nuskaitymui iš svetainės
+- `pillow` - paveikslėlių apdorojimui
+- `InquirerPy` - CLI vartotojo sąsaja
 
 ### Šriftai
 - Inter

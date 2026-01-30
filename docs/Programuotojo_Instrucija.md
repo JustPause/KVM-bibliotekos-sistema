@@ -13,7 +13,7 @@ Programa leidžia bibliotekos administratoriui (-ei):
 
 ## Auditorija
 
-Programa skirta paprastam naudotojui – *galutiniam vartotojui*. Pagrindinis tikslas – būti kuo *paprastesnei*, *aiškesnei* ir *lengvai naudojamai* šiai naudotojų grupei.
+Programa skirta paprastam naudotojui - *galutiniam vartotojui*. Pagrindinis tikslas - būti kuo *paprastesnei*, *aiškesnei* ir *lengvai naudojamai* šiai naudotojų grupei.
 
 ## Sisteminiai reikalavimai
 
@@ -21,8 +21,8 @@ Programa geriausiai ištestuota **Linux (Linux 6.12)** aplinkoje, ypač **Debian
 
 - RAM naudojimas kartais gali siekti iki **3 GB**, ypač naudojant automatinę knygų surašymo sistemą.
 - Rekomenduojama turėti bent **4 GB RAM**.
-- Procesorius gali būti vidutinio našumo – svarbu, kad palaikytų operacinės sistemos funkcionalumą.
-- Disko vietos poreikis nedidelis – **apie 2 GB**.
+- Procesorius gali būti vidutinio našumo - svarbu, kad palaikytų operacinės sistemos funkcionalumą.
+- Disko vietos poreikis nedidelis - **apie 2 GB**.
 - Programa daug duomenų kompiuteryje nesaugo.
 
 ## Ideigimas
@@ -68,7 +68,7 @@ Reikalingos bibliotekos:
 
 ### Python
 
-> Python 3.9 – naujausia versija
+> Python 3.9 - naujausia versija
 
 ### Selenium, viena is narsykliu
 
@@ -116,7 +116,7 @@ Norint sukurti atskirą vykdomąjį failą, reikia paleisti:
 python3 ./build.py
 ```
 
-Prisijungimas yra labai svarbus – be jo neveiks ryšys su **Google Sheets** lentelėmis.
+Prisijungimas yra labai svarbus - be jo neveiks ryšys su **Google Sheets** lentelėmis.
 
 Sukūrimo metu aplanke **dist/** turėtų atsirasti vienas vykdomasis failas.
 
