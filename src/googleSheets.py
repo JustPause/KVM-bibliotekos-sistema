@@ -20,8 +20,8 @@ def connect_to_sheet() -> Any:
     Prints values from a sample spreadsheet.
     """
 
-    token = "src/.env/token.json"
-    client_secret = "src/.env/client_secret.json"
+    token = "config/.env/token.json"
+    client_secret = "config/.env/client_secret.json"
     creds = None
     sheet = None
 
