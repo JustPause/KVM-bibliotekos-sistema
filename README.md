@@ -136,14 +136,6 @@ python3 -m unittest discover -s tests
 - Inter
 - Playfair Display
  
-## Roadmap / TODO
-
-- [ ] ISBN taisymas skenavimo metu
-- [ ] Knygų be ISBN atpažinimas pagal pavadinimą
-- [ ] API integracija su Google Sheets
-- [ ] PDF naudotojo dokumentacija
-- [x] GUI realizacija
-
 ---
 
 ## Autorius

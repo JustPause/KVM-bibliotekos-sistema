@@ -1,6 +1,6 @@
-# 📌 Darbų sąrašas
+# Darbų sąrašas
 
-## ✅ Atlikta
+## Atlikta
 
 - [x] Pasibandyti padaryti API bendravimą tarp funkcijų ir lentelės
 - [x] Padaryti GUI
