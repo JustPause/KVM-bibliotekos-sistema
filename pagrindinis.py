@@ -81,10 +81,7 @@ class MainClass:
                 dest_path = filepath(
                     message="Pasirinkite i kurio faila bus idedami duomenys:",
                     default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-                    transformer=lambda path: path + ".csv"
-                    if not path.endswith(".csv")
-                    else path,
-                    transformer = ensure_pdf(path,"csv")
+                    transformer = ensure_csv,
                     invalid_message=self.ERRORTEXT,
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
