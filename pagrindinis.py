@@ -2,7 +2,8 @@ import argparse
 import os
 import sys
 
-from InquirerPy import inquirer, prompt
+from InquirerPy.prompts import filepath, number
+from InquirerPy.resolver import prompt
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 
 from src.barcodeKurimas import barcode_generator
@@ -29,6 +30,9 @@ class MainClass:
 
     ERRORTEXT = "Nurodykite teisingą failo kelią"
 
+    def ensure_pdf(self, path: str, ext: str) -> str:
+        return path if path.endswith("." + ext) else f"{path}." + ext
+
     def prompting(self):
         QUESTIONS_FUNCTION = [
             {
@@ -44,7 +48,7 @@ class MainClass:
 
         match pasirinkimo_indexas:
             case 0:  # Brūkšninio kodo kūrimas
-                integer_val = inquirer.number(
+                integer_val = number(
                     message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
                     min_allowed=1,
                     max_allowed=10 * 5 * 10,
@@ -53,7 +57,7 @@ class MainClass:
 
                 home_path = os.path.join(os.getcwd(), "pdfs")
 
-                dest_path = inquirer.filepath(
+                dest_path = filepath(
                     message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                     default=os.path.abspath(
                         os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")
@@ -65,7 +69,7 @@ class MainClass:
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                src_path = inquirer.filepath(
+                src_path = filepath(
                     message="Pasirinkite is kurio failo bus imami duomenys:",
                     default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
                     validate=PathValidator(
@@ -74,12 +78,13 @@ class MainClass:
                     only_files=True,
                 ).execute()
 
-                dest_path = inquirer.filepath(
+                dest_path = filepath(
                     message="Pasirinkite i kurio faila bus idedami duomenys:",
                     default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
                     transformer=lambda path: path + ".csv"
                     if not path.endswith(".csv")
                     else path,
+                    transformer = ensure_pdf(path,"csv")
                     invalid_message=self.ERRORTEXT,
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
@@ -91,7 +96,7 @@ class MainClass:
             case 2:  # Knygų rašymas į iBiblioteką pagal ISBN Scanner
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                dest_path = inquirer.filepath(
+                dest_path = filepath(
                     message="Pasirinkite i kurio faila bus idedami duomenys:",
                     default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
                     transformer=lambda path: path + ".csv"
@@ -108,23 +113,17 @@ class MainClass:
             case 3:  # ISBN iš CSV į PDF
                 home_path = os.getcwd()
 
-                src_path = inquirer.filepath(
+                src_path = filepath(
                     message="Pasirinkite is kurio failo bus imami duomenys:",
-                    default=os.path.join(
-                        home_path, "csv/Knygos_Be_Barkodo.csv"
-                    ),
-                    validate=PathValidator(
-                        is_file=True, message=self.ERRORTEXT
-                    ),
+                    default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
+                    validate=PathValidator(is_file=True, message=self.ERRORTEXT),
                     only_files=True,
                 ).execute()
 
-                dest_path = inquirer.filepath(
+                dest_path = filepath(
                     message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                     default=os.path.abspath(
-                        os.path.join(
-                            home_path, "pdfs/SpausdinimoLapas-ISBN.pdf"
-                        )
+                        os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")
                     ),
                     transformer=lambda path: path + ".pdf"
                     if not path.endswith(".pdf")
@@ -145,7 +144,7 @@ class MainClass:
             case _:  # (｡･ˇ_ˇ･｡)
                 raise ValueError("Kaip? (pasirinkimo klaida)")
 
-    def addingArgumants(self, parser):
+    def adding_argumants(self, parser):
         group = parser.add_argument_group("Pasirinkimai")
 
         ReadMe = self.getDataFormReadMe()
@@ -165,9 +164,7 @@ class MainClass:
             action="store_true",
             help=ReadMe.get("-S, --webScraper"),
         )
-        group.add_argument(
-            "-G", "--generate", help=ReadMe.get("-G, --generate")
-        )
+        group.add_argument("-G", "--generate", help=ReadMe.get("-G, --generate"))
         group.add_argument(
             "-I",
             "--isbnPdf",
@@ -179,16 +176,74 @@ class MainClass:
         )
         group.add_argument("-i", "--input", help=ReadMe.get("-i, --input"))
         group.add_argument("-o", "--output", help=ReadMe.get("-o, --output"))
-        group.add_argument(
-            "--gui", action="store_true", help=ReadMe.get("--gui")
-        )
+        group.add_argument("--gui", action="store_true", help=ReadMe.get("--gui"))
 
-    @staticmethod
-    def local_run():
-        run()
+    def handels_args(self, parser, args):
+        """Handles user selection and leads the user to the choice that was made"""
+        if args.help:
+            parser.print_help()
+
+        elif args.gui:
+            self.local_run()
+
+        elif args.version:
+            import configparser
+
+            build = git_build_number()
+            config = configparser.ConfigParser()
+            config.read("config.conf")
+            version = config["DEFAULT"]["version"]
+
+            print(f"{version}+{build}")
+        elif args.webScraper and not args.output:
+            parser.error(
+                "Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output"
+            )
+
+        elif args.webScraper:
+            src_path = args.input
+            dest_path = args.output
+
+            if args.input:
+                iBibliotekos_paieska(src_path, dest_path)
+            else:
+                iBibliotekos_paieska_tiesiogiai(dest_path)
+
+        elif args.generate and not args.output:
+            parser.error("Kai naudojamas -G/--generate, privaloma nurodyti -o/--output")
+
+        elif args.generate:
+            dest_path = args.output
+            dest_path = get_correct_extension(dest_path, ".pdf")
+            barcode_generator(int(args.generate), dest_path)
+
+        elif args.isbnPdf and not args.output and not args.input:
+            parser.error(
+                "Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input"
+            )
+
+        elif args.isbnPdf:
+            src_path = args.input
+
+            dest_path = args.output
+            dest_path = get_correct_extension(dest_path, ".pdf")
+
+            if args.input:
+                form_csv_to_pdf(src_path, dest_path)
+
+        elif args.check:
+            dest_path = args.output
+            scanner(dest_path)
+            if args.output:
+                scanner(dest_path)
+            else:
+                scanner()
+
+        elif args.input:
+            pass
 
     def main(self):
-        """Main palce whare the app starts mainly to detect if any argumens exits on execusion"""
+        """Main place where the app starts. Mainly used to detect if any arguments exist on execution and reacts accordingly"""
 
         argv = sys.argv[1:]
         argv_count = len(argv)
@@ -204,76 +259,16 @@ class MainClass:
                 add_help=False,
             )
 
-            self.addingArgumants(parser)
+            self.adding_argumants(parser)
 
-            args = parser.parse_args()
-
-            if args.help:
-                parser.print_help()
-
-            elif args.gui:
-                self.local_run()
-
-            elif args.version:
-                import configparser
-
-                build = git_build_number()
-                config = configparser.ConfigParser()
-                config.read("config.conf")
-                version = config["DEFAULT"]["version"]
-
-                print(f"{version}+{build}")
-            elif args.webScraper and not args.output:
-                parser.error(
-                    "Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output"
-                )
-
-            elif args.webScraper:
-                src_path = args.input
-                dest_path = args.output
-
-                if args.input:
-                    iBibliotekos_paieska(src_path, dest_path)
-                else:
-                    iBibliotekos_paieska_tiesiogiai(dest_path)
-
-            elif args.generate and not args.output:
-                parser.error(
-                    "Kai naudojamas -G/--generate, privaloma nurodyti -o/--output"
-                )
-
-            elif args.generate:
-                dest_path = args.output
-                dest_path = get_correct_extension(dest_path, ".pdf")
-                barcode_generator(int(args.generate), dest_path)
-
-            elif args.isbnPdf and not args.output and not args.input:
-                parser.error(
-                    "Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input"
-                )
-
-            elif args.isbnPdf:
-                src_path = args.input
-
-                dest_path = args.output
-                dest_path = get_correct_extension(dest_path, ".pdf")
-
-                if args.input:
-                    form_csv_to_pdf(src_path, dest_path)
-
-            elif args.check:
-                dest_path = args.output
-                scanner(dest_path)
-                if args.output:
-                    scanner(dest_path)
-                else:
-                    scanner()
-
-            elif args.input:
-                pass
+            self.handels_args(parser, parser.parse_args())
 
     @staticmethod
-    def getDataFormReadMe():
+    def local_run():
+        run()
+
+    @staticmethod
+    def get_data_form_read_me():
         table_lines = []
         in_table = False
 
