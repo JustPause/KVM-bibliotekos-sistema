@@ -43,15 +43,6 @@ class _mainClass:
         """OKAY"""
         pass
 
-    def _run_prompt(self, prompt):
-        """Specifically for the prompt library, to handle CTRL+C presses"""
-
-        try:
-            return prompt.execute()
-        except KeyboardInterrupt:
-            print("\nIšeinama…")
-            sys.exit(0)
-
     def _prompting(self):
         """A prompt formatter and handler for user selection"""
         QUESTIONS_FUNCTION = [
@@ -64,31 +55,17 @@ class _mainClass:
         ]
 
         result = prompt(QUESTIONS_FUNCTION)
-        pasirinkimo_indexas: int = self.QUESTIONS.index(str(result["veiksmas"]))
+        chooce_index: int = self.QUESTIONS.index(str(result["veiksmas"]))
 
-        match pasirinkimo_indexas:
+        match chooce_index:
             case 0:  # Brūkšninio kodo kūrimas
-                integer_val = self._run_prompt(
-                    NumberPrompt(
-                        message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
-                        min_allowed=1,
-                        max_allowed=10 * 5 * 10,
-                        validate=EmptyInputValidator(),
-                    )
-                )
+                from src.actions.mainAction import get_dest_path, get_number_of_barcodes
 
-                home_path = os.path.join(os.getcwd(), "pdfs")
+                number_of_barcodes = get_number_of_barcodes()
 
-                dest_path = self._run_prompt(
-                    FilePathPrompt(
-                        message="Pasirinkite vietą ir pavadinimą būsimo failo:",
-                        default=os.path.abspath(
-                            os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")
-                        ),
-                    )
-                )
+                dest_path = get_dest_path("pdfs", "BarkodaiSpauzdinimui.pdf")
 
-                barcode_generator(int(integer_val), dest_path)
+                barcode_generator(int(number_of_barcodes), dest_path)
 
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
                 home_path = os.path.join(os.getcwd(), "csv")
