@@ -27,19 +27,19 @@ class MainClass:
         # "Suvedimas pagal pavadinima"
     ]
 
-    QUESTIONS_FUNCTION = [
-        {
-            "type": "list",
-            "name": "veiksmas",
-            "message": "Pasirinkite, kokią funkciją norite atlikti:",
-            "choices": QUESTIONS,
-        }
-    ]
-
-    klaidos = "Nurodykite teisingą failo kelią"
+    ERRORTEXT = "Nurodykite teisingą failo kelią"
 
     def prompting(self):
-        result = prompt(self.QUESTIONS_FUNCTION)
+        QUESTIONS_FUNCTION = [
+            {
+                "type": "list",
+                "name": "veiksmas",
+                "message": "Pasirinkite, kokią funkciją norite atlikti:",
+                "choices": self.QUESTIONS,
+            }
+        ]
+
+        result = prompt(QUESTIONS_FUNCTION)
         pasirinkimo_indexas: int = self.QUESTIONS.index(str(result["veiksmas"]))
 
         match pasirinkimo_indexas:
@@ -69,7 +69,7 @@ class MainClass:
                     message="Pasirinkite is kurio failo bus imami duomenys:",
                     default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
                     validate=PathValidator(
-                        is_file=False, is_dir=False, message=self.klaidos
+                        is_file=False, is_dir=False, message=self.ERRORTEXT
                     ),
                     only_files=True,
                 ).execute()
@@ -80,7 +80,7 @@ class MainClass:
                     transformer=lambda path: path + ".csv"
                     if not path.endswith(".csv")
                     else path,
-                    invalid_message=self.klaidos,
+                    invalid_message=self.ERRORTEXT,
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
 
@@ -97,7 +97,7 @@ class MainClass:
                     transformer=lambda path: path + ".csv"
                     if not path.endswith(".csv")
                     else path,
-                    invalid_message=self.klaidos,
+                    invalid_message=self.ERRORTEXT,
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
 
@@ -110,9 +110,11 @@ class MainClass:
 
                 src_path = inquirer.filepath(
                     message="Pasirinkite is kurio failo bus imami duomenys:",
-                    default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
+                    default=os.path.join(
+                        home_path, "csv/Knygos_Be_Barkodo.csv"
+                    ),
                     validate=PathValidator(
-                        is_file=True, message="Nurodykite teisingą failo kelią"
+                        is_file=True, message=self.ERRORTEXT
                     ),
                     only_files=True,
                 ).execute()
@@ -120,12 +122,14 @@ class MainClass:
                 dest_path = inquirer.filepath(
                     message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                     default=os.path.abspath(
-                        os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")
+                        os.path.join(
+                            home_path, "pdfs/SpausdinimoLapas-ISBN.pdf"
+                        )
                     ),
                     transformer=lambda path: path + ".pdf"
                     if not path.endswith(".pdf")
                     else path,
-                    invalid_message="Nurodykite teisingą failo kelią",
+                    invalid_message=self.ERRORTEXT,
                     validate=lambda path: not os.path.isdir(path),
                 ).execute()
 
@@ -141,11 +145,51 @@ class MainClass:
             case _:  # (｡･ˇ_ˇ･｡)
                 raise ValueError("Kaip? (pasirinkimo klaida)")
 
+    def addingArgumants(self, parser):
+        group = parser.add_argument_group("Pasirinkimai")
+
+        ReadMe = self.getDataFormReadMe()
+
+        group.add_argument(
+            "-h", "--help", action="store_true", help=ReadMe.get("-h, --help")
+        )
+        group.add_argument(
+            "-v",
+            "--version",
+            action="store_true",
+            help=ReadMe.get("-v, --version"),
+        )
+        group.add_argument(
+            "-S",
+            "--webScraper",
+            action="store_true",
+            help=ReadMe.get("-S, --webScraper"),
+        )
+        group.add_argument(
+            "-G", "--generate", help=ReadMe.get("-G, --generate")
+        )
+        group.add_argument(
+            "-I",
+            "--isbnPdf",
+            action="store_true",
+            help=ReadMe.get("-I, --isbnPdf"),
+        )
+        group.add_argument(
+            "-C", "--check", action="store_true", help=ReadMe.get("-C, --check")
+        )
+        group.add_argument("-i", "--input", help=ReadMe.get("-i, --input"))
+        group.add_argument("-o", "--output", help=ReadMe.get("-o, --output"))
+        group.add_argument(
+            "--gui", action="store_true", help=ReadMe.get("--gui")
+        )
+
     @staticmethod
     def local_run():
         run()
 
     def main(self):
+        """Main palce whare the app starts mainly to detect if any argumens exits on execusion"""
+
         argv = sys.argv[1:]
         argv_count = len(argv)
 
@@ -159,32 +203,8 @@ class MainClass:
                 description="Bibliotekos knygų valdymo sistema. Programa jungiasi prie Google Sheets ir padeda vartotojams valdyti knygas.",
                 add_help=False,
             )
-            group = parser.add_argument_group("Pasirinkimai")
 
-            ReadMe = self.getDataFormReadMe()
-
-            group.add_argument(
-                "-h", "--help", action="store_true", help=ReadMe.get("-h, --help")
-            )
-            group.add_argument(
-                "-v", "--version", action="store_true", help=ReadMe.get("-v, --version")
-            )
-            group.add_argument(
-                "-S",
-                "--webScraper",
-                action="store_true",
-                help=ReadMe.get("-S, --webScraper"),
-            )
-            group.add_argument("-G", "--generate", help=ReadMe.get("-G, --generate"))
-            group.add_argument(
-                "-I", "--isbnPdf", action="store_true", help=ReadMe.get("-I, --isbnPdf")
-            )
-            group.add_argument(
-                "-C", "--check", action="store_true", help=ReadMe.get("-C, --check")
-            )
-            group.add_argument("-i", "--input", help=ReadMe.get("-i, --input"))
-            group.add_argument("-o", "--output", help=ReadMe.get("-o, --output"))
-            group.add_argument("--gui", action="store_true", help=ReadMe.get("--gui"))
+            self.addingArgumants(parser)
 
             args = parser.parse_args()
 
