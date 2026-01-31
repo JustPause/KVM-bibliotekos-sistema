@@ -2,12 +2,14 @@ import argparse
 import os
 import sys
 
-from InquirerPy.prompts import filepath, number
+from InquirerPy.prompts.filepath import FilePathPrompt
+from InquirerPy.prompts.number import NumberPrompt
 from InquirerPy.resolver import prompt
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 
 from src.barcodeKurimas import barcode_generator
 from src.bookFindingByISBN import scanner
+from src.ensure import Ensure
 from src.gui.graphicalUserInterface import run
 from src.ibibliotekaConnection import (
     iBibliotekos_paieska,
@@ -30,8 +32,16 @@ class MainClass:
 
     ERRORTEXT = "Nurodykite teisingą failo kelią"
 
-    def ensure_pdf(self, path: str, ext: str) -> str:
-        return path if path.endswith("." + ext) else f"{path}." + ext
+    def __init__(self) -> None:
+        """OKAY"""
+        pass
+
+    def run_prompt(self, prompt):
+        try:
+            return prompt.execute()
+        except KeyboardInterrupt:
+            print("\nIšeinama…")
+            sys.exit(0)
 
     def prompting(self):
         QUESTIONS_FUNCTION = [
@@ -48,43 +58,51 @@ class MainClass:
 
         match pasirinkimo_indexas:
             case 0:  # Brūkšninio kodo kūrimas
-                integer_val = number(
-                    message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
-                    min_allowed=1,
-                    max_allowed=10 * 5 * 10,
-                    validate=EmptyInputValidator(),
-                ).execute()
+                integer_val = self.run_prompt(
+                    NumberPrompt(
+                        message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
+                        min_allowed=1,
+                        max_allowed=10 * 5 * 10,
+                        validate=EmptyInputValidator(),
+                    )
+                )
 
                 home_path = os.path.join(os.getcwd(), "pdfs")
 
-                dest_path = filepath(
-                    message="Pasirinkite vietą ir pavadinimą būsimo failo:",
-                    default=os.path.abspath(
-                        os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")
-                    ),
-                ).execute()
+                dest_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite vietą ir pavadinimą būsimo failo:",
+                        default=os.path.abspath(
+                            os.path.join(home_path, "BarkodaiSpauzdinimui.pdf")
+                        ),
+                    )
+                )
 
                 barcode_generator(int(integer_val), dest_path)
 
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                src_path = filepath(
-                    message="Pasirinkite is kurio failo bus imami duomenys:",
-                    default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
-                    validate=PathValidator(
-                        is_file=False, is_dir=False, message=self.ERRORTEXT
-                    ),
-                    only_files=True,
-                ).execute()
+                src_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite is kurio failo bus imami duomenys:",
+                        default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
+                        validate=PathValidator(
+                            is_file=False, is_dir=False, message=self.ERRORTEXT
+                        ),
+                        only_files=True,
+                    )
+                )
 
-                dest_path = filepath(
-                    message="Pasirinkite i kurio faila bus idedami duomenys:",
-                    default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-                    transformer = ensure_csv,
-                    invalid_message=self.ERRORTEXT,
-                    validate=lambda path: not os.path.isdir(path),
-                ).execute()
+                dest_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite i kurio faila bus idedami duomenys:",
+                        default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
+                        transformer=Ensure.ensure_csv,
+                        invalid_message=self.ERRORTEXT,
+                        validate=Ensure.ensure_not_dir,
+                    )
+                )
 
                 dest_path = get_correct_extension(dest_path, ".csv")
 
@@ -93,15 +111,15 @@ class MainClass:
             case 2:  # Knygų rašymas į iBiblioteką pagal ISBN Scanner
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                dest_path = filepath(
-                    message="Pasirinkite i kurio faila bus idedami duomenys:",
-                    default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-                    transformer=lambda path: path + ".csv"
-                    if not path.endswith(".csv")
-                    else path,
-                    invalid_message=self.ERRORTEXT,
-                    validate=lambda path: not os.path.isdir(path),
-                ).execute()
+                dest_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite i kurio faila bus idedami duomenys:",
+                        default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
+                        transformer=Ensure.ensure_csv,
+                        invalid_message=self.ERRORTEXT,
+                        validate=Ensure.ensure_not_dir,
+                    )
+                )
 
                 dest_path = get_correct_extension(dest_path, ".csv")
 
@@ -110,24 +128,26 @@ class MainClass:
             case 3:  # ISBN iš CSV į PDF
                 home_path = os.getcwd()
 
-                src_path = filepath(
-                    message="Pasirinkite is kurio failo bus imami duomenys:",
-                    default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
-                    validate=PathValidator(is_file=True, message=self.ERRORTEXT),
-                    only_files=True,
-                ).execute()
+                src_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite is kurio failo bus imami duomenys:",
+                        default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
+                        validate=PathValidator(is_file=True, message=self.ERRORTEXT),
+                        only_files=True,
+                    )
+                )
 
-                dest_path = filepath(
-                    message="Pasirinkite vietą ir pavadinimą būsimo failo:",
-                    default=os.path.abspath(
-                        os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")
-                    ),
-                    transformer=lambda path: path + ".pdf"
-                    if not path.endswith(".pdf")
-                    else path,
-                    invalid_message=self.ERRORTEXT,
-                    validate=lambda path: not os.path.isdir(path),
-                ).execute()
+                dest_path = self.run_prompt(
+                    FilePathPrompt(
+                        message="Pasirinkite vietą ir pavadinimą būsimo failo:",
+                        default=os.path.abspath(
+                            os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")
+                        ),
+                        transformer=Ensure.ensure_pdf,
+                        invalid_message=self.ERRORTEXT,
+                        validate=Ensure.ensure_not_dir,
+                    )
+                )
 
                 dest_path = get_correct_extension(dest_path, ".pdf")
 
