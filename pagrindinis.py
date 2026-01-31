@@ -19,7 +19,7 @@ from src.ISBNPrint import form_csv_to_pdf
 from src.osHelper import get_correct_extension, git_build_number
 
 
-class MainClass:
+class _mainClass:
     QUESTIONS = [
         "Brūkšninio kodo kūrimas",
         "Knygų rašymas į iBiblioteką pagal ISBN CSV",
@@ -30,20 +30,30 @@ class MainClass:
         # "Suvedimas pagal pavadinima"
     ]
 
-    ERRORTEXT = "Nurodykite teisingą failo kelią"
+    ERRORTEXTFILE = "Nurodykite teisingą failo kelią"
+    ERRORTEXTINCORECTUSE = (
+        "Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output"
+    )
+    ERRORTEXTINCORECTUSEGENERATE = (
+        "Kai naudojamas -G/--generate, privaloma nurodyti -o/--output"
+    )
+    ERRORTEXTINCORECTUSEISBN = "Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input"
 
     def __init__(self) -> None:
         """OKAY"""
         pass
 
-    def run_prompt(self, prompt):
+    def _run_prompt(self, prompt):
+        """Specifically for the prompt library, to handle CTRL+C presses"""
+
         try:
             return prompt.execute()
         except KeyboardInterrupt:
             print("\nIšeinama…")
             sys.exit(0)
 
-    def prompting(self):
+    def _prompting(self):
+        """A prompt formatter and handler for user selection"""
         QUESTIONS_FUNCTION = [
             {
                 "type": "list",
@@ -58,7 +68,7 @@ class MainClass:
 
         match pasirinkimo_indexas:
             case 0:  # Brūkšninio kodo kūrimas
-                integer_val = self.run_prompt(
+                integer_val = self._run_prompt(
                     NumberPrompt(
                         message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
                         min_allowed=1,
@@ -69,7 +79,7 @@ class MainClass:
 
                 home_path = os.path.join(os.getcwd(), "pdfs")
 
-                dest_path = self.run_prompt(
+                dest_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                         default=os.path.abspath(
@@ -83,23 +93,23 @@ class MainClass:
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                src_path = self.run_prompt(
+                src_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite is kurio failo bus imami duomenys:",
                         default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
                         validate=PathValidator(
-                            is_file=False, is_dir=False, message=self.ERRORTEXT
+                            is_file=False, is_dir=False, message=self.ERRORTEXTFILE
                         ),
                         only_files=True,
                     )
                 )
 
-                dest_path = self.run_prompt(
+                dest_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite i kurio faila bus idedami duomenys:",
                         default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
                         transformer=Ensure.ensure_csv,
-                        invalid_message=self.ERRORTEXT,
+                        invalid_message=self.ERRORTEXTFILE,
                         validate=Ensure.ensure_not_dir,
                     )
                 )
@@ -111,12 +121,12 @@ class MainClass:
             case 2:  # Knygų rašymas į iBiblioteką pagal ISBN Scanner
                 home_path = os.path.join(os.getcwd(), "csv")
 
-                dest_path = self.run_prompt(
+                dest_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite i kurio faila bus idedami duomenys:",
                         default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
                         transformer=Ensure.ensure_csv,
-                        invalid_message=self.ERRORTEXT,
+                        invalid_message=self.ERRORTEXTFILE,
                         validate=Ensure.ensure_not_dir,
                     )
                 )
@@ -128,23 +138,25 @@ class MainClass:
             case 3:  # ISBN iš CSV į PDF
                 home_path = os.getcwd()
 
-                src_path = self.run_prompt(
+                src_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite is kurio failo bus imami duomenys:",
                         default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
-                        validate=PathValidator(is_file=True, message=self.ERRORTEXT),
+                        validate=PathValidator(
+                            is_file=True, message=self.ERRORTEXTFILE
+                        ),
                         only_files=True,
                     )
                 )
 
-                dest_path = self.run_prompt(
+                dest_path = self._run_prompt(
                     FilePathPrompt(
                         message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                         default=os.path.abspath(
                             os.path.join(home_path, "pdfs/SpausdinimoLapas-ISBN.pdf")
                         ),
                         transformer=Ensure.ensure_pdf,
-                        invalid_message=self.ERRORTEXT,
+                        invalid_message=self.ERRORTEXTFILE,
                         validate=Ensure.ensure_not_dir,
                     )
                 )
@@ -161,10 +173,10 @@ class MainClass:
             case _:  # (｡･ˇ_ˇ･｡)
                 raise ValueError("Kaip? (pasirinkimo klaida)")
 
-    def adding_argumants(self, parser):
+    def _adding_argumants(self, parser):
         group = parser.add_argument_group("Pasirinkimai")
 
-        ReadMe = self.getDataFormReadMe()
+        ReadMe = self._get_data_form_read_me()
 
         group.add_argument(
             "-h", "--help", action="store_true", help=ReadMe.get("-h, --help")
@@ -195,13 +207,13 @@ class MainClass:
         group.add_argument("-o", "--output", help=ReadMe.get("-o, --output"))
         group.add_argument("--gui", action="store_true", help=ReadMe.get("--gui"))
 
-    def handels_args(self, parser, args):
-        """Handles user selection and leads the user to the choice that was made"""
+    def _handels_args(self, parser, args):
+        """Handles user selection and leads the user to the funcion that he selected made"""
         if args.help:
             parser.print_help()
 
         elif args.gui:
-            self.local_run()
+            self._local_run()
 
         elif args.version:
             import configparser
@@ -213,9 +225,7 @@ class MainClass:
 
             print(f"{version}+{build}")
         elif args.webScraper and not args.output:
-            parser.error(
-                "Kai naudojamas -S/--webScraper, privaloma nurodyti -o/--output"
-            )
+            parser.error(self.ERRORTEXTINCORECTUSE)
 
         elif args.webScraper:
             src_path = args.input
@@ -227,7 +237,7 @@ class MainClass:
                 iBibliotekos_paieska_tiesiogiai(dest_path)
 
         elif args.generate and not args.output:
-            parser.error("Kai naudojamas -G/--generate, privaloma nurodyti -o/--output")
+            parser.error(self.ERRORTEXTINCORECTUSEGENERATE)
 
         elif args.generate:
             dest_path = args.output
@@ -235,9 +245,7 @@ class MainClass:
             barcode_generator(int(args.generate), dest_path)
 
         elif args.isbnPdf and not args.output and not args.input:
-            parser.error(
-                "Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input"
-            )
+            parser.error(self.ERRORTEXTINCORECTUSEISBN)
 
         elif args.isbnPdf:
             src_path = args.input
@@ -260,13 +268,13 @@ class MainClass:
             pass
 
     def main(self):
-        """Main place where the app starts. Mainly used to detect if any arguments exist on execution and reacts accordingly"""
+        """_main place where the app starts. _mainly used to detect if any arguments exist on execution and reacts accordingly"""
 
         argv = sys.argv[1:]
         argv_count = len(argv)
 
         if argv_count == 0:
-            self.prompting()
+            self._prompting()
 
         else:
             parser = argparse.ArgumentParser(
@@ -276,16 +284,16 @@ class MainClass:
                 add_help=False,
             )
 
-            self.adding_argumants(parser)
+            self._adding_argumants(parser)
 
-            self.handels_args(parser, parser.parse_args())
+            self._handels_args(parser, parser.parse_args())
 
     @staticmethod
-    def local_run():
+    def _local_run():
         run()
 
     @staticmethod
-    def get_data_form_read_me():
+    def _get_data_form_read_me():
         table_lines = []
         in_table = False
 
@@ -316,6 +324,6 @@ class MainClass:
         return options
 
 
-if __name__ == "__main__":
-    app = MainClass()
+if __name__ == "___main__":
+    app = _mainClass()
     app.main()
