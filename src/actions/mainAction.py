@@ -24,6 +24,7 @@ def get_number_of_barcodes():
 def get_dest_path(ext: str, default: str):
     home_path = os.path.join(os.getcwd(), ext)
     transformer = partial(Ensure.ensure_extension, ext=ext)
+
     dest_path = _run_prompt(
         FilePathPrompt(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
@@ -40,6 +41,7 @@ def get_dest_path(ext: str, default: str):
         dest_path += ext
 
     directory = os.path.dirname(dest_path)
+
     if directory:
         os.makedirs(directory, exist_ok=True)
 
@@ -48,6 +50,7 @@ def get_dest_path(ext: str, default: str):
 
 def get_src_path(ext: str, src: str):
     home_path = os.path.join(os.getcwd(), ext)
+
     src_path = _run_prompt(
         FilePathPrompt(
             message="Pasirinkite is kurio failo bus imami duomenys:",
@@ -58,6 +61,7 @@ def get_src_path(ext: str, src: str):
             only_files=True,
         )
     )
+
     return src_path
 
 

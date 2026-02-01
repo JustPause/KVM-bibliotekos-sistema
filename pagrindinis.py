@@ -3,9 +3,8 @@ import os
 import sys
 
 from InquirerPy.prompts.filepath import FilePathPrompt
-from InquirerPy.prompts.number import NumberPrompt
 from InquirerPy.resolver import prompt
-from InquirerPy.validator import EmptyInputValidator, PathValidator
+from InquirerPy.validator import PathValidator
 
 from src.barcodeKurimas import barcode_generator
 from src.bookFindingByISBN import scanner
@@ -16,6 +15,7 @@ from src.ibibliotekaConnection import (
     iBibliotekos_paieska_tiesiogiai,
 )
 from src.ISBNPrint import form_csv_to_pdf
+from src.logger import logger
 from src.osHelper import get_correct_extension, git_build_number
 
 
@@ -126,9 +126,9 @@ class _mainClass:
                 form_csv_to_pdf(src_path, dest_path)
 
             case 4:  # Lėtesnė knygų paieška
-                print("Paruosta Skanuoti - irasykytia ISBN")
+                logger.info("Paruosta Skanuoti - irasykytia ISBN")
 
-                scanner("csv/output_csv.csv")
+                # scanner("csv/output_csv.csv")
 
             case _:  # (｡･ˇ_ˇ･｡)
                 raise ValueError("Kaip? (pasirinkimo klaida)")
