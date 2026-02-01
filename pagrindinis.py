@@ -68,28 +68,11 @@ class _mainClass:
                 barcode_generator(int(number_of_barcodes), dest_path)
 
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
-                home_path = os.path.join(os.getcwd(), "csv")
+                from src.actions.mainAction import get_dest_path, get_src_path
 
-                src_path = self._run_prompt(
-                    FilePathPrompt(
-                        message="Pasirinkite is kurio failo bus imami duomenys:",
-                        default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
-                        validate=PathValidator(
-                            is_file=False, is_dir=False, message=self.ERRORTEXTFILE
-                        ),
-                        only_files=True,
-                    )
-                )
+                src_path = get_src_path("csv", "Knygos_Be_Barkodo.csv")
 
-                dest_path = self._run_prompt(
-                    FilePathPrompt(
-                        message="Pasirinkite i kurio faila bus idedami duomenys:",
-                        default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
-                        transformer=Ensure.ensure_csv,
-                        invalid_message=self.ERRORTEXTFILE,
-                        validate=Ensure.ensure_not_dir,
-                    )
-                )
+                dest_path = get_dest_path("csv", "Knygos_Su_Viskuom.csv")
 
                 dest_path = get_correct_extension(dest_path, ".csv")
 
@@ -301,6 +284,6 @@ class _mainClass:
         return options
 
 
-if __name__ == "___main__":
+if __name__ == "__main__":
     app = _mainClass()
     app.main()
