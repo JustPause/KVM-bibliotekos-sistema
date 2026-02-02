@@ -9,7 +9,7 @@ from InquirerPy.validator import PathValidator
 from src.barcode_kurimas import barcode_generator
 from src.book_finding_by_isbn import scanner
 from src.ensure import Ensure
-from src.gui.graphicalUserInterface import run
+from src.gui.graphical_user_interface import run
 from src.ibiblioteka_connection import (
     iBibliotekos_paieska,
     iBibliotekos_paieska_tiesiogiai,
@@ -59,7 +59,10 @@ class _mainClass:
 
         match chooce_index:
             case 0:  # Brūkšninio kodo kūrimas
-                from src.actions.mainAction import get_dest_path, get_number_of_barcodes
+                from src.actions.main_action import (
+                    get_dest_path,
+                    get_number_of_barcodes,
+                )
 
                 number_of_barcodes = get_number_of_barcodes()
 
@@ -68,7 +71,7 @@ class _mainClass:
                 barcode_generator(int(number_of_barcodes), dest_path)
 
             case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
-                from src.actions.mainAction import get_dest_path, get_src_path
+                from src.actions.main_action import get_dest_path, get_src_path
 
                 src_path = get_src_path("csv", "Knygos_Be_Barkodo.csv")
 

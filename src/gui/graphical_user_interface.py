@@ -3,7 +3,7 @@ from typing import override
 
 import wx
 
-from src.gui.overrideMain import Pagrindinis, SideBar
+from src.gui.override_main import Pagrindinis, SideBar
 from src.ibiblioteka_connection import kill_drive
 
 
