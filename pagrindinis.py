@@ -52,11 +52,6 @@ ARGUMENTS = [
 ]
 
 
-def __init__() -> None:
-    """this is Main Class"""
-    pass
-
-
 def _prompting():
     """A prompt formatter and handler for user selection"""
     QUESTIONS_FUNCTION = [
