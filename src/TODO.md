@@ -19,6 +19,8 @@
 
 ## Sisteminiai / infrastruktūros darbai
 
+- [ ] perdaryti GUI pirma, kad butu viskas pritaikitas jam, tada prideti funcionaluma CLI
+- [ ] padaryti viena config faila
 - [ ] `sheet.json` sukūrimas programos metu
 - [ ] Prisijungimas prie Google serverių ir tokeno gavimas vos paleidus GUI programą, kad vėliau nebūtų problemų
 - [ ] Pridėti brūkšninių kodų generavimo sistemai vietoje `cache` - įkėlimą į `temp` katalogą, kaip padaryta testinėje aplinkoje
