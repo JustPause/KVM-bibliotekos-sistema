@@ -11,7 +11,7 @@ from src.logger import logger
 
 
 def get_number_of_barcodes():
-    number_of_barcodes = _run_prompt(
+    number_of_barcodes = run_prompt(
         NumberPrompt(
             message="Kiek barkodu sukurti (Vienamia lapia telpa 50 kodu):",
             min_allowed=1,
@@ -26,7 +26,7 @@ def get_dest_path(ext: str, default: str):
     home_path = os.path.join(os.getcwd(), ext)
     transformer = partial(Ensure.ensure_extension, ext=ext)
 
-    dest_path = _run_prompt(
+    dest_path = run_prompt(
         FilePathPrompt(
             message="Pasirinkite vietą ir pavadinimą būsimo failo:",
             default=os.path.abspath(os.path.join(home_path, default)),
@@ -52,7 +52,7 @@ def get_dest_path(ext: str, default: str):
 def get_src_path(ext: str, src: str):
     home_path = os.path.join(os.getcwd(), ext)
 
-    src_path = _run_prompt(
+    src_path = run_prompt(
         FilePathPrompt(
             message="Pasirinkite is kurio failo bus imami duomenys:",
             default=os.path.join(home_path, "Knygos_Be_Barkodo.csv"),
@@ -66,7 +66,7 @@ def get_src_path(ext: str, src: str):
     return src_path
 
 
-def _run_prompt(prompt):
+def run_prompt(prompt):
     """Specifically for the prompt library, to handle CTRL+C presses"""
 
     try:
