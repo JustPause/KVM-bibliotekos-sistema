@@ -11,6 +11,7 @@ from googleapiclient.errors import HttpError
 
 from src.config import Config
 from src.helpers.utils import get_fieldnames
+from src.logger import logger
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
@@ -47,7 +48,7 @@ def connect_to_sheet() -> Any:
         return sheet
 
     except HttpError as err:
-        print(err)
+        logger.error(err)
 
         return None
 
@@ -57,7 +58,7 @@ def _get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     values = result.get("values", [])
 
     if not values:
-        print("No data found.")
+        logger.warning("No data found.")
         return None
 
     return values

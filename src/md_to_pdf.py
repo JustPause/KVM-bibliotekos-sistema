@@ -3,6 +3,8 @@ from pathlib import Path
 from markdown import markdown
 from weasyprint import CSS, HTML
 
+from src.logger import logger
+
 md_README_path = Path("README.md")
 md_naudojimo_Instrucija_path = Path("Naudotojo_Instrucija.md")
 md_programuotojo_Instrucija_path = Path("Programuotojo_Instrucija.md")
@@ -39,7 +41,7 @@ def make_markdown_to_pdf(md_path: Path, css_path: Path):
         stylesheets=[CSS(filename=css_path.resolve())],
     )
 
-    print("Saved:", output_pdf)
+    logger.info("Saved:", output_pdf)
 
 
 make_markdown_to_pdf(md_README_path, css_path)

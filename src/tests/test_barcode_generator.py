@@ -37,4 +37,4 @@ class TestBarcodeGenerator(unittest.TestCase):
             self.tmpdir.cleanup()
 
         else:
-            logger.info("tmpdir is None")
+            logger.info("tmpdir yra None")

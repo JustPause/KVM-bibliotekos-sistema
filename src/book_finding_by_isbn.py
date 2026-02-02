@@ -2,6 +2,7 @@ import csv
 
 from src.google_sheets import get_sheet_rows
 from src.helpers.utils import get_fieldnames
+from src.logger import logger
 
 
 def scanner(dest_file: str = ""):
@@ -37,11 +38,11 @@ def scanner(dest_file: str = ""):
 
         for row in rows:
             if row.get("isbn") == isbn or row.get("Kodas") == isbn:
-                print("'" + row["Pavadinimas"] + "' - yra sarasia")
+                logger.info("'" + row["Pavadinimas"] + "' - yra sarasia")
                 found = False
 
         if found and dest_file != "":
-            print("save to output_csv.csv as emtey - " + str(isbn))
+            logger.info("save to output_csv.csv as emtey - " + str(isbn))
             with open(dest_file, "a", newline="", encoding="utf-8") as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
                 writer.writerow(

@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.helpers.utils import get_fieldnames
+from src.logger import logger
 from src.os_helper import is_file_empty
 from src.progress import Progress
 
@@ -29,7 +30,7 @@ def iBiblioteka_scraper(isbn):
     if str(isbn).strip() == "":
         return {"Autorius": "---", "Pavadinimas": "---", "Metai": "---", "isbn": isbn}
 
-    print("Kodas kurio ieskau - " + str(isbn))
+    logger.info("Kodas kurio ieskau - " + str(isbn))
 
     search_box = driver.find_element(By.ID, "mat-input-0")
     search_box.clear()
@@ -39,8 +40,7 @@ def iBiblioteka_scraper(isbn):
 
     r_dict = data_extracotr(isbn)
 
-    print(r_dict)
-    print()
+    logger.info(r_dict)
 
     return r_dict
 
@@ -58,7 +58,7 @@ def data_extracotr(isbn):
     sk = rezultataiSK.text
     sk = int(sk.split(":")[1].strip())
 
-    print("Kiek rasta knygu su isbn: " + str(sk))
+    logger.info("Kiek rasta knygu su isbn: " + str(sk))
 
     if sk == 0:
         r_dict = {}
@@ -98,7 +98,7 @@ def data_extracotr(isbn):
         if row.text.find(":") != -1:
             key, value = row.text.split(":", 1)
         else:
-            print(row.text + "Negerai")
+            logger.info(row.text + "Negerai")
 
             key = "neGerai"
             value = row.text
@@ -201,7 +201,7 @@ def iBibliotekos_paieska(input_csv, output_csv):
         lenth = len(rows)
 
         for index, row in enumerate(rows):
-            print(str(int((index / lenth) * 100)) + "%")
+            logger.info(str(int((index / lenth) * 100)) + "%")
 
             data = iBibliotekos_paieska_tiesiogiai_core(row["isbn"])
 
@@ -261,7 +261,7 @@ def conpare_with_main_sheet(inputRows: list[str]):
     # global mainSheet
 
     # if not mainSheet:
-    #     print("ping")
+    #     logger.info("ping")
     #     mainSheet=get_sheet_rows()
 
     # for index, row in enumerate(mainSheet):

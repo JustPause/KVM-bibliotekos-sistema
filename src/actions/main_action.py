@@ -7,6 +7,7 @@ from InquirerPy.prompts.number import NumberPrompt
 from InquirerPy.validator import EmptyInputValidator, PathValidator
 
 from src.ensure import Ensure
+from src.logger import logger
 
 
 def get_number_of_barcodes():
@@ -71,5 +72,5 @@ def _run_prompt(prompt):
     try:
         return prompt.execute()
     except KeyboardInterrupt:
-        print("\nIšeinama…")
+        logger.info("\nIšeinama…")
         sys.exit(0)

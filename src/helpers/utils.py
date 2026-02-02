@@ -30,7 +30,7 @@ def from_dic_to_array_add_catalog(dict, catalog):
         catalog,
     ]
 
-    # print(data)
+    # logger.info(data)
 
     return data
 

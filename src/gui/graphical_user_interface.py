@@ -5,6 +5,7 @@ import wx
 
 from src.gui.override_main import Pagrindinis, SideBar
 from src.ibiblioteka_connection import kill_drive
+from src.logger import logger
 
 
 class GUI(wx.Frame):
@@ -64,7 +65,7 @@ class GUI(wx.Frame):
 class Barkodas(wx.App):
     @override
     def OnExit(self):
-        print("Pragrama isjungema: Duomenis pravalomi. uzdaromi langai")
+        logger.info("Programos išjungimas: duomenys pravalomi, uždaromi langai")
 
         kill_drive()
 

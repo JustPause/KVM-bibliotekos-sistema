@@ -2,6 +2,7 @@ import datetime
 
 from src.helpers.pdf import images_to_pdf
 from src.isbn_print import generate_KVM_barcode
+from src.logger import logger
 from src.os_helper import is_it_directory
 
 
@@ -13,7 +14,7 @@ def barcode_generator(num: int, output_pdf: str):
     is_it_directory(output_pdf)
 
     for index in range(num):
-        print(str(int((index / num) * 100)) + "%")
+        logger.info(str(int((index / num) * 100)) + "%")
 
         filename_array.append(
             generate_KVM_barcode(

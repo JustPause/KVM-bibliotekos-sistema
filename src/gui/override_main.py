@@ -26,6 +26,7 @@ from src.helpers.utils import (
 )
 from src.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
 from src.isbn_print import form_buffer_to_pdf
+from src.logger import logger
 from src.os_helper import (
     get_correct_extension,
     get_correct_extension_ending,
@@ -354,10 +355,10 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
                         )
                 else:
                     r = append_rows([loc_result])
-                    print(r)
+                    logger.info(r)
             else:
                 r = append_rows([from_dic_to_array_add_catalog(result, self.catalog)])
-                print(r)
+                logger.info(r)
 
         worker.run(work_func=paieska, on_done=on_pabaigimo)
 
