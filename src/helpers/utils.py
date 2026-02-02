@@ -10,7 +10,7 @@ def get_fieldnames_extra() -> list[str]:
     return fieldnames
 
 
-def fromDicToArray(dict):
+def from_dic_to_array(dict):
     data = [
         dict[fieldnames[0]],
         dict[fieldnames[1]],
@@ -21,7 +21,7 @@ def fromDicToArray(dict):
     return data
 
 
-def fromDicToArrayAddCatalog(dict, catalog):
+def from_dic_to_array_add_catalog(dict, catalog):
     data = [
         dict[fieldnames[0]],
         dict[fieldnames[1]],
@@ -35,7 +35,7 @@ def fromDicToArrayAddCatalog(dict, catalog):
     return data
 
 
-def addingColumsHeaders(dataView):
+def adding_colums_headers(dataView):
     fieldnames = get_fieldnames()
 
     for field in fieldnames:

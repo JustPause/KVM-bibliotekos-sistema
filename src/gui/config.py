@@ -1,5 +1,4 @@
 import configparser
-import os
 from pathlib import Path
 
 
@@ -13,14 +12,14 @@ class ConfigFile:
         else:
             raise FileNotFoundError("config.conf not found")
 
-    def getUserData(self, name: str):
+    def get_user_data(self, name: str):
         return self.config["userData"][name]
 
-    def setUserData(self, name: str, path: str):
+    def set_user_data(self, name: str, path: str):
         self.config["userData"][name] = path
 
         with open("config.conf", "w") as f:
             self.config.write(f)
 
-    def getDefaultData(self, name: str):
+    def get_default_data(self, name: str):
         return self.config["DEFAULT"][name]

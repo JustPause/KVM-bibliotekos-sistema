@@ -30,7 +30,7 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanel(self, MainPanelClass) -> None:
+    def replace_panel(self, MainPanelClass) -> None:
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()
@@ -40,7 +40,7 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanelNext(self, MainPanelClass, path=None):
+    def replace_panel_next(self, MainPanelClass, path=None):
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()
@@ -50,7 +50,7 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanelCatalog(self, MainPanelClass, catalog, path=None):
+    def replace_panel_catalog(self, MainPanelClass, catalog, path=None):
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()

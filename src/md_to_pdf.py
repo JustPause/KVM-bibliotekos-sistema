@@ -10,7 +10,7 @@ pdf_path = Path("README.pdf")
 css_path = Path("src/css/mdfile.css")
 
 
-def makeMDtoPDF(md_path: Path, css_path: Path):
+def make_markdown_to_pdf(md_path: Path, css_path: Path):
     md_text = md_path.read_text(encoding="utf-8")
 
     html_body = markdown(
@@ -27,10 +27,10 @@ def makeMDtoPDF(md_path: Path, css_path: Path):
     </body>
     </html>
     """
-    dirName="docs"
+    dirName = "docs"
     Path(dirName).mkdir(parents=True, exist_ok=True)
     output_pdf = (Path("docs") / md_path.with_suffix(".pdf").name).resolve()
-    
+
     HTML(
         string=html,
         base_url=md_path.parent.resolve(),
@@ -38,10 +38,10 @@ def makeMDtoPDF(md_path: Path, css_path: Path):
         target=output_pdf,
         stylesheets=[CSS(filename=css_path.resolve())],
     )
-    
+
     print("Saved:", output_pdf)
 
 
-makeMDtoPDF(md_README_path, css_path)
-makeMDtoPDF(md_naudojimo_Instrucija_path, css_path)
-makeMDtoPDF(md_programuotojo_Instrucija_path, css_path)
+make_markdown_to_pdf(md_README_path, css_path)
+make_markdown_to_pdf(md_naudojimo_Instrucija_path, css_path)
+make_markdown_to_pdf(md_programuotojo_Instrucija_path, css_path)

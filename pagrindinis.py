@@ -19,7 +19,7 @@ from src.logger import logger
 from src.os_helper import get_correct_extension, git_build_number
 
 
-class _MainClass:
+class MainClass:
     QUESTIONS = [
         "Brūkšninio kodo kūrimas",
         "Knygų rašymas į iBiblioteką pagal ISBN CSV",
@@ -186,7 +186,7 @@ class _MainClass:
             config.read("config.conf")
             version = config["DEFAULT"]["version"]
 
-            print(f"{version}+{build}")
+            logger.info(f"{version}+{build}")
         elif args.webScraper and not args.output:
             parser.error(self.ERRORTEXTINCORECTUSE)
 
@@ -282,11 +282,9 @@ class _MainClass:
             description = parts[2].strip()
             options[flag] = description
 
-        # for flag, desc in options.items():
-        #     print(flag, ":", desc)
         return options
 
 
 if __name__ == "__main__":
-    app = _MainClass()
+    app = MainClass()
     app.main()

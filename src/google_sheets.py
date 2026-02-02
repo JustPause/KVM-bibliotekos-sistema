@@ -52,7 +52,7 @@ def connect_to_sheet() -> Any:
         return None
 
 
-def __get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
+def _get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     result = sheet.values().get(spreadsheetId=sheet_id, range=sheet_range).execute()
     values = result.get("values", [])
 
@@ -63,7 +63,7 @@ def __get_data(sheet, sheet_id, sheet_range) -> list[str] | None:
     return values
 
 
-def __padding_row_data(row, padding_needed):
+def _padding_row_data(row, padding_needed):
     data = list(row)
     for _ in range(padding_needed):
         data.append("")
@@ -71,7 +71,7 @@ def __padding_row_data(row, padding_needed):
     return data
 
 
-def __padding_row_data_v2(rows: list[list[str]], reqerd_len):
+def _padding_row_data_v2(rows: list[list[str]], reqerd_len):
     data = list()
 
     for row in rows:
@@ -88,9 +88,9 @@ def get_sheet_rows(rage_with_cata=False):
 
     sheet = connect_to_sheet()
     if rage_with_cata:
-        rows = __get_data(sheet, sheet_id, rage_with_catalog)
+        rows = _get_data(sheet, sheet_id, rage_with_catalog)
     else:
-        rows = __get_data(sheet, sheet_id, rage)
+        rows = _get_data(sheet, sheet_id, rage)
 
     if rows is None:
         raise ValueError("rows cannot be None")
@@ -105,7 +105,7 @@ def get_sheet_rows(rage_with_cata=False):
             raise IndexError
 
         padding_needed = len(heads) - len(row)
-        data = __padding_row_data(row, padding_needed)
+        data = _padding_row_data(row, padding_needed)
         data_dict = making_dictionary_pairs(heads, data)
         working_sheet.append(data_dict)
 
@@ -167,7 +167,7 @@ def get_all_data():
     heads = rows[0]
     rows = rows[1:]
 
-    edited_rows = __padding_row_data_v2(rows, len(heads))
+    edited_rows = _padding_row_data_v2(rows, len(heads))
 
     return edited_rows
 
@@ -209,7 +209,7 @@ def get_korteles_ir_naudotojei():
     rage = config.get_rage_asmeniniai_duomenys()
     sheet = connect_to_sheet()
 
-    return __get_data(sheet, sheet_id, rage)
+    return _get_data(sheet, sheet_id, rage)
 
 
 def set_vardas(rowid, data):
@@ -222,10 +222,10 @@ def set_vardas(rowid, data):
     rage_vardas = rage_vardas.format(row=rowid)
     rage_data = rage_data.format(row=rowid)
 
-    execute_googleSheet(data, id, rage_vardas)
+    execute_google_sheet(data, id, rage_vardas)
 
     today_date = datetime.today().strftime("%Y-%m-%d")
-    result_data = execute_googleSheet(today_date, id, rage_data)
+    result_data = execute_google_sheet(today_date, id, rage_data)
     return result_data
 
 
@@ -239,14 +239,14 @@ def set_korteles_id(rowid, data):
     rage_korteles = rage_korteles.format(row=rowid)
     rage_data = rage_data.format(row=rowid)
 
-    execute_googleSheet(data, id, rage_korteles)
+    execute_google_sheet(data, id, rage_korteles)
 
     today_date = datetime.today().strftime("%Y-%m-%d")
-    result_data = execute_googleSheet(today_date, id, rage_data)
+    result_data = execute_google_sheet(today_date, id, rage_data)
     return result_data
 
 
-def execute_googleSheet(data, sheet_id, range):
+def execute_google_sheet(data, sheet_id, range):
     sheet = connect_to_sheet()
     values = [
         [data],
@@ -294,7 +294,7 @@ def set_row(rowid, data):
     return result
 
 
-def getFormula(id, config):
+def get_formula(id, config):
     formula = f"""=IFERROR(QUERY(ARRAYFORMULA(TEXT(IMPORTRANGE("https://docs.google.com/spreadsheets/d/{config.get_card_table_id()}"; "{config.get_card_table_name()}"); "0")); "SELECT Col1, Col4 WHERE Col6 = '"  & IF(H{id} = ""; "-"; H{id}) &  "' OR Col5 = '"  & IF(H{id} = ""; "-"; H{id}) &  "'");"-")"""
     return formula
 
@@ -308,7 +308,7 @@ def set_row_retruning_book(id):
 
     rage = rage.format(row=id)
 
-    formula = getFormula(id, config)
+    formula = get_formula(id, config)
 
     data = ["", formula, "", ""]
     values = [data]
@@ -356,7 +356,7 @@ def append_rows(rows: list[str]):
 
     rage_func = config.get_rage_func().format(row=rowNumber)
 
-    formula = getFormula(rowNumber, config)
+    formula = get_formula(rowNumber, config)
 
     body = {"values": [[formula]]}
 

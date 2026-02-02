@@ -163,14 +163,14 @@ class SideBar ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.ISNB_kodu_atspauzdinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Kurti_naujus_barkodus.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.CSV_Sukurimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Išdavimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
-        self.Grąžinimas.Bind( wx.EVT_LEFT_DOWN, self.Click )
+        self.ISNB_kodu_atspauzdinimas.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Kurti_naujus_barkodus.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Iš_Klavetūros_Skaitytuvo.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.CSV_Sukurimas.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Iš_CSV.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Patikralentėja.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Išdavimas.Bind( wx.EVT_LEFT_DOWN, self.click )
+        self.Grąžinimas.Bind( wx.EVT_LEFT_DOWN, self.click )
         self.versija.Bind( wx.EVT_LEFT_UP, self.version )
 
     def __del__( self ):
@@ -178,7 +178,7 @@ class SideBar ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def Click( self, event ):
+    def click( self, event ):
         event.Skip()
 
 
@@ -334,7 +334,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.inputText1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.inputText1.Bind( wx.EVT_LEFT_DOWN, self.selecting_path )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -342,7 +342,7 @@ class KurtiNaujusBarkodus ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def selecting_path( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -459,8 +459,8 @@ class ISBNkoduAtspauzdinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
-        self.textCtrl1.Bind( wx.EVT_TEXT, self.enterI )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.selecting_path )
+        self.textCtrl1.Bind( wx.EVT_TEXT, self.enter_text )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -468,10 +468,10 @@ class ISBNkoduAtspauzdinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def selecting_path( self, event ):
         event.Skip()
 
-    def enterI( self, event ):
+    def enter_text( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -558,7 +558,7 @@ class IsCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.selecting_path )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -566,7 +566,7 @@ class IsCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def selecting_path( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -653,7 +653,7 @@ class SukurtiCSV ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.selecting_path )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -661,7 +661,7 @@ class SukurtiCSV ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def selecting_path( self, event ):
         event.Skip()
 
     def next( self, event ):
@@ -781,7 +781,7 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.SelectingPath )
+        self.textCtrl1.Bind( wx.EVT_LEFT_DOWN, self.selecting_path )
         self.testi_be_failo.Bind( wx.EVT_LEFT_DOWN, self.file_free_scan )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
@@ -790,7 +790,7 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def SelectingPath( self, event ):
+    def selecting_path( self, event ):
         event.Skip()
 
     def file_free_scan( self, event ):
@@ -874,14 +874,14 @@ class IsKlaveturosSkaitytuvoEkranas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.ISBN.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.ISBN.Bind( wx.EVT_TEXT_ENTER, self.enter )
 
     def __del__( self ):
         pass
 
 
     # Virtual event handlers, override them in your derived class
-    def Enter( self, event ):
+    def enter( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
@@ -1134,33 +1134,33 @@ class Isdavimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.KngosISBNInput.Bind( wx.EVT_LEAVE_WINDOW, self.EnterISBN )
-        self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.EnterISBN )
-        self.KortelesRezult.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
-        self.Pakeisti.Bind( wx.EVT_LEFT_DOWN, self.Pakeisti_button )
-        self.VardasInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedName )
-        self.KlaseInput.Bind( wx.EVT_LEFT_DOWN, self.SlectedKlase )
-        self.Isduoti.Bind( wx.EVT_LEFT_DOWN, self.Isduoti_button )
+        self.KngosISBNInput.Bind( wx.EVT_LEAVE_WINDOW, self.enter_isbn )
+        self.KngosISBNInput.Bind( wx.EVT_TEXT_ENTER, self.enter_isbn )
+        self.KortelesRezult.Bind( wx.EVT_LEFT_DOWN, self.isduoti_button )
+        self.Pakeisti.Bind( wx.EVT_LEFT_DOWN, self.pakeisti_button )
+        self.VardasInput.Bind( wx.EVT_LEFT_DOWN, self.slected_name )
+        self.KlaseInput.Bind( wx.EVT_LEFT_DOWN, self.slected_klase )
+        self.Isduoti.Bind( wx.EVT_LEFT_DOWN, self.isduoti_button )
 
     def __del__( self ):
         pass
 
 
     # Virtual event handlers, override them in your derived class
-    def EnterISBN( self, event ):
+    def enter_isbn( self, event ):
         event.Skip()
 
 
-    def Isduoti_button( self, event ):
+    def isduoti_button( self, event ):
         event.Skip()
 
-    def Pakeisti_button( self, event ):
+    def pakeisti_button( self, event ):
         event.Skip()
 
-    def SlectedName( self, event ):
+    def slected_name( self, event ):
         event.Skip()
 
-    def SlectedKlase( self, event ):
+    def slected_klase( self, event ):
         event.Skip()
 
 
@@ -1350,14 +1350,14 @@ class Patikrinti ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.ISBN_window_input.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.ISBN_window_input.Bind( wx.EVT_TEXT_ENTER, self.enter )
 
     def __del__( self ):
         pass
 
 
     # Virtual event handlers, override them in your derived class
-    def Enter( self, event ):
+    def enter( self, event ):
         event.Skip()
 
     # Virtual image path resolution method. Override this in your derived class.
@@ -1472,8 +1472,8 @@ class Gazinimas ( wx.Panel ):
         self.Layout()
 
         # Connect Events
-        self.KnygosInput.Bind( wx.EVT_LEAVE_WINDOW, self.Enter )
-        self.KnygosInput.Bind( wx.EVT_TEXT_ENTER, self.Enter )
+        self.KnygosInput.Bind( wx.EVT_LEAVE_WINDOW, self.enter )
+        self.KnygosInput.Bind( wx.EVT_TEXT_ENTER, self.enter )
         self.testi.Bind( wx.EVT_LEFT_DOWN, self.next )
 
     def __del__( self ):
@@ -1481,7 +1481,7 @@ class Gazinimas ( wx.Panel ):
 
 
     # Virtual event handlers, override them in your derived class
-    def Enter( self, event ):
+    def enter( self, event ):
         event.Skip()
 
 

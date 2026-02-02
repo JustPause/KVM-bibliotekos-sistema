@@ -285,7 +285,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
@@ -360,7 +360,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
               </object>
@@ -518,7 +518,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
@@ -593,7 +593,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style">wxBORDER_NONE</property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
@@ -668,7 +668,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style">wxBORDER_NONE</property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
               </object>
@@ -826,7 +826,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
               </object>
@@ -984,7 +984,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">
@@ -1059,7 +1059,7 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeftDown">Click</event>
+                    <event name="OnLeftDown">click</event>
                   </object>
                 </object>
               </object>
@@ -1634,7 +1634,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">selecting_path</event>
                     </object>
                   </object>
                 </object>
@@ -2385,8 +2385,8 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
-                      <event name="OnText">enterI</event>
+                      <event name="OnLeftDown">selecting_path</event>
+                      <event name="OnText">enter_text</event>
                     </object>
                   </object>
                 </object>
@@ -2880,7 +2880,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">selecting_path</event>
                     </object>
                   </object>
                 </object>
@@ -3374,7 +3374,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">selecting_path</event>
                     </object>
                   </object>
                 </object>
@@ -3868,7 +3868,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">SelectingPath</event>
+                      <event name="OnLeftDown">selecting_path</event>
                     </object>
                   </object>
                 </object>
@@ -4591,7 +4591,7 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnTextEnter">Enter</event>
+                          <event name="OnTextEnter">enter</event>
                         </object>
                       </object>
                     </object>
@@ -5065,8 +5065,8 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnLeaveWindow">EnterISBN</event>
-                          <event name="OnTextEnter">EnterISBN</event>
+                          <event name="OnLeaveWindow">enter_isbn</event>
+                          <event name="OnTextEnter">enter_isbn</event>
                         </object>
                       </object>
                       <object class="sizeritem" expanded="false">
@@ -6064,7 +6064,7 @@
                           <property name="window_name"></property>
                           <property name="window_style"></property>
                           <property name="wrap">-1</property>
-                          <event name="OnLeftDown">Isduoti_button</event>
+                          <event name="OnLeftDown">isduoti_button</event>
                         </object>
                       </object>
                       <object class="sizeritem" expanded="false">
@@ -6139,7 +6139,7 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnLeftDown">Pakeisti_button</event>
+                          <event name="OnLeftDown">pakeisti_button</event>
                         </object>
                       </object>
                     </object>
@@ -6278,7 +6278,7 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnLeftDown">SlectedName</event>
+                          <event name="OnLeftDown">slected_name</event>
                         </object>
                       </object>
                     </object>
@@ -6417,7 +6417,7 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnLeftDown">SlectedKlase</event>
+                          <event name="OnLeftDown">slected_klase</event>
                         </object>
                       </object>
                     </object>
@@ -6494,7 +6494,7 @@
                       <property name="window_extra_style"></property>
                       <property name="window_name"></property>
                       <property name="window_style"></property>
-                      <event name="OnLeftDown">Isduoti_button</event>
+                      <event name="OnLeftDown">isduoti_button</event>
                     </object>
                   </object>
                   <object class="sizeritem" expanded="false">
@@ -7913,7 +7913,7 @@
                           <property name="window_extra_style"></property>
                           <property name="window_name"></property>
                           <property name="window_style"></property>
-                          <event name="OnTextEnter">Enter</event>
+                          <event name="OnTextEnter">enter</event>
                         </object>
                       </object>
                     </object>
@@ -8357,8 +8357,8 @@
                     <property name="window_extra_style"></property>
                     <property name="window_name"></property>
                     <property name="window_style"></property>
-                    <event name="OnLeaveWindow">Enter</event>
-                    <event name="OnTextEnter">Enter</event>
+                    <event name="OnLeaveWindow">enter</event>
+                    <event name="OnTextEnter">enter</event>
                   </object>
                 </object>
                 <object class="sizeritem" expanded="false">

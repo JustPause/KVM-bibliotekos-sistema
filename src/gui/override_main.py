@@ -18,9 +18,9 @@ from src.google_sheets import (
 )
 from src.gui.config import ConfigFile
 from src.helpers.utils import (
-    addingColumsHeaders,
-    fromDicToArray,
-    fromDicToArrayAddCatalog,
+    adding_colums_headers,
+    from_dic_to_array,
+    from_dic_to_array_add_catalog,
     get_fieldnames,
     get_fieldnames_extra,
 )
@@ -36,16 +36,16 @@ from src.os_helper import (
 from src.threads import BackgroundWorker
 
 
-def NeSekmingai(text) -> None:
+def ne_sekmingai(text) -> None:
     wx.MessageBox(text, "Rezultatas", wx.OK | wx.ICON_INFORMATION)
 
 
-def Sekmingai(parent) -> None:
+def sekmingai(parent) -> None:
     wx.MessageBox("Sėkmingai pavyko", "Rezultatas", wx.OK | wx.ICON_INFORMATION, parent)
     wx.CallAfter(parent.SetFocus)
 
 
-def KlaidingasTakas() -> None:
+def klaidingas_takas() -> None:
     wx.MessageBox(
         "Ar failas tikrai tenais?",
         "Klaidingas failo takas",
@@ -53,7 +53,7 @@ def KlaidingasTakas() -> None:
     )
 
 
-def FileDialogWithExtesion(self, extension, overwrite=True):
+def file_dialog_with_extesion(self, extension, overwrite=True):
     path = ""
 
     with wx.FileDialog(
@@ -113,15 +113,15 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        ISBNkoduAtspauzdinimas = self.configFile.getUserData("ISNBkoduAtspauzdinimas")
+        ISBNkoduAtspauzdinimas = self.configFile.get_user_data("ISNBkoduAtspauzdinimas")
 
         self.textCtrl1.SetValue(ISBNkoduAtspauzdinimas)
 
     @override
-    def SelectingPath(self, event) -> None:
-        path = FileDialogWithExtesion(self, "pdf", False)
+    def selecting_path(self, event) -> None:
+        path = file_dialog_with_extesion(self, "pdf", False)
 
-        self.configFile.setUserData("ISNBkoduAtspauzdinimas", path)
+        self.configFile.set_user_data("ISNBkoduAtspauzdinimas", path)
         self.textCtrl1.SetValue(path)
 
     @override
@@ -138,9 +138,9 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 
         if len(rows) != 0:
             form_buffer_to_pdf(rows, path)
-            Sekmingai(self)
+            sekmingai(self)
         else:
-            NeSekmingai("Parasykite bent viena eilute")
+            ne_sekmingai("Parasykite bent viena eilute")
 
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
@@ -148,14 +148,14 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        KurtiNaujusBarkodus = self.configFile.getUserData("kurtinaujusbarkodus")
+        KurtiNaujusBarkodus = self.configFile.get_user_data("kurtinaujusbarkodus")
         self.inputText1.SetValue(KurtiNaujusBarkodus)
 
     @override
-    def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self, "pdf", False)
+    def selecting_path(self, event):
+        path = file_dialog_with_extesion(self, "pdf", False)
 
-        self.configFile.setUserData("kurtinaujusbarkodus", path)
+        self.configFile.set_user_data("kurtinaujusbarkodus", path)
         self.inputText1.SetValue(path)
 
     @override
@@ -165,9 +165,9 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
         try:
             barcode_generator(int(count), dest_path)
-            Sekmingai(self)
+            sekmingai(self)
         except ValueError:
-            NeSekmingai("Kažkas nepavyko")
+            ne_sekmingai("Kažkas nepavyko")
 
 
 class IsCSV(wxformbuilder.IsCSV):
@@ -175,15 +175,15 @@ class IsCSV(wxformbuilder.IsCSV):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        csviskur = self.configFile.getUserData("duomenuperkelimas")
+        csviskur = self.configFile.get_user_data("duomenuperkelimas")
 
         self.textCtrl1.SetValue(csviskur)
 
     @override
-    def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self, "csv", False)
+    def selecting_path(self, event):
+        path = file_dialog_with_extesion(self, "csv", False)
 
-        self.configFile.setUserData("duomenuperkelimas", path)
+        self.configFile.set_user_data("duomenuperkelimas", path)
         self.textCtrl1.SetValue(path)
 
     @override
@@ -191,7 +191,7 @@ class IsCSV(wxformbuilder.IsCSV):
         path = self.textCtrl1.GetValue()
 
         if not is_it_an_validate_path(path):
-            KlaidingasTakas()
+            klaidingas_takas()
             return
 
         rows = None
@@ -224,11 +224,11 @@ class IsCSV(wxformbuilder.IsCSV):
                         "isbn": "---",
                     }
                     break
-            returnRows.append(fromDicToArray(row))
+            returnRows.append(from_dic_to_array(row))
 
-        request = append_rows(returnRows)
+        append_rows(returnRows)
 
-        Sekmingai(self)
+        sekmingai(self)
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
@@ -236,15 +236,15 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
         super().__init__(parent)
         self.configFile = ConfigFile()
 
-        path = self.configFile.getUserData("lentelessukurimas")
+        path = self.configFile.get_user_data("lentelessukurimas")
 
         self.textCtrl1.SetValue(path)
 
     @override
-    def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self, "csv", False)
+    def selecting_path(self, event):
+        path = file_dialog_with_extesion(self, "csv", False)
 
-        self.configFile.setUserData("lentelessukurimas", path)
+        self.configFile.set_user_data("lentelessukurimas", path)
 
         self.textCtrl1.SetValue(path)
 
@@ -260,14 +260,14 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
             )
             writer.writeheader()
 
-        Sekmingai(self)
+        sekmingai(self)
 
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
         super().__init__(parent)
         self.configFile = ConfigFile()
-        IsKlaveturosSkaitytuvo = self.configFile.getUserData("isklaveturosskaitytuvo")
+        IsKlaveturosSkaitytuvo = self.configFile.get_user_data("isklaveturosskaitytuvo")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
     def update_panel(self, catalog, path=None) -> None:
@@ -293,10 +293,10 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
         event.Skip()
 
     @override
-    def SelectingPath(self, event):
-        path = FileDialogWithExtesion(self, "csv")
+    def selecting_path(self, event):
+        path = file_dialog_with_extesion(self, "csv")
 
-        self.configFile.setUserData("isklaveturosskaitytuvo", path)
+        self.configFile.set_user_data("isklaveturosskaitytuvo", path)
         self.textCtrl1.SetValue(path)
 
 
@@ -310,20 +310,20 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
         super().__init__(parent)
         self.catalog = catalog
         self.path = path
-        addingColumsHeaders(self.dataViewList)
+        adding_colums_headers(self.dataViewList)
 
     @override
-    def Enter(self, event):
+    def enter(self, event):
         worker = BackgroundWorker(self, "Ieskoma", "Kantrybes, ieskoma")
 
         def paieska():
             return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
 
         def on_pabaigimo(result):
-            self.dataViewList.AppendItem(fromDicToArray(result))
+            self.dataViewList.AppendItem(from_dic_to_array(result))
 
             if self.path:
-                l_result = fromDicToArrayAddCatalog(result, self.catalog)
+                l_result = from_dic_to_array_add_catalog(result, self.catalog)
                 loc_result = l_result
 
                 if (
@@ -349,14 +349,14 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
                             }
                         )
 
-                        NeSekmingai(
+                        ne_sekmingai(
                             "Knygos nera, gerai butu padeti i sona kad poto surasyti"
                         )
                 else:
                     r = append_rows([loc_result])
                     print(r)
             else:
-                r = append_rows([fromDicToArrayAddCatalog(result, self.catalog)])
+                r = append_rows([from_dic_to_array_add_catalog(result, self.catalog)])
                 print(r)
 
         worker.run(work_func=paieska, on_done=on_pabaigimo)
@@ -373,10 +373,10 @@ class Patikrinti(wxformbuilder.Patikrinti):
         self.sheet_rows = get_sheet_rows(True)
         self.fieldnames = get_fieldnames()
 
-        addingColumsHeaders(self.history_table)
+        adding_colums_headers(self.history_table)
 
     @override
-    def Enter(self, event):
+    def enter(self, event):
         isbn = self.ISBN_window_input.GetValue()
         found = False
 
@@ -396,7 +396,7 @@ class Patikrinti(wxformbuilder.Patikrinti):
 
                 edited_row.pop("Kategorija")
 
-                self.history_table.AppendItem(fromDicToArray(edited_row))
+                self.history_table.AppendItem(from_dic_to_array(edited_row))
         if not found:
             text = "Nerasta"
             self.autorius_output.SetLabel(text)
@@ -420,7 +420,7 @@ class SideBar(wxformbuilder.SideBar):
     def VersionAndBuild(self):
         build = git_build_number()
         config = ConfigFile()
-        version = config.getDefaultData("version")
+        version = config.get_default_data("version")
 
         return f"vesrija - {version}+{build}"
 
@@ -449,7 +449,7 @@ class SideBar(wxformbuilder.SideBar):
         return None
 
     @override
-    def Click(self, event):
+    def click(self, event):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
 
@@ -501,7 +501,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.ISBNInput.Show(bool)
 
     @override
-    def EnterISBN(self, event):
+    def enter_isbn(self, event):
         KngosISBNInput = self.KngosISBNInput.GetValue()
 
         if KngosISBNInput == "":
@@ -533,7 +533,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
             self.Layout()
 
     @override
-    def Isduoti_button(self, event):
+    def isduoti_button(self, event):
         if self.knygaData is None:
             self.knygaData = [
                 self.AutoriusInput.GetValue(),
@@ -548,7 +548,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
             self.ISBNInput.SetValue("")
 
             if self.knygaData[1] == "":
-                NeSekmingai("Reikia bent pavadinimo")
+                ne_sekmingai("Reikia bent pavadinimo")
 
                 return
         # ---
@@ -596,13 +596,13 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.MetaiInput.SetValue("")
         self.ISBNInput.SetValue("")
 
-        Sekmingai(self)
+        sekmingai(self)
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
 
     @override
-    def Pakeisti_button(self, event):
+    def pakeisti_button(self, event):
         if self.KortelesInput.Enabled:
             self.KortelesInput.SetValue("")
 
@@ -634,15 +634,11 @@ class Grazinimas(wxformbuilder.Gazinimas):
         self.l_index = None
 
     @override
-    def Enter(self, event):
+    def enter(self, event):
         knygos = self.KnygosInput.GetValue()
 
         bookName = None
         userName = None
-
-        if self.data is None:
-            NeSekmingai("Nepavyko gauti duomenu is duomenu bazes")
-            return
 
         for index, row in enumerate(self.data):
             if knygos == row[3]:
@@ -656,7 +652,7 @@ class Grazinimas(wxformbuilder.Gazinimas):
     @override
     def next(self, event):
         set_row_retruning_book(self.l_index)
-        Sekmingai(self)
+        sekmingai(self)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):
