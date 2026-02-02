@@ -38,9 +38,23 @@ class MainClass:
         "Kai naudojamas -G/--generate, privaloma nurodyti -o/--output"
     )
     ERRORTEXTINCORECTUSEISBN = "Kai naudojamas -I/--isbnPdf, privaloma nurodyti -o/--output ir privaloma nurodyti -i/--input"
-
+    ARGUMENTS = [
+        ({"arguments": ["-h", "--help"]}, {"action": "store_true"}),
+        ({"arguments": ["-v", "--version"]}, {"action": "store_true"}),
+        ({"arguments": ["-S", "--webScraper"]}, {"action": "store_true"}),
+        (
+            {"arguments": ["-G", "--generate"]},
+            {},
+        ),
+        ({"arguments": ["-I", "--isbnPdf"]}, {"action": "store_true"}),
+        ({"arguments": ["-C", "--check"]}, {"action": "store_true"}),
+        ({"arguments": ["-i", "--input"]}, {"help": "Input file path"}),
+        ({"arguments": ["-o", "--output"]}, {"help": "Output file path"}),
+        ({"arguments": ["--gui"]}, {"action": "store_true"}),
+    ]
+    
     def __init__(self) -> None:
-        """OKAY"""
+        """this is Main Class"""
         pass
 
     def _prompting(self):
@@ -137,25 +151,14 @@ class MainClass:
                 raise ValueError("Kaip? (pasirinkimo klaida)")
 
     def _adding_argumants(self, parser):
-        ARGUMENTS = [
-            ({"arguments": ["-h", "--help"]}, {"action": "store_true"}),
-            ({"arguments": ["-v", "--version"]}, {"action": "store_true"}),
-            ({"arguments": ["-S", "--webScraper"]}, {"action": "store_true"}),
-            (
-                {"arguments": ["-G", "--generate"]},
-                {},
-            ),
-            ({"arguments": ["-I", "--isbnPdf"]}, {"action": "store_true"}),
-            ({"arguments": ["-C", "--check"]}, {"action": "store_true"}),
-            ({"arguments": ["-i", "--input"]}, {"help": "Input file path"}),
-            ({"arguments": ["-o", "--output"]}, {"help": "Output file path"}),
-            ({"arguments": ["--gui"]}, {"action": "store_true"}),
-        ]
+        """Functionality to add arguments that appear when you run --help or use an incorrect flag."""
+
+        
 
         group = parser.add_argument_group("Pasirinkimai")
         ReadMe = self._get_data_form_read_me()
 
-        for arguments, action in ARGUMENTS:
+        for arguments, action in self.ARGUMENTS:
             arguments_value = arguments["arguments"]
             action_value = action.get("action", None)
             arguments_str = ", ".join(arguments_value)
@@ -172,7 +175,7 @@ class MainClass:
             parser.print_help()
 
         elif args.gui:
-            self._local_run()
+            run()
 
         elif args.version:
             import configparser
@@ -227,7 +230,7 @@ class MainClass:
             pass
 
     def main(self):
-        """_main place where the app starts. _mainly used to detect if any arguments exist on execution and reacts accordingly"""
+        """main place where the app starts"""
 
         argv = sys.argv[1:]
         argv_count = len(argv)
@@ -248,11 +251,9 @@ class MainClass:
             self._handels_args(parser, parser.parse_args())
 
     @staticmethod
-    def _local_run():
-        run()
-
-    @staticmethod
     def _get_data_form_read_me():
+        """Reads the description from the README, just to simplify my job when I update the documentation"""
+
         table_lines = []
         in_table = False
 
