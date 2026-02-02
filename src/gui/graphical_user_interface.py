@@ -30,31 +30,31 @@ class GUI(wx.Frame):
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanel(self, mainPanelClass) -> None:
+    def ReplacePanel(self, MainPanelClass) -> None:
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()
-        self.mainPanel = mainPanelClass(self)
+        self.mainPanel = MainPanelClass(self)
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanelNext(self, mainPanelClass, path=None):
+    def ReplacePanelNext(self, MainPanelClass, path=None):
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()
-        self.mainPanel = mainPanelClass(self, path)
+        self.mainPanel = MainPanelClass(self, path)
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
         self.SetSizer(self.mainSizer)
         self.Layout()
 
-    def ReplacePanelCatalog(self, mainPanelClass, catalog, path=None):
+    def ReplacePanelCatalog(self, MainPanelClass, catalog, path=None):
         self.mainSizer.Detach(self.mainPanel)
 
         self.mainPanel.Destroy()
-        self.mainPanel = mainPanelClass(self, catalog, path)
+        self.mainPanel = MainPanelClass(self, catalog, path)
         self.mainSizer.Add(self.mainPanel, 1, wx.EXPAND, 0)
 
         self.SetSizer(self.mainSizer)

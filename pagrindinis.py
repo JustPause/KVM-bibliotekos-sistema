@@ -19,7 +19,7 @@ from src.logger import logger
 from src.os_helper import get_correct_extension, git_build_number
 
 
-class _mainClass:
+class _MainClass:
     QUESTIONS = [
         "Brūkšninio kodo kūrimas",
         "Knygų rašymas į iBiblioteką pagal ISBN CSV",
@@ -288,5 +288,5 @@ class _mainClass:
 
 
 if __name__ == "__main__":
-    app = _mainClass()
+    app = _MainClass()
     app.main()
