@@ -7,8 +7,8 @@ from typing import override
 import wx
 
 import src.gui.wxformbuilder as wxformbuilder
-from src.barcodeKurimas import barcode_generator
-from src.googleSheets import (
+from src.barcode_kurimas import barcode_generator
+from src.google_sheets import (
     append_rows,
     get_all_data,
     get_sheet_rows,
@@ -24,9 +24,9 @@ from src.helpers.utils import (
     get_fieldnames,
     get_fieldnames_extra,
 )
-from src.ibibliotekaConnection import iBibliotekos_paieska_tiesiogiai_core
-from src.ISBNPrint import form_buffer_to_pdf
-from src.osHelper import (
+from src.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
+from src.isbn_print import form_buffer_to_pdf
+from src.os_helper import (
     get_correct_extension,
     get_correct_extension_ending,
     git_build_number,

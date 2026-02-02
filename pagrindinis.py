@@ -6,17 +6,17 @@ from InquirerPy.prompts.filepath import FilePathPrompt
 from InquirerPy.resolver import prompt
 from InquirerPy.validator import PathValidator
 
-from src.barcodeKurimas import barcode_generator
-from src.bookFindingByISBN import scanner
+from src.barcode_kurimas import barcode_generator
+from src.book_finding_by_isbn import scanner
 from src.ensure import Ensure
 from src.gui.graphicalUserInterface import run
-from src.ibibliotekaConnection import (
+from src.ibiblioteka_connection import (
     iBibliotekos_paieska,
     iBibliotekos_paieska_tiesiogiai,
 )
-from src.ISBNPrint import form_csv_to_pdf
+from src.isbn_print import form_csv_to_pdf
 from src.logger import logger
-from src.osHelper import get_correct_extension, git_build_number
+from src.os_helper import get_correct_extension, git_build_number
 
 
 class _mainClass:

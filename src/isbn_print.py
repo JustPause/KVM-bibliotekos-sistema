@@ -4,7 +4,7 @@ import barcode
 from barcode.writer import ImageWriter
 
 from src.helpers.PDF import images_to_pdf
-from src.osHelper import is_it_directory
+from src.os_helper import is_it_directory
 
 
 def generate_13_barcode(isbn, output):

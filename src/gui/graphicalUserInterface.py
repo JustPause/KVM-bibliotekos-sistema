@@ -4,7 +4,7 @@ from typing import override
 import wx
 
 from src.gui.overrideMain import Pagrindinis, SideBar
-from src.ibibliotekaConnection import kill_drive
+from src.ibiblioteka_connection import kill_drive
 
 
 class GUI(wx.Frame):

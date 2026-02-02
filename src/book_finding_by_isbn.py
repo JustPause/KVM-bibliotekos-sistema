@@ -1,6 +1,6 @@
 import csv
 
-from src.googleSheets import get_sheet_rows
+from src.google_sheets import get_sheet_rows
 from src.helpers.utils import get_fieldnames
 
 

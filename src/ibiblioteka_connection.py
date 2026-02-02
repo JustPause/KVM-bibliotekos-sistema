@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # from src.googleSheets import get_sheet_rows, set_book_isnb_in_sheet
 from src.helpers.utils import get_fieldnames
-from src.osHelper import is_file_empty
+from src.os_helper import is_file_empty
 from src.progress import Progress
 
 driver = None

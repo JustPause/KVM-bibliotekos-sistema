@@ -1,8 +1,8 @@
 import datetime
 
 from src.helpers.PDF import images_to_pdf
-from src.ISBNPrint import generate_KVM_barcode
-from src.osHelper import is_it_directory
+from src.isbn_print import generate_KVM_barcode
+from src.os_helper import is_it_directory
 
 
 def barcode_generator(num: int, output_pdf: str):

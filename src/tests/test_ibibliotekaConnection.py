@@ -2,7 +2,7 @@ import csv
 import tempfile
 import unittest
 
-from src.ibibliotekaConnection import (
+from src.ibiblioteka_connection import (
     iBiblioteka_scraper,
     iBibliotekos_paieska,
     kill_drive,
