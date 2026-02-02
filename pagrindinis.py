@@ -137,38 +137,34 @@ class MainClass:
                 raise ValueError("Kaip? (pasirinkimo klaida)")
 
     def _adding_argumants(self, parser):
-        group = parser.add_argument_group("Pasirinkimai")
+        ARGUMENTS = [
+            ({"arguments": ["-h", "--help"]}, {"action": "store_true"}),
+            ({"arguments": ["-v", "--version"]}, {"action": "store_true"}),
+            ({"arguments": ["-S", "--webScraper"]}, {"action": "store_true"}),
+            (
+                {"arguments": ["-G", "--generate"]},
+                {},
+            ),
+            ({"arguments": ["-I", "--isbnPdf"]}, {"action": "store_true"}),
+            ({"arguments": ["-C", "--check"]}, {"action": "store_true"}),
+            ({"arguments": ["-i", "--input"]}, {"help": "Input file path"}),
+            ({"arguments": ["-o", "--output"]}, {"help": "Output file path"}),
+            ({"arguments": ["--gui"]}, {"action": "store_true"}),
+        ]
 
+        group = parser.add_argument_group("Pasirinkimai")
         ReadMe = self._get_data_form_read_me()
 
-        group.add_argument(
-            "-h", "--help", action="store_true", help=ReadMe.get("-h, --help")
-        )
-        group.add_argument(
-            "-v",
-            "--version",
-            action="store_true",
-            help=ReadMe.get("-v, --version"),
-        )
-        group.add_argument(
-            "-S",
-            "--webScraper",
-            action="store_true",
-            help=ReadMe.get("-S, --webScraper"),
-        )
-        group.add_argument("-G", "--generate", help=ReadMe.get("-G, --generate"))
-        group.add_argument(
-            "-I",
-            "--isbnPdf",
-            action="store_true",
-            help=ReadMe.get("-I, --isbnPdf"),
-        )
-        group.add_argument(
-            "-C", "--check", action="store_true", help=ReadMe.get("-C, --check")
-        )
-        group.add_argument("-i", "--input", help=ReadMe.get("-i, --input"))
-        group.add_argument("-o", "--output", help=ReadMe.get("-o, --output"))
-        group.add_argument("--gui", action="store_true", help=ReadMe.get("--gui"))
+        for arguments, action in ARGUMENTS:
+            arguments_value = arguments["arguments"]
+            action_value = action.get("action", None)
+            arguments_str = ", ".join(arguments_value)
+
+            group.add_argument(
+                *arguments_value,
+                action=action_value,
+                help=ReadMe.get(arguments_str),
+            )
 
     def _handels_args(self, parser, args):
         """Handles user selection and leads the user to the funcion that he selected made"""
