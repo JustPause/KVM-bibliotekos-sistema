@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+from pathlib import Path
 
 from InquirerPy.prompts.filepath import FilePathPrompt
 from InquirerPy.resolver import prompt
@@ -17,7 +18,7 @@ from src.ibiblioteka_connection import (
 )
 from src.isbn_print import form_csv_to_pdf
 from src.logger import logger
-from src.os_helper import get_correct_extension, git_build_number
+from src.os_helper import git_build_number
 
 QUESTIONS = [
     "Brūkšninio kodo kūrimas",
@@ -92,7 +93,7 @@ def _prompting():
 
             dest_path = get_dest_path(fileExtesion, "Knygos_Su_Viskuom.csv")
 
-            dest_path = get_correct_extension(dest_path, "." + fileExtesion)
+            dest_path = Path(dest_path).with_suffix(fileExtesion)
 
             iBibliotekos_paieska(src_path, dest_path)
 
@@ -111,7 +112,7 @@ def _prompting():
                 )
             )
 
-            dest_path = get_correct_extension(dest_path, "." + fileExtesion)
+            dest_path = Path(dest_path).with_suffix(fileExtesion)
 
             iBibliotekos_paieska_tiesiogiai(dest_path)
 
@@ -139,7 +140,7 @@ def _prompting():
                 )
             )
 
-            dest_path = get_correct_extension(dest_path, ".pdf")
+            dest_path = Path(dest_path).with_suffix("pdf")
 
             form_csv_to_pdf(src_path, dest_path)
 
@@ -170,7 +171,7 @@ def _adding_argumants(parser):
         )
 
 
-def _handels_args(parser, args):
+def _handle_args(parser, args):
     """Handles user selection and leads the user to the funcion that he selected made"""
     if args.help:
         parser.print_help()
@@ -204,7 +205,7 @@ def _handels_args(parser, args):
 
     elif args.generate:
         dest_path = args.output
-        dest_path = get_correct_extension(dest_path, ".pdf")
+        dest_path = Path(dest_path).with_suffix("pdf")
         barcode_generator(int(args.generate), dest_path)
 
     elif args.isbnPdf and not args.output and not args.input:
@@ -214,7 +215,7 @@ def _handels_args(parser, args):
         src_path = args.input
 
         dest_path = args.output
-        dest_path = get_correct_extension(dest_path, ".pdf")
+        dest_path = Path(dest_path).with_suffix("pdf")
 
         if args.input:
             form_csv_to_pdf(src_path, dest_path)
@@ -250,7 +251,7 @@ def main():
 
         _adding_argumants(parser)
 
-        _handels_args(parser, parser.parse_args())
+        _handle_args(parser, parser.parse_args())
 
 
 @staticmethod
