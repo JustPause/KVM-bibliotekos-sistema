@@ -72,26 +72,6 @@ def file_dialog_with_extesion(self, extension, overwrite=True):
     return os.path.abspath(".")
 
 
-class ThinkingDialog(wx.Dialog):
-    def __init__(self, parent, title="Good Name"):
-        super().__init__(parent, title=title, size=(250, 150))
-
-        panel = wx.Panel(self)
-
-        self.label = wx.StaticText(
-            panel,
-            label="Please wait...",
-            pos=(25, 20),
-        )
-
-        self.gauge = wx.Gauge(
-            panel,
-            range=100,
-            size=(200, 20),
-            pos=(25, 60),
-        )
-
-
 class Pagrindinis(wxformbuilder.Pagrindinis):
     def __init__(self, parent):
         super().__init__(parent)
@@ -136,8 +116,11 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
             if value != "":
                 rows.append(value)
 
+        worker = BackgroundWorker(self, "Ieskoma", "Kantrybes, ieskoma")
+
         if len(rows) != 0:
-            imiges_to_pdf(path, rows)
+            worker.runBackgroundTesk(imiges_to_pdf, path, rows)
+            # imiges_to_pdf(path, rows)
             sekmingai(self)
         else:
             ne_sekmingai("Parasykite bent viena eilute")
