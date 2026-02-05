@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from typing import override
 
-from src.barcode_maker import barcode_generator
+from src.barcode_generator import generator_barcodes
 from src.logger import logger
 
 
@@ -16,15 +16,15 @@ class TestBarcodeGenerator(unittest.TestCase):
 
     def test_barcode_generator_zero(self):
         path = os.path.join(os.getcwd(), self.output_dir, "test_zero.pdf")
-        barcode_generator(0, path)
+        generator_barcodes(0, path)
 
     def test_barcode_generator_one(self):
         path = os.path.join(os.getcwd(), self.output_dir, "test_one.pdf")
-        barcode_generator(1, path)
+        generator_barcodes(1, path)
 
     def test_barcode_generator_hundred(self):
         path = os.path.join(os.getcwd(), self.output_dir, "test_hundred.pdf")
-        barcode_generator(100, path)
+        generator_barcodes(100, path)
 
     @override
     def setUp(self):

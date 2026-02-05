@@ -8,7 +8,7 @@ from InquirerPy.resolver import prompt
 from InquirerPy.validator import PathValidator
 
 from src.actions.main_action import run_prompt
-from src.barcode_maker import barcode_generator
+from src.barcode_generator import form_csv_to_pdf, generator_barcodes
 from src.book_finding_by_isbn import scanner
 from src.config import Config
 from src.ensure import Ensure
@@ -17,7 +17,6 @@ from src.ibiblioteka_connection import (
     iBibliotekos_paieska,
     iBibliotekos_paieska_tiesiogiai,
 )
-from src.isbn_print import form_csv_to_pdf
 from src.logger import logger
 from src.os_helper import git_build_number
 
@@ -77,7 +76,7 @@ def _prompting():
             number_of_barcodes = get_number_of_barcodes()
             dest_path = get_dest_path("pdfs", "BarkodaiSpauzdinimui.pdf")
 
-            barcode_generator(int(number_of_barcodes), dest_path)
+            generator_barcodes(int(number_of_barcodes), dest_path)
 
         case 1:  # Knygų rašymas į iBiblioteką pagal ISBN CSV
             from src.actions.main_action import get_dest_path, get_src_path
@@ -194,7 +193,7 @@ def _handle_args(parser, args):
     elif args.generate:
         dest_path = args.output
         dest_path = Path(dest_path).with_suffix("pdf")
-        barcode_generator(int(args.generate), dest_path)
+        generator_barcodes(int(args.generate), dest_path)
 
     elif args.isbnPdf and not args.output and not args.input:
         parser.error(ERRORTEXTINCORECTUSEISBN)

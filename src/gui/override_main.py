@@ -7,7 +7,7 @@ from typing import override
 import wx
 
 import src.gui.wxformbuilder as wxformbuilder
-from src.barcode_maker import barcode_generator
+from src.barcode_generator import generator_barcodes, imiges_to_pdf
 from src.config import Config
 from src.google_sheets import (
     append_rows,
@@ -25,7 +25,6 @@ from src.helpers.utils import (
     get_fieldnames_extra,
 )
 from src.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
-from src.isbn_print import form_buffer_to_pdf
 from src.logger import logger
 from src.os_helper import (
     get_correct_extension,
@@ -138,7 +137,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
                 rows.append(value)
 
         if len(rows) != 0:
-            form_buffer_to_pdf(rows, path)
+            imiges_to_pdf(path, rows)
             sekmingai(self)
         else:
             ne_sekmingai("Parasykite bent viena eilute")
@@ -165,7 +164,7 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         count = self.inputText2.GetValue()
 
         try:
-            barcode_generator(int(count), dest_path)
+            generator_barcodes(int(count), dest_path)
             sekmingai(self)
         except ValueError:
             ne_sekmingai("Kažkas nepavyko")

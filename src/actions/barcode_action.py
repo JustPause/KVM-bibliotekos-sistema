@@ -1,13 +1,27 @@
 import csv
+import datetime
+import os
+import tempfile
 
 import barcode
 from barcode.writer import ImageWriter
 
 from src.helpers.pdf import images_to_pdf
-from src.os_helper import is_it_directory
+from src.logger import logger
 
 
-def generate_13_barcode(isbn, output):
+def generate_isbn13_barcode(isbn: str, output_dir: str) -> str:
+    """
+    Generates an ISBN-13 barcode image and saves it to the specified directory.
+
+    Args:
+        isbn (str): The ISBN-13 code to encode.
+        output_dir (str): Path to the directory where the image will be saved.
+
+    Returns:
+        str: Full path to the saved barcode image file.
+    """
+
     options = {
         "module_width": 0.3,
         "module_height": 12.0,
@@ -16,14 +30,25 @@ def generate_13_barcode(isbn, output):
         "quiet_zone": 2,
     }
     isbn_barcode = barcode.get("isbn13", isbn, writer=ImageWriter())
+    output_path = os.path.join(output_dir, str(isbn))
+    saved_file = isbn_barcode.save(output_path, options=options)
+    logger.debug(f"ISBN13 barcode saved at: {saved_file}")
 
-    filename = output + str(isbn)
-    filename = isbn_barcode.save(filename, options=options)
-
-    return filename
+    return saved_file
 
 
-def generate_10_barcode(isbn, output):
+def generate_Gs1_128_barcode(isbn: str, output_dir: str) -> str:
+    """
+    Generates an GS1-128 barcode image and saves it to the specified directory.
+
+    Args:
+        isbn (str): The GS1-128 code to encode.
+        output_dir (str): Path to the directory where the image will be saved.
+
+    Returns:
+        str: Full path to the saved barcode image file.
+    """
+
     options = {
         "module_width": 0.3,
         "module_height": 15.0,
@@ -33,11 +58,11 @@ def generate_10_barcode(isbn, output):
     }
 
     isbn_barcode = barcode.get("Gs1_128", isbn, writer=ImageWriter())
+    output_path = os.path.join(output_dir, str(isbn))
+    saved_file = isbn_barcode.save(output_path, options=options)
+    logger.debug(f"GS1-128 barcode saved at: {saved_file}")
 
-    filename = output + str(isbn)
-    filename = isbn_barcode.save(filename, options=options)
-
-    return filename
+    return saved_file
 
 
 def generate_KVM_barcode(isbn, output):
@@ -65,35 +90,3 @@ def generate_KVM_barcode(isbn, output):
 
     main_barcode = barcode.get("code128", isbn, writer=ImageWriter())
     return main_barcode.save(output + str(isbn), options)
-
-
-def form_csv_to_pdf(input_csv, output_csv):
-    rows = []
-
-    with open(input_csv, "r", newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        rows_list = list(reader)
-        for row in rows_list:
-            rows.append(row["Atspauzdinti"])
-
-    imiges_to_pdf_hart(output_csv, rows)
-
-
-def form_buffer_to_pdf(buffer_list, output_csv):
-    imiges_to_pdf_hart(output_csv, buffer_list)
-
-
-def imiges_to_pdf_hart(output_csv, rows: list[str]):
-    filenameArray = []
-
-    for row in rows:
-        caches = "caches/BarCode/"
-        is_it_directory(caches)
-
-        if len(row) != 13:
-            filenameArray.append(generate_10_barcode(row, caches))
-
-        else:
-            filenameArray.append(generate_13_barcode(row, caches))
-
-    images_to_pdf(filenameArray, output_csv)
