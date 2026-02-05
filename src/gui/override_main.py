@@ -17,6 +17,11 @@ from src.google_sheets import (
     set_row_retruning_book,
     set_vardas,
 )
+from src.gui.wx_helpers.extra import (
+    file_dialog_with_extension,
+    ne_sekmingai,
+    show_invalid_path_error,
+)
 from src.helpers.utils import (
     adding_colums_headers,
     from_dic_to_array,
@@ -28,48 +33,11 @@ from src.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
 from src.logger import logger
 from src.os_helper import (
     get_correct_extension,
-    get_correct_extension_ending,
     git_build_number,
     is_file_empty,
     is_it_an_validate_path,
 )
 from src.threads import BackgroundWorker
-
-
-def ne_sekmingai(text) -> None:
-    wx.MessageBox(text, "Rezultatas", wx.OK | wx.ICON_INFORMATION)
-
-
-def sekmingai(parent) -> None:
-    wx.MessageBox("Sėkmingai pavyko", "Rezultatas", wx.OK | wx.ICON_INFORMATION, parent)
-    wx.CallAfter(parent.SetFocus)
-
-
-def klaidingas_takas() -> None:
-    wx.MessageBox(
-        "Ar failas tikrai tenais?",
-        "Klaidingas failo takas",
-        wx.ICON_WARNING | wx.OK,
-    )
-
-
-def file_dialog_with_extesion(self, extension, overwrite=True):
-    path = ""
-
-    with wx.FileDialog(
-        self,
-        "Pasirinkite lokaciją",
-        wildcard=f"Lentelė (*.{extension})|*.{extension}",
-        style=wx.FD_SAVE | (wx.FD_OVERWRITE_PROMPT if overwrite else 0),
-    ) as dlg:
-        if dlg.ShowModal() == wx.ID_OK:
-            path = dlg.GetPath()
-
-            path = get_correct_extension_ending(path, extension)
-
-            return path
-
-    return os.path.abspath(".")
 
 
 class Pagrindinis(wxformbuilder.Pagrindinis):
@@ -99,7 +67,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 
     @override
     def selecting_path(self, event) -> None:
-        path = file_dialog_with_extesion(self, "pdf", False)
+        path = file_dialog_with_extension(self, "pdf", False)
 
         self.Config.set_user_data("ISNBkoduAtspauzdinimas", path)
         self.textCtrl1.SetValue(path)
@@ -116,12 +84,11 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
             if value != "":
                 rows.append(value)
 
-        worker = BackgroundWorker(self, "Ieskoma", "Kantrybes, ieskoma")
+        worker = BackgroundWorker(self, "Ieškoma", "Kantrybės, ieškoma")
 
         if len(rows) != 0:
             worker.runBackgroundTesk(imiges_to_pdf, path, rows)
-            # imiges_to_pdf(path, rows)
-            sekmingai(self)
+            show_invalid_path_error(self)
         else:
             ne_sekmingai("Parasykite bent viena eilute")
 
@@ -136,7 +103,7 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extesion(self, "pdf", False)
+        path = file_dialog_with_extension(self, "pdf", False)
 
         self.Config.set_user_data("kurtinaujusbarkodus", path)
         self.inputText1.SetValue(path)
@@ -146,9 +113,11 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
         dest_path = self.inputText1.GetValue()
         count = self.inputText2.GetValue()
 
+        worker = BackgroundWorker(self, "Ieškoma", "Kantrybės, ieškoma")
+
         try:
-            generator_barcodes(int(count), dest_path)
-            sekmingai(self)
+            worker.runBackgroundTesk(generator_barcodes, int(count), dest_path)
+            show_invalid_path_error(self)
         except ValueError:
             ne_sekmingai("Kažkas nepavyko")
 
@@ -164,7 +133,7 @@ class IsCSV(wxformbuilder.IsCSV):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extesion(self, "csv", False)
+        path = file_dialog_with_extension(self, "csv", False)
 
         self.Config.set_user_data("duomenuperkelimas", path)
         self.textCtrl1.SetValue(path)
@@ -172,9 +141,9 @@ class IsCSV(wxformbuilder.IsCSV):
     @override
     def next(self, event):
         path = self.textCtrl1.GetValue()
-
+        worker = BackgroundWorker(self, "Ieškoma", "Kantrybės, ieškoma")
         if not is_it_an_validate_path(path):
-            klaidingas_takas()
+            show_invalid_path_error()
             return
 
         rows = None
@@ -209,9 +178,9 @@ class IsCSV(wxformbuilder.IsCSV):
                     break
             returnRows.append(from_dic_to_array(row))
 
-        append_rows(returnRows)
+        worker.runBackgroundTesk(append_rows, returnRows)
 
-        sekmingai(self)
+        show_invalid_path_error(self)
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
@@ -225,7 +194,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extesion(self, "csv", False)
+        path = file_dialog_with_extension(self, "csv", False)
 
         self.Config.set_user_data("lentelessukurimas", path)
 
@@ -243,7 +212,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
             )
             writer.writeheader()
 
-        sekmingai(self)
+        show_invalid_path_error(self)
 
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
@@ -277,7 +246,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extesion(self, "csv")
+        path = file_dialog_with_extension(self, "csv", True)
 
         self.Config.set_user_data("isklaveturosskaitytuvo", path)
         self.textCtrl1.SetValue(path)
@@ -297,7 +266,7 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
 
     @override
     def enter(self, event):
-        worker = BackgroundWorker(self, "Ieskoma", "Kantrybes, ieskoma")
+        worker = BackgroundWorker(self, "Ieškoma", "Kantrybės, ieškoma")
 
         def paieska():
             return iBibliotekos_paieska_tiesiogiai_core(event.GetString())
@@ -579,7 +548,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.MetaiInput.SetValue("")
         self.ISBNInput.SetValue("")
 
-        sekmingai(self)
+        show_invalid_path_error(self)
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
@@ -635,7 +604,7 @@ class Grazinimas(wxformbuilder.Gazinimas):
     @override
     def next(self, event):
         set_row_retruning_book(self.l_index)
-        sekmingai(self)
+        show_invalid_path_error(self)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):

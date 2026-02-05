@@ -3,8 +3,6 @@ from typing import Any, Callable
 
 import wx
 
-from src.logger import logger
-
 
 class BackgroundWorker:
     """Runs work in background and handles UI updates safely."""
@@ -78,13 +76,9 @@ class BackgroundWorker:
         """
 
         def work_func():
-            # Work safely inside background thread
             return func(*args, **kwargs)
 
         def default_on_done(result):
-            # You can adapt this to update UI, log, etc.
             print(f"[{self.title}] Task completed.")
-            print("Result:", result)
 
-        # Run the worker (assuming your existing BackgroundWorker supports this)
         self.run(work_func=work_func, on_done=on_done or default_on_done)
