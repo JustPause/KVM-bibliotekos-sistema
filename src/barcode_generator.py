@@ -1,10 +1,6 @@
 import csv
 import datetime
-import os
 import tempfile
-
-import barcode
-from barcode.writer import ImageWriter
 
 from src.actions.barcode_action import (
     generate_Gs1_128_barcode,
