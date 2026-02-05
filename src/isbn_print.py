@@ -41,6 +41,17 @@ def generate_10_barcode(isbn, output):
 
 
 def generate_KVM_barcode(isbn, output):
+    """
+    Generate a Code128 barcode image for a given ISBN and save it to a directory.
+
+    Args:
+        isbn (str): The identifier to encode in the barcode.
+        output_dir (str): Path to the directory where the image will be saved.
+
+    Returns:
+        str: The full path to the saved barcode image file.
+    """
+
     options = {
         "module_width": 0.35,
         "module_height": 20.0,
