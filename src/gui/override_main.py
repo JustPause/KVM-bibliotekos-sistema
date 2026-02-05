@@ -273,9 +273,9 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def update_panel(self, catalog, path=None) -> None:
         parent = self.GetParent()
         if path is None:
-            parent.ReplacePanelCatalog(IsKlaveturosSkaitytuvoEkranas, catalog)
+            parent.replace_panel_catalog(IsKlaveturosSkaitytuvoEkranas, catalog)
         else:
-            parent.ReplacePanelCatalog(IsKlaveturosSkaitytuvoEkranas, catalog, path)
+            parent.replace_panel_catalog(IsKlaveturosSkaitytuvoEkranas, catalog, path)
 
     @override
     def file_free_scan(self, event):
