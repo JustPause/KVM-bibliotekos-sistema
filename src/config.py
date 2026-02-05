@@ -1,9 +1,20 @@
+import configparser
 import json
+from pathlib import Path
 
 
 class Config:
+    # The sheet.json file
     def __init__(self) -> None:
         self.sheet = "config/.env/sheet.json"
+
+        self.config = configparser.ConfigParser()
+        config_path = Path("config/config.conf")
+
+        if config_path.exists():
+            self.config.read(config_path)
+        else:
+            raise FileNotFoundError("config.conf not found")
 
     def congig_json(self) -> tuple[str, str, str, str]:
         with open(self.sheet, "r") as sheet_json:
@@ -89,3 +100,17 @@ class Config:
         with open(self.sheet, "r") as sheet_json:
             sheet = json.load(sheet_json)
             return sheet["card_table_name"]
+
+    # The config.conf file
+
+    def get_user_data(self, name: str):
+        return self.config["userData"][name]
+
+    def set_user_data(self, name: str, path: str):
+        self.config["userData"][name] = path
+
+        with open("config/config.conf", "w") as f:
+            self.config.write(f)
+
+    def get_default_data(self, name: str):
+        return self.config["DEFAULT"][name]

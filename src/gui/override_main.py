@@ -7,7 +7,8 @@ from typing import override
 import wx
 
 import src.gui.wxformbuilder as wxformbuilder
-from src.barcode_kurimas import barcode_generator
+from src.barcode_maker import barcode_generator
+from src.config import Config
 from src.google_sheets import (
     append_rows,
     get_all_data,
@@ -16,7 +17,6 @@ from src.google_sheets import (
     set_row_retruning_book,
     set_vardas,
 )
-from src.gui.config import ConfigFile
 from src.helpers.utils import (
     adding_colums_headers,
     from_dic_to_array,
@@ -96,7 +96,7 @@ class ThinkingDialog(wx.Dialog):
 class Pagrindinis(wxformbuilder.Pagrindinis):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
+        self.Config = Config()
 
     @override
     def img_path(self, bitmap_path):
@@ -113,8 +113,8 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
 class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
-        ISBNkoduAtspauzdinimas = self.configFile.get_user_data("ISNBkoduAtspauzdinimas")
+        self.Config = Config()
+        ISBNkoduAtspauzdinimas = self.Config.get_user_data("ISNBkoduAtspauzdinimas")
 
         self.textCtrl1.SetValue(ISBNkoduAtspauzdinimas)
 
@@ -122,7 +122,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
     def selecting_path(self, event) -> None:
         path = file_dialog_with_extesion(self, "pdf", False)
 
-        self.configFile.set_user_data("ISNBkoduAtspauzdinimas", path)
+        self.Config.set_user_data("ISNBkoduAtspauzdinimas", path)
         self.textCtrl1.SetValue(path)
 
     @override
@@ -147,16 +147,16 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
+        self.Config = Config()
 
-        KurtiNaujusBarkodus = self.configFile.get_user_data("kurtinaujusbarkodus")
+        KurtiNaujusBarkodus = self.Config.get_user_data("kurtinaujusbarkodus")
         self.inputText1.SetValue(KurtiNaujusBarkodus)
 
     @override
     def selecting_path(self, event):
         path = file_dialog_with_extesion(self, "pdf", False)
 
-        self.configFile.set_user_data("kurtinaujusbarkodus", path)
+        self.Config.set_user_data("kurtinaujusbarkodus", path)
         self.inputText1.SetValue(path)
 
     @override
@@ -174,9 +174,9 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 class IsCSV(wxformbuilder.IsCSV):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
+        self.Config = Config()
 
-        csviskur = self.configFile.get_user_data("duomenuperkelimas")
+        csviskur = self.Config.get_user_data("duomenuperkelimas")
 
         self.textCtrl1.SetValue(csviskur)
 
@@ -184,7 +184,7 @@ class IsCSV(wxformbuilder.IsCSV):
     def selecting_path(self, event):
         path = file_dialog_with_extesion(self, "csv", False)
 
-        self.configFile.set_user_data("duomenuperkelimas", path)
+        self.Config.set_user_data("duomenuperkelimas", path)
         self.textCtrl1.SetValue(path)
 
     @override
@@ -235,9 +235,9 @@ class IsCSV(wxformbuilder.IsCSV):
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
+        self.Config = Config()
 
-        path = self.configFile.get_user_data("lentelessukurimas")
+        path = self.Config.get_user_data("lentelessukurimas")
 
         self.textCtrl1.SetValue(path)
 
@@ -245,7 +245,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
     def selecting_path(self, event):
         path = file_dialog_with_extesion(self, "csv", False)
 
-        self.configFile.set_user_data("lentelessukurimas", path)
+        self.Config.set_user_data("lentelessukurimas", path)
 
         self.textCtrl1.SetValue(path)
 
@@ -267,8 +267,8 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def __init__(self, parent):
         super().__init__(parent)
-        self.configFile = ConfigFile()
-        IsKlaveturosSkaitytuvo = self.configFile.get_user_data("isklaveturosskaitytuvo")
+        self.Config = Config()
+        IsKlaveturosSkaitytuvo = self.Config.get_user_data("isklaveturosskaitytuvo")
         self.textCtrl1.SetValue(IsKlaveturosSkaitytuvo)
 
     def update_panel(self, catalog, path=None) -> None:
@@ -297,7 +297,7 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
     def selecting_path(self, event):
         path = file_dialog_with_extesion(self, "csv")
 
-        self.configFile.set_user_data("isklaveturosskaitytuvo", path)
+        self.Config.set_user_data("isklaveturosskaitytuvo", path)
         self.textCtrl1.SetValue(path)
 
 
@@ -420,7 +420,7 @@ class SideBar(wxformbuilder.SideBar):
 
     def VersionAndBuild(self):
         build = git_build_number()
-        config = ConfigFile()
+        config = Config()
         version = config.get_default_data("version")
 
         return f"vesrija - {version}+{build}"
@@ -454,7 +454,7 @@ class SideBar(wxformbuilder.SideBar):
         btnLabel = event.GetEventObject().GetLabel()
         btnClickClass = self.__PikingLable(btnLabel)
 
-        self.GetParent().ReplacePanel(btnClickClass)
+        self.GetParent().replace_panel(btnClickClass)
 
         event.Skip()
 
@@ -463,7 +463,7 @@ class SideBar(wxformbuilder.SideBar):
         import configparser
 
         config = configparser.ConfigParser()
-        config.read("config.conf")
+        config.read("config/config.conf")
         developer = config["helpMessige"]["developer"]
         email = config["helpMessige"]["email"]
         repoURL = config["helpMessige"]["repoURL"]

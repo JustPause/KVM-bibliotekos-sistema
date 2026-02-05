@@ -8,8 +8,9 @@ from InquirerPy.resolver import prompt
 from InquirerPy.validator import PathValidator
 
 from src.actions.main_action import run_prompt
-from src.barcode_kurimas import barcode_generator
+from src.barcode_maker import barcode_generator
 from src.book_finding_by_isbn import scanner
+from src.config import Config
 from src.ensure import Ensure
 from src.gui.graphical_user_interface import run
 from src.ibiblioteka_connection import (
@@ -74,7 +75,6 @@ def _prompting():
             )
 
             number_of_barcodes = get_number_of_barcodes()
-
             dest_path = get_dest_path("pdfs", "BarkodaiSpauzdinimui.pdf")
 
             barcode_generator(int(number_of_barcodes), dest_path)
@@ -83,11 +83,8 @@ def _prompting():
             from src.actions.main_action import get_dest_path, get_src_path
 
             fileExtesion = "csv"
-
             src_path = get_src_path(fileExtesion, "Knygos_Be_Barkodo.csv")
-
             dest_path = get_dest_path(fileExtesion, "Knygos_Su_Viskuom.csv")
-
             dest_path = Path(dest_path).with_suffix(fileExtesion)
 
             iBibliotekos_paieska(src_path, dest_path)
@@ -96,7 +93,6 @@ def _prompting():
             fileExtesion = "csv"
 
             home_path = os.path.join(os.getcwd(), fileExtesion)
-
             dest_path = run_prompt(
                 FilePathPrompt(
                     message="Pasirinkite i kurio faila bus idedami duomenys:",
@@ -175,12 +171,9 @@ def _handle_args(parser, args):
         run()
 
     elif args.version:
-        import configparser
-
+        config = Config()
         build = git_build_number()
-        config = configparser.ConfigParser()
-        config.read("config.conf")
-        version = config["DEFAULT"]["version"]
+        version = config.get_default_data("version")
 
         logger.info(f"{version}+{build}")
     elif args.webScraper and not args.output:

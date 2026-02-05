@@ -23,7 +23,10 @@
 - [ ] padaryti viena config faila
 - [ ] `sheet.json` sukūrimas programos metu
 - [ ] Prisijungimas prie Google serverių ir tokeno gavimas vos paleidus GUI programą, kad vėliau nebūtų problemų
-- [ ] Pridėti brūkšninių kodų generavimo sistemai vietoje `cache` - įkėlimą į `temp` katalogą, kaip padaryta testinėje aplinkoje
+- [x] Pridėti brūkšninių kodų generavimo sistemai vietoje `cache` - įkėlimą į `temp` katalogą, kaip padaryta testinėje aplinkoje
+- [ ] Jei naudotojas atsaukia ivedima lieka tas patsai senas takas
+- [ ] Kuimas nauju barkodu turetu tureti maximalu karkodu skaiciuas limita, kad negalima butu parasyti 50000
+- [ ] Heilteingti pasirinka knygos miktuka
 
 ---
 

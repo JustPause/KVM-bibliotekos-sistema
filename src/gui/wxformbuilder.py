@@ -301,8 +301,8 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         input2_layout.Add( ( 16, 0), 0, 0, 5 )
 
         self.inputText2 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"50"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.inputText2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.inputText2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.inputText2.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.inputText2.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input2_layout.Add( self.inputText2, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -313,6 +313,9 @@ class KurtiNaujusBarkodus ( wx.Panel ):
         layout.Add( ( 0, 16), 1, wx.EXPAND, 5 )
 
         self.testi = wx.Button( self.mainWindowPanel, wx.ID_ANY, _(u"Testi"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.testi.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.testi.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+
         layout.Add( self.testi, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
@@ -426,8 +429,8 @@ class ISBNkoduAtspauzdinimas ( wx.Panel ):
         input_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
         self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema/"), wx.DefaultPosition, wx.Size( 500,-1 ), wx.TE_PROCESS_ENTER|wx.TE_RIGHT )
-        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.textCtrl1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.textCtrl1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -525,8 +528,8 @@ class IsCSV ( wx.Panel ):
         input_layout.Add( ( 16, 0), 0, 0, 5 )
 
         self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.textCtrl1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.textCtrl1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -620,8 +623,8 @@ class SukurtiCSV ( wx.Panel ):
         input_layout.Add( ( 16, 0), 1, wx.EXPAND, 5 )
 
         self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.textCtrl1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.textCtrl1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -715,8 +718,8 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
         input_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
         self.textCtrl1 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"/home/justpause/Programming/pyhton/KVM-bibliotekos-sistema"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.textCtrl1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.textCtrl1.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.textCtrl1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.textCtrl1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input_layout.Add( self.textCtrl1, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
@@ -737,8 +740,8 @@ class IsKlaveturosSkaitytuvo ( wx.Panel ):
         input_katalogas_layout.Add( ( 16, 0), 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
         self.textCtrl2 = wx.TextCtrl( self.mainWindowPanel, wx.ID_ANY, _(u"Už spintos"), wx.DefaultPosition, wx.Size( 500,-1 ), 0 )
-        self.textCtrl2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
-        self.textCtrl2.SetBackgroundColour( wx.Colour( 0, 0, 0 ) )
+        self.textCtrl2.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNTEXT ) )
+        self.textCtrl2.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         input_katalogas_layout.Add( self.textCtrl2, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
 
