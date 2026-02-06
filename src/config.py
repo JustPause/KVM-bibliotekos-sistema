@@ -1,30 +1,74 @@
 import configparser
 import json
-from pathlib import Path
+import os
 
 
 class Config:
-    # The sheet.json file
     def __init__(self) -> None:
-        self.sheet = "config/.env/sheet.json"
+        """Initialize config manager and create files if missing."""
+        self.config_dir = "config"
+        self.config_path = os.path.join(self.config_dir, "config.conf")
+        self.sheet_path = os.path.join(self.config_dir, ".env", "sheet.json")
 
         self.config = configparser.ConfigParser()
-        config_path = Path("config/config.conf")
 
-        if config_path.exists():
-            self.config.read(config_path)
+        self._ensure_config_exists()
+        self._ensure_sheet_exists()
+
+    def _ensure_config_exists(self) -> None:
+        """Create config file with defaults if it doesn't exist."""
+        if os.path.exists(self.config_path):
+            self.config.read(self.config_path)
         else:
-            raise FileNotFoundError("config.conf not found")
+            os.makedirs(self.config_dir, exist_ok=True)
+            self._create_default_config()
 
-    def congig_json(self) -> tuple[str, str, str, str]:
-        with open(self.sheet, "r") as sheet_json:
+    def _create_default_config(self) -> None:
+        """Write default config to file."""
+        self.config["userData"] = {
+            "isnbkoduatspauzdinimas": os.path.join(
+                os.getcwd(), "pdfs", "isnb_koduat_spauzdinimas.pdf"
+            ),
+            "kurtinaujusbarkodus": os.path.join(
+                os.getcwd(), "pdfs", "kurti_naujus_barkodus.pdf"
+            ),
+            "isklaveturosskaitytuvo": os.path.join(
+                os.getcwd(), "csv", "is_klaveturos_skaitytuvo.csv"
+            ),
+            "ieskotipagalpavadinima": os.path.join(
+                os.getcwd(), "pdfs", "ieskoti_pagal_pavadinima.pdf"
+            ),
+            "lentelessukurimas": os.path.join(os.getcwd(), "csv", "Testavimas.csv"),
+            "duomenuperkelimas": os.path.join(os.getcwd(), "csv", "Testavimas.csv"),
+        }
+        with open(self.config_path, "w") as f:
+            self.config.write(f)
+
+    def _ensure_sheet_exists(self) -> None:
+        """Create sheet.json if it doesn't exist."""
+        if os.path.exists(self.sheet_path):
+            pass
+        else:
+            sheet_dir = os.path.dirname(self.sheet_path)
+            os.makedirs(sheet_dir, exist_ok=True)
+            with open(self.sheet_path, "w") as f:
+                f.write("{}")
+
+    def load_config_json(self) -> tuple[str, str, str, str]:
+        """Load configuration from sheet.json file.
+
+        Returns:
+            Tuple of (sheet_id, range, range_with_catalog, range_template)
+        """
+        with open(self.sheet_path, "r") as sheet_json:
             sheet = json.load(sheet_json)
 
-            sheet_id = sheet["sheet_id"]
-            rage = sheet["rage"]
-            rage_with_catalog = sheet["rage_with_catalog"]
-            range_template = ["range_template"]
-        return sheet_id, rage, rage_with_catalog, str(range_template)
+        return (
+            sheet["sheet_id"],
+            sheet["range"],
+            sheet["range_with_catalog"],
+            sheet["range_template"],
+        )
 
     def get_sheet_id(self) -> str:
         with open(self.sheet, "r") as sheet_json:

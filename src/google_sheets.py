@@ -85,7 +85,7 @@ def _padding_row_data_v2(rows: list[list[str]], reqerd_len):
 
 
 def get_sheet_rows(rage_with_cata=False):
-    sheet_id, rage, rage_with_catalog, range_template = Config().congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config().load_config_json()
 
     sheet = connect_to_sheet()
     if rage_with_cata:
@@ -174,7 +174,7 @@ def get_all_data():
 
 
 def set_book_isnb_in_sheet(rowid: int, newData: dict[str, str]):
-    sheet_id, _, _, range_template = Config().congig_json()
+    sheet_id, _, _, range_template = Config().load_config_json()
 
     sheet = connect_to_sheet()
 
@@ -270,7 +270,7 @@ def execute_google_sheet(data, sheet_id, range):
 
 
 def set_row(rowid, data):
-    sheet_id, rage, rage_with_catalog, range_template = Config().congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = Config().load_config_json()
 
     range_with_row = range_template.format(row=rowid)
 
@@ -331,7 +331,7 @@ def set_row_retruning_book(id):
 
 def append_rows(rows: list[str]):
     config = Config()
-    sheet_id, rage, rage_with_catalog, range_template = config.congig_json()
+    sheet_id, rage, rage_with_catalog, range_template = config.load_config_json()
 
     sheet = connect_to_sheet()
 

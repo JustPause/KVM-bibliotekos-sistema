@@ -19,7 +19,7 @@ from src.google_sheets import (
 )
 from src.gui.wx_helpers.extra import (
     file_dialog_with_extension,
-    ne_sekmingai,
+    show_error_dialog,
     show_invalid_path_error,
 )
 from src.helpers.utils import (
@@ -58,9 +58,11 @@ class Pagrindinis(wxformbuilder.Pagrindinis):
 
 
 class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
-    def __init__(self, parent):
+    def __init__(self, parent) -> None:
+        """Initialize dialog with ISBN configuration."""
         super().__init__(parent)
         self.Config = Config()
+
         ISBNkoduAtspauzdinimas = self.Config.get_user_data("ISNBkoduAtspauzdinimas")
 
         self.textCtrl1.SetValue(ISBNkoduAtspauzdinimas)
@@ -90,7 +92,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
             worker.runBackgroundTesk(imiges_to_pdf, path, rows)
             show_invalid_path_error(self)
         else:
-            ne_sekmingai("Parasykite bent viena eilute")
+            show_error_dialog("Parasykite bent viena eilute")
 
 
 class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
@@ -119,7 +121,7 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
             worker.runBackgroundTesk(generator_barcodes, int(count), dest_path)
             show_invalid_path_error(self)
         except ValueError:
-            ne_sekmingai("Kažkas nepavyko")
+            show_error_dialog("Kažkas nepavyko")
 
 
 class IsCSV(wxformbuilder.IsCSV):
@@ -301,7 +303,7 @@ class IsKlaveturosSkaitytuvoEkranas(wxformbuilder.IsKlaveturosSkaitytuvoEkranas)
                             }
                         )
 
-                        ne_sekmingai(
+                        show_error_dialog(
                             "Knygos nera, gerai butu padeti i sona kad poto surasyti"
                         )
                 else:
@@ -500,7 +502,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
             self.ISBNInput.SetValue("")
 
             if self.knygaData[1] == "":
-                ne_sekmingai("Reikia bent pavadinimo")
+                show_error_dialog("Reikia bent pavadinimo")
 
                 return
         # ---
