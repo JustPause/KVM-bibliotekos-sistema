@@ -7,9 +7,8 @@ from typing import override
 import wx
 
 import src.gui.wxformbuilder as wxformbuilder
-from src.barcode_generator import generator_barcodes, imiges_to_pdf
-from src.config import Config
-from src.google_sheets import (
+from src.core.barcode_generator import generator_barcodes, imiges_to_pdf
+from src.core.google_sheets import (
     append_rows,
     get_all_data,
     get_sheet_rows,
@@ -17,6 +16,16 @@ from src.google_sheets import (
     set_row_retruning_book,
     set_vardas,
 )
+from src.core.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
+from src.etc.config import Config
+from src.etc.logger import logger
+from src.etc.os_helper import (
+    get_correct_extension,
+    git_build_number,
+    is_file_empty,
+    is_it_an_validate_path,
+)
+from src.etc.threads import BackgroundWorker
 from src.gui.wx_helpers.extra import (
     file_dialog_with_extension,
     show_error_dialog,
@@ -29,15 +38,6 @@ from src.helpers.utils import (
     get_fieldnames,
     get_fieldnames_extra,
 )
-from src.ibiblioteka_connection import iBibliotekos_paieska_tiesiogiai_core
-from src.logger import logger
-from src.os_helper import (
-    get_correct_extension,
-    git_build_number,
-    is_file_empty,
-    is_it_an_validate_path,
-)
-from src.threads import BackgroundWorker
 
 
 class Pagrindinis(wxformbuilder.Pagrindinis):

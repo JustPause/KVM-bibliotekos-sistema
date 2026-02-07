@@ -1,8 +1,8 @@
 import csv
 
-from src.google_sheets import get_sheet_rows
+from src.core.google_sheets import get_sheet_rows
+from src.etc.logger import logger
 from src.helpers.utils import get_fieldnames
-from src.logger import logger
 
 
 def scanner(dest_file: str = ""):

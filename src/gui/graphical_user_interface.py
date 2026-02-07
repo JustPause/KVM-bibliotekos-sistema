@@ -3,9 +3,9 @@ from typing import override
 
 import wx
 
+from src.core.ibiblioteka_connection import kill_drive
+from src.etc.logger import logger
 from src.gui.override_main import Pagrindinis, SideBar
-from src.ibiblioteka_connection import kill_drive
-from src.logger import logger
 
 
 class GUI(wx.Frame):

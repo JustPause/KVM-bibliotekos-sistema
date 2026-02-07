@@ -1,4 +1,4 @@
-from src.logger import logger
+from src.etc.logger import logger
 
 
 class Progress:

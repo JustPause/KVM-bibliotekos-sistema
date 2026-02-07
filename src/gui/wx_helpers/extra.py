@@ -2,7 +2,7 @@ import os
 
 import wx
 
-from src.os_helper import get_correct_extension_ending
+from src.etc.os_helper import get_correct_extension_ending
 
 
 def show_error_dialog(text) -> None:

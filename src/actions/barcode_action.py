@@ -3,7 +3,7 @@ import os
 import barcode
 from barcode.writer import ImageWriter
 
-from src.logger import logger
+from src.etc.logger import logger
 
 
 def generate_isbn13_barcode(isbn: str, output_dir: str) -> str:

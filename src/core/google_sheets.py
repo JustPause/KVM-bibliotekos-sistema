@@ -9,9 +9,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from src.config import Config
+from src.etc.config import Config
+from src.etc.logger import logger
 from src.helpers.utils import get_fieldnames
-from src.logger import logger
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 

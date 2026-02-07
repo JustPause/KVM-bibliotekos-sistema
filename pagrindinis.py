@@ -7,18 +7,18 @@ from InquirerPy.prompts.filepath import FilePathPrompt
 from InquirerPy.resolver import prompt
 from InquirerPy.validator import PathValidator
 
-from src.actions.main_action import run_prompt
-from src.barcode_generator import form_csv_to_pdf, generator_barcodes
-from src.book_finding_by_isbn import scanner
-from src.config import Config
-from src.ensure import Ensure
-from src.gui.graphical_user_interface import run
-from src.ibiblioteka_connection import (
+from src.actions.promt_action import show_prompt
+from src.core.barcode_generator import form_csv_to_pdf, generator_barcodes
+from src.core.book_finding_by_isbn import scanner
+from src.core.ibiblioteka_connection import (
     iBibliotekos_paieska,
     iBibliotekos_paieska_tiesiogiai,
 )
-from src.logger import logger
-from src.os_helper import git_build_number
+from src.etc.config import Config
+from src.etc.ensure import Ensure
+from src.etc.logger import logger
+from src.etc.os_helper import git_build_number
+from src.gui.graphical_user_interface import run
 
 QUESTIONS = [
     "Brūkšninio kodo kūrimas",
@@ -92,7 +92,9 @@ def _prompting():
             fileExtesion = "csv"
 
             home_path = os.path.join(os.getcwd(), fileExtesion)
-            dest_path = run_prompt(
+
+            # TODO Move the prompt to its one class, with defalt parameters
+            dest_path = show_prompt(
                 FilePathPrompt(
                     message="Pasirinkite i kurio faila bus idedami duomenys:",
                     default=os.path.join(home_path, "Knygos_Su_Viskuom.csv"),
@@ -109,7 +111,8 @@ def _prompting():
         case 3:  # ISBN iš CSV į PDF
             home_path = os.getcwd()
 
-            src_path = run_prompt(
+            # TODO Move the prompt to its one class, with defalt parameters
+            src_path = show_prompt(
                 FilePathPrompt(
                     message="Pasirinkite is kurio failo bus imami duomenys:",
                     default=os.path.join(home_path, "csv/Knygos_Be_Barkodo.csv"),
@@ -118,7 +121,8 @@ def _prompting():
                 )
             )
 
-            dest_path = run_prompt(
+            # TODO Move the prompt to its one class, with defalt parameters
+            dest_path = show_prompt(
                 FilePathPrompt(
                     message="Pasirinkite vietą ir pavadinimą būsimo failo:",
                     default=os.path.abspath(

@@ -7,8 +7,8 @@ from src.actions.barcode_action import (
     generate_isbn13_barcode,
     generate_KVM_barcode,
 )
+from src.etc.logger import logger
 from src.helpers.pdf import images_to_pdf
-from src.logger import logger
 
 
 def generator_barcodes(num: int, output_pdf: str) -> None:

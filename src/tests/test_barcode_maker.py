@@ -3,8 +3,8 @@ import tempfile
 import unittest
 from typing import override
 
-from src.barcode_generator import generator_barcodes
-from src.logger import logger
+from src.core.barcode_generator import generator_barcodes
+from src.etc.logger import logger
 
 
 class TestBarcodeGenerator(unittest.TestCase):

@@ -3,7 +3,7 @@ from pathlib import Path
 from markdown import markdown
 from weasyprint import CSS, HTML
 
-from src.logger import logger
+from src.etc.logger import logger
 
 md_README_path = Path("README.md")
 md_naudojimo_Instrucija_path = Path("Naudotojo_Instrucija.md")
