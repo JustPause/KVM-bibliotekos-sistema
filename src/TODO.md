@@ -27,6 +27,7 @@
 - [ ] Jei naudotojas atsaukia ivedima lieka tas patsai senas takas
 - [ ] Kuimas nauju barkodu turetu tureti maximalu karkodu skaiciuas limita, kad negalima butu parasyti 50000
 - [ ] Heilteingti pasirinka knygos miktuka
+- [ ] Sukurti duomenu bazia su atsisiustais duomenimis, redaguoti duomenis aplikacijoje ir kai atsiranda poreikis susinkronizuoja duomenis, is duomenu bazes turi buti galimybe sukurti atsargine kopija visos lenteles
 
 ---
 
