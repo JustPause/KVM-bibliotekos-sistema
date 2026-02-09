@@ -3,7 +3,7 @@ import datetime
 import tempfile
 
 from src.actions.barcode_action import (
-    generate_Gs1_128_barcode,
+    generate_gs1_128_barcode,
     generate_isbn13_barcode,
     generate_KVM_barcode,
 )
@@ -76,7 +76,7 @@ def imiges_to_pdf(output_pdf: str, rows: list[str]) -> None:
         for row in rows:
             try:
                 if len(row) != 13:
-                    filename_array.append(generate_Gs1_128_barcode(row, output_dir))
+                    filename_array.append(generate_gs1_128_barcode(row, output_dir))
 
                 else:
                     filename_array.append(generate_isbn13_barcode(row, output_dir))

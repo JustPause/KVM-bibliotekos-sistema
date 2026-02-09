@@ -25,15 +25,11 @@ def generate_isbn13_barcode(isbn: str, output_dir: str) -> str:
         "text_distance": 6.0,
         "quiet_zone": 2,
     }
-    isbn_barcode = barcode.get("isbn13", isbn, writer=ImageWriter())
-    output_path = os.path.join(output_dir, str(isbn))
-    saved_file = isbn_barcode.save(output_path, options=options)
-    logger.debug(f"ISBN13 barcode saved at: {saved_file}")
 
-    return saved_file
+    return _generate_barcode("isbn13", isbn, output_dir, options)
 
 
-def generate_Gs1_128_barcode(isbn: str, output_dir: str) -> str:
+def generate_gs1_128_barcode(isbn: str, output_dir: str) -> str:
     """
     Generates an GS1-128 barcode image and saves it to the specified directory.
 
@@ -53,12 +49,7 @@ def generate_Gs1_128_barcode(isbn: str, output_dir: str) -> str:
         "quiet_zone": 2,
     }
 
-    isbn_barcode = barcode.get("Gs1_128", isbn, writer=ImageWriter())
-    output_path = os.path.join(output_dir, str(isbn))
-    saved_file = isbn_barcode.save(output_path, options=options)
-    logger.debug(f"GS1-128 barcode saved at: {saved_file}")
-
-    return saved_file
+    return _generate_barcode("Gs1_128", isbn, output_dir, options)
 
 
 def generate_KVM_barcode(isbn, output):
@@ -84,5 +75,18 @@ def generate_KVM_barcode(isbn, output):
         "write_text": True,
     }
 
-    main_barcode = barcode.get("code128", isbn, writer=ImageWriter())
-    return main_barcode.save(output + str(isbn), options)
+    return _generate_barcode("code128", isbn, output, options)
+
+
+def _generate_barcode(
+    barcode_type: str,
+    isbn: str,
+    output_dir: str,
+    options: dict[str, int | float | str | bool],
+) -> str:
+    """Generic barcode generator."""
+    barcode_obj = barcode.get(barcode_type, isbn, writer=ImageWriter())
+    output_path = os.path.join(output_dir, str(isbn))
+    saved_file = barcode_obj.save(output_path, options=options)
+    logger.debug(f"{barcode_type} barcode saved at: {saved_file}")
+    return saved_file

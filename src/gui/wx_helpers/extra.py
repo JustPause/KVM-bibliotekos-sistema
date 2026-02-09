@@ -1,5 +1,3 @@
-import os
-
 import wx
 
 from src.etc.os_helper import get_correct_extension_ending
@@ -28,7 +26,7 @@ def file_dialog_with_extension(
     self,
     extension: str,
     old_path: str,
-    overwrite: bool,
+    overwrite: bool = True,
 ) -> str:
     """
     Opens a file save dialog and returns the selected path with correct extension.

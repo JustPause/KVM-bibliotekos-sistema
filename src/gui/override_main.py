@@ -30,6 +30,7 @@ from src.gui.wx_helpers.extra import (
     file_dialog_with_extension,
     show_error_dialog,
     show_invalid_path_error,
+    show_success,
 )
 from src.helpers.utils import (
     adding_colums_headers,
@@ -69,7 +70,9 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 
     @override
     def selecting_path(self, event) -> None:
-        path = file_dialog_with_extension(self, "pdf", False)
+        path = file_dialog_with_extension(
+            self, "pdf", self.Config.get_user_data("ISNBkoduAtspauzdinimas"), False
+        )
 
         self.Config.set_user_data("ISNBkoduAtspauzdinimas", path)
         self.textCtrl1.SetValue(path)
@@ -90,7 +93,7 @@ class ISBNkoduAtspauzdinimas(wxformbuilder.ISBNkoduAtspauzdinimas):
 
         if len(rows) != 0:
             worker.runBackgroundTesk(imiges_to_pdf, path, rows)
-            show_invalid_path_error(self)
+            show_success(self)
         else:
             show_error_dialog("Parasykite bent viena eilute")
 
@@ -105,7 +108,9 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extension(self, "pdf", False)
+        path = file_dialog_with_extension(
+            self, "pdf", self.Config.get_user_data("kurtinaujusbarkodus"), False
+        )
 
         self.Config.set_user_data("kurtinaujusbarkodus", path)
         self.inputText1.SetValue(path)
@@ -119,7 +124,7 @@ class KurtiNaujusBarkodus(wxformbuilder.KurtiNaujusBarkodus):
 
         try:
             worker.runBackgroundTesk(generator_barcodes, int(count), dest_path)
-            show_invalid_path_error(self)
+            show_success(self)
         except ValueError:
             show_error_dialog("Kažkas nepavyko")
 
@@ -135,7 +140,9 @@ class IsCSV(wxformbuilder.IsCSV):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extension(self, "csv", False)
+        path = file_dialog_with_extension(
+            self, "csv", self.Config.get_user_data("duomenuperkelimas"), False
+        )
 
         self.Config.set_user_data("duomenuperkelimas", path)
         self.textCtrl1.SetValue(path)
@@ -182,7 +189,7 @@ class IsCSV(wxformbuilder.IsCSV):
 
         worker.runBackgroundTesk(append_rows, returnRows)
 
-        show_invalid_path_error(self)
+        show_success(self)
 
 
 class SukurtiCSV(wxformbuilder.SukurtiCSV):
@@ -196,7 +203,9 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extension(self, "csv", False)
+        path = file_dialog_with_extension(
+            self, "csv", self.Config.get_user_data("lentelessukurimas"), False
+        )
 
         self.Config.set_user_data("lentelessukurimas", path)
 
@@ -214,7 +223,7 @@ class SukurtiCSV(wxformbuilder.SukurtiCSV):
             )
             writer.writeheader()
 
-        show_invalid_path_error(self)
+        show_success(self)
 
 
 class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
@@ -248,7 +257,9 @@ class IsKlaveturosSkaitytuvo(wxformbuilder.IsKlaveturosSkaitytuvo):
 
     @override
     def selecting_path(self, event):
-        path = file_dialog_with_extension(self, "csv", True)
+        path = file_dialog_with_extension(
+            self, "csv", self.Config.get_user_data("isklaveturosskaitytuvo"), True
+        )
 
         self.Config.set_user_data("isklaveturosskaitytuvo", path)
         self.textCtrl1.SetValue(path)
@@ -550,7 +561,7 @@ class Isdavimas(wxformbuilder.Isdavimas):
         self.MetaiInput.SetValue("")
         self.ISBNInput.SetValue("")
 
-        show_invalid_path_error(self)
+        show_success(self)
         # if KortelesData is Valid && ISBNData is Valid
         # -> append data
         # -> Sentd to google sheet
@@ -606,7 +617,7 @@ class Grazinimas(wxformbuilder.Gazinimas):
     @override
     def next(self, event):
         set_row_retruning_book(self.l_index)
-        show_invalid_path_error(self)
+        show_success(self)
 
 
 class PromtForReplacment(wxformbuilder.PromtForReplacment):
