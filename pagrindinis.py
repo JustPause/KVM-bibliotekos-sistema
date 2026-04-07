@@ -74,7 +74,7 @@ def _prompting():
             )
 
             number_of_barcodes = get_number_of_barcodes()
-            dest_path = get_dest_path("pdfs", "BarkodaiSpauzdinimui.pdf")
+            dest_path = get_dest_path("pdf", "BarkodaiSpauzdinimui.pdf")
 
             generator_barcodes(int(number_of_barcodes), dest_path)
 
